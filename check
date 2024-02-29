@@ -1,0 +1,22 @@
+ errorMessage: string = '';
+  successMessage: string = '';
+
+  submitApprove() {
+    if (this.crinitiatedFor === '') {
+      this.errorMessage = 'Enter Initiator';
+      this.focusElement('input[ngModel="crinitiatedFor"]');
+    } else if (this.plantId === '') {
+      this.errorMessage = 'Select Plant';
+      this.focusElement('select[ngModel="plantId"]');
+    } else {
+      // Your save logic here
+      this.successMessage = 'Saved successfully';
+    }
+  }
+
+  focusElement(selector: string) {
+    const inputElement = document.querySelector<HTMLInputElement>(selector);
+    if (inputElement) {
+      inputElement.focus();
+    }
+  }
