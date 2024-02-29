@@ -1,41 +1,25 @@
-errorMessage: string = '';
-successMessage: string = '';
-
-
 submitApprove() {
-  if (this.isFormValid()) {
-    // Perform submission logic here
-    
-    // Clear any previous messages
+  // Perform validation logic here
+  if (/* validation condition */) {
+    // Show success message
+    this.successMessage = 'Form submitted successfully.';
+    // Clear any previous error message
     this.errorMessage = '';
-    // Set success message
-    this.successMessage = 'Saved successfully!';
+    // Optionally, focus on another field
+    // document.getElementById('fieldId').focus();
   } else {
-    // Set error message
-    this.errorMessage = 'Please fill out all required fields!';
-    // Clear success message
+    // Show error message
+    this.errorMessage = 'Validation failed. Please fill all required fields.';
+    // Clear any previous success message
     this.successMessage = '';
   }
 }
 
-isFormValid(): boolean {
-  // Perform your validation logic here
-  // Return true if the form is valid, false otherwise
+
+clearErrorMessage() {
+  this.errorMessage = '';
 }
 
-clearMessages() {
-  this.errorMessage = '';
+clearSuccessMessage() {
   this.successMessage = '';
 }
-
-
-
-<div class="notification" *ngIf="errorMessage">
-  <button type="button" class="btn-close" style="color: white;" (click)="clearMessages()" aria-label="Close"></button>
-  <p class="message-txt">{{ errorMessage }}</p>
-</div>
-
-<div class="success" *ngIf="successMessage">
-  <button type="button" class="btn-close" style="color: white;" (click)="clearMessages()" aria-label="Close"></button>
-  <p class="message-txt">{{ successMessage }}</p>
-</div>
