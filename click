@@ -166,3 +166,21 @@ else if (this.referencetype == "") {
 } else{
 this.successMessage = 'save successfully';
 }
+
+
+export class YourComponent {
+  successMessage: string = ''; // Declare successMessage variable
+
+  // Rest of your component code
+
+  submitApprove() {
+    // Your validation checks and HTTP POST request
+    // After successful submission:
+    this.successMessage = 'Save successfully';
+  }
+
+  clearSuccessMessage() {
+    this.successMessage = ''; // Clear success message
+  }
+}
+
