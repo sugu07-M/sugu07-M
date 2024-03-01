@@ -1,4 +1,25 @@
-      this.errorMessage = 'Enter imactedFunction ';
+export class YourComponent {
+  successMessage: string = ''; // Declare successMessage variable
+
+  // Rest of your component code
+
+  submitApprove() {
+    // Your validation checks and HTTP POST request
+    // After successful submission:
+    this.successMessage = 'Save successfully';
+  }
+
+  clearSuccessMessage() {
+    this.successMessage = ''; // Clear success message
+  }
+}
+
+
+
+
+
+
+this.errorMessage = 'Enter imactedFunction ';
       window.scrollTo({ top: 0, behavior: 'smooth' });
       const inputElement = document.querySelector<HTMLInputElement>('input[ngModel="imactedFunc"]');
       if (inputElement) {
