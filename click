@@ -1,19 +1,116 @@
-export class YourComponent {
-  successMessage: string = ''; // Declare successMessage variable
 
-  // Rest of your component code
-
-  submitApprove() {
-    // Your validation checks and HTTP POST request
-    // After successful submission:
-    this.successMessage = 'Save successfully';
+  else if (this.impactedDept == "") {
+    this.errorMessage = 'Enter impactedDepartment ';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const inputElement = document.querySelector<HTMLInputElement>('input[ngModel="impactedDept"]');
+    if (inputElement) {
+      inputElement.focus();
+    }
   }
-
-  clearSuccessMessage() {
-    this.successMessage = ''; // Clear success message
+  else if (this.imactedFunc == "") {
+    this.errorMessage = 'Enter imactedFunction ';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const inputElement = document.querySelector<HTMLInputElement>('input[ngModel="imactedFunc"]');
+    if (inputElement) {
+      inputElement.focus();
+    }
   }
+ 
+  else if (this.changeControlNo == "") {
+    this.errorMessage = 'Enter change Control No ';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const inputElement = document.querySelector<HTMLInputElement>('input[ngModel="changeControlNo"]');
+    if (inputElement) {
+      inputElement.focus();
+    }
+  }
+  else if (this.changeControlDt == "") {
+    this.errorMessage = 'Select change Control Dt ';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const selectElement = document.querySelector<HTMLSelectElement>('input[ngModel="changeControlDt"]');
+    if (selectElement) {
+      selectElement.focus();
+    }
+  }
+  else {
+    
+    const apiUrl = this.apiurl + "/ChangeRequest/InsertChangeRequest";
+   const requestBody = {
+     "type": "I",
+     "itcrid": 0,
+     "supportId": 1,
+     "classifcationId": this.classificationId,
+     "categoryId": this.selectedCategory,
+     "categoryTypeId": this.categoryTypeId,
+     "crowner": this.supportid,
+     "crdate": this.crdate,
+     "crrequestedBy": this.changerequestedby,
+     "crinitiatedFor": this.supportid,
+     "status": "New",
+     "referenceId": this.referenceid,
+     "referenceTyp": this.referencetype,
+     "natureOfChange": this.natureOfChange,
+     "priorityType": this.priorityType,
+     "plantId": this.plantId,
+     "gxpclassification": true,
+     "changeControlNo": this.changeControlNo,
+     "changeControlDt": this.changeControlDt,
+     "changeControlAttach": true,
+     "changeDesc": this.changeDesc,
+     "reasonForChange": this.reasonForChange,
+     "alternateConsidetation": this.alternateConsidetation,
+     "impactNotDoing": this.impactNotDoing,
+     "businessImpact": this.businessImpact,
+     "triggeredBy": this.triggeredBy,
+     "benefits": this.benefits,
+     "estimatedCost": this.estimatedCost,
+     "estimatedCostCurr": this.estimatedCostCurr,
+     "estimatedEffort": this.estimatedEffort,
+     "estimatedEffortUnit": this.estimatedEffortUnit,
+     "estimatedDateCompletion": this.estimatedDateCompletion,
+     "rollbackPlan": this.rollbackPlan,
+     "backoutPlan": this.backoutPlan,
+     "downTimeRequired": true,
+     "downTimeFromDate": this.downTimeFromDate,
+     "downTimeToDate": this.downTimeToDate,
+     "impactedLocation": this.impactedLocation,
+     "impactedDept": this.impactedDept,
+     'imactedFunc': this.imactedFunc,
+     "isSubmitted": false,
+     "isApproved": false,
+     "isImplemented": false,
+     "isReleased": false,
+     "createdBy": this.supportid
+    
+    }
+     
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    this.http.post(apiUrl, requestBody, httpOptions).subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error: any) => {
+        console.log('Post request failed', error);
+      });
+ 
+   this.route.navigate(['/change-request']);
+  }
+  
+
 }
 
+clearErrorMessage() {
+  this.errorMessage = '';
+}
+clearSuccessMessage() {
+  this.successMessage = '';
+}
+ 
+ts
 
 
 
