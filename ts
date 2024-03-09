@@ -39,3 +39,6 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 
 
+TS-996001: Cannot declare 'ChartModule' in an NgModule as it's not a part of the current compilation.
+
+
