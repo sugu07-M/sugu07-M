@@ -19,7 +19,7 @@ export class AppComponent {
     { x: 'ITA', text: 'Italy', y: 2131  },
     { x: 'IND', text: 'India', y: 1857  },   
 ];
- 
+ npm install --save @syncfusion/ej2-angular-charts
 }
  
 import { AccumulationChartModule } from '@syncfusion/ej2-ng-charts';
