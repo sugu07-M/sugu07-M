@@ -61,3 +61,13 @@ removed 52 packages, changed 54 packages, and audited 948 packages in 1m
   run `npm fund` for details
 
 found 0 vulnerabilities
+
+
+
+
+
+npm cache clean --force
+rm -rf node_modules
+npm install
+npm install -g npm@latest
+
