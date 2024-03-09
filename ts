@@ -4,6 +4,20 @@
   </e-accumulation-series-collection>
 </ejs-accumulationchart>  html
 
+import { AccumulationChartModule, PieSeriesService } from '@syncfusion/ej2-ng-charts';
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //app.component.ts
  
