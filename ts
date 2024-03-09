@@ -42,3 +42,22 @@ export class AppModule { }
 TS-996001: Cannot declare 'ChartModule' in an NgModule as it's not a part of the current compilation.
 
 
+PS D:\IT-Portal\IT-Portal\IT-Portal.UI>  npm install --save @syncfusion/ej2-angular-charts
+npm WARN cleanup Failed to remove some directories [
+npm WARN cleanup   [
+npm WARN cleanup     'D:\\IT-Portal\\IT-Portal\\IT-Portal.UI\\node_modules\\@rollup\\.rollup-win32-x64-msvc-SXhgBDWa',
+npm WARN cleanup     [Error: EPERM: operation not permitted, unlink 'D:\IT-Portal\IT-Portal\IT-Portal.UI\node_modules\@rollup\.rollup-win32-x64-msvc-SXhgBDWa\rollup.win32-x64-msvc.node'] {
+npm WARN cleanup       errno: -4048,
+npm WARN cleanup       code: 'EPERM',
+npm WARN cleanup       syscall: 'unlink',
+npm WARN cleanup       path: 'D:\\IT-Portal\\IT-Portal\\IT-Portal.UI\\node_modules\\@rollup\\.rollup-win32-x64-msvc-SXhgBDWa\\rollup.win32-x64-msvc.node'
+npm WARN cleanup     }
+npm WARN cleanup   ]
+npm WARN cleanup ]
+
+removed 52 packages, changed 54 packages, and audited 948 packages in 1m
+
+120 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
