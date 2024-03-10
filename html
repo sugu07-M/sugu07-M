@@ -19,4 +19,17 @@ import { Label, } from 'ng2-charts';
  ];
  public doughnutChartType: ChartType = 'doughnut';
 
+
+implements OnInit
+public doughnutChartLabels: Label[] = ['Red', 'Green', 'Blue'];
+  public doughnutChartData: ChartDataSets[] = [
+    { data: [300, 200, 100], backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'] }
+  ];
+  public doughnutChartType: ChartType = 'doughnut';
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
   
