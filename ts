@@ -6,6 +6,7 @@ Error	TS2304	(TS) Cannot find name 'Label'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\
 Severity	Code	Description	Project	File	Line	Suppression State
 Error	TS2304	(TS) Cannot find name 'ChartDataSets'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	135	Active
 
+import { Label, SingleDataSet } from 'ng2-charts';
 
 // Import required modules
 import { Component } from '@angular/core';
