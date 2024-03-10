@@ -1,50 +1,36 @@
-import { AfterViewInit, Component, ViewChild } from "@angular/core";
-import { IgxDoughnutChartComponent } from "igniteui-angular-charts";
-import { IgxRingSeriesComponent } from "igniteui-angular-charts";
-import { IgxSliceClickEventArgs } from "igniteui-angular-charts";
-npm install igniteui-angular-charts
+// Import required modules
+import { Component } from '@angular/core';
+import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
+import { Label } from 'ng2-charts';
+
 @Component({
-    selector: "app-root",
-    styleUrls: ["./app.component.scss"],
-    templateUrl: "./app.component.html"
+  selector: 'app-donut-chart',
+  templateUrl: './donut-chart.component.html',
+  styleUrls: ['./donut-chart.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class DonutChartComponent {
+  // Define chart type
+  public doughnutChartType: ChartType = 'doughnut';
 
-    public data: any;
-    public selectedSliceLabel : string = "No Selection";
-    public selectedSliceValue : string = "0%";
+  // Define chart data
+  public doughnutChartData: ChartDataSets[] = [
+    { data: [350, 450, 100], label: 'Donut Chart' }
+  ];
 
-    @ViewChild("chart", { static: true })
-    public chart: IgxDoughnutChartComponent;
+  // Define chart labels
+  public doughnutChartLabels: Label[] = ['Red', 'Green', 'Blue'];
 
-    constructor() {
-        this.data = [
-            { Value: 37, Label: "Cooling", Summary: "Cooling 37%" },
-            { Value: 25, Label: "Residential", Summary: "Residential 25%"  },
-            { Value: 12, Label: "Heating", Summary: "Heating 12%" },
-            { Value: 11, Label: "Lighting", Summary: "Lighting 11%" },
-            { Value: 18, Label: "Other", Summary: "Other 18%" }
-        ];
-
+  // Define chart options
+  public doughnutChartOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'top',
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      }
     }
-
-
-    public OnSliceClick(e: any) {
-
-        if (e.args.isSelected)
-        {
-            this.selectedSliceLabel = this.data[e.args.index].Label;
-            this.selectedSliceValue = this.data[e.args.index].Value + "%";
-        }
-        else
-        {
-            this.selectedSliceLabel = "No Selection";
-            this.selectedSliceValue = "0%";
-        }
-    }
-
-    public ngAfterViewInit(): void {
-    }
-
-
+  };
 }
