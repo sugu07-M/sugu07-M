@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ViewChild } from "@angular/core";
 import { IgxDoughnutChartComponent } from "igniteui-angular-charts";
 import { IgxRingSeriesComponent } from "igniteui-angular-charts";
 import { IgxSliceClickEventArgs } from "igniteui-angular-charts";
-
+npm install igniteui-angular-charts
 @Component({
     selector: "app-root",
     styleUrls: ["./app.component.scss"],
