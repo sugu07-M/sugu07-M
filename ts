@@ -1,3 +1,8 @@
+Severity	Code	Description	Project	File	Line	Suppression State
+Warning	TS6385	(TS) '(next?: ((value: Object) => void) | null | undefined, error?: ((error: any) => void) | null | undefined, complete?: (() => void) | null | undefined): Subscription' is deprecated.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	60	Active
+
+
+
 // Import required modules
 import { Component } from '@angular/core';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
