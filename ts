@@ -1,6 +1,10 @@
 Severity	Code	Description	Project	File	Line	Suppression State
-Warning	TS6385	(TS) '(next?: ((value: Object) => void) | null | undefined, error?: ((error: any) => void) | null | undefined, complete?: (() => void) | null | undefined): Subscription' is deprecated.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	60	Active
-
+Error	TS2322	(TS) Type '{ datalabels: { anchor: string; align: string; }; }' is not assignable to type '_DeepPartialObject<PluginOptionsByType<keyof ChartTypeRegistry>>'.
+  Object literal may only specify known properties, and 'datalabels' does not exist in type '_DeepPartialObject<PluginOptionsByType<keyof ChartTypeRegistry>>'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	149	Active
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2304	(TS) Cannot find name 'Label'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	140	Active
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2304	(TS) Cannot find name 'ChartDataSets'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	135	Active
 
 
 // Import required modules
