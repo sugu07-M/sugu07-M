@@ -1,33 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
-import { trigger, style, animate, transition } from '@angular/animations';
+// your-component.component.ts
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-donut-chart',
-  templateUrl: './donut-chart.component.html',
-  styleUrls: ['./donut-chart.component.css'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('500ms', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        animate('500ms', style({ opacity: 0 }))
-      ])
-    ])
-  ]
+  selector: 'app-your-component',
+  templateUrl: './your-component.component.html',
+  styleUrls: ['./your-component.component.css']
 })
-export class DonutChartComponent implements OnInit {
-  public doughnutChartLabels: Label[] = ['Red', 'Green', 'Blue'];
-  public doughnutChartData: ChartDataSets[] = [
-    { data: [300, 200, 100], backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'] }
+export class YourComponent {
+
+  doughnutChartLabels: string[] = ['Label 1', 'Label 2', 'Label 3'];
+  doughnutChartData: number[] = [350, 450, 100];
+  doughnutChartType: string = 'doughnut';
+  doughnutChartOptions: any = {
+    responsive: true
+  };
+  doughnutChartColors: any[] = [
+    {
+      backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(0, 0, 255, 0.5)'],
+    }
   ];
-  public doughnutChartType: ChartType = 'doughnut';
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 }
