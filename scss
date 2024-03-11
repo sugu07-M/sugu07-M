@@ -1,15 +1,78 @@
-/* your-component.component.css */
+X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin angular-compiler]
 
-/* Style the container of the chart */
-.chart-container {
-  width: 400px;
-  height: 400px;
-}
+    src/app/dashboard/dashboard.component.html:258:10:
+      258 │           [chartType]="'doughnut'"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~
 
-/* Style the chart canvas */
-canvas {
-  width: 100% !important;
-  height: auto !important;
-}
+  Error occurs in the template of component DashboardComponent.
 
-TS2724: '"ng2-charts"' has no exported member named 'ChartsModule'. Did you mean 'NgChartsModule'?
+    src/app/dashboard/dashboard.component.ts:12:15:
+      12 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'colors' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:260:10:
+      260 │           [colors]="doughnutChartColors"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:12:15:
+      12 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Watch mode enabled. Watching for file changes...
+⠙ Changes detected. Rebuilding...
+X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:258:10:
+      258 │           [chartType]="'doughnut'"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:12:15:
+      12 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'colors' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:260:10:
+      260 │           [colors]="doughnutChartColors"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:12:15:
+      12 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+<div style="display: block">
+  <canvas baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="'doughnut'"
+          [options]="doughnutChartOptions"
+          [colors]="doughnutChartColors"
+          [legend]="true">
+  </canvas>
+</div>
+
+
+doughnutChartLabels: string[] = ['Label 1', 'Label 2', 'Label 3'];
+doughnutChartData: any = [350, 450, 100];
+doughnutChartType: string = 'doughnut';
+doughnutChartOptions: any = {
+  responsive: true
+};
+doughnutChartColors: any[] = [
+  {
+    backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(0, 0, 255, 0.5)'],
+  }
+];
