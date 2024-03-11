@@ -7,3 +7,6 @@ enableProdMode();
 platformBrowserDynamic().bootstrapModule(AppModule);
   node_modules/@syncfusion/ej2-navigations/index.js:4:14:
       4 │ export * from './src/index';
+npm install @syncfusion/ej2-navigations@latest
+rm -rf node_modules package-lock.json
+npm install
