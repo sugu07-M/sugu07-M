@@ -1,30 +1,14 @@
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { CommonModule } from "@angular/common";
-import { BrowserModule } from "@angular/platform-browser";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { AppComponent } from "./app.component";
-
-import { IgxDoughnutChartModule, IgxRingSeriesModule, IgxLegendModule, IgxItemLegendModule } from "igniteui-angular-charts";
-
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
-  bootstrap: [AppComponent],
   declarations: [
-    AppComponent,
-
-],
+    // Your components
+  ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    FormsModule,
-    IgxDoughnutChartModule,
-    IgxRingSeriesModule,
-    IgxLegendModule,
-    IgxItemLegendModule
-],
+    // Other modules
+    ChartsModule
+  ],
   providers: [],
-  schemas: []
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
