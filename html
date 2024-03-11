@@ -1,1 +1,5 @@
-
+<ejs-accumulationchart id="chart-container" [legendSettings]='legendSettings' [centerLabel]='centerLabel'>
+  <e-accumulation-series-collection>
+      <e-accumulation-series [dataSource]='centerLabelData' xName='x' yName='y' innerRadius='65%'></e-accumulation-series>
+  </e-accumulation-series-collection>
+</ejs-accumulationchart>
