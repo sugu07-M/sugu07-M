@@ -10,3 +10,25 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 npm install @syncfusion/ej2-navigations@latest
 rm -rf node_modules package-lock.json
 npm install
+/* app.component.css */
+
+/* Add animation to the chart */
+.ej2-chart {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Add border box and shadow to the chart container */
+#chart-container {
+  border: 1px solid #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Customize legend styles */
+.ej-svg-diagram .ej-text:only-child {
+  fill: #000; /* Set legend text color */
+}
+
+/* Customize center label styles */
+.ej2-circular-gauge .ej-circular-gauge .ej-svg-text-root {
+  fill: #000; /* Set center label text color */
+}
