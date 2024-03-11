@@ -8,6 +8,44 @@
 </canvas>
 
 npm install ng2-charts chart.js --save
- "imports": [
+
+ "architect": {
+  "build": {
+    "options": {
+      "styles": [
+        "src/styles.css"
+      ],
+      "scripts": [],
+      "assets": []
+    },
+    "configurations": {
+      "production": {
+        "fileReplacements": [
+          {
+            "replace": "src/environments/environment.ts",
+            "with": "src/environments/environment.prod.ts"
+          }
+        ],
+        "optimization": true,
+        "outputHashing": "all",
+        "sourceMap": false,
+        "extractCss": true,
+        "namedChunks": false,
+        "aot": true,
+        "extractLicenses": true,
+        "vendorChunk": false,
+        "buildOptimizer": true,
+        "budgets": [
+          {
+            "type": "initial",
+            "maximumWarning": "2mb",
+            "maximumError": "5mb"
+          }
+        ],
+        "imports": [
           "ng2-charts"
         ]
+      }
+    }
+  }
+}
