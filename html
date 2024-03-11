@@ -1,35 +1,11 @@
-DashboardComponent
-<div style="display: block;" [@fadeInOut]>
+<!-- your-component.component.html -->
+<div style="display: block">
   <canvas baseChart 
-          [data]="doughnutChartData" 
-          [labels]="doughnutChartLabels" 
-          [chartType]="doughnutChartType">
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="'doughnut'"
+          [options]="doughnutChartOptions"
+          [colors]="doughnutChartColors"
+          [legend]="true">
   </canvas>
 </div>
-import { DashboardComponent } from './dashboard/dashboard.component'; 
-TS-996001: The class 'DashboardComponent' is listed in the declarations of the NgModule 'AppModule', but is not a directive, a component, or a pipe. Either remove it from the NgModule's declarations, or add an appropriate Angular decorator.
-
-
-
-import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
-import { Label, } from 'ng2-charts';
- public doughnutChartLabels: Label[] = ['Red', 'Green', 'Blue'];
- public doughnutChartData: ChartDataSets[] = [
-   { data: [300, 200, 100], backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'] }
- ];
- public doughnutChartType: ChartType = 'doughnut';
-
-
-implements OnInit
-public doughnutChartLabels: Label[] = ['Red', 'Green', 'Blue'];
-  public doughnutChartData: ChartDataSets[] = [
-    { data: [300, 200, 100], backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'] }
-  ];
-  public doughnutChartType: ChartType = 'doughnut';
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  
