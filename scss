@@ -1,8 +1,13 @@
-<div style="display: block;">
-  <canvas baseChart
-          [data]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          [chartType]="doughnutChartType"
-          [options]="doughnutChartOptions">
-  </canvas>
-</div>
+/* your-component.component.css */
+
+/* Style the container of the chart */
+.chart-container {
+  width: 400px;
+  height: 400px;
+}
+
+/* Style the chart canvas */
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
