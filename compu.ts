@@ -1,31 +1,50 @@
-import { Component } from '@angular/core';
-
+import { AfterViewInit, Component, ViewChild } from "@angular/core";
+import { IgxDoughnutChartComponent } from "igniteui-angular-charts";
+import { IgxRingSeriesComponent } from "igniteui-angular-charts";
+import { IgxSliceClickEventArgs } from "igniteui-angular-charts";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: "app-root",
+    styleUrls: ["./app.component.scss"],
+    templateUrl: "./app.component.html"
 })
-export class AppComponent {
-  title = 'chartdemo';
-  public piedata?: Object[];
-  public legendSettings?: Object;
-  public centerLabel?: Object;
-  public centerLabelData: Object = [
-      { x: 'Chrome', y: 61.3, text: 'Chrome: 61.3%' },
-      { x: 'Safari', y: 24.6, text: 'Safari: 24.6%' },
-      { x: 'Firefox', y: 0, text: 'Firefox: 0%' },
-      { x: 'Samsung Internet', y: 0, text: 'Samsung Internet: 0%' },
-      { x: 'Edge', y: 5.0, text: 'Edge: 5.00%' },
-      // { x: 'Others', y: 3.6, text: 'Others: 3.6%' }
-  ];
-  ngOnInit(): void {
-      this.legendSettings = {
-          visible: false
-      };
-      this.centerLabel = {
-          text: 'Mobile<br>Browsers<br>Statistics',
-          hoverTextFormat: '${point.x} <br> Browser Share <br> ${point.y}%'
-      }
-  }
+export class AppComponent implements AfterViewInit {
+
+    public data: any;
+    public selectedSliceLabel : string = "No Selection";
+    public selectedSliceValue : string = "0%";
+
+    @ViewChild("chart", { static: true })
+    public chart: IgxDoughnutChartComponent;
+
+    constructor() {
+        this.data = [
+            { Value: 37, Label: "Cooling", Summary: "Cooling 37%" },
+            { Value: 25, Label: "Residential", Summary: "Residential 25%"  },
+            { Value: 12, Label: "Heating", Summary: "Heating 12%" },
+            { Value: 11, Label: "Lighting", Summary: "Lighting 11%" },
+            { Value: 18, Label: "Other", Summary: "Other 18%" }
+        ];
+
+    }
+
+
+    public OnSliceClick(e: any) {
+
+        if (e.args.isSelected)
+        {
+            this.selectedSliceLabel = this.data[e.args.index].Label;
+            this.selectedSliceValue = this.data[e.args.index].Value + "%";
+        }
+        else
+        {
+            this.selectedSliceLabel = "No Selection";
+            this.selectedSliceValue = "0%";
+        }
+    }
+
+    public ngAfterViewInit(): void {
+    }
+
+
 }
