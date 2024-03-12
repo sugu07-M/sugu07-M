@@ -24,5 +24,14 @@
 
 
 
+X [ERROR] NG2: Type 'any[]' is not assignable to type 'ChartData<any, any[], string>'. [plugin angular-compiler]
 
+    src/app/dashboard/dashboard.component.html:255:11:
+      255 │           [data]="doughnutChartData"
+          ╵            ~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:11:15:
+      11 │   templateUrl: './dashboard.component.html',
 
