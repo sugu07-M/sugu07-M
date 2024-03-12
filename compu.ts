@@ -12,3 +12,13 @@ import { ChartData } from 'chart.js';
 
 
 <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="'doughnut'"></canvas>
+X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:253:76:
+      253 │ ...[labels]="doughnutChartLabels" [chartType]="'doughnut'"></canvas>
+          ╵                                   ~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:11:15:
+      11 │   templateUrl: './dashboard.component.html',
