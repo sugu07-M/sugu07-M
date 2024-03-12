@@ -3,7 +3,8 @@ html
   <canvas baseChart
         [datasets]="doughnutChartData"
         [labels]="doughnutChartLabels"
-        (chartHover)="chartHovered($event)">
+        (chartHover)="chartHovered($event)"
+        style="height: 300px; width: 300px; border: 1px solid black; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);>
 </canvas>
 
   ts
