@@ -1,6 +1,6 @@
 <div style="width: 600px; text-align: center; margin-top:20px">
-    <div>Doughnut Chart</div>
-    <canvas ngChartjs [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
-      (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-      <button mat-raised-button color="primary" (click)="changeData()">Update Data</button>
-  </div>
+  <div>Doughnut Chart</div>
+  <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+  <button mat-raised-button color="primary" (click)="changeData()">Update Data</button>
+</div>
