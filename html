@@ -4,3 +4,9 @@
     (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
   <button mat-raised-button color="primary" (click)="changeData()">Update Data</button>
 </div>
+
+X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:255:78:
+      255 │ ...a" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+          ╵                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
