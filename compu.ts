@@ -48,3 +48,4 @@ export class AppComponent implements AfterViewInit {
 
 
 }
+<igx-doughnut-chart #chart></igx-doughnut-chart>
