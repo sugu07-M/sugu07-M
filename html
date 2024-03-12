@@ -13,3 +13,10 @@ X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of '
 <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="'doughnut'"></canvas>
 NG2: Type 'number[]' is not assignable to type 'ChartData<any, any[], string>'.
 <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="'doughnut'"></canvas>
+export class DashboardComponent {
+  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  public doughnutChartData: number[] = [350, 450, 100];
+  public doughnutChartType: string = 'doughnut'; // Ensure this property is defined
+
+  // Other component code
+}
