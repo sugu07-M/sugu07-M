@@ -1,21 +1,30 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { AccumulationChartModule } from '@syncfusion/ej2-angular-charts';
-import { PieSeriesService, AccumulationLegendService, AccumulationTooltipService, AccumulationAnnotationService,
-  AccumulationDataLabelService } from '@syncfusion/ej2-angular-charts';
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AppComponent } from "./app.component";
 
-/**
- * Module
- */
+import { IgxDoughnutChartModule, IgxRingSeriesModule, IgxLegendModule, IgxItemLegendModule } from "igniteui-angular-charts";
+
+
 @NgModule({
-    imports: [
-        BrowserModule, AccumulationChartModule
-    ],
-    declarations: [AppComponent],
-    bootstrap: [AppComponent],
-    providers: [PieSeriesService, AccumulationLegendService, AccumulationTooltipService, AccumulationDataLabelService,
-     AccumulationAnnotationService]
-})
-export class AppModule { }
+  bootstrap: [AppComponent],
+  declarations: [
+    AppComponent,
 
+],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    FormsModule,
+    IgxDoughnutChartModule,
+    IgxRingSeriesModule,
+    IgxLegendModule,
+    IgxItemLegendModule
+],
+  providers: [],
+  schemas: []
+})
+export class AppModule {}
