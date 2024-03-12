@@ -88,3 +88,5 @@ tooltip: {
     }
   }
 }
+
+title: { text: 'Default Title', align: 'left' }
