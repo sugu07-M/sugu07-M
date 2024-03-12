@@ -1,3 +1,4 @@
+npm install git+https://github.com/username/repo.git --save
 
 
 /* styles are loaded the Shared CSS file located at:
