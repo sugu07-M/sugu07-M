@@ -1,56 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexDataLabels,
-  ApexPlotOptions,
-  ApexYAxis,
-  ApexLegend,
-  ApexXAxis,
-  ApexStroke,
-  ApexTooltip,
-  ApexFill,
-  ApexStates,
-  ApexTitleSubtitle
-} from "ng-apexcharts";
-
-export type ChartOptions = {
-  series?: ApexAxisChartSeries[] | ApexNonAxisChartSeries[];
-  chart?: ApexChart;
-  dataLabels?: ApexDataLabels;
-  plotOptions?: ApexPlotOptions;
-  yaxis?: ApexYAxis | ApexYAxis[];
-  legend?: ApexLegend;
-  xaxis?: ApexXAxis;
-  stroke?: ApexStroke;
-  tooltip?: ApexTooltip;
-  fill?: ApexFill;
-  states?: ApexStates;
-  title?: ApexTitleSubtitle;
-};
-
-@Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
-})
-export class DashboardComponent implements OnInit {
-  
-  public chartOptions: ChartOptions = {};
-
-  constructor() { }
-
-  ngOnInit(): void {
-    // Initialize your chart options here if needed
-    this.chartOptions = {
-      series: [],
-      chart: {
-        type: 'line',
-        height: 350
-      },
-      xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-      }
-    };
-  }
-}
+<div>
+  <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [dataLabels]="chartOptions.dataLabels"
+    [plotOptions]="chartOptions.plotOptions"
+    [yaxis]="chartOptions.yaxis"
+    [legend]="chartOptions.legend"
+    [xaxis]="chartOptions.xaxis"
+    [stroke]="chartOptions.stroke"
+    [tooltip]="chartOptions.tooltip"
+    [fill]="chartOptions.fill"
+    [states]="chartOptions.states"
+    [title]="chartOptions.title">
+  </apx-chart>
+</div>
