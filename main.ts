@@ -1,4 +1,3 @@
- Changes detected. Rebuilding...
 X [ERROR] NG2: Type 'ApexAxisChartSeries | undefined' is not assignable to type 'ApexAxisChartSeries | ApexNonAxisChartSeries'.
   Type 'undefined' is not assignable to type 'ApexAxisChartSeries | ApexNonAxisChartSeries'. [plugin angular-compiler]
 
@@ -165,4 +164,3 @@ X [ERROR] NG2: Type 'ApexTitleSubtitle | undefined' is not assignable to type 'A
     src/app/dashboard/dashboard.component.ts:27:15:
       27 │   templateUrl: './dashboard.component.html',
          ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
