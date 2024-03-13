@@ -1,4 +1,23 @@
- ApexAxisChartSeries,
+public chartOptions: Partial<ChartOptions> = {};
+
+constructor(private http: HttpClient) {
+  this.chartOptions.series = [{
+    data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+  }];
+  this.chartOptions.chart = {
+    type: 'line',
+    height: 350
+  };
+  this.chartOptions.dataLabels = {
+    enabled: false
+  };
+  // Initialize other properties similarly
+}
+
+
+
+
+ApexAxisChartSeries,
   ApexChart,
   ApexDataLabels,
   ApexPlotOptions,
