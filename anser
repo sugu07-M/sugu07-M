@@ -1,4 +1,4 @@
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from '/IT-Portal/IT-Portal/IT-Portal.UI/src/environments/environment';
 import * as Chart from 'chart.js';
@@ -15,7 +15,8 @@ import {
   ApexTooltip,
   ApexFill,
   ApexStates,
-  ApexTitleSubtitle, ApexNonAxisChartSeries
+  ApexTitleSubtitle,
+  ApexNonAxisChartSeries
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -36,49 +37,33 @@ export type ChartOptions = {
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
+  styleUrls: ['./dashboard.component.css'],
 })
 
 export class DashboardComponent implements OnInit {
 
-
   @ViewChild("chart") chart!: Chart.ChartComponent;
-  public chartOptions: Partial<ChartOptions> = {};
+  public chartOptions: Partial<ChartOptions> = {
+    series: [],
+    chart: {},
+    dataLabels: {},
+    plotOptions: {},
+    yaxis: {},
+    legend: {},
+    xaxis: {},
+    stroke: {},
+    tooltip: {},
+    fill: {},
+    states: {},
+    title: {}
+  };
 
-  constructor(private http: HttpClient) {
-    this.chartOptions = {
-      series: [{
-        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-      }],
-      chart: {
-        type: 'line',
-        height: 350
-      },
-      dataLabels: {
-        enabled: false
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false
-        }
-      },
-      xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
-      },
-      stroke: {
-        curve: 'smooth'
-      },
-      tooltip: {
-        enabled: true
-      }
-    }
-  }
-  
-  private apiurl = environment.apiurls
+  constructor(private http: HttpClient) { }
+
+  private apiurl = environment.apiurls;
   single: any;
   ngOnInit(): void {
     this.getchangerequest();
-    
   }
   
   openNav() {
@@ -94,16 +79,13 @@ export class DashboardComponent implements OnInit {
       mySidenav.style.width = '0';
     }
   }
-  // Filter
+
   isVisible = false;
 
   toggleVisibility() {
     this.isVisible = !this.isVisible;
   }
 
-  // Charts
-
-  //API Call for change request
   changerequest: any[] = [];
   newCount: number = 0;
   completedCount: number = 0;
@@ -139,14 +121,9 @@ export class DashboardComponent implements OnInit {
 
   getdata() {
     alert(this.pendingCount)
-    console.log("getting data",this.changerequest)
+    console.log("getting data", this.changerequest)
   }
 
-  /*getdata() {
-    alert("completed "+this.completedCount)
-  }*/
-
-  /*Chart tabs*/
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -160,17 +137,11 @@ export class DashboardComponent implements OnInit {
     { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
   ];
 
-  // events
   public chartClicked(e: any): void {
     // console.log(e);
   }
 
- /* public chartHovered(e: any): void {
-    // console.log(e);
-  }*/
-
   public randomize(): void {
-    // Only Change 3 values
     const data = [
       Math.round(Math.random() * 100),
       59,
@@ -182,15 +153,8 @@ export class DashboardComponent implements OnInit {
     const clone = JSON.parse(JSON.stringify(this.barChartData));
     clone[0].data = data;
     this.barChartData = clone;
-    /**
-     * (My guess), for Angular to recognize the change in the dataset
-     * it has to change the dataset variable directly,
-     * so one way around it, is to clone the data, change it and then
-     * assign it;
-     */
   }
 
-/*donut chart*/
   public doughnutChartLabels: string[] = ['Part 1', 'Part 2', 'Part 3'];
   public doughnutChartData: any[] = [
     {
@@ -209,375 +173,3 @@ export class DashboardComponent implements OnInit {
     }
   }
 }
-
-
- <div id="chart">
-  <apx-chart [series]="chartOptions.series"
-             [chart]="chartOptions.chart"
-             [dataLabels]="chartOptions.dataLabels"
-             [plotOptions]="chartOptions.plotOptions"
-             [yaxis]="chartOptions.yaxis"
-             [legend]="chartOptions.legend"
-             [xaxis]="chartOptions.xaxis"
-             [stroke]="chartOptions.stroke"
-             [tooltip]="chartOptions.tooltip"
-             [fill]="chartOptions.fill"
-             [states]="chartOptions.states"
-             [title]="chartOptions.title"></apx-chart>
-</div>
-
-
- [ERROR] NG2: Type 'ApexAxisChartSeries[] | ApexNonAxisChartSeries[] | undefined' is not assignable to type 'ApexAxisChartSeries | ApexNonAxisChartSeries'.
-  Type 'undefined' is not assignable to type 'ApexAxisChartSeries | ApexNonAxisChartSeries'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:266:20:
-      266 │         <apx-chart [series]="chartOptions.series"
-          ╵                     ~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexChart | undefined' is not assignable to type 'ApexChart'.
-  Type 'undefined' is not assignable to type 'ApexChart'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:267:20:
-      267 │                    [chart]="chartOptions.chart"
-          ╵                     ~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexDataLabels | undefined' is not assignable to type 'ApexDataLabels'.
-  Type 'undefined' is not assignable to type 'ApexDataLabels'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:268:20:
-      268 │                    [dataLabels]="chartOptions.dataLabels"
-          ╵                     ~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexPlotOptions | undefined' is not assignable to type 'ApexPlotOptions'.
-  Type 'undefined' is not assignable to type 'ApexPlotOptions'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:269:20:
-      269 │                    [plotOptions]="chartOptions.plotOptions"
-          ╵                     ~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexYAxis | ApexYAxis[] | undefined' is not assignable to type 'ApexYAxis | ApexYAxis[]'.
-  Type 'undefined' is not assignable to type 'ApexYAxis | ApexYAxis[]'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:270:20:
-      270 │                    [yaxis]="chartOptions.yaxis"
-          ╵                     ~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexLegend | undefined' is not assignable to type 'ApexLegend'.
-  Type 'undefined' is not assignable to type 'ApexLegend'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:271:20:
-      271 │                    [legend]="chartOptions.legend"
-          ╵                     ~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexXAxis | undefined' is not assignable to type 'ApexXAxis'.
-  Type 'undefined' is not assignable to type 'ApexXAxis'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:272:20:
-      272 │                    [xaxis]="chartOptions.xaxis"
-          ╵                     ~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexStroke | undefined' is not assignable to type 'ApexStroke'.
-  Type 'undefined' is not assignable to type 'ApexStroke'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:273:20:
-      273 │                    [stroke]="chartOptions.stroke"
-          ╵                     ~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexTooltip | undefined' is not assignable to type 'ApexTooltip'.
-  Type 'undefined' is not assignable to type 'ApexTooltip'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:274:20:
-      274 │                    [tooltip]="chartOptions.tooltip"
-          ╵                     ~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexFill | undefined' is not assignable to type 'ApexFill'.
-  Type 'undefined' is not assignable to type 'ApexFill'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:275:20:
-      275 │                    [fill]="chartOptions.fill"
-          ╵                     ~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexStates | undefined' is not assignable to type 'ApexStates'.
-  Type 'undefined' is not assignable to type 'ApexStates'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:276:20:
-      276 │                    [states]="chartOptions.states"
-          ╵                     ~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexTitleSubtitle | undefined' is not assignable to type 'ApexTitleSubtitle'.
-  Type 'undefined' is not assignable to type 'ApexTitleSubtitle'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:277:20:
-      277 │                    [title]="chartOptions.title"></apx-chart>
-          ╵                     ~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] TS2322: Type '{ data: number[]; }' is not assignable to type 'ApexNonAxisChartSeries'.
-  Object literal may only specify known properties, and 'data' does not exist in type 'number[]'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:51:8:
-      51 │         data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-         ╵         ~~~~
-
-
-Watch mode enabled. Watching for file changes...
-/ Changes detected. Rebuilding...
-X [ERROR] NG2: Type 'ApexAxisChartSeries[] | ApexNonAxisChartSeries[] | undefined' is not assignable to type 'ApexAxisChartSeries | ApexNonAxisChartSeries'.
-  Type 'undefined' is not assignable to type 'ApexAxisChartSeries | ApexNonAxisChartSeries'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:266:20:
-      266 │         <apx-chart [series]="chartOptions.series"
-          ╵                     ~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexChart | undefined' is not assignable to type 'ApexChart'.
-  Type 'undefined' is not assignable to type 'ApexChart'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:267:20:
-      267 │                    [chart]="chartOptions.chart"
-          ╵                     ~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexDataLabels | undefined' is not assignable to type 'ApexDataLabels'.
-  Type 'undefined' is not assignable to type 'ApexDataLabels'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:268:20:
-      268 │                    [dataLabels]="chartOptions.dataLabels"
-          ╵                     ~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexPlotOptions | undefined' is not assignable to type 'ApexPlotOptions'.
-  Type 'undefined' is not assignable to type 'ApexPlotOptions'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:269:20:
-      269 │                    [plotOptions]="chartOptions.plotOptions"
-          ╵                     ~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexYAxis | ApexYAxis[] | undefined' is not assignable to type 'ApexYAxis | ApexYAxis[]'.
-  Type 'undefined' is not assignable to type 'ApexYAxis | ApexYAxis[]'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:270:20:
-      270 │                    [yaxis]="chartOptions.yaxis"
-          ╵                     ~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexLegend | undefined' is not assignable to type 'ApexLegend'.
-  Type 'undefined' is not assignable to type 'ApexLegend'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:271:20:
-      271 │                    [legend]="chartOptions.legend"
-          ╵                     ~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexXAxis | undefined' is not assignable to type 'ApexXAxis'.
-  Type 'undefined' is not assignable to type 'ApexXAxis'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:272:20:
-      272 │                    [xaxis]="chartOptions.xaxis"
-          ╵                     ~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexStroke | undefined' is not assignable to type 'ApexStroke'.
-  Type 'undefined' is not assignable to type 'ApexStroke'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:273:20:
-      273 │                    [stroke]="chartOptions.stroke"
-          ╵                     ~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexTooltip | undefined' is not assignable to type 'ApexTooltip'.
-  Type 'undefined' is not assignable to type 'ApexTooltip'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:274:20:
-      274 │                    [tooltip]="chartOptions.tooltip"
-          ╵                     ~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexFill | undefined' is not assignable to type 'ApexFill'.
-  Type 'undefined' is not assignable to type 'ApexFill'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:275:20:
-      275 │                    [fill]="chartOptions.fill"
-          ╵                     ~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexStates | undefined' is not assignable to type 'ApexStates'.
-  Type 'undefined' is not assignable to type 'ApexStates'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:276:20:
-      276 │                    [states]="chartOptions.states"
-          ╵                     ~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG2: Type 'ApexTitleSubtitle | undefined' is not assignable to type 'ApexTitleSubtitle'.
-  Type 'undefined' is not assignable to type 'ApexTitleSubtitle'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:277:20:
-      277 │                    [title]="chartOptions.title"></apx-chart>
-          ╵                     ~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:38:15:
-      38 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] TS2322: Type '{ data: number[]; }' is not assignable to type 'ApexNonAxisChartSeries'.
-  Object literal may only specify known properties, and 'data' does not exist in type 'number[]'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:51:8:
-      51 │         data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-         ╵         ~~~~
-
-
