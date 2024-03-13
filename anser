@@ -1,4 +1,15 @@
-
+ ApexAxisChartSeries,
+  ApexChart,
+  ApexDataLabels,
+  ApexPlotOptions,
+  ApexYAxis,
+  ApexLegend,
+  ApexXAxis,
+  ApexStroke,
+  ApexTooltip,
+  ApexFill,
+  ApexStates,
+  ApexTitleSubtitle
 export class DashboardComponent {
   chartOptions: {
     series?: ApexAxisChartSeries[] | ApexNonAxisChartSeries[];
