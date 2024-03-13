@@ -1,92 +1,70 @@
 import {
-  ApexAxisChartSeries,ApexChart,ChartComponent,ApexDataLabels,ApexPlotOptions,ApexYAxis,ApexLegend,ApexStroke,
-ApexTitleSubtitle,ApexXAxis,ApexTooltip,ApexFill,ApexStates} from "ng-apexcharts";
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexDataLabels,
+  ApexPlotOptions,
+  ApexYAxis,
+  ApexLegend,
+  ApexXAxis,
+  ApexStroke,
+  ApexTooltip,
+  ApexFill,
+  ApexStates,
+  ApexTitleSubtitle
+} from "ng-apexcharts";
+
+export type ChartOptions = {
+  series?: ApexAxisChartSeries[] | ApexNonAxisChartSeries[];
+  chart?: ApexChart;
+  dataLabels?: ApexDataLabels;
+  plotOptions?: ApexPlotOptions;
+  yaxis?: ApexYAxis | ApexYAxis[];
+  legend?: ApexLegend;
+  xaxis?: ApexXAxis;
+  stroke?: ApexStroke;
+  tooltip?: ApexTooltip;
+  fill?: ApexFill;
+  states?: ApexStates;
+  title?: ApexTitleSubtitle;
+};
+
+@Component({
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css',
+})
+
+export class DashboardComponent implements OnInit {
 
 
-tooltip: {
-  shared: false,
-  y: {
-    formatter: function (val) {
-      return val + "K";
+  @ViewChild("chart") chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
+  constructor(private http: HttpClient) {
+    this.chartOptions = {
+      series: [{
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+      }],
+      chart: {
+        type: 'line',
+        height: 350
+      },
+      dataLabels: {
+        enabled: false
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false
+        }
+      },
+      xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
+      },
+      stroke: {
+        curve: 'smooth'
+      },
+      tooltip: {
+        enabled: true
+      }
     }
   }
-},
-
-
-     this.chartOptions = {
-    series: [
-      {
-        name: "Marine Sprite",
-        data: [44, 55, 41, 37, 22, 43, 21]
-      },
-      {
-        name: "Striking Calf",
-        data: [53, 32, 33, 52, 13, 43, 32]
-      },
-      {
-        name: "Tank Picture",
-        data: [12, 17, 11, 9, 15, 11, 20]
-      },
-      {
-        name: "Bucket Slope",
-        data: [9, 7, 5, 8, 6, 9, 4]
-      }
-    ],
-    chart: {
-      type: "bar",
-      height: 350,
-      stacked: true,
-      dropShadow: {
-        enabled: true,
-        blur: 1,
-        opacity: 0.25
-      }
-    },
-    plotOptions: {
-      bar: {
-        horizontal: true,
-        barHeight: "60%"
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      width: 2
-    },
-    title: { text: 'Default Title', align: 'left' },
-    xaxis: {
-      categories: [2008, 2009, 2010, 2011, 2012, 2013, 2014]
-    },
-    yaxis: {
-      title: {
-        text: undefined
-      }
-    },
-    tooltip: {
-      shared: false,
-      y: {
-        formatter: function (val) {
-          return val + "K";
-        }
-      }
-    },
-    fill: {
-      type: "pattern",
-      opacity: 1
-    },
-    states: {
-      hover: {
-        filter: {
-          type: "none"
-        }
-      }
-    },
-    legend: {
-      position: "right",
-      offsetY: 40
-    }
-  }
-}
-
-title: { text: 'Default Title', align: 'left' }
+  
