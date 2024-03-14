@@ -12,3 +12,4 @@
 Can't bind to 'chartTypes' since it isn't a known property of 'canvas'.
 Can't bind to 'data' since it isn't a known property of 'canvas'.
 import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
+npm install my-chart-library
