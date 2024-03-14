@@ -2,10 +2,10 @@
   <h6 style="text-align:center">change Request-Plant wise view</h6>
   <canvas baseChart
           [datasets]="doughnutChartData"
-          [chartTypes]="doughnutChartTypes
+          [chartType]="doughnutChartTypes"
           [labels]="doughnutChartLabels"
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"
-          style=" height:290px;width: 390px; box-sizing: border-box; ">
+          style="height: 290px; width: 390px; box-sizing: border-box;">
   </canvas>
 </div>
