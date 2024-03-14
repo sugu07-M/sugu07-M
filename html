@@ -1,8 +1,20 @@
-  <div class="col" *ngIf="showRiskQ">
-    <label>From Date</label>
-    <input type="datetime-local" [(ngModel)]="downTimeFromDate" placeholder="" />
-  </div>
-  <div class="col" *ngIf="showRiskQ">
-    <label>End Date</label>
-    <input type="datetime-local" [(ngModel)]="downTimeToDate" placeholder="" />
-  </div>
+<div class="col" *ngIf="showRiskQ">
+  <label>From Date</label>
+  <input type="datetime-local" [(ngModel)]="downTimeFromDate" placeholder="" (change)="updateEndDateMin()" />
+</div>
+<div class="col" *ngIf="showRiskQ">
+  <label>End Date</label>
+  <input type="datetime-local" [(ngModel)]="downTimeToDate" placeholder="" [min]="minEndDate" />
+</div>
+
+
+
+ showRiskQ: boolean = true; // Define showRiskQ property
+  downTimeFromDate: string = ''; // Initialize downTimeFromDate
+  downTimeToDate: string = ''; // Initialize downTimeToDate
+  minEndDate: string = ''; // Initialize minEndDate
+updateEndDateMin() {
+    const fromDate = new Date(this.downTimeFromDate);
+    fromDate.setDate(fromDate.getDate() + 1);
+    this.minEndDate = fromDate.toISOString().slice(0, 16); // Adjust as per your date format
+  }
