@@ -9,3 +9,4 @@
           style="height: 290px; width: 390px; box-sizing: border-box;">
   </canvas>
 </div>
+Can't bind to 'chartTypes' since it isn't a known property of 'canvas'.
