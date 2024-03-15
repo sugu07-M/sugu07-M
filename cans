@@ -1,7 +1,18 @@
-npm install @angular/cdk @swimlane/ngx-charts
-import { DashboardComponent } from './dashboard/dashboard.component';
-export class DashboardComponent {
-  doughnutChartData: any[] = [...]; // Define your chart data
-  doughnutChartType: string = 'doughnut'; // Define chart type
-  doughnutChartLabels: string[] = [...]; // Define chart labels
-}
+
+X [ERROR] Could not resolve "@angular/cdk/portal"
+
+    node_modules/@swimlane/ngx-charts/fesm2020/swimlane-ngx-charts.mjs:6:49:
+      6 │ ...rt { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
+        ╵                                                 ~~~~~~~~~~~~~~~~~~~~~
+
+  You can mark the path "@angular/cdk/portal" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+X [ERROR] Could not resolve "@angular/cdk/portal"
+
+    src/app/app.module.ts:61:49:
+      61 │ ...t { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
+         ╵                                                ~~~~~~~~~~~~~~~~~~~~~
+
+  You can mark the path "@angular/cdk/portal" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
