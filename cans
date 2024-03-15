@@ -18,6 +18,9 @@ generateMonthLabels(): string[] {
     labels.push(this.getMonthYearName(month, year));
   }
 
+  // Add the current month
+  labels.push(this.getMonthYearName(currentMonth, currentYear));
+
   // Add the next month (March)
   labels.push(this.getMonthYearName((currentMonth + 1) % 12, currentMonth === 11 ? currentYear + 1 : currentYear));
 
