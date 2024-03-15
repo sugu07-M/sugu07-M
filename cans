@@ -1,5 +1,5 @@
-npm install @angular/common@latest
-npm install @angular/forms@latest
+npm install @angular/common@latest --force
+npm install @angular/forms@latest --force
 npm install xlsx --save
 PS D:\IT-Portal\IT-Portal\IT-Portal.UI> npm install @angular/common@latest
 npm WARN ERESOLVE overriding peer dependency
