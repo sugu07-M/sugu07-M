@@ -1,3 +1,48 @@
-      <input class="cr_filter_checkbox" type="checkbox"><label class="cr_filter_label release_text">Released</label>
-      <input class="cr_filter_checkbox" type="checkbox"><label class="cr_filter_label text-success">Closure</label>
-      <button class="filter_button">Filter</button>
+    
+PS D:\IT-Portal\IT-Portal\IT-Portal.UI> npm i xlsx --save
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE could not resolve
+npm ERR!
+npm ERR! While resolving: my-chart-library@6.0.1
+npm ERR! Found: @angular/common@17.3.0
+npm ERR! node_modules/@angular/common
+npm ERR!   peer @angular/common@"^17.0.0 || ^18.0.0" from @angular/cdk@17.3.0
+npm ERR!   node_modules/@angular/cdk
+npm ERR!     peer @angular/cdk@">=12.0.0" from @swimlane/ngx-charts@20.5.0
+npm ERR!     node_modules/@swimlane/ngx-charts
+npm ERR!       @swimlane/ngx-charts@"^20.5.0" from the root project
+npm ERR!     peer @angular/cdk@">=16.0.0" from ng2-charts@5.0.4
+npm ERR!     node_modules/ng2-charts
+npm ERR!       ng2-charts@"^5.0.4" from the root project
+npm ERR!     1 more (the root project)
+npm ERR!   peer @angular/common@"17.3.0" from @angular/forms@17.3.0
+npm ERR!   node_modules/@angular/forms
+npm ERR!     peer @angular/forms@"^17.0.0" from @ng-bootstrap/ng-bootstrap@16.0.0
+npm ERR!     node_modules/@ng-bootstrap/ng-bootstrap
+npm ERR!       @ng-bootstrap/ng-bootstrap@"^16.0.0" from the root project
+npm ERR!     peer @angular/forms@">=12.0.0" from @swimlane/ngx-charts@20.5.0
+npm ERR!     node_modules/@swimlane/ngx-charts
+npm ERR!       @swimlane/ngx-charts@"^20.5.0" from the root project
+npm ERR!     2 more (igniteui-angular, the root project)
+npm ERR!   13 more (@angular/platform-browser, ...)
+npm ERR!
+npm ERR! Could not resolve dependency:
+npm ERR! peer @angular/common@"^7.2.0" from my-chart-library@6.0.1
+npm ERR! node_modules/my-chart-library
+npm ERR!   my-chart-library@"^6.0.1" from the root project
+npm ERR!
+npm ERR! Conflicting peer dependency: @angular/common@7.2.16
+npm ERR! node_modules/@angular/common
+npm ERR!   peer @angular/common@"^7.2.0" from my-chart-library@6.0.1
+npm ERR!   node_modules/my-chart-library
+npm ERR!     my-chart-library@"^6.0.1" from the root project
+npm ERR!
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+npm ERR!
+npm ERR!
+npm ERR! For a full report see:
+npm ERR! C:\Users\mts.user5\AppData\Local\npm-cache\_logs\2024-03-15T10_33_33_097Z-eresolve-report.txt
+
+npm ERR! A complete log of this run can be found in: C:\Users\mts.user5\AppData\Local\npm-cache\_logs\2024-03-15T10_33_33_097Z-debug-0.log
