@@ -1,93 +1,47 @@
- private apiurl = environment.apiurls
+countStatus() {
+  // Reset counts for each month
+  const monthlyCounts = {};
 
- single: any;
- ngOnInit(): void {
-   this.getchangerequest();
+  // Aggregate counts for each month
+  this.changerequest.forEach(item => {
+    const month = new Date(item.date).getMonth(); // Assuming item.date is the date of the change request
+    if (!monthlyCounts[month]) {
+      monthlyCounts[month] = {
+        Draft: 0,
+        Completed: 0,
+        'Approved level1': 0
+      };
+    }
+    monthlyCounts[month][item.status]++;
+  });
 
- }
-
- // Charts
-
- //API Call for change request
- changerequest: any[] = [];
- newCount: number = 0;
- completedCount: number = 0;
- pendingCount: number = 0;
-
- getchangerequest() {
-   const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
-   const requestBody = {}
-
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
-
-   this.http.get(apiUrls, requestBody).subscribe(
-     (response: any) => {
-       this.changerequest = response;
-       this.countStatus();
-       console.log(this.changerequest);
-     },
-     (error) => {
-       console.error("Post failed", error);
-     }
-   );
- }
-
- countStatus() {
-   this.newCount = this.changerequest.filter(item => item.status === 'Draft').length;
-   this.completedCount = this.changerequest.filter(item => item.status === 'Completed').length;
-   this.pendingCount = this.changerequest.filter(item => item.status === 'Approved level1 ').length
- }
-
- getdata() {
-   alert(this.pendingCount)
-   console.log("getting data", this.changerequest)
- }
+  // Update counts for each month
+  this.barChartLabels.forEach((label, index) => {
+    this.newCount[index] = monthlyCounts[index]?.Draft || 0;
+    this.completedCount[index] = monthlyCounts[index]?.Completed || 0;
+    this.pendingCount[index] = monthlyCounts[index]?.['Approved level1'] || 0;
+  });
+}
 
 
+updateChartData() {
+  this.barChartData = [
+    { data: this.newCount, label: 'New' },
+    { data: this.completedCount, label: 'Completed' },
+    { data: this.pendingCount, label: 'Pending' }
+  ];
+}
 
- public barChartOptions: any = {
-   scaleShowVerticalLines: false,
-   responsive: true
- };
- public barChartLabels: string[] = ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
- public barChartType: Chart.ChartType = 'bar';
- public barChartLegend = true;
+this.http.get(apiUrls, requestBody).subscribe(
+  (response: any) => {
+    this.changerequest = response;
+    this.countStatus();
+    this.updateChartData();
+    console.log(this.changerequest);
+  },
+  (error) => {
+    console.error("Post failed", error);
+  }
+);
 
- public barChartData: any[] = [
-   { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-   { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
- ];
 
- // events
- public chartClicked(e: any): void {
-   // console.log(e);
- }
-
-  /*public chartHovered(e: any): void {
-    // console.log(e);
-  }*/
-
- public randomize(): void {
-   // Only Change 3 values
-   const data = [
-     Math.round(Math.random() * 100),
-     59,
-     80,
-     (Math.random() * 100),
-     56,
-     (Math.random() * 100),
-     40];
-   const clone = JSON.parse(JSON.stringify(this.barChartData));
-   clone[0].data = data;
-   this.barChartData = clone;
-   /**
-    * (My guess), for Angular to recognize the change in the dataset
-    * it has to change the dataset variable directly,
-    * so one way around it, is to clone the data, change it and then
-    * assign it;
-    */
- }
