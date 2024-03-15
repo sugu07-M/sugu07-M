@@ -1,1 +1,49 @@
 import { DoughnutChartComponent } from './doughnut-chart.component';
+
+X [ERROR] NG8002: Can't bind to 'data' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+Application bundle generation failed. [4.442 seconds]
+    src/app/dashboard/dashboard.component.html:256:10:
+      256 │           [data]="doughnutChartData"
+          ╵enabled. Wa~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Changes detected. Rebuilding.../cdk/portal" as external to exclude it from the bundle, which wi
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:11:15:                                              angular-compiler]
+      11 │   templateUrl: './dashboard.component.html',
+    src/app/dashboard/dashboard.component.html:257:10:
+      257 │           [chartType]="doughnutChartType"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:11:15:                                             gular-compiler]
+      11 │   templateUrl: './dashboard.component.html',
+    src/app/dashboard/dashboard.component.html:258:10:
+      258 │           [labels]="doughnutChartLabels"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+X [ERROR] NG8002: Can't bind to 'labels' since it isn't a known property of 'canvas'. [plugin ang
+    node_modules/@swimlane/ngx-charts/fesm2020/swimlane-ngx-charts.mjs:6:49:
+      6 │ ...rt { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
+        ╵                                                 ~~~~~~~~~~~~~~~~~~~~~
+
+  You can mark the path "@angular/cdk/portal" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+/ Changes detected. Rebuilding...
+X [ERROR] Could not resolve "@angular/cdk/portal"
+
+    node_modules/@swimlane/ngx-charts/fesm2020/swimlane-ngx-charts.mjs:6:49:
+      6 │ ...rt { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
+        ╵                                                 ~~~~~~~~~~~~~~~~~~~~~
+
+  You can mark the path "@angular/cdk/portal" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+- Changes detected. Rebuilding...
+X [ERROR] Could not resolve "@angular/cdk/portal"
+
+    node_modules/@swimlane/ngx-charts/fesm2020/swimlane-ngx-charts.mjs:6:49:
+      6 │ ...rt { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
+        ╵                                                 ~~~~~~~~~~~~~~~~~~~~~
+
+  You can mark the path "@angular/cdk/portal" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
