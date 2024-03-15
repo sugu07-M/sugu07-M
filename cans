@@ -7,16 +7,24 @@ public barChartLabels: string[] = this.generateMonthLabels();
 
 generateMonthLabels(): string[] {
   const labels = [];
-  const currentMonth = new Date().getMonth();
-  for (let i = 0; i < 12; i++) {
-    const month = (currentMonth + i) % 12; // Ensure it loops around to January after December
-    labels.push(this.getMonthName(month));
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+  const currentYear = currentDate.getFullYear();
+
+  // Add the past 7 months
+  for (let i = 7; i > 0; i--) {
+    const month = (currentMonth - i + 12) % 12; // Ensure it loops around to January after December
+    const year = currentYear - (i > currentMonth ? 1 : 0);
+    labels.push(this.getMonthYearName(month, year));
   }
+
+  // Add the next month (March)
+  labels.push(this.getMonthYearName((currentMonth + 1) % 12, currentMonth === 11 ? currentYear + 1 : currentYear));
+
   return labels;
 }
 
-getMonthName(monthIndex: number): string {
-  const date = new Date();
-  date.setMonth(monthIndex);
-  return date.toLocaleString('en-US', { month: 'short' });
+getMonthYearName(monthIndex: number, year: number): string {
+  const date = new Date(year, monthIndex, 1);
+  return date.toLocaleString('en-US', { month: 'short', year: 'numeric' });
 }
