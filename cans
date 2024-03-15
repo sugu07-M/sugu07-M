@@ -1,47 +1,22 @@
-countStatus() {
-  // Reset counts for each month
-  const monthlyCounts = {};
+newCount: number[] = Array(12).fill(0); // Assuming there are 12 months
+completedCount: number[] = Array(12).fill(0);
+pendingCount: number[] = Array(12).fill(0);
 
-  // Aggregate counts for each month
-  this.changerequest.forEach(item => {
-    const month = new Date(item.date).getMonth(); // Assuming item.date is the date of the change request
-    if (!monthlyCounts[month]) {
-      monthlyCounts[month] = {
-        Draft: 0,
-        Completed: 0,
-        'Approved level1': 0
-      };
-    }
-    monthlyCounts[month][item.status]++;
-  });
+// Initialize the labels with the first 12 months (assuming current month is March)
+public barChartLabels: string[] = this.generateMonthLabels();
 
-  // Update counts for each month
-  this.barChartLabels.forEach((label, index) => {
-    this.newCount[index] = monthlyCounts[index]?.Draft || 0;
-    this.completedCount[index] = monthlyCounts[index]?.Completed || 0;
-    this.pendingCount[index] = monthlyCounts[index]?.['Approved level1'] || 0;
-  });
-}
-
-
-updateChartData() {
-  this.barChartData = [
-    { data: this.newCount, label: 'New' },
-    { data: this.completedCount, label: 'Completed' },
-    { data: this.pendingCount, label: 'Pending' }
-  ];
-}
-
-this.http.get(apiUrls, requestBody).subscribe(
-  (response: any) => {
-    this.changerequest = response;
-    this.countStatus();
-    this.updateChartData();
-    console.log(this.changerequest);
-  },
-  (error) => {
-    console.error("Post failed", error);
+generateMonthLabels(): string[] {
+  const labels = [];
+  const currentMonth = new Date().getMonth();
+  for (let i = 0; i < 12; i++) {
+    const month = (currentMonth + i) % 12; // Ensure it loops around to January after December
+    labels.push(this.getMonthName(month));
   }
-);
+  return labels;
+}
 
-
+getMonthName(monthIndex: number): string {
+  const date = new Date();
+  date.setMonth(monthIndex);
+  return date.toLocaleString('en-US', { month: 'short' });
+}
