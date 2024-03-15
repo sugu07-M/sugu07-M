@@ -1,63 +1,8 @@
-<div class="dount-chart">
-  <h6 style="text-align:center">change Request-Plant wise view</h6>
-  <canvas baseChart
-          [datasets]="doughnutChartData"
-          [chartType]="doughnutChartTypes"
-          [labels]="doughnutChartLabels"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"
-          style="height: 290px; width: 390px; box-sizing: border-box;">
-  </canvas>
-</div>
-
-
-X [ERROR] NG8002: Can't bind to 'data' since it isn't a known property of 'canvas'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:256:10:
-      256 │           [data]="doughnutChartData"
-          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:11:15:
-      11 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:257:10:
-      257 │           [chartType]="doughnutChartType"
-          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:11:15:
-      11 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 X [ERROR] NG1: Property 'doughnutChartType' does not exist on type 'DashboardComponent'. Did you mean 'doughnutChartData'? [plugin angular-compiler]
 
-    src/app/dashboard/dashboard.component.html:257:23:
-      257 │           [chartType]="doughnutChartType"
-          ╵                        ~~~~~~~~~~~~~~~~~
+    src/app/dashboard/dashboard.component.html:257:18:
+      257 │           [type]="doughnutChartType"
+          ╵                   ~~~~~~~~~~~~~~~~~
 
   Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:11:15:
-      11 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG8002: Can't bind to 'labels' since it isn't a known property of 'canvas'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:258:10:
-      258 │           [labels]="doughnutChartLabels"
-          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:11:15:
-      11 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
