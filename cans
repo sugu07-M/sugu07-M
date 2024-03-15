@@ -1,18 +1,52 @@
-npm install @angular/cdk
-X [ERROR] Could not resolve "@angular/cdk/portal"
-
-    node_modules/@swimlane/ngx-charts/fesm2020/swimlane-ngx-charts.mjs:6:49:
-      6 │ ...rt { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
-        ╵                                                 ~~~~~~~~~~~~~~~~~~~~~
-
-  You can mark the path "@angular/cdk/portal" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
 
 
-X [ERROR] Could not resolve "@angular/cdk/portal"
+X [ERROR] NG8002: Can't bind to 'data' since it isn't a known property of 'canvas'. [plugin angular-compiler]
 
-    src/app/app.module.ts:61:49:
-      61 │ ...t { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
-         ╵                                                ~~~~~~~~~~~~~~~~~~~~~
+    src/app/dashboard/dashboard.component.html:256:10:
+      256 │           [data]="doughnutChartData"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  You can mark the path "@angular/cdk/portal" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+  Error occurs in the template of component DashboardComponent.
 
+    src/app/dashboard/dashboard.component.ts:11:15:
+      11 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:257:10:
+      257 │           [chartType]="doughnutChartType"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:11:15:
+      11 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG1: Property 'doughnutChartType' does not exist on type 'DashboardComponent'. Did you mean 'doughnutChartData'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:257:23:
+      257 │           [chartType]="doughnutChartType"
+          ╵                        ~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:11:15:
+      11 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'labels' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:258:10:
+      258 │           [labels]="doughnutChartLabels"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:11:15:
+      11 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
