@@ -1,2 +1,3 @@
-npm install @angular/cdk --force
-npm install @angular/cdk --legacy-peer-deps
+      <input class="cr_filter_checkbox" type="checkbox"><label class="cr_filter_label release_text">Released</label>
+      <input class="cr_filter_checkbox" type="checkbox"><label class="cr_filter_label text-success">Closure</label>
+      <button class="filter_button">Filter</button>
