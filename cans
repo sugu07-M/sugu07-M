@@ -11,7 +11,7 @@ generateMonthLabels(): string[] {
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
 
-  // Add the past 7 months
+  // Add the past 6 months
   for (let i = 6; i > 0; i--) {
     const month = (currentMonth - i + 12) % 12; // Ensure it loops around to January after December
     const year = currentYear - (i > currentMonth ? 1 : 0);
@@ -20,9 +20,6 @@ generateMonthLabels(): string[] {
 
   // Add the current month
   labels.push(this.getMonthYearName(currentMonth, currentYear));
-
-  // Add the next month (March)
-  labels.push(this.getMonthYearName((currentMonth + 1) % 12, currentMonth === 11 ? currentYear + 1 : currentYear));
 
   return labels;
 }
