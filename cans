@@ -1,16 +1,31 @@
+PS D:\IT-Portal\IT-Portal\IT-Portal.UI> npm install @angular/cdk
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE could not resolve
+npm ERR!
+npm ERR! While resolving: my-chart-library@6.0.1
+npm ERR! Found: @angular/common@17.3.0
+npm ERR! node_modules/@angular/common
+npm ERR!   peer @angular/common@"17" from igniteui-angular@17.1.4
+npm ERR!   node_modules/igniteui-angular
+npm ERR!     igniteui-angular@"^17.1.4" from the root project
+npm ERR!   peer @angular/common@"^17.0.0" from igniteui-angular-charts@17.2.1
+npm ERR!   node_modules/igniteui-angular-charts
+npm ERR!     igniteui-angular-charts@"^17.2.1" from the root project
+npm ERR!   13 more (ng-apexcharts, ng2-charts, @angular/forms, ...)
+npm ERR!
+npm ERR! Could not resolve dependency:
+npm ERR! peer @angular/common@"^7.2.0" from my-chart-library@6.0.1
+npm ERR!   my-chart-library@"^6.0.1" from the root project                                                                                                                            npm ERR!                                                                                                                                                                               npm ERR! Conflicting peer dependency: @angular/common@7.2.16                                                                                                                           npm ERR! node_modules/@angular/common
+npm ERR!   peer @angular/common@"^7.2.0" from my-chart-library@6.0.1
+npm ERR!   node_modules/my-chart-library
+npm ERR!     my-chart-library@"^6.0.1" from the root project
+npm ERR!
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+npm ERR!
+npm ERR!
+npm ERR! For a full report see:
+npm ERR! C:\Users\mts.user5\AppData\Local\npm-cache\_logs\2024-03-15T07_09_56_161Z-eresolve-report.txt
 
-X [ERROR] NG1: Property 'doughnutChartType' does not exist on type 'DashboardComponent'. Did you mean 'doughnutChartData'? [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:257:18:
-      257 │           [type]="doughnutChartType"
-          ╵                   ~~~~~~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-X [ERROR] Could not resolve "@angular/cdk/portal"
-
-    node_modules/@swimlane/ngx-charts/fesm2020/swimlane-ngx-charts.mjs:6:49:
-      6 │ ...rt { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
-        ╵                                                 ~~~~~~~~~~~~~~~~~~~~~
-
-  You can mark the path "@angular/cdk/portal" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+npm ERR! A complete log of this run can be found in: C:\Users\mts.user5\AppData\Local\npm-cache\_logs\2024-03-15T07_09_56_161Z-debug-0.log
