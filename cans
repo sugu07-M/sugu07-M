@@ -1,73 +1,35 @@
-npm install @angular/common@latest --force
-npm install @angular/forms@latest --force
-npm install xlsx --save
-PS D:\IT-Portal\IT-Portal\IT-Portal.UI> npm install @angular/common@latest
-npm WARN ERESOLVE overriding peer dependency
-npm WARN While resolving: it-portal@0.0.0
-npm WARN Found: @angular/common@17.3.0
-npm WARN node_modules/@angular/common
-npm WARN   peer @angular/common@"^17.0.0 || ^18.0.0" from @angular/cdk@17.3.0
-npm WARN   node_modules/@angular/cdk
-npm WARN     peer @angular/cdk@">=12.0.0" from @swimlane/ngx-charts@20.5.0
-npm WARN     node_modules/@swimlane/ngx-charts
-npm WARN     2 more (ng2-charts, the root project)
-npm WARN   14 more (@angular/forms, @angular/platform-browser, ...)
-npm WARN
-npm WARN Could not resolve dependency:
-npm WARN peer @angular/common@"^7.2.0" from my-chart-library@6.0.1
-npm WARN node_modules/my-chart-library
-npm WARN   my-chart-library@"^6.0.1" from the root project
-npm ERR! code ERESOLVE
-npm ERR! ERESOLVE could not resolve
-npm ERR!
-npm ERR! While resolving: my-chart-library@6.0.1
-npm ERR! Found: @angular/core@17.3.0
-npm ERR! node_modules/@angular/core
-npm ERR!   peer @angular/core@"17.3.0" from @angular/animations@17.3.0
-npm ERR!   node_modules/@angular/animations
-npm ERR!     peerOptional @angular/animations@"17.3.0" from @angular/platform-browser@17.3.0
-npm ERR!     node_modules/@angular/platform-browser
-npm ERR!       peer @angular/platform-browser@"17.3.0" from @angular/forms@17.3.0
-npm ERR!       node_modules/@angular/forms
-npm ERR!         peer @angular/forms@"^17.0.0" from @ng-bootstrap/ng-bootstrap@16.0.0
-npm ERR!         node_modules/@ng-bootstrap/ng-bootstrap
-npm ERR!         3 more (@swimlane/ngx-charts, igniteui-angular, the root project)
-npm ERR!       6 more (@angular/platform-browser-dynamic, ...)
-npm ERR!     peer @angular/animations@"17.3.0" from @angular/platform-server@17.3.0
-npm ERR!     node_modules/@angular/platform-server
-npm ERR!       peerOptional @angular/platform-server@"^17.0.0" from @angular-devkit/build-angular@17.3.0
-npm ERR!       node_modules/@angular-devkit/build-angular
-npm ERR!         dev @angular-devkit/build-angular@"^17.0.8" from the root project
-npm ERR!       1 more (the root project)
-npm ERR!     3 more (@swimlane/ngx-charts, igniteui-angular, the root project)
-npm ERR!   peer @angular/core@"^17.0.0 || ^18.0.0" from @angular/cdk@17.3.0
-npm ERR!   node_modules/@angular/cdk
-npm ERR!     peer @angular/cdk@">=12.0.0" from @swimlane/ngx-charts@20.5.0
-npm ERR!     node_modules/@swimlane/ngx-charts
-npm ERR!       @swimlane/ngx-charts@"^20.5.0" from the root project
-npm ERR!     peer @angular/cdk@">=16.0.0" from ng2-charts@5.0.4
-npm ERR!     node_modules/ng2-charts
-npm ERR!       ng2-charts@"^5.0.4" from the root project
-npm ERR!     1 more (the root project)
-npm ERR!   16 more (@angular/compiler, @angular/forms, ...)
-npm ERR!
-npm ERR! Could not resolve dependency:
-npm ERR! peer @angular/core@"^7.2.0" from my-chart-library@6.0.1
-npm ERR! node_modules/my-chart-library
-npm ERR!   my-chart-library@"^6.0.1" from the root project
-npm ERR!
-npm ERR! Conflicting peer dependency: @angular/core@7.2.16
-npm ERR! node_modules/@angular/core
-npm ERR!   peer @angular/core@"^7.2.0" from my-chart-library@6.0.1
-npm ERR!   node_modules/my-chart-library
-npm ERR!     my-chart-library@"^6.0.1" from the root project
-npm ERR!
-npm ERR! Fix the upstream dependency conflict, or retry
-npm ERR! this command with --force or --legacy-peer-deps
-npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
-npm ERR!
-npm ERR!
-npm ERR! For a full report see:
-npm ERR! C:\Users\mts.user5\AppData\Local\npm-cache\_logs\2024-03-15T10_44_29_256Z-eresolve-report.txt
+ public barChartOptions: any = {
+   scaleShowVerticalLines: false,
+   responsive: true
+ };
+ public barChartLabels: string[] = ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+ public barChartType: Chart.ChartType = 'bar';
+ public barChartLegend = true;
 
-npm ERR! A complete log of this run can be found in: C:\Users\mts.user5\AppData\Local\npm-cache\_logs\2024-03-15T10_44_29_256Z-debug-0.log
+ public barChartData: any[] = [
+   { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+   { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+ ];
+
+ // events
+ public chartClicked(e: any): void {
+   // console.log(e);
+ }
+
+  /*public chartHovered(e: any): void {
+    // console.log(e);
+  }*/
+
+ public randomize(): void {
+   // Only Change 3 values
+   const data = [
+     Math.round(Math.random() * 100),
+     59,
+     80,
+     (Math.random() * 100),
+     56,
+     (Math.random() * 100),
+     40];
+   const clone = JSON.parse(JSON.stringify(this.barChartData));
+   clone[0].data = data;
+   this.barChartData = clone;
