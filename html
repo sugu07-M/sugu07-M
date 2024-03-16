@@ -1,28 +1,29 @@
-public barChartOptions: any = {
-  scaleShowVerticalLines: false,
-  responsive: true
-};
-public barChartLabels: string[] = ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
-public barChartType: Chart.ChartType = 'bar';
-public barChartLegend = true;
-
-public barChartData: any[] = [
-  { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-  { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-];
-
-
-<div class="chart-graph" >
-  <div style="text-align: center; font-weight: 550;">
-    <div>change Request Monthly Views</div>
-    &nbsp;
-    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-            [legend]="barChartLegend" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"
-            style="display: block;
-    box-sizing: border-box;
-    height: 224px;
-    width: 340px;
-">
-    </canvas>
-  </div>
+<div class="dount-chart">
+  <h6 style="text-align:center">change Request-Plant wise view</h6>
+  <canvas baseChart
+          [datasets]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"
+          style="height: 290px; width: 390px; box-sizing: border-box;">
+  </canvas>
 </div>
+
+
+<div class="status-chart">
+<ngx-charts-bar-horizontal-stacked
+  [view]="view"
+  [results]="multi"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  [showDataLabel]="showDataLabel"
+  [showGridLines]="false"
+  (select)="onSelect($event)" style="margin-left:2px" >
+  
+ 
+</ngx-charts-bar-horizontal-stacked></div>
