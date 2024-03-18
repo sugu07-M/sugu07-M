@@ -1,65 +1,25 @@
- updateChartData(): void {
-    const monthlyData = [];
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
-
-    // Loop through past 6 months including the current month
-    for (let i = 6; i >= 0; i--) {
-      const month = (currentMonth - i + 12) % 12; // Ensure it loops around to January after December
-      const year = currentYear - (i > currentMonth ? 1 : 0);
-
-      // Calculate total count for each month
-      const totalCount = this.getTotalCountForMonth(month, year);
-      monthlyData.push(totalCount);
-    }
-
-    // Update bar chart data
-    this.barChartData = [{ data: monthlyData, label: 'Total Requests' }];
-  }
-
-  // Method to calculate total count for a specific month and year
-  getTotalCountForMonth(month: number, year: number): number {
-    return this.changerequest.filter(item => {
-      const itemDate = new Date(item.crdate);
-      return itemDate.getMonth() === month && itemDate.getFullYear() === year;
-    }).length;
+this.http.get(apiUrls, requestBody).subscribe(
+  (response: any) => {
+    this.changerequest = response;
+    
+    
+    console.log(this.changerequest);
   }
 
 
-data() {
+  data() {
+  this.requestcount = this.changerequest.filter(item => item.crdate === 'crdate').length;
+}
 
-    this.requestcount = this.changerequest.filter(item => {
-      const itemDate = new Date(item.crdate);
-      return itemDate.getMonth() + 1 === month && itemDate.getFullYear() === year;
-    }).length;
-    }
- generateMonthLabels(): string[] {
-   const labels = [];
-   const currentDate = new Date();
-   const currentMonth = currentDate.getMonth();
-   const currentYear = currentDate.getFullYear();
+ public barChartOptions: any = {
+   scaleShowVerticalLines: false,
+   responsive: true
+ };
+ public barChartLabels: string[] = this.generateMonthLabels();
+ public barChartType: Chart.ChartType = 'bar';
+ public barChartLegend = true;
 
-   // Add the past 6 months
-   for (let i = 6; i > 0; i--) {
-     const month = (currentMonth - i + 12) % 12; // Ensure it loops around to January after December
-     const year = currentYear - (i > currentMonth ? 1 : 0);
-     labels.push(this.getMonthYearName(month, year));
-   }
-
-   // Add the current month
-   labels.push(this.getMonthYearName(currentMonth, currentYear));
-    if (labels.length > 6) {
-   labels.shift(); // Remove the first element (oldest month)
- }
-
-   return labels;
- }
- getMonthYearName(monthIndex: number, year: number): string {
-   const date = new Date(year, monthIndex, 1);
-   return date.toLocaleString('en-US', { month: 'short', year: 'numeric' });
- }
- public barChartData: any[] = this.data();
+ public barChartData: any = { data() };
 
  // events
  public chartClicked(e: any): void {
@@ -83,3 +43,10 @@ data() {
    const clone = JSON.parse(JSON.stringify(this.barChartData));
    clone[0].data = data;
    this.barChartData = clone;
+   /**
+    * (My guess), for Angular to recognize the change in the dataset
+    * it has to change the dataset variable directly,
+    * so one way around it, is to clone the data, change it and then
+    * assign it;
+    */
+ }
