@@ -1,18 +1,21 @@
 generateChartLabels(): string[] {
-  const today = new Date();
-  const currentMonth = today.getMonth() + 0; // JavaScript months are 0-indexed
-  const currentYear = today.getFullYear();
+  const today: Date = new Date();
+  let currentMonth: number = today.getMonth(); // JavaScript months are 0-indexed
+  let currentYear: number = today.getFullYear();
 
-  const labels = [];
-  for (let i =6 ; i >= 0; i--) {
-    const date = new Date(currentYear, currentMonth - i, 1);
-    const month = date.toLocaleString('default', { month: 'short' });
+  const labels: string[] = [];
+  for (let i: number = 6; i >= 0; i--) {
+    const date: Date = new Date(currentYear, currentMonth, 1);
+    const month: string = date.toLocaleString('default', { month: 'short' });
     labels.push(`${month} ${date.getFullYear()}`);
+    
+    // Update current month and year for the next iteration
+    if (currentMonth === 0) {
+      currentMonth = 11;
+      currentYear--;
+    } else {
+      currentMonth--;
+    }
   }
-  return labels;
-}
-
-// Function to update chart labels with current and past 6 months
-updateChartLabels() {
-  this.barChartLabels = this.generateChartLabels();
+  return labels.reverse(); // Reverse the array to maintain chronological order
 }
