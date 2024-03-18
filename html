@@ -18,7 +18,7 @@
   }
 
   
- filterChangeRequestsForLastSixMonths(): void {
+filterChangeRequestsForLastSixMonths(): void {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
@@ -54,9 +54,7 @@
     });
 
     // Update bar chart data
-    const clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = monthlyData.reverse(); // Reverse to display in chronological order
-    this.barChartData = clone;
+    this.barChartData = [{ data: monthlyData.reverse(), label: 'Change Requests' }]; // Reverse to display in chronological order
   }
 
    public barChartLabels: string[] = this.months.slice().reverse();
