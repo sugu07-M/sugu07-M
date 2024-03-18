@@ -33,3 +33,40 @@ public updateChartData(): void {
   // Update barChartData
   this.barChartData[0].data = data;
 }
+
+X [ERROR] TS2304: Cannot find name 'selectedYear'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:234:38:
+      234 │ ...crDate.getFullYear() === selectedYear && crDate.getMonth() ===...
+          ╵                             ~~~~~~~~~~~~
+
+
+X [ERROR] TS2304: Cannot find name 'selectedMonth'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:234:76:
+      234 │ ...llYear() === selectedYear && crDate.getMonth() === selectedMonth;
+          ╵                                                       ~~~~~~~~~~~~~
+
+
+X [ERROR] TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:242:6:
+      242 │       counts[key] = (counts[key] || 0) + 1;
+          ╵       ~~~~~~~~~~~
+
+
+X [ERROR] TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:242:21:
+      242 │       counts[key] = (counts[key] || 0) + 1;
+          ╵                      ~~~~~~~~~~~
+
+
+X [ERROR] TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:250:13:
+      250 │       return counts[key] || 0; // If no data found for this month...
+          ╵              ~~~~~~~~~~~
