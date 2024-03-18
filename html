@@ -1,33 +1,23 @@
-updateChartData() {
-    // Clear previous data
-    this.barChartData = [];
-    this.barChartLabels = [];
+getchangerequest() {
+  const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
+  const requestBody = {}
 
-    // Filter data based on creation date and generate new chart data and labels
-    const filteredData = this.changerequest.filter((item: any) => {
-      const creationDate = new Date(item.crdate);
-      const currentDate = new Date();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
 
-      return creationDate.getMonth() === currentDate.getMonth() && creationDate.getFullYear() === currentDate.getFullYear();
-    });
-
-    // Count change requests for each month
-    const counts: { [key: string]: number } = {};
-    filteredData.forEach((item: any) => {
-      const monthYear = this.getMonthYear(item.crdate);
-      counts[monthYear] = (counts[monthYear] || 0) + 1;
-    });
-
-    // Generate chart labels and data
-    const currentDate = new Date();
-    for (let i = 0; i < 6; i++) {
-      const monthYear = this.getMonthYear(currentDate);
-      this.barChartLabels.unshift(monthYear);
-      this.barChartData.unshift({ data: [counts[monthYear] || 0], label: monthYear });
-      currentDate.setMonth(currentDate.getMonth() - 1);
+  this.http.get(apiUrls, requestBody).subscribe(
+    (response: any) => {
+      this.changerequest = response;
+      this.countStatus();
+      
+      
+      console.log(this.changerequest);
+    },
+    (error) => {
+      console.error("Post failed", error);
     }
-  }
-getMonthYear(date: Date): string {
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    return monthNames[date.getMonth()] + ' ' + date.getFullYear();
-  }
+  );
+}
