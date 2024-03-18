@@ -2,18 +2,21 @@ getbarchat: any;
 
 barchartdata() {
   // Initialize an object to store counts for each month
-  const monthCounts = {};
+  const monthCounts: { [month: string]: number } = {};
 
   // Loop through each item in changerequest
   this.changerequest.forEach(item => {
-    // Extract the month part from the date string
-    const month = item.crdate.slice(5, 7); // Extracting characters from index 5 to 6
-    
-    // Increment the count for the corresponding month
-    if (monthCounts[month]) {
-      monthCounts[month]++;
-    } else {
-      monthCounts[month] = 1;
+    // Perform a null check for item and crdate property
+    if (item && item.crdate) {
+      // Extract the month part from the date string
+      const month = item.crdate.slice(5, 7); // Extracting characters from index 5 to 6
+      
+      // Increment the count for the corresponding month
+      if (monthCounts[month]) {
+        monthCounts[month]++;
+      } else {
+        monthCounts[month] = 1;
+      }
     }
   });
 
