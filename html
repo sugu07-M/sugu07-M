@@ -25,3 +25,60 @@
 chartdata() {
   this.requestcount = this.changerequest.filter(item => item.crdate === 'crdate').length; 
 }
+
+
+
+ generateMonthLabels(): string[] {
+    const labels: string[] = [];
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    // Add the past 6 months
+    for (let i = 6; i > 0; i--) {
+      const month = (currentMonth - i + 12) % 12; // Ensure it loops around to January after December
+      const year = currentYear - (i > currentMonth ? 1 : 0);
+      labels.push(`${year}-${(month + 1).toString().padStart(2, '0')}`); // Pad month with leading zero
+    }
+
+    // Add the current month
+    labels.push(`${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}`); // Pad month with leading zero
+
+    return labels;
+  }
+  
+  chartdata() {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    // Initialize an object to store the count of change requests for each month
+    const monthlyCounts: { [key: string]: number } = {};
+
+    // Iterate through change requests to calculate counts for each month
+    this.changerequest.forEach(item => {
+      const crDate = new Date(item.crdate);
+      const crMonth = crDate.getMonth();
+      const crYear = crDate.getFullYear();
+
+      // Check if the change request falls within the past 6 months including the current month
+      const isWithinRange = (crYear === currentYear && crMonth >= currentMonth - 6 && crMonth <= currentMonth) ||
+                            (crYear === currentYear - 1 && crMonth >= currentMonth + 6);
+
+      if (isWithinRange) {
+        const monthYearKey = `${crYear}-${crMonth}`; // Using year and month as a key
+        monthlyCounts[monthYearKey] = (monthlyCounts[monthYearKey] || 0) + 1;
+      }
+    });
+
+    // Create an array of counts for the past 6 months and the current month
+    const labels = this.generateMonthLabels();
+    const data = labels.map(label => {
+      const [month, year] = label.split('-');
+      const count = monthlyCounts[`${year}-${month}`] || 0;
+      return count;
+    });
+
+    // Now 'data' contains the count of change requests for each month in the past 6 months and the current month
+    console.log(data);
+  }
