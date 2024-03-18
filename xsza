@@ -19,3 +19,9 @@ generateChartLabels(): string[] {
   }
   return labels.reverse(); // Reverse the array to maintain chronological order
 }
+
+
+select count(ITCRID) as IDNum, datepart(mm,crdate)as crmonth  from IT.ChangeRequest  
+where Status!='Completed' and
+datepart(mm,crdate) between datepart(mm,getdate())-6 and datepart(mm,getdate())
+group by datepart(mm,crdate) order by crmonth desc
