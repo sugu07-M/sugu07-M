@@ -1,32 +1,30 @@
-public updateChartData(): void {
-  // Filter changerequest based on month and year
-  const filteredData = this.changerequest.filter((item: any) => {
-    const crDate = new Date(item.crdate);
-    return crDate.getFullYear() === selectedYear && crDate.getMonth() === selectedMonth;
-  });
+generateMonthLabels(): string[] {
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1; // Adding 1 because getMonth() returns 0-indexed months (0 for January)
+  const currentYear = currentDate.getFullYear();
 
-  // Count the total number of changerequest for each month
-  const counts = {};
-  filteredData.forEach((item: any) => {
-    const crDate = new Date(item.crdate);
-    const key = `${crDate.getMonth() + 1}-${crDate.getFullYear()}`; // Month-Year format
-    counts[key] = (counts[key] || 0) + 1;
-  });
+  // Calculate 6 months ago
+  const sixMonthsAgo = new Date(currentDate);
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+  const sixMonthsAgoMonth = sixMonthsAgo.getMonth() + 1;
+  const sixMonthsAgoYear = sixMonthsAgo.getFullYear();
 
-  // Generate data for bar chart
-  const data = this.barChartLabels.map((label: string) => {
-    const key = label.split('-').reverse().join('-'); // Reversing the label to match with counts
-    return counts[key] || 0; // If no data found for this month-year, default to 0
-  });
+  // Calculate next month
+  const nextMonth = new Date(currentDate);
+  nextMonth.setMonth(nextMonth.getMonth() + 1);
+  const nextMonthMonth = nextMonth.getMonth() + 1;
+  const nextMonthYear = nextMonth.getFullYear();
 
-  // Update barChartData
-  const clone = JSON.parse(JSON.stringify(this.barChartData));
-  clone[0].data = data;
-  this.barChartData = clone;
+  // Create labels array
+  const labels: string[] = [];
+  
+  // Push labels for the current month, 6 months ago, and next month
+  labels.push(`${currentYear}-${currentMonth}`);
+  labels.push(`${sixMonthsAgoYear}-${sixMonthsAgoMonth}`);
+  labels.push(`${nextMonthYear}-${nextMonthMonth}`);
+
+  return labels;
 }
-
-
-
 
 this.http.get(apiUrls, requestBody).subscribe(
   (response: any) => {
