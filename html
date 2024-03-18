@@ -1,4 +1,9 @@
- generateMonthLabels(): string[] {
+ if (labels.length > 6) {
+    labels.shift(); // Remove the first element (oldest month)
+  }
+
+
+generateMonthLabels(): string[] {
    const labels = [];
    const currentDate = new Date();
    const currentMonth = currentDate.getMonth();
