@@ -1,29 +1,27 @@
-<div class="dount-chart">
-  <h6 style="text-align:center">change Request-Plant wise view</h6>
-  <canvas baseChart
-          [datasets]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"
-          style="height: 290px; width: 390px; box-sizing: border-box;">
-  </canvas>
-</div>
+ generateMonthLabels(): string[] {
+   const labels = [];
+   const currentDate = new Date();
+   const currentMonth = currentDate.getMonth();
+   const currentYear = currentDate.getFullYear();
+
+   // Add the past 6 months
+   for (let i = 6; i > 0; i--) {
+     const month = (currentMonth - i + 12) % 12; // Ensure it loops around to January after December
+     const year = currentYear - (i > currentMonth ? 1 : 0);
+     labels.push(this.getMonthYearName(month, year));
+   }
+
+   // Add the current month
+   labels.push(this.getMonthYearName(currentMonth, currentYear));
+
+   return labels;
+ }
+ getMonthYearName(monthIndex: number, year: number): string {
+   const date = new Date(year, monthIndex, 1);
+   return date.toLocaleString('en-US', { month: 'short', year: 'numeric' });
+ }
 
 
-<div class="status-chart">
-<ngx-charts-bar-horizontal-stacked
-  [view]="view"
-  [results]="multi"
-  [gradient]="gradient"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
-  [showDataLabel]="showDataLabel"
-  [showGridLines]="false"
-  (select)="onSelect($event)" style="margin-left:2px" >
-  
- 
-</ngx-charts-bar-horizontal-stacked></div>
+chartdata() {
+  this.requestcount = this.changerequest.filter(item => item.crdate === 'crdate').length; 
+}
