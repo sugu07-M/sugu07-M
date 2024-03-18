@@ -20,7 +20,18 @@ generateChartLabels(): string[] {
   return labels.reverse(); // Reverse the array to maintain chronological order
 }
 
-
+SELECT 
+    COUNT(CASE WHEN Status = 'Completed' THEN ITCRID END) AS CompletedIDNum,
+    COUNT(CASE WHEN Status != 'Completed' THEN ITCRID END) AS NonCompletedIDNum,
+    DATEPART(MM, crdate) AS crmonth  
+FROM 
+    IT.ChangeRequest  
+WHERE 
+    DATEPART(MM, crdate) BETWEEN DATEPART(MM, GETDATE()) - 6 AND DATEPART(MM, GETDATE())
+GROUP BY 
+    DATEPART(MM, crdate) 
+ORDER BY 
+    crmonth DESC;
 select count(ITCRID) as IDNum, datepart(mm,crdate)as crmonth  from IT.ChangeRequest  
 where Status!='Completed' and
 datepart(mm,crdate) between datepart(mm,getdate())-6 and datepart(mm,getdate())
