@@ -6,3 +6,25 @@
     }
 
  public barChartLabels: string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+public barChartLabels: string[] = this.generateChartLabels(); // Initialize with current and past 6 months
+
+  constructor() {}
+
+  generateChartLabels(): string[] {
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1; // JavaScript months are 0-indexed
+    const currentYear = today.getFullYear();
+
+    const labels = [];
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(currentYear, currentMonth - i, 1);
+      const month = date.toLocaleString('default', { month: 'short' });
+      labels.push(`${month} ${date.getFullYear()}`);
+    }
+    return labels;
+  }
+
+  // Function to update chart labels with current and past 6 months
+  updateChartLabels() {
+    this.barChartLabels = this.generateChartLabels();
+  }
