@@ -4,23 +4,38 @@
 
   
   
-  filterChangeRequestsForLastSixMonths(): void {
-    const monthlyData = Array(6).fill(0); // Initialize an array to store count of change requests for each month
-    const currentMonth = new Date().getMonth();
-    const currentYear = new Date().getFullYear();
+ filterChangeRequestsForLastSixMonths(): void {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-    // Loop through change requests to count them for each month
+    // Adjust month index to exclude April
+    const adjustedMonthIndex = (currentMonth + 9) % 12; // Adjusted for April to be considered as the 4th month
+
+    // Generate labels for the past 6 months
+    const labels = [];
+    for (let i = 5; i >= 0; i--) {
+      const monthIndex = (adjustedMonthIndex - i + 12) % 12; // Handling wraparound for previous year
+      const year = currentYear - Math.floor((adjustedMonthIndex - i) / 12);
+      labels.push(`${months[monthIndex]} ${year}`);
+    }
+
+    // Update bar chart labels
+    this.barChartLabels = labels;
+
+    // Count change requests for the past 6 months
+    const monthlyData = Array(6).fill(0);
     this.changerequest.forEach((change: any) => {
-      const date = new Date(change.date); // Assuming there's a 'date' field in your change request object
+      const date = new Date(change.date);
       const monthIndex = date.getMonth();
       const year = date.getFullYear();
 
-      // Check if the change request falls within the last 6 months and not in April
       if (
         (currentYear === year && currentMonth - monthIndex < 6 && monthIndex !== 3) || // Check within the current year
-        (currentYear - year === 1 && currentMonth < 6 && monthIndex >= 6 && monthIndex !== 3) // Check for last year from July to December
+        (currentYear - year === 1 && currentMonth < 6 && monthIndex >= 6 && monthIndex !== 3)
       ) {
-        monthlyData[currentMonth - monthIndex]++;
+        monthlyData[(currentMonth - monthIndex + 6) % 6]++; // Adjust index to match the label order
       }
     });
 
