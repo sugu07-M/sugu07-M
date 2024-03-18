@@ -1,68 +1,25 @@
-getchangerequest() {
-  const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
-  const requestBody = {}
+ apiurl = 'your_api_url'; // Update this with your API URL
+  changerequest: any;
+  months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
+  
+  filterChangeRequestsByMonth(): void {
+    const monthlyData = Array(12).fill(0); // Initialize an array to store count of change requests for each month
 
-  this.http.get(apiUrls, requestBody).subscribe(
-    (response: any) => {
-      this.changerequest = response;
-      this.countStatus();
-      
-      
-      console.log(this.changerequest);
-    },
-    (error) => {
-      console.error("Post failed", error);
-    }
-  );
-}
+    // Loop through change requests to count them for each month
+    this.changerequest.forEach((change: any) => {
+      const date = new Date(change.date); // Assuming there's a 'date' field in your change request object
+      const monthIndex = date.getMonth();
+      monthlyData[monthIndex]++;
+    });
 
+    // Update bar chart data
+    const clone = JSON.parse(JSON.stringify(this.barChartData));
+    clone[0].data = monthlyData;
+    this.barChartData = clone;
+  }
 
-public barChartOptions: any = {
-  scaleShowVerticalLines: false,
-  responsive: true
-};
-public barChartLabels: string[] = this.generateChartLabels();
-public barChartType: Chart.ChartType = 'bar';
-public barChartLegend = true;
-public barChartData: any[] = [
-  { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-  { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-]; 
-
-
-
-
-// events
-public chartClicked(e: any): void {
-  // console.log(e);
-}
-
- /*public chartHovered(e: any): void {
-   // console.log(e);
- }*/
-public randomize(): void {
-  // Only Change 3 values
-  const data = [
-    Math.round(Math.random() * 100),
-    59,
-    80,
-    (Math.random() * 100),
-    56,
-    (Math.random() * 100),
-    40];
-  const clone = JSON.parse(JSON.stringify(this.barChartData));
-  clone[0].data = data;
-  this.barChartData = clone;
-  /**
-   * (My guess), for Angular to recognize the change in the dataset
-   * it has to change the dataset variable directly,
-   * so one way around it, is to clone the data, change it and then
-   * assign it;
-   */
-}
+   public barChartLabels: string[] = this.months;
+   public barChartData: any[] = [
+    { data: [], label: 'Change Requests' } // Data will be populated dynamically
+  ];
