@@ -1,0 +1,37 @@
+public updateChartData(): void {
+  // Filter changerequest based on month and year
+  const filteredData = this.changerequest.filter((item: any) => {
+    const crDate = new Date(item.crdate);
+    return crDate.getFullYear() === selectedYear && crDate.getMonth() === selectedMonth;
+  });
+
+  // Count the total number of changerequest for each month
+  const counts = {};
+  filteredData.forEach((item: any) => {
+    const crDate = new Date(item.crdate);
+    const key = `${crDate.getMonth() + 1}-${crDate.getFullYear()}`; // Month-Year format
+    counts[key] = (counts[key] || 0) + 1;
+  });
+
+
+
+  // Generate data for bar chart
+  const data = this.barChartLabels.map((label: string) => {
+    const key = label.split('-').reverse().join('-'); // Reversing the label to match with counts
+    return counts[key] || 0; // If no data found for this month-year, default to 0
+  });
+
+  // Update barChartData
+  const clone = JSON.parse(JSON.stringify(this.barChartData));
+  clone[0].data = data;
+  this.barChartData = clone;
+
+  /**
+   * (My guess), for Angular to recognize the change in the dataset
+   * it has to change the dataset variable directly,
+   * so one way around it, is to clone the data, change it and then
+   * assign it;
+   */
+}
+
+public barChartData: any[] = { data:[this.updateChartData()],label:'changerequest'
