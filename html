@@ -3,23 +3,34 @@
   months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   
-  filterChangeRequestsByMonth(): void {
-    const monthlyData = Array(12).fill(0); // Initialize an array to store count of change requests for each month
+  
+  filterChangeRequestsForLastSixMonths(): void {
+    const monthlyData = Array(6).fill(0); // Initialize an array to store count of change requests for each month
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
 
     // Loop through change requests to count them for each month
     this.changerequest.forEach((change: any) => {
       const date = new Date(change.date); // Assuming there's a 'date' field in your change request object
       const monthIndex = date.getMonth();
-      monthlyData[monthIndex]++;
+      const year = date.getFullYear();
+
+      // Check if the change request falls within the last 6 months and not in April
+      if (
+        (currentYear === year && currentMonth - monthIndex < 6 && monthIndex !== 3) || // Check within the current year
+        (currentYear - year === 1 && currentMonth < 6 && monthIndex >= 6 && monthIndex !== 3) // Check for last year from July to December
+      ) {
+        monthlyData[currentMonth - monthIndex]++;
+      }
     });
 
     // Update bar chart data
     const clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = monthlyData;
+    clone[0].data = monthlyData.reverse(); // Reverse to display in chronological order
     this.barChartData = clone;
   }
 
-   public barChartLabels: string[] = this.months;
+   public barChartLabels: string[] = this.months.slice().reverse();
    public barChartData: any[] = [
     { data: [], label: 'Change Requests' } // Data will be populated dynamically
   ];
