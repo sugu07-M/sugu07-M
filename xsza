@@ -1,3 +1,14 @@
+public barChartData: any[] = [{ data: [], label: 'changerequest' }];
+
+// Call updateChartData whenever your changerequest data changes
+// For example, after receiving the HTTP response
+this.http.get(apiUrls, requestBody).subscribe(
+  (response: any) => {
+    this.changerequest = response;
+    this.updateChartData();
+  }
+);
+
 public updateChartData(): void {
   // Filter changerequest based on month and year
   const filteredData = this.changerequest.filter((item: any) => {
@@ -13,8 +24,6 @@ public updateChartData(): void {
     counts[key] = (counts[key] || 0) + 1;
   });
 
-
-
   // Generate data for bar chart
   const data = this.barChartLabels.map((label: string) => {
     const key = label.split('-').reverse().join('-'); // Reversing the label to match with counts
@@ -22,16 +31,5 @@ public updateChartData(): void {
   });
 
   // Update barChartData
-  const clone = JSON.parse(JSON.stringify(this.barChartData));
-  clone[0].data = data;
-  this.barChartData = clone;
-
-  /**
-   * (My guess), for Angular to recognize the change in the dataset
-   * it has to change the dataset variable directly,
-   * so one way around it, is to clone the data, change it and then
-   * assign it;
-   */
+  this.barChartData[0].data = data;
 }
-
-public barChartData: any[] = { data:[this.updateChartData()],label:'changerequest'
