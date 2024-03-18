@@ -1,25 +1,15 @@
-getbarchat: any;
+getchangerequest() {
+  const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
+  const requestBody = {}
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
 
-barchartdata() {
-  // Initialize an object to store counts for each month
-  const monthCounts: { [month: string]: number } = {};
-
-  // Loop through each item in changerequest
-  this.changerequest.forEach(item => {
-    // Perform a null check for item and crdate property
-    if (item && item.crdate) {
-      // Extract the month part from the date string
-      const month = item.crdate.slice(5, 7); // Extracting characters from index 5 to 6
-      
-      // Increment the count for the corresponding month
-      if (monthCounts[month]) {
-        monthCounts[month]++;
-      } else {
-        monthCounts[month] = 1;
-      }
+  this.http.get(apiUrls, requestBody).subscribe(
+    (response: any) => {
+      this.changerequest = response;
+      this.countStatus();
+      console.log(this.changerequest);
     }
-  });
-
-  // Assign the month counts to getbarchat
-  this.getbarchat = monthCounts;
-}
