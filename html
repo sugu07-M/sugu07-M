@@ -15,10 +15,16 @@
     }
 
     // Update bar chart data
-    this.barChartData = [{ data: monthlyData, label: 'Monthly Total' }];
+    this.barChartData = [{ data: monthlyData, label: 'Total Requests' }];
   }
 
-
+  // Method to calculate total count for a specific month and year
+  getTotalCountForMonth(month: number, year: number): number {
+    return this.changerequest.filter(item => {
+      const itemDate = new Date(item.crdate);
+      return itemDate.getMonth() === month && itemDate.getFullYear() === year;
+    }).length;
+  }
 
 
 data() {
