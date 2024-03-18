@@ -2,7 +2,21 @@
   changerequest: any;
   months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  
+   generateChartLabels(): string[] {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    const labels = [];
+    for (let i = 5; i >= 0; i--) {
+      const monthIndex = (currentMonth - i + 12) % 12;
+      const year = currentYear - Math.floor((currentMonth - i) / 12);
+      labels.push(`${months[monthIndex]} ${year}`);
+    }
+    return labels;
+  }
+
   
  filterChangeRequestsForLastSixMonths(): void {
     const currentDate = new Date();
