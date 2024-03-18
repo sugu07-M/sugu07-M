@@ -1,25 +1,4 @@
-generateChartLabels(): string[] {
-  const today: Date = new Date();
-  let currentMonth: number = today.getMonth(); // JavaScript months are 0-indexed
-  let currentYear: number = today.getFullYear();
-
-  const labels: string[] = [];
-  for (let i: number = 6; i >= 0; i--) {
-    const date: Date = new Date(currentYear, currentMonth, 1);
-    const month: string = date.toLocaleString('default', { month: 'short' });
-    labels.push(`${month} ${date.getFullYear()}`);
-    
-    // Update current month and year for the next iteration
-    if (currentMonth === 0) {
-      currentMonth = 11;
-      currentYear--;
-    } else {
-      currentMonth--;
-    }
-  }
-  return labels.reverse(); // Reverse the array to maintain chronological order
-}
-
+CREATE VIEW ChangeRequestSummary AS
 SELECT 
     COUNT(CASE WHEN Status = 'Completed' THEN ITCRID END) AS CompletedIDNum,
     COUNT(CASE WHEN Status != 'Completed' THEN ITCRID END) AS NonCompletedIDNum,
@@ -32,7 +11,3 @@ GROUP BY
     DATEPART(MM, crdate) 
 ORDER BY 
     crmonth DESC;
-select count(ITCRID) as IDNum, datepart(mm,crdate)as crmonth  from IT.ChangeRequest  
-where Status!='Completed' and
-datepart(mm,crdate) between datepart(mm,getdate())-6 and datepart(mm,getdate())
-group by datepart(mm,crdate) order by crmonth desc
