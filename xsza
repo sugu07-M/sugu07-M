@@ -1,4 +1,8 @@
- getchangerequest() {
+getchangerequest(crdateFilter: string) {
+   const apiUrls = `${this.apiurl}/ViewChange/GetAllchanges?crdate=${crdateFilter}`;
+
+
+getchangerequest() {
    const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
    const requestBody = {}
 
