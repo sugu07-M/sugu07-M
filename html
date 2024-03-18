@@ -60,4 +60,17 @@ public randomize(): void {
      
      console.log(this.changerequest);
    }
+ processData(response: any): any[] {
+    // Process your API response data here and format it accordingly
+    // For example, if your API response has an array of objects with 'data' and 'label' properties
+    // you can map it to the format required by Chart.js
+    // Ensure you return an array of objects in the format [{ data: [], label: '' }]
+    // Example:
+    // return response.map((item: any) => ({ data: item.data, label: item.label }));
 
+    // Example: Assuming your API response directly contains the data and labels
+    return [
+      { data: response.dataSet1, label: 'Series A' },
+      { data: response.dataSet2, label: 'Series B' }
+    ];
+  }
