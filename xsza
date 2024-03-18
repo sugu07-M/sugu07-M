@@ -1,5 +1,7 @@
 getchangerequest(crdateFilter: string) {
    const apiUrls = `${this.apiurl}/ViewChange/GetAllchanges?crdate=${crdateFilter}`;
+ ngOnInit(): void {
+   this.getchangerequest();
 
 
 getchangerequest() {
