@@ -1,24 +1,16 @@
 CREATE VIEW [IT].[vw_BarchartValue] AS
-WITH AggregatedData AS (
-    SELECT 
-        COUNT(CASE WHEN Status = 'Completed' THEN ITCRID END) AS CompletedIDNum,
-        COUNT(CASE WHEN Status != 'Completed' THEN ITCRID END) AS NonCompletedIDNum,
-        DATEPART(MM, crdate) AS crmonth  
-    FROM 
-        IT.ChangeRequest  
-    WHERE 
-        DATEPART(MM, crdate) BETWEEN DATEPART(MM, GETDATE()) - 6 AND DATEPART(MM, GETDATE())
-    GROUP BY 
-        DATEPART(MM, crdate) 
-)
 SELECT 
-    CompletedIDNum,
-    NonCompletedIDNum,
-    crmonth
+    COUNT(CASE WHEN Status = 'Completed' THEN ITCRID END) AS CompletedIDNum,
+    COUNT(CASE WHEN Status != 'Completed' THEN ITCRID END) AS NonCompletedIDNum,
+    DATEPART(MM, crdate) AS crmonth  
 FROM 
-    AggregatedData
-ORDER BY 
-    crmonth DESC;
+    IT.ChangeRequest  
+WHERE 
+    DATEPART(MM, crdate) BETWEEN DATEPART(MM, GETDATE()) - 6 AND DATEPART(MM, GETDATE())
+GROUP BY 
+    DATEPART(MM, crdate);
 
-Msg 1033, Level 15, State 1, Procedure vw_BarchartValue, Line 21 [Batch Start Line 0]
-The ORDER BY clause is invalid in views, inline functions, derived tables, subqueries, and common table expressions, unless TOP, OFFSET or FOR XML is a
+
+SELECT *
+FROM [IT].[vw_BarchartValue]
+ORDER BY crmonth DESC;
