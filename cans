@@ -13,3 +13,4 @@
   </div>
 </div>
 NG1: Property 'showMiniForm' does not exist on type 'SupportTeamComponent'. Did you mean 'showminform'?
+ showMiniForm: boolean = false;
