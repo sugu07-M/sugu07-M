@@ -1,20 +1,16 @@
 <div class="col">
-  <input type="radio" (change)="showMiniForm = true" required>
+  <label>Approve</label>
 </div>
-<div class="col system_landscape">Is Approve</div>
-<button class="btn btn-primary" (click)="toggleMiniForm()">More</button>
-toggleMiniForm() {
-    this.showMiniForm = !this.showMiniForm;
-  }
-
-<div *ngIf="showMiniForm" class="mini-form">
-  <!-- Mini Form content goes here, for example: -->
-  <div class="form-group">
-    <label for="dropdown">Dropdown:</label>
-    <select class="form-control" id="dropdown">
-      <!-- Dropdown options -->
-    </select>
-  </div>
+<div class="col ap_input">
+  <input type="text" placeholder="Level1" readonly />
 </div>
-NG1: Property 'showMiniForm' does not exist on type 'SupportTeamComponent'. Did you mean 'showminform'?
- showMiniForm: boolean = false;
+<div class="col">
+  <label for="dropdown"></label>
+  <select style="margin-top:-14%" class="form-control" id="dropdown">
+    <option>Change Request</option>
+    <option>Release</option>
+    <option>Closure</option>
+  </select>
+  <br>
+  <button style="margin-left:162%"class="btn btn-primary" (click)="toggleMiniForm()">More</button>
+</div>
