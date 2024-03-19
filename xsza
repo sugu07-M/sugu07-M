@@ -19,3 +19,6 @@ FROM
     AggregatedData
 ORDER BY 
     crmonth DESC;
+
+Msg 1033, Level 15, State 1, Procedure vw_BarchartValue, Line 21 [Batch Start Line 0]
+The ORDER BY clause is invalid in views, inline functions, derived tables, subqueries, and common table expressions, unless TOP, OFFSET or FOR XML is a
