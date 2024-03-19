@@ -1,2 +1,14 @@
- <div class="col"><input type="radio" required></div>
- <div class="col system_landscape">Is Approve</div>
+<div class="col">
+  <input type="radio" (change)="showMiniForm = true" required>
+</div>
+<div class="col system_landscape">Is Approve</div>
+
+<div *ngIf="showMiniForm" class="mini-form">
+  <!-- Mini Form content goes here, for example: -->
+  <div class="form-group">
+    <label for="dropdown">Dropdown:</label>
+    <select class="form-control" id="dropdown">
+      <!-- Dropdown options -->
+    </select>
+  </div>
+</div>
