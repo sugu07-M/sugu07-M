@@ -23,7 +23,7 @@ WHERE
     MONTH(crdate) BETWEEN MONTH(GETDATE()) - 6 AND MONTH(GETDATE())
 GROUP BY 
     MONTH(crdate);
+
 SELECT * FROM ChangeRequestSummary ORDER BY crmonth DESC;
-Msg 2714, Level 16, State 3, Procedure ChangeRequestSummary, Line 1 [Batch Start Line 0]
-There is already an object named 'ChangeRequestSummary' in the database.
+
 
