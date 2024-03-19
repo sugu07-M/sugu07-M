@@ -12,6 +12,7 @@ ORDER BY
     crmonth DESC
 
 
+CREATE VIEW ChangeRequestSummary AS
 SELECT 
     COUNT(CASE WHEN Status = 'Completed' THEN ITCRID END) AS CompletedIDNum,
     COUNT(CASE WHEN Status != 'Completed' THEN ITCRID END) AS NonCompletedIDNum,
@@ -23,4 +24,6 @@ WHERE
 GROUP BY 
     MONTH(crdate) 
 ORDER BY 
-    crmonth DESC
+    crmonth DESC;
+
+SELECT * FROM ChangeRequestSummary;
