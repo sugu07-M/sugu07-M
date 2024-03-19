@@ -1,4 +1,3 @@
-CREATE VIEW [IT].[vw_BarchartValue] AS
 SELECT 
     COUNT(CASE WHEN Status = 'Completed' THEN ITCRID END) AS CompletedIDNum,
     COUNT(CASE WHEN Status != 'Completed' THEN ITCRID END) AS NonCompletedIDNum,
@@ -8,9 +7,6 @@ FROM
 WHERE 
     DATEPART(MM, crdate) BETWEEN DATEPART(MM, GETDATE()) - 6 AND DATEPART(MM, GETDATE())
 GROUP BY 
-    DATEPART(MM, crdate);
-
-
-SELECT *
-FROM [IT].[vw_BarchartValue]
-ORDER BY crmonth DESC;
+    DATEPART(MM, crdate) 
+ORDER BY 
+    crmonth DESC
