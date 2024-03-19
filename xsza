@@ -1,79 +1,37 @@
-<div style="display: block;">
-  <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [legend]="barChartLegend"
-          [chartType]="barChartType"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
-</div>
+public barChartLabels: string[] = [];
 
+public barChartData: any[] = [
+  { data: this.completed, label: 'Open' },
+  { data: this.noncompleted, label: 'Completed' }
+]; 
 
-
-chartdata: any;
-Getbarchart() {
-  const apiUrls = this.apiurl + '/Barchart/Getbarchart';
-  
-
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
-
-  this.http.get(apiUrls).subscribe(
-    (response: any) => {
-      this.chartdata = response;
-      const completedData = response.completed;
-        const nonCompletedData = response.noncompleted;
-        const monthData = response.month;
-
-        // Update chart data
-        this.barChartData = [
-          { data: completedData, label: 'Completed' },
-          { data: nonCompletedData, label: 'Non Completed' }
-        ];
-
-        // Generate chart labels using month data
-        this.barChartLabels = this.generateChartLabels(monthData);
-      console.log(this.changerequest);
-    },
-    (error) => {
-      console.error("Post failed", error);
-    }
-  );
-}
- public barChartLabels: string[] = this.generateChartLabels();
- public barChartType: Chart.ChartType = 'bar';
- public barChartLegend = true;
- public barChartData: any[] = [
-   { data: [65, 59, 80, 81, 56, 55, 40], label: 'Open' },
-   { data: [28, 48, 40, 19, 86, 27, 90], label: 'Completed' }
- ]; 
-
-
-
- // events
- public chartClicked(e: any): void {
-   // console.log(e);
- }
-
-  /*public chartHovered(e: any): void {
-    // console.log(e);
-  }*/
- public randomize(): void {
-   // Only Change 3 values
-   const data = [
-     Math.round(Math.random() * 100),
-     59,
-     80,
-     (Math.random() * 100),
-     56,
-     (Math.random() * 100),
-     40];
-   const clone = JSON.parse(JSON.stringify(this.barChartData));
-   clone[0].data = data;
-   this.barChartData = clone;
+  chartdata: any;
+ completed: any;
+ noncompleted: any;
+ month: any;
+ Getbarchart() {
+   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
    
+
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
+
+   this.http.get(apiUrls).subscribe(
+     (response: any) => {
+       this.chartdata = response;
+
+       this.completed = response.completedIdnum;
+       this.noncompleted = response.nonCompletedIdnum;
+       this.month = response.crmonth;
+
+      
+       console.log(this.chartdata);
+     },
+     (error) => {
+       console.error("Post failed", error);
+     }
+   );
  }
