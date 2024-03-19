@@ -1,20 +1,23 @@
-<div *ngIf="showMiniForm" class="mini-form">
-  <div class="field-line">
-    <div class="row mt-2">
-     
-      <div class="col">
-        <label>Approve</label>
-      </div>
-      <div class="col ap_input">
-        <input type="text" placeholder="Level1" readonly />
-      </div>
-      <div class="col">
-        <label for="dropdown"></label>
-        <select style="margin-top:-14%" class="form-control" id="dropdown">
-          <option>Change Request</option>
-          <option>Release</option>
-          <option>Closure</option>
-        </select>
-        <br>
-        <button style="margin-left:162%"class="btn btn-primary" (click)="toggleMiniForm()">More</button>
-      </div>
+ <div *ngIf="showMiniForm" class="mini-form">
+   <div class="field-line">
+     <div class="row mt-2">
+       <div class="col">
+         <label>Approve</label>
+       </div>
+       <div class="col ap_input">
+         <input type="text" placeholder="Level1" readonly />
+       </div>
+       <div class="col">
+         <label for="dropdown"></label>
+         <select style="margin-top:-14%" class="form-control" id="dropdown">
+           <option>Change Request</option>
+           <option>Release</option>
+           <option>Closure</option>
+         </select>
+       </div>
+     </div>
+     <div>
+       <button style="width:16%;" class="btn btn-primary" (click)="toggleMiniForm()">Add More</button>
+     </div>
+   </div>
+ </div>
