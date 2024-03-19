@@ -1,63 +1,21 @@
- apiurl = 'your_api_url'; // Update this with your API URL
-  changerequest: any;
-  months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+generateChartLabels(): string[] {
+  const today: Date = new Date();
+  let currentMonth: number = today.getMonth();
+  let currentYear: number = today.getFullYear();
 
-   generateChartLabels(): string[] {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth();
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const labels: string[] = [];
+  for (let i: number = 6; i >= 0; i--) {
+    const date: Date = new Date(currentYear, currentMonth, 1);
+    const month: string = date.toLocaleString('default', { month: 'short' });
+    labels.push(`${month} ${date.getFullYear()}`);
 
-    const labels = [];
-    for (let i = 5; i >= 0; i--) {
-      const monthIndex = (currentMonth - i + 12) % 12;
-      const year = currentYear - Math.floor((currentMonth - i) / 12);
-      labels.push(`${months[monthIndex]} ${year}`);
+    // Update current month and year for the next iteration
+    if (currentMonth === 0) {
+      currentMonth = 11;
+      currentYear--;
+    } else {
+      currentMonth--;
     }
-    return labels;
   }
-
-  
-filterChangeRequestsForLastSixMonths(): void {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth();
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-    // Adjust month index to exclude April
-    const adjustedMonthIndex = (currentMonth + 9) % 12; // Adjusted for April to be considered as the 4th month
-
-    // Generate labels for the past 6 months
-    const labels = [];
-    for (let i = 5; i >= 0; i--) {
-      const monthIndex = (adjustedMonthIndex - i + 12) % 12; // Handling wraparound for previous year
-      const year = currentYear - Math.floor((adjustedMonthIndex - i) / 12);
-      labels.push(`${months[monthIndex]} ${year}`);
-    }
-
-    // Update bar chart labels
-    this.barChartLabels = labels;
-
-    // Count change requests for the past 6 months
-    const monthlyData = Array(6).fill(0);
-    this.changerequest.forEach((change: any) => {
-      const date = new Date(change.date);
-      const monthIndex = date.getMonth();
-      const year = date.getFullYear();
-
-      if (
-        (currentYear === year && currentMonth - monthIndex < 6 && monthIndex !== 3) || // Check within the current year
-        (currentYear - year === 1 && currentMonth < 6 && monthIndex >= 6 && monthIndex !== 3)
-      ) {
-        monthlyData[(currentMonth - monthIndex + 6) % 6]++; // Adjust index to match the label order
-      }
-    });
-
-    // Update bar chart data
-    this.barChartData = [{ data: monthlyData.reverse(), label: 'Change Requests' }]; // Reverse to display in chronological order
-  }
-
-   public barChartLabels: string[] = this.months.slice().reverse();
-   public barChartData: any[] = [
-    { data: [], label: 'Change Requests' } // Data will be populated dynamically
-  ];
+  return labels.reverse(); 
+}
