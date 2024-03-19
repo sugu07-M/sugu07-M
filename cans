@@ -5,3 +5,4 @@
   }
 
 *ngFor="let field of formFields"  [(ngModel)]="field.selectedOption"
+NG9: Property 'showMiniForm' does not exist on type 'SupportTeamComponent'.
