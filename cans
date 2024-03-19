@@ -1,9 +1,18 @@
- formFields: FormField[] = [{ approve: '', selectedOption: 'Change Request' }];
-  
-  toggleMiniForm() {
-    this.formFields.push({ approve: '', selectedOption: 'Change Request' });
+ showMiniForm: boolean = true; // Assuming it's initially shown
+  formFields: any[] = [];
+
+  constructor() {
+    // Add the initial form field
+    this.addFormField();
   }
 
-*ngFor="let field of formFields"  [(ngModel)]="field.selectedOption"
-NG9: Property 'showMiniForm' does not exist on type 'SupportTeamComponent'.
-TS2304: Cannot find name 'FormField'.
+  toggleMiniForm() {
+    this.showMiniForm = !this.showMiniForm;
+  }
+
+  addFormField() {
+    this.formFields.push({});
+  }
+
+
+*ngFor="let field of formFields; let i = index"
