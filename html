@@ -1,22 +1,57 @@
- generateChartLabels(monthData: number[]): string[] {
-    const labels: string[] = [];
-    const today: Date = new Date();
-    let currentMonth: number = today.getMonth();
-    let currentYear: number = today.getFullYear();
+public barChartData: any[] = [
+  { data: [45,87,94,62,98,56,77], label: 'Open' },
+  { data: [45,87,94,62,86,68,55], label: 'Completed' }
+]
+ public barChartLabels: string[] = this.generateChartLabels();
 
-    for (let i: number = 6; i >= 0; i--) {
-      const monthIndex = (currentMonth - i + 12) % 12;
-      const month: string = this.getMonthName(monthData[monthIndex]);
-      const year: number = currentYear - Math.floor((i - 1) / 12);
+  chartdata: any;
+ completed: any;
+ noncompleted: any;
+ month: any;
+ Getbarchart() {
+   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+   
 
-      labels.push(`${month} ${year}`);
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
+
+   this.http.get(apiUrls).subscribe(
+     (response: any) => {
+       this.chartdata = response;
+
+      
+      
+       console.log(this.chartdata);
+     },
+     (error) => {
+       console.error("Post failed", error);
+     }
+   );
+ }
+
+ generateChartLabels(): string[] {
+  const today: Date = new Date();
+  let currentMonth: number = today.getMonth();
+  let currentYear: number = today.getFullYear();
+
+  const labels: string[] = [];
+  for (let i: number = 6; i >= 0; i--) {
+    const date: Date = new Date(currentYear, currentMonth, 1);
+    const month: string = date.toLocaleString('default', { month: 'short' });
+    labels.push(`${month} ${date.getFullYear()}`);
+
+    // Update current month and year for the next iteration
+    if (currentMonth === 0) {
+      currentMonth = 11;
+      currentYear--;
+    } else {
+      currentMonth--;
     }
-    return labels; 
   }
+  return labels.reverse(); 
+}
+  
 
-  getMonthName(monthIndex: number): string {
-    // You can implement logic to get month name from month index
-    // For simplicity, let's assume month index corresponds to the month name
-    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return monthNames[monthIndex];
-  }
