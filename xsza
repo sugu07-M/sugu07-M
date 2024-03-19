@@ -12,7 +12,18 @@ Getbarchart() {
   this.http.get(apiUrls).subscribe(
     (response: any) => {
       this.chartdata = response;
-     
+      const completedData = response.completed;
+        const nonCompletedData = response.noncompleted;
+        const monthData = response.month;
+
+        // Update chart data
+        this.barChartData = [
+          { data: completedData, label: 'Completed' },
+          { data: nonCompletedData, label: 'Non Completed' }
+        ];
+
+        // Generate chart labels using month data
+        this.barChartLabels = this.generateChartLabels(monthData);
       console.log(this.changerequest);
     },
     (error) => {
