@@ -1,40 +1,7 @@
-<div *ngIf="showMiniForm" class="mini-form">
-  <div class="field-line" *ngFor="let item of items; let i = index">
-    <div class="row mt-2">
-      <div class="col">
-        <label>Approve</label>
-      </div>
-      <div class="col ap_input">
-        <input type="text" placeholder="Level{{i+1}}" readonly />
-      </div>
-      <div class="col">
-        <label for="dropdown"></label>
-        <select style="margin-top:-14%" class="form-control" id="dropdown{{i}}">
-          <option>Change Request</option>
-          <option>Release</option>
-          <option>Closure</option>
-        </select>
-      </div>
-      <div class="col">
-        <button style="width:16%;" class="btn btn-danger" (click)="removeItem(i)">Remove</button>
-      </div>
-    </div>
-  </div>
-  <div>
-    <button style="width:16%;" class="btn btn-primary" (click)="addItem()">Add More</button>
-  </div>
-</div>
-
-
- showMiniForm = true; // You can set this to false if you want to hide the form initially
-  items: any[] = [];
-
-  constructor() { }
-
-  addItem() {
-    this.items.push({});
+ formFields: FormField[] = [{ approve: '', selectedOption: 'Change Request' }];
+  
+  toggleMiniForm() {
+    this.formFields.push({ approve: '', selectedOption: 'Change Request' });
   }
 
-  removeItem(index: number) {
-    this.items.splice(index, 1);
-  }
+*ngFor="let field of formFields"  [(ngModel)]="field.selectedOption"
