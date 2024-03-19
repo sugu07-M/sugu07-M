@@ -1,21 +1,22 @@
-generateChartLabels(): string[] {
-  const today: Date = new Date();
-  let currentMonth: number = today.getMonth();
-  let currentYear: number = today.getFullYear();
+ generateChartLabels(monthData: number[]): string[] {
+    const labels: string[] = [];
+    const today: Date = new Date();
+    let currentMonth: number = today.getMonth();
+    let currentYear: number = today.getFullYear();
 
-  const labels: string[] = [];
-  for (let i: number = 6; i >= 0; i--) {
-    const date: Date = new Date(currentYear, currentMonth, 1);
-    const month: string = date.toLocaleString('default', { month: 'short' });
-    labels.push(`${month} ${date.getFullYear()}`);
+    for (let i: number = 6; i >= 0; i--) {
+      const monthIndex = (currentMonth - i + 12) % 12;
+      const month: string = this.getMonthName(monthData[monthIndex]);
+      const year: number = currentYear - Math.floor((i - 1) / 12);
 
-    // Update current month and year for the next iteration
-    if (currentMonth === 0) {
-      currentMonth = 11;
-      currentYear--;
-    } else {
-      currentMonth--;
+      labels.push(`${month} ${year}`);
     }
+    return labels; 
   }
-  return labels.reverse(); 
-}
+
+  getMonthName(monthIndex: number): string {
+    // You can implement logic to get month name from month index
+    // For simplicity, let's assume month index corresponds to the month name
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return monthNames[monthIndex];
+  }
