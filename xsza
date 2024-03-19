@@ -1,3 +1,10 @@
+  this.barChartLabels = response.crmonth;
+        this.barChartData = [
+          { data: response.completedIdnum, label: 'Open' },
+          { data: response.nonCompletedIdnum, label: 'Completed' }
+        ];
+
+
 public barChartLabels: string[] = [];
 
 public barChartData: any[] = [
