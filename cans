@@ -2,6 +2,10 @@
   <input type="radio" (change)="showMiniForm = true" required>
 </div>
 <div class="col system_landscape">Is Approve</div>
+<button class="btn btn-primary" (click)="toggleMiniForm()">More</button>
+toggleMiniForm() {
+    this.showMiniForm = !this.showMiniForm;
+  }
 
 <div *ngIf="showMiniForm" class="mini-form">
   <!-- Mini Form content goes here, for example: -->
