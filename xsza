@@ -1,44 +1,28 @@
-  this.barChartLabels = response.crmonth;
-        this.barChartData = [
-          { data: response.completedIdnum, label: 'Open' },
-          { data: response.nonCompletedIdnum, label: 'Completed' }
-        ];
+export class SupportTeamComponent {
+  showMiniForm: boolean = false; 
+  formFields: any[] = [];
+
+  constructor() {
+    this.addFormField();
+  }
+
+  toggleMiniForm() {
+    this.showMiniForm = !this.showMiniForm;
+  }
+  addFormField() {
+    this.formFields.push({});
+  }
+  removeFormField() {
+    this.formFields.pop();
+  }
+  const dropdown = document.getElementById("dropdown") as HTMLSelectElement;
+  dropdown.addEventListener("change", (event) => {
+
+  const selectedOptions = Array.from(dropdown.selectedOptions).map(option => option.value);
+
+  
+  console.log("Selected options:", selectedOptions);
+});
 
 
-public barChartLabels: string[] = [];
-
-public barChartData: any[] = [
-  { data: this.completed, label: 'Open' },
-  { data: this.noncompleted, label: 'Completed' }
-]; 
-
-  chartdata: any;
- completed: any;
- noncompleted: any;
- month: any;
- Getbarchart() {
-   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
-   
-
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
-
-   this.http.get(apiUrls).subscribe(
-     (response: any) => {
-       this.chartdata = response;
-
-       this.completed = response.completedIdnum;
-       this.noncompleted = response.nonCompletedIdnum;
-       this.month = response.crmonth;
-
-      
-       console.log(this.chartdata);
-     },
-     (error) => {
-       console.error("Post failed", error);
-     }
-   );
- }
+}
