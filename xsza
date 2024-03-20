@@ -1,9 +1,18 @@
 
-<mbsc-select [options]="selectOptions" [(ngModel)]="selectedValue"></mbsc-select>
- selectOptions = [
-    { text: 'Option 1', value: 'option1' },
-    { text: 'Option 2', value: 'option2' },
-    // Add more options as needed
+import { NgSelectModule } from '@ng-select/ng-select';
+
+items = [
+    { id: 1, name: 'Item 1' },
+    { id: 2, name: 'Item 2' },
+    { id: 3, name: 'Item 3' },
+    // Add more items as needed
   ];
 
-  selectedValue: any;
+  selectedItems = [];
+
+  <ng-select [items]="items"
+               [multiple]="true"
+               bindLabel="name"
+               placeholder="Select items"
+               [(ngModel)]="selectedItems">
+    </ng-select>
