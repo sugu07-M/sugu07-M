@@ -2,3 +2,15 @@ NG8001: 'mbsc-select' is not a known element:
 1. If 'mbsc-select' is an Angular component, then verify that it is part of this module.
 2. If 'mbsc-select' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
 src/app/master-support/support-team/support-team.component.html:
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+@NgModule({
+  declarations: [
+    // your other components
+  ],
+  imports: [
+    // other imported modules
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add this line
+})
+export class AppModule { }
