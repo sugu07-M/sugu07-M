@@ -2,8 +2,8 @@
    (response: any) => {
      this.chartdata = response;
     
-     const completedValues = response.map(item => item.completedIdnum);
-     const noncompleted = response[0].nonCompletedIdnum;
+     this.completedValue = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+this.noncompletedValue = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
      
      console.log(noncompleted);
    }, 
