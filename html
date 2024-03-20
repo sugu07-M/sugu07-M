@@ -1,66 +1,9 @@
-public barChartData: any[] = [
-  { data: [], label: 'Open' },
-  { data: [], label: 'Completed' }
-]
- public barChartLabels: string[] = this.generateChartLabels();
-
-  chartdata: any;
- completed: any;
- noncompleted: any;
- month: any;
- Getbarchart() {
-   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
-   
-
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
-
-   this.http.get(apiUrls).subscribe(
-    (response: any) => {
-      this.chartdata = response;
-      // Assuming chartdata is an array of objects with 'month', 'completed', and 'noncompleted' properties
-
-      // Clear previous data
-      this.barChartData[0].data = [];
-      this.barChartData[1].data = [];
-
-      // Map the response data to barChartData
-      this.chartdata.forEach((data: any) => {
-        this.barChartData[0].data.push(data.noncompleted);
-        this.barChartData[1].data.push(data.completed);
-      });
-
-      console.log(this.barChartData);
-    },
-     (error) => {
-       console.error("Post failed", error);
-     }
-   );
- }
-
- generateChartLabels(): string[] {
-  const today: Date = new Date();
-  let currentMonth: number = today.getMonth();
-  let currentYear: number = today.getFullYear();
-
-  const labels: string[] = [];
-  for (let i: number = 6; i >= 0; i--) {
-    const date: Date = new Date(currentYear, currentMonth, 1);
-    const month: string = date.toLocaleString('default', { month: 'short' });
-    labels.push(`${month} ${date.getFullYear()}`);
-
-    // Update current month and year for the next iteration
-    if (currentMonth === 0) {
-      currentMonth = 11;
-      currentYear--;
-    } else {
-      currentMonth--;
-    }
-  }
-  return labels.reverse(); 
-}
-  
-
+ <div class="col">
+   <label for="dropdown"></label>
+   <select style="margin-top:-14%" class="form-control" id="dropdown">
+     <option >Select Task</option>
+     <option>Change Request</option>
+     <option>Release</option>
+     <option>Closure</option>
+   </select>
+ </div>
