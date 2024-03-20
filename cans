@@ -1,2 +1,2 @@
-<div class="col"><input type="checkbox" (change)="showMiniForm = true" required></div>
-<div class="col system_landscape">Is Approve</div>
+  <div class="col"><input type="radio" (change)="toggleMiniForm()" required></div>
+  <div class="col system_landscape" >Is Approve</div>
