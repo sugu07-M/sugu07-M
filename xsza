@@ -2,3 +2,17 @@ NG8001: 'mbsc-select' is not a known element:
 1. If 'mbsc-select' is an Angular component, then verify that it is part of this module.
 2. If 'mbsc-select' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
 src/app/master-support/support-team/support-team.component.html:
+import { MbscSelectModule } from 'path/to/mbsc-select.module';
+
+@NgModule({
+  declarations: [
+    // your other components
+  ],
+  imports: [
+    MbscSelectModule,
+    // other imported modules
+  ],
+  // other configuration
+})
+export class AppModule { }
+npm install @mobiscroll/angular-lite --save
