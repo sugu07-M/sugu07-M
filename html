@@ -6,8 +6,14 @@ this.http.get(apiUrls).subscribe(
     this.noncompletedValue = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
     this.month = response.map((item: { crmonth: any; }) => item.crmonth);
     console.log(this.month)
-   
+   this.updateBarChartData();
   }, 
+updateBarChartData(): void {
+    this.barChartData = [
+      { data: this.noncompletedValue, label: 'Open' },
+      { data: this.completedValue, label: 'Completed' }
+    ];
+  }
 
    public barChartData = [
    { data: [23,56,78,55], label: 'Open' },
