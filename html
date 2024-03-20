@@ -20,12 +20,18 @@ public barChartData: any[] = [
 
    this.http.get(apiUrls).subscribe(
      (response: any) => {
-        // Assuming your API response has keys 'completed' and 'noncompleted'
-        this.barChartData[0].data = response.noncompleted;
-        this.barChartData[1].data = response.completed;
+      this.chartdata = response;
+// Assuming your API response contains 'completed' and 'noncompleted' data
+this.completed = this.chartdata.completed;
+this.noncompleted = this.chartdata.noncompleted;
 
-        console.log(this.barChartData);
-      
+// Populate the barChartData array with the obtained data
+this.barChartData = [
+  { data: this.noncompleted, label: 'Open' },
+  { data: this.completed, label: 'Completed' }
+];
+
+console.log(this.chartdata);
       
        console.log(this.chartdata);
      },
