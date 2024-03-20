@@ -1,27 +1,4 @@
-multiple (change)="onDropdownChange($event)"
-export class SupportTeamComponent {
-  showMiniForm: boolean = false;
-  formFields: any[] = [];
-
-  constructor() {
-    this.addFormField();
-  }
-
-  toggleMiniForm() {
-    this.showMiniForm = !this.showMiniForm;
-  }
-
-  addFormField() {
-    this.formFields.push({});
-  }
-
-  removeFormField() {
-    this.formFields.pop();
-  }
-
-  onDropdownChange(event: Event) {
-    const dropdown = event.target as HTMLSelectElement;
-    const selectedOptions = Array.from(dropdown.selectedOptions).map(option => option.value);
-    console.log("Selected options:", selectedOptions);
-  }
-}
+NG8001: 'mbsc-select' is not a known element:
+1. If 'mbsc-select' is an Angular component, then verify that it is part of this module.
+2. If 'mbsc-select' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+src/app/master-support/support-team/support-team.component.html:
