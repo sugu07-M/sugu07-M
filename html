@@ -19,19 +19,21 @@ public barChartData: any[] = [
    };
 
    this.http.get(apiUrls).subscribe(
-   (response: any) => {
-      console.log("API Response:", response); // Log API Response
+    (response: any) => {
+      this.chartdata = response;
+      // Assuming chartdata is an array of objects with 'month', 'completed', and 'noncompleted' properties
 
-      if (response && response.completed && response.noncompleted) {
-        this.barChartData = [
-          { data: response.noncompleted, label: 'Open' },
-          { data: response.completed, label: 'Completed' }
-        ];
+      // Clear previous data
+      this.barChartData[0].data = [];
+      this.barChartData[1].data = [];
 
-        console.log("Bar Chart Data:", this.barChartData); // Log Bar Chart Data
-      } else {
-        console.error("API response is missing 'completed' or 'noncompleted' data.");
-      }
+      // Map the response data to barChartData
+      this.chartdata.forEach((data: any) => {
+        this.barChartData[0].data.push(data.noncompleted);
+        this.barChartData[1].data.push(data.completed);
+      });
+
+      console.log(this.barChartData);
     },
      (error) => {
        console.error("Post failed", error);
