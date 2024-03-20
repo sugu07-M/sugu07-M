@@ -1,2 +1,21 @@
   <div class="col"><input type="radio" (change)="toggleMiniForm()" required></div>
   <div class="col system_landscape" [hidden]="!showApprove">Is Approve</div>
+
+  <div [hidden]="!showMiniForm" class="row mt-2">
+    <div class="col">
+      <label>Approver</label>
+    </div>
+    <div class="col ap_input">
+      <input type="text" placeholder="Level1"  />
+    </div>
+    <div class="col">
+      <label for="dropdown"></label>
+      <select style="margin-top:-14%" class="form-control" id="dropdown">
+        <option >Select Task</option>
+        <option>Change Request</option>
+        <option>Release</option>
+        <option>Closure</option>
+      </select>
+    </div>
+  </div>
+</div>
