@@ -1,21 +1,20 @@
-  <div class="col"><input type="radio" (change)="toggleMiniForm()" required></div>
-  <div class="col system_landscape" [hidden]="!showApprove">Is Approve</div>
+public barChartData: any[] = [
+  { data: [], label: 'Open' },
+  { data: [], label: 'Completed' }
+]
 
-  <div [hidden]="!showMiniForm" class="row mt-2">
-    <div class="col">
-      <label>Approver</label>
-    </div>
-    <div class="col ap_input">
-      <input type="text" placeholder="Level1"  />
-    </div>
-    <div class="col">
-      <label for="dropdown"></label>
-      <select style="margin-top:-14%" class="form-control" id="dropdown">
-        <option >Select Task</option>
-        <option>Change Request</option>
-        <option>Release</option>
-        <option>Closure</option>
-      </select>
-    </div>
-  </div>
-</div>
+this.http.get(apiUrls).subscribe(
+  (response: any) => {
+    this.chartdata = response;
+    // Assuming your API response contains 'completed' and 'noncompleted' data
+    this.completed = this.chartdata.completed;
+    this.noncompleted = this.chartdata.noncompleted;
+
+    // Populate the barChartData array with the obtained data
+    this.barChartData = [
+      { data: this.noncompleted, label: 'Open' },
+      { data: this.completed, label: 'Completed' }
+    ];
+
+    console.log(this.chartdata);
+  },
