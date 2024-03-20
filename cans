@@ -4,7 +4,7 @@
     
      this.completedValue = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
 this.noncompletedValue = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-     
+     this.month = response.map((item: { crmonth: any; }) => item.crmonth);
      console.log(noncompleted);
    }, 
 public barChartData: any[] = [
