@@ -19,17 +19,16 @@ public barChartData: any[] = [
    };
 
    this.http.get(apiUrls).subscribe(
-    (response: any) => {
-      console.log("API Response:", response);
+   (response: any) => {
+      console.log("API Response:", response); // Log API Response
 
-      
       if (response && response.completed && response.noncompleted) {
         this.barChartData = [
           { data: response.noncompleted, label: 'Open' },
           { data: response.completed, label: 'Completed' }
         ];
 
-        console.log("Bar Chart Data:", this.barChartData);
+        console.log("Bar Chart Data:", this.barChartData); // Log Bar Chart Data
       } else {
         console.error("API response is missing 'completed' or 'noncompleted' data.");
       }
