@@ -1,3 +1,7 @@
+npm install primeng --save --force
+npm install primeng --save --legacy-peer-deps
+
+
 npm install primeng --save
 import { MultiSelectModule } from 'primeng/multiselect';
 import { NgSelectModule } from '@ng-select/ng-select';
