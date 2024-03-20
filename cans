@@ -18,3 +18,15 @@ this.http.get(apiUrls).subscribe(
 
     console.log(this.chartdata);
   },
+
+if (response && response.completed && response.noncompleted) {
+        this.barChartData = [
+          { data: response.noncompleted, label: 'Open' },
+          { data: response.completed, label: 'Completed' }
+        ];
+
+        console.log("Bar Chart Data:", this.barChartData); // Log Bar Chart Data
+      } else {
+        console.error("API response is missing 'completed' or 'noncompleted' data.");
+      }
+    },
