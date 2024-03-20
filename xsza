@@ -1,5 +1,6 @@
+multiple (change)="onDropdownChange($event)"
 export class SupportTeamComponent {
-  showMiniForm: boolean = false; 
+  showMiniForm: boolean = false;
   formFields: any[] = [];
 
   constructor() {
@@ -9,20 +10,18 @@ export class SupportTeamComponent {
   toggleMiniForm() {
     this.showMiniForm = !this.showMiniForm;
   }
+
   addFormField() {
     this.formFields.push({});
   }
+
   removeFormField() {
     this.formFields.pop();
   }
-  const dropdown = document.getElementById("dropdown") as HTMLSelectElement;
-  dropdown.addEventListener("change", (event) => {
 
-  const selectedOptions = Array.from(dropdown.selectedOptions).map(option => option.value);
-
-  
-  console.log("Selected options:", selectedOptions);
-});
-
-
+  onDropdownChange(event: Event) {
+    const dropdown = event.target as HTMLSelectElement;
+    const selectedOptions = Array.from(dropdown.selectedOptions).map(option => option.value);
+    console.log("Selected options:", selectedOptions);
+  }
 }
