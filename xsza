@@ -16,3 +16,4 @@ import { MbscSelectModule } from 'path/to/mbsc-select.module';
 })
 export class AppModule { }
 npm install @mobiscroll/angular-lite --save
+TS2305: Module '"@mobiscroll/angular-lite"' has no exported member 'MbscSelectModule'.
