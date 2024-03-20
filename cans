@@ -1,3 +1,19 @@
+this.http.get(apiUrls).subscribe(
+  (response: any) => {
+    console.log(response); // Log the entire response object
+
+    // Separate and store the values of each field
+    const field1Values = response.field1;
+    const field2Values = response.field2;
+    const field3Values = response.field3;
+
+    console.log('Field 1 values:', field1Values);
+    console.log('Field 2 values:', field2Values);
+    console.log('Field 3 values:', field3Values);
+
+    // Now you can use field1Values, field2Values, and field3Values as needed
+  },
+
 public barChartData: any[] = [
   { data: [], label: 'Open' },
   { data: [], label: 'Completed' }
