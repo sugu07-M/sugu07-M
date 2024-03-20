@@ -7,12 +7,16 @@
      <option>Closure</option>
    </select>
  </div>
-// Assuming you have a reference to the dropdown element
-const dropdown = document.getElementById('dropdown') as HTMLSelectElement;
-
-// Add an event listener to handle changes in selection
-dropdown.addEventListener('change', (event) => {
+function handleDropdownChange(event: Event): void {
+    const dropdown = event.target as HTMLSelectElement;
     const selectedOptions = Array.from(dropdown.selectedOptions).map(option => option.value);
     console.log('Selected options:', selectedOptions);
     // You can perform any other operations with the selected options here
-});
+}
+
+// Assuming you have a reference to the dropdown element
+const dropdown = document.getElementById('dropdown') as HTMLSelectElement;
+
+// Add an event listener to call the handleDropdownChange function when the selection changes
+dropdown.addEventListener('change', handleDropdownChange);
+
