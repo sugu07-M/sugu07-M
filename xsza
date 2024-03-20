@@ -1,4 +1,5 @@
 
+import { MultiSelectModule } from 'primeng/multiselect';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 items = [
