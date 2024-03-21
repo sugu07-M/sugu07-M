@@ -1,3 +1,13 @@
+  this.chartData = [
+      { data: nonCompleted, label: 'Open' },
+      { data: completed, label: 'Completed' }
+    ];
+
+this.prepareChartData();
+
+
+
+
 Getbarchart() {
   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
   
