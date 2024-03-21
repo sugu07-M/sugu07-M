@@ -1,25 +1,21 @@
- <div class="col">
-  <!-- <label for="dropdown"></label>-->
+<div class="col">
    <mat-form-field>
      <mat-label>Toppings</mat-label>
      <mat-select [formControl]="toppings" multiple>
        <mat-select-trigger>
          {{toppings.value?.[0] || ''}}
-         @if ((toppings.value?.length || 0) > 1) {
-         <span class="example-additional-selection">
-           (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
-         </span>
-         }
+         <ng-container *ngIf="(toppings.value?.length || 0) > 1">
+           <span class="example-additional-selection">
+             (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+           </span>
+         </ng-container>
        </mat-select-trigger>
-       @for (topping of toppingList; track topping) {
-       <mat-option [value]="topping">{{topping}}</mat-option>
-       }
+       <ng-container *ngFor="let topping of toppingList">
+         <mat-option [value]="topping">{{topping}}</mat-option>
+       </ng-container>
      </mat-select>
    </mat-form-field>
-   
-
-   
- </div>
+</div>
 
 <div class="col">
    <mat-form-field >
