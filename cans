@@ -17,3 +17,5 @@ TS2322: Type '{ item_id: number; item_text: string; }' is not assignable to type
      idField: 'item_id',
      textField: 'item_text',
    };
+  dropdownList: { item_id: number; item_text: string; }[];
+ dropdownSettings: any;
