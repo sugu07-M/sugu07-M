@@ -1,30 +1,33 @@
- Getbarchart() {
-   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
-   
+completed: any[]=[];
+noncompleted: any[]=[];
+month: any[]=[];
+Getbarchart() {
+  const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+  
 
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
 
-   this.http.get(apiUrls).subscribe(
-     (response: any) => {
-       this.chartdata = response;
+  this.http.get(apiUrls).subscribe(
+    (response: any) => {
+      this.chartdata = response;
+     
+      const completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+      const noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
       
-       const completedValues = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-       const noncompletedValues = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-       
-       
-     }, 
-     (error) => {
-       console.error("Post failed", error);
-     }
-   );
- }
+      
+    }, 
+    (error) => {
+      console.error("Post failed", error);
+    }
+  );
+}
 
 
- public barChartOptions: any = {
+  public barChartOptions: any = {
    scaleShowVerticalLines: false,
    responsive: true
  };
@@ -33,8 +36,9 @@
  public barChartLegend = true;
  public barChartPlugins = [];
  public barChartData: any[] = [
-   { data:noncompletedValues, label: 'Open' },
-   { data: noncompletedValues, label: 'Completed' }
+   { data: this.noncompleted, label: 'Open' },
+   console.log(this.noncompleted),
+   { data: this.completed, label: 'Completed' },
+   console.log(this.completed)
  ]
-
  
