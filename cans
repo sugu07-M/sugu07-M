@@ -13,7 +13,20 @@
    domain: ['#005073', '189ad3	', '#1ebbd7', '#71c7ec']
  };
 
-[colorScheme]="colorScheme"
+<ngx-charts-bar-horizontal-stacked
+  [view]="view"
+  [results]="multi"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  [showDataLabel]="showDataLabel"
+  [showGridLines]="false"
+  [colorScheme]="colorScheme"
+  (select)="onSelect($event)" style="margin-left:2px" >
 
 
 this.chartData = [
