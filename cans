@@ -5,3 +5,7 @@
 
 TS2322: Type '{ data: never[]; label: string; }' is not assignable to type 'ChartData<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], unknown>'.
   Object literal may only specify known properties, and 'data' does not exist in type 'ChartData<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], unknown>'.
+interface ChartData {
+    label: string;
+    data: any[]; // Adjust this type based on what your charting library expects
+}
