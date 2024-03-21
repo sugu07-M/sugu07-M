@@ -13,7 +13,7 @@
    domain: ['#005073', '189ad3	', '#1ebbd7', '#71c7ec']
  };
 
-
+[colorScheme]="colorScheme"
 
 
 this.chartData = [
