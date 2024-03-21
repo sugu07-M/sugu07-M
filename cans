@@ -1,41 +1,12 @@
- this.http.get(apiUrls).subscribe(
-   (response: any) => {
-     this.chartdata = response;
-    
-     this.completedValue = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-this.noncompletedValue = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-     this.month = response.map((item: { crmonth: any; }) => item.crmonth);
-     console.log(noncompleted);
-   }, 
-public barChartData: any[] = [
-  { data: [], label: 'Open' },
-  { data: [], label: 'Completed' }
-]
-
-this.http.get(apiUrls).subscribe(
-  (response: any) => {
-    this.chartdata = response;
-    // Assuming your API response contains 'completed' and 'noncompleted' data
-    this.completed = this.chartdata.completed;
-    this.noncompleted = this.chartdata.noncompleted;
-
-    // Populate the barChartData array with the obtained data
-    this.barChartData = [
-      { data: this.noncompleted, label: 'Open' },
-      { data: this.completed, label: 'Completed' }
-    ];
-
-    console.log(this.chartdata);
-  },
-
-if (response && response.completed && response.noncompleted) {
-        this.barChartData = [
-          { data: response.noncompleted, label: 'Open' },
-          { data: response.completed, label: 'Completed' }
-        ];
-
-        console.log("Bar Chart Data:", this.barChartData); // Log Bar Chart Data
-      } else {
-        console.error("API response is missing 'completed' or 'noncompleted' data.");
-      }
-    },
+ <div class="col">
+   <!-- <label for="dropdown"></label>-->
+   <!--style="margin-top:-14%;" class="form-control"-->
+   <mat-form-field >
+     <mat-label>Task</mat-label>
+     <mat-select [formControl]="toppings" multiple>
+       @for (topping of toppingList; track topping) {
+       <mat-option [value]="topping">{{topping}}</mat-option>
+       }
+     </mat-select>
+   </mat-form-field>
+ </div>
