@@ -1,27 +1,19 @@
-<div class="col">
-   <mat-form-field>
-     <mat-label>Toppings</mat-label>
-     <mat-select [formControl]="toppings" multiple>
-       <mat-select-trigger>
-         {{toppings.value?.[0] || ''}}
-         <ng-container *ngIf="(toppings.value?.length || 0) > 1">
-           <span class="example-additional-selection">
-             (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
-           </span>
-         </ng-container>
-       </mat-select-trigger>
-       <ng-container *ngFor="let topping of toppingList">
-         <mat-option [value]="topping">{{topping}}</mat-option>
-       </ng-container>
-     </mat-select>
-   </mat-form-field>
-</div>
+  <div style="width:50%">
+    <ng-multiselect-dropdown [settings]="dropdownSettings"
+                             [data]="dropdownList">
+    </ng-multiselect-dropdown>
+  </div>
 
-<div class="col">
-   <mat-form-field >
-     <mat-label>Task</mat-label>
-     <mat-select [formControl]="toppings" multiple>
-       <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-     </mat-select>
-   </mat-form-field>
-</div>
+TS2322: Type '{ item_id: number; item_text: string; }' is not assignable to type 'never'.
+
+ ngOnInit() {
+   this.dropdownList = [
+     { item_id: 1, item_text: 'Change Request' },
+     { item_id: 2, item_text: 'Closure' },
+     { item_id: 3, item_text: 'Releaser' }
+    
+   ];
+   this.dropdownSettings = {
+     idField: 'item_id',
+     textField: 'item_text',
+   };
