@@ -1,4 +1,13 @@
-  this.chartData = [
+#005073	(0,80,115)
+#107dac	(16,125,172)
+#189ad3	(24,154,211)
+#1ebbd7	(30,187,215)
+#71c7ec
+
+
+
+
+this.chartData = [
       { data: nonCompleted, label: 'Open' },
       { data: completed, label: 'Completed' }
     ];
