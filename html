@@ -33,14 +33,51 @@ Getbarchart() {
       this.completedValue = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
       this.noncompletedValue = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
       this.month = response.map((item: { crmonth: any; }) => item.crmonth);
-      /*console.log(this.month)*/
-      this.updateBarChartData();
-    }, 
+     
+        // Remove duplicates from months
+        this.months = this.months.filter((month, index, self) =>
+          index === self.findIndex((m) => (
+            m === month
+          ))
+        );
+
+        // Limit to last 6 months
+        this.months = this.months.slice(Math.max(this.months.length - 6, 0));
+
+        // Sort months in ascending order
+        this.months.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+
+        // Now you have the necessary data, you can create the chart
+        this.createChart();
+      },
     (error) => {
       console.error("Post failed", error);
     }
   );
 }
+createChart() {
+    // Prepare data for the chart
+    const chartData = {
+      labels: this.months.map(month => new Date(month).toLocaleString('default', { month: 'short' })), // Use month names
+      datasets: [
+        {
+          label: 'Completed',
+          backgroundColor: 'green',
+          data: this.completedValue.slice(Math.max(this.completedValue.length - 6, 0))
+        },
+        {
+          label: 'Non-Completed',
+          backgroundColor: 'red',
+          data: this.noncompletedValue.slice(Math.max(this.noncompletedValue.length - 6, 0))
+        }
+      ]
+    };
+
+    // Now you can use a chart library like Chart.js to create the chart
+    // For example, using Chart.js
+    // Replace the following lines with your chart creation logic
+    console.log("Chart Data:", chartData);
+  }
 
 
   barChartLabels: string[] = [];
