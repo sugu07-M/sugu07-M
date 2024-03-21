@@ -17,7 +17,7 @@ Getbarchart() {
      
       const completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
       const noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-      
+      const month = response.map((item: { crmonth: any }) => item.crmonth);
       
     }, 
     (error) => {
