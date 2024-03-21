@@ -1,21 +1,7 @@
-  <div style="width:50%">
-    <ng-multiselect-dropdown [settings]="dropdownSettings"
-                             [data]="dropdownList">
-    </ng-multiselect-dropdown>
-  </div>
+ public barChartData: ChartData[] = [
+   { data:[], label: 'Open' },
+   { data:[], label: 'Completed' }
+ ]
 
-TS2322: Type '{ item_id: number; item_text: string; }' is not assignable to type 'never'.
-
- ngOnInit() {
-   this.dropdownList = [
-     { item_id: 1, item_text: 'Change Request' },
-     { item_id: 2, item_text: 'Closure' },
-     { item_id: 3, item_text: 'Releaser' }
-    
-   ];
-   this.dropdownSettings = {
-     idField: 'item_id',
-     textField: 'item_text',
-   };
-  dropdownList: { item_id: number; item_text: string; }[];
- dropdownSettings: any;
+TS2322: Type '{ data: never[]; label: string; }' is not assignable to type 'ChartData<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], unknown>'.
+  Object literal may only specify known properties, and 'data' does not exist in type 'ChartData<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], unknown>'.
