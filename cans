@@ -1,8 +1,13 @@
- public barChartData = this.barchartdata = [
+import { DataService } from './data.service';
+constructor(private dataService: DataService) { }
+
+public barChartData = this.barchartdata = [
    { data: this.noncompleted, label: 'Open' },
    { data: this.completed, label: 'Completed' }
    ] 
-
+getDataFromAPI(): void {
+    this.dataService.getData().subscribe(
+      (response: any) =>
 
 
 updateBarChartLabels(months: any[]) {
