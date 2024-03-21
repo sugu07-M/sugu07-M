@@ -1,11 +1,18 @@
-#005073	(0,80,115)
-#107dac	(16,125,172)
-#189ad3	(24,154,211)
-#1ebbd7	(30,187,215)
-#71c7ec
-colorScheme = {
-  domain: ['#005073', '189ad3	', '#1ebbd7', '#71c7ec']
-};
+ multi: any[];
+ view: [number, number] = [354, 270];
+ showXAxis: boolean = true;
+ showYAxis: boolean = true;
+ gradient: boolean = false;
+ showLegend: boolean = true;
+ showXAxisLabel: boolean = true;
+ xAxisLabel: string = 'Total Changes';
+ showYAxisLabel: boolean = true;
+ yAxisLabel: string = 'Plants';
+ showDataLabel = false;
+ colorScheme = {
+   domain: ['#005073', '189ad3	', '#1ebbd7', '#71c7ec']
+ };
+
 
 
 
