@@ -1,12 +1,11 @@
 SELECT 
     COUNT(CASE WHEN Status = 'Completed' THEN ITCRID END) AS CompletedIDNum,
     COUNT(CASE WHEN Status != 'Completed' THEN ITCRID END) AS NonCompletedIDNum,
-    MONTH(crdate) AS crmonth
-	
+    MONTH(crdate) AS crmonth,
+    YEAR(crdate) AS cryear
 FROM 
     IT.ChangeRequest  
 WHERE 
-    MONTH(crdate) BETWEEN MONTH(GETDATE()) - 6 AND MONTH(GETDATE())
+    crdate BETWEEN DATEADD(MONTH, -6, GETDATE()) AND GETDATE()
 GROUP BY 
-    MONTH(crdate);
-GO
+    MONTH(crdate), YEAR(crdate);
