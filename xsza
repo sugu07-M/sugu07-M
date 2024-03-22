@@ -1,11 +1,8 @@
-SELECT 
-    COUNT(CASE WHEN Status = 'Completed' THEN ITCRID END) AS CompletedIDNum,
-    COUNT(CASE WHEN Status != 'Completed' THEN ITCRID END) AS NonCompletedIDNum,
-    MONTH(crdate) AS crmonth,
-    YEAR(crdate) AS cryear
-FROM 
-    IT.ChangeRequest  
-WHERE 
-    crdate BETWEEN DATEADD(MONTH, -6, GETDATE()) AND GETDATE()
-GROUP BY 
-    MONTH(crdate), YEAR(crdate);
+ this.http.get(apiUrls, requestBody).subscribe(
+   (response: any) => {
+     this.changerequest = response;
+     this.countStatus();
+     
+     
+     console.log(this.changerequest);
+   },
