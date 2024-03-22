@@ -1,7 +1,27 @@
-TS2322: Type 'any[]' is not assignable to type 'never[]'.
-  Type 'any' is not assignable to type 'never'.
-src/app/dashboard/dashboard.component.ts:234:30
+ updateBarChartData(months: number[]) {
+    // Your logic to update the bar chart data
+    // Assuming you have data manipulation logic here
+    this.barChartData = [
+      { data: this.noncompleted, label: 'Open' },
+      { data: this.completed, label: 'Completed' }
+    ];
+    
+    // Update chart labels
+    this.updateBarChartLabels(months);
+  }
 
+  updateBarChartLabels(months: number[]) {
+    // Your logic to update the bar chart labels
+    // Assuming you have logic to convert month numbers to month names
+    this.barChartLabels = months.map(month => this.getMonthName(month));
+  }
+
+  getMonthName(month: number): string {
+    // Your logic to convert month number to month name
+    // Example logic:
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return monthNames[month - 1]; // Adjusting for 0-based index
+  }
 chartdata: any;
  completed: any[]=[];
  noncompleted: any[]=[];
