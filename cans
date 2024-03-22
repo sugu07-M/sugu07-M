@@ -24,8 +24,10 @@
        const month = response.map((item: { crmonth: any }) => item.crmonth);
        this.updateBarChartLabels(month);
       
-       console.log(completed),
-       console.log(noncompleted)
+          if (this.completed.length === 0 && this.noncompleted.length === 0) {
+        this.barChartData = []; // Clear the chart data
+        // Display a message or handle the absence of data as required
+        console.log("No data available for the chart");
 
 
      }, 
