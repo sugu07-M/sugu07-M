@@ -1,110 +1,32 @@
-public barChartOptions: any = {
-  scaleShowVerticalLines: false,
-  responsive: true
-};
-public barChartLabels: string[] = this.generateChartLabels();
-public barChartType: Chart.ChartType = 'bar';
-public barChartLegend = true;
-public barChartData:any[] = [
-  { data: [23,56,78,55], label: 'Open' },
-  
-  { data: [23, 56, 78, 55], label: 'Completed' },
-  
-]
-
-chartdata: any;
-month: any[] = [];
-completedValue: any[] = [];
-noncompletedValue: any[] = [];
-Getbarchart() {
-  const apiUrls = this.apiurl + '/Barchart/Getbarchart';
-  
-
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
-
-  this.http.get(apiUrls).subscribe(
-    (response: any) => {
-      this.chartdata = response;
-     
-      this.completedValue = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-      this.noncompletedValue = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-      this.month = response.map((item: { crmonth: any; }) => item.crmonth);
-     
-        // Remove duplicates from months
-        this.months = this.months.filter((month, index, self) =>
-          index === self.findIndex((m) => (
-            m === month
-          ))
-        );
-
-        // Limit to last 6 months
-        this.months = this.months.slice(Math.max(this.months.length - 6, 0));
-
-        // Sort months in ascending order
-        this.months.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
-
-        // Now you have the necessary data, you can create the chart
-        this.createChart();
-      },
-    (error) => {
-      console.error("Post failed", error);
-    }
-  );
+this.http.get(apiUrls, requestBody).subscribe(
+  (response: any) => {
+    this.changerequest = response;
+    this.countStatus();
+    console.log('sss:', this.changerequest);
+  },
+countStatus() {
+  this.newCount = this.changerequest.filter(item => item.status === 'Draft').length;
+  this.completedCount = this.changerequest.filter(item => item.status === 'Completed').length;
+  this.pendingCount = this.changerequest.filter(item => item.status === 'Approved level1 ').length;
+  console.log(this.newCount)
 }
-createChart() {
-    // Prepare data for the chart
-    const chartData = {
-      labels: this.months.map(month => new Date(month).toLocaleString('default', { month: 'short' })), // Use month names
-      datasets: [
-        {
-          label: 'Completed',
-          backgroundColor: 'green',
-          data: this.completedValue.slice(Math.max(this.completedValue.length - 6, 0))
-        },
-        {
-          label: 'Non-Completed',
-          backgroundColor: 'red',
-          data: this.noncompletedValue.slice(Math.max(this.noncompletedValue.length - 6, 0))
-        }
-      ]
-    };
 
-    // Now you can use a chart library like Chart.js to create the chart
-    // For example, using Chart.js
-    // Replace the following lines with your chart creation logic
-    console.log("Chart Data:", chartData);
+
+public doughnutChartLabels: string[] = ['Draft', 'pending Approval', 'Approved', 'Rejected', 'Implemention', 'pending', 'released', 'Closure'];
+public doughnutChartData: any[] = [
+  {
+    data: [50, 30,10,20,34,76,56,77],
+    backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7'],
+    type: 'doughnut',
+
   }
+];
 
-
-  barChartLabels: string[] = [];
-  useShortMonthNames: boolean = false;
-toggleMonthNames() {
-    this.useShortMonthNames = !this.useShortMonthNames;
-    this.updateBarChartLabels();
+public chartHovered(event: any): void {
+  if (event.active.length > 0) {
+    const chartData = event.active[0]._chart.data.datasets[0].data;
+    const hoveredPartIndex = event.active[0]._index;
+    const hoveredPartValue = chartData[hoveredPartIndex];
+    console.log(`Hovered Part: ${this.doughnutChartLabels[hoveredPartIndex]} - Value: ${hoveredPartValue}`);
   }
-
-  updateBarChartLabels() {
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth() + 1;
-    const currentYear = currentDate.getFullYear();
-
-    const monthNames = this.useShortMonthNames ? 
-      ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] :
-      ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    this.barChartLabels = Array.from({ length: 6 }, (_, i) => {
-      let month = currentMonth - i;
-      let year = currentYear;
-
-      if (month <= 0) {
-        month += 12;
-        year--;
-      }
-
-      return monthNames[month - 1] + ' ' + year;
-    }).reverse();
-  }
+}
