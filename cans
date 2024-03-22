@@ -1,4 +1,4 @@
- updateBarChartData(months: number[]) {
+  updateBarChartData(months: number[]) {
     // Your logic to update the bar chart data
     // Assuming you have data manipulation logic here
     this.barChartData = [
