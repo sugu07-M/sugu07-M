@@ -1,63 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Chart } from 'chart.js';
-
-@Component({
-  selector: 'app-bar-chart',
-  templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.css']
-})
-export class BarChartComponent implements OnInit {
-  chartdata: any;
-
-  public barChartOptions: any = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
-
-  public barChartLabels: string[] = this.generateChartLabels();
-  public barChartType: Chart.ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartData: any[] = [];
-
-  constructor(private http: HttpClient) { }
-
-  ngOnInit(): void {
-    this.Getbarchart();
-  }
-
-  Getbarchart() {
-    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
-    
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
-
-    this.http.get(apiUrls).subscribe(
-      (response: any) => {
-        this.chartdata = response;
-        this.updateBarChartData();
-      }, 
-      (error) => {
-        console.error("Post failed", error);
-      }
-    );
-  }
-
-  updateBarChartData() {
-    const openData = this.chartdata.map((item: any) => item.open); // Extracting 'open' data from API response
-    const completedData = this.chartdata.map((item: any) => item.complete); // Extracting 'complete' data from API response
-
-    this.barChartData = [
-      { data: openData, label: 'Open' },
-      { data: completedData, label: 'Completed' }
-    ];
-  }
-
-  generateChartLabels(): string[] {
-    // Generate your chart labels here
-    return ['January', 'February', 'March', 'April']; // Example labels
-  }
-}
+SELECT 
+    COUNT(CASE WHEN Status = 'Completed' THEN ITCRID END) AS CompletedIDNum,
+    COUNT(CASE WHEN Status != 'Completed' THEN ITCRID END) AS NonCompletedIDNum,
+    MONTH(crdate) AS crmonth
+	
+FROM 
+    IT.ChangeRequest  
+WHERE 
+    MONTH(crdate) BETWEEN MONTH(GETDATE()) - 6 AND MONTH(GETDATE())
+GROUP BY 
+    MONTH(crdate);
+GO
