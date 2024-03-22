@@ -1,4 +1,8 @@
- chartdata: any;
+TS2322: Type 'any[]' is not assignable to type 'never[]'.
+  Type 'any' is not assignable to type 'never'.
+src/app/dashboard/dashboard.component.ts:234:30
+
+chartdata: any;
  completed: any[]=[];
  noncompleted: any[]=[];
  month: any[] = [];
