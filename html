@@ -5,10 +5,12 @@ this.http.get(apiUrls, requestBody).subscribe(
     console.log('sss:', this.changerequest);
   },
 countStatus() {
-  this.newCount = this.changerequest.filter(item => item.status === 'Draft').length;
-  this.completedCount = this.changerequest.filter(item => item.status === 'Completed').length;
-  this.pendingCount = this.changerequest.filter(item => item.status === 'Approved level1 ').length;
-  console.log(this.newCount)
+    this.newCount = this.changerequest.filter(item => item.status === 'Draft').length;
+      this.completedCount = this.changerequest.filter(item => item.status === 'Completed').length;
+      this.pendingCount = this.changerequest.filter(item => item.status === 'Approved level1').length;
+      console.log('New Count:', this.newCount);
+      console.log('Completed Count:', this.completedCount);
+      console.log('Pending Count:', this.pendingCount);
 }
 
 
