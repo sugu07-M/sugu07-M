@@ -1,39 +1,18 @@
- const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
- const requestBody = {}
+ public doughnutChartLabels: string[] = ['Draft', 'pending Approval', 'Approved', 'Rejected', 'Implemention', 'pending', 'release', 'Closure'];
+ public doughnutChartData = [
+   {
+     data: [this.newCount, this.pendingApproval, this.Approved, this.Rejected, this.Implemention, this.pending, this.release, this.completedCount],
+     backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7'],
+     type: 'doughnut',
 
- const httpOptions = {
-   headers: new HttpHeaders({
-     'content-Type': 'application/json'
-   })
- };
+   }
+ ];
 
- this.http.get(apiUrls, requestBody).subscribe(
-   (response: any) => {
-      // Filter response to get only the items with status 'completed'
-        this.changerequest = response.filter((item: any) => item.status === 'completed');
-
-        // Get the length of the filtered array
-        const completedChangesLength = this.changerequest.length;
-
-        console.log('Completed Changes:', this.changerequest);
-        console.log('Number of completed changes:', completedChangesLength);
-      },
-
-public doughnutChartLabels: string[] = ['Draft', 'pending Approval', 'Approved', 'Rejected', 'Implemention', 'pending', 'released', 'Closure'];
-public doughnutChartData: any[] = [
-  {
-    data: [50, 30,10,20,34,76,56,77],
-    backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7'],
-    type: 'doughnut',
-
-  }
-];
-
-public chartHovered(event: any): void {
-  if (event.active.length > 0) {
-    const chartData = event.active[0]._chart.data.datasets[0].data;
-    const hoveredPartIndex = event.active[0]._index;
-    const hoveredPartValue = chartData[hoveredPartIndex];
-    console.log(`Hovered Part: ${this.doughnutChartLabels[hoveredPartIndex]} - Value: ${hoveredPartValue}`);
-  }
-}
+ public chartHovered(event: any): void {
+   if (event.active.length > 0) {
+     const chartData = event.active[0]._chart.data.datasets[0].data;
+     const hoveredPartIndex = event.active[0]._index;
+     const hoveredPartValue = chartData[hoveredPartIndex];
+     console.log(`Hovered Part: ${this.doughnutChartLabels[hoveredPartIndex]} - Value: ${hoveredPartValue}`);
+   }
+ }
