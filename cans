@@ -1,5 +1,53 @@
-import { DoughnutChartComponent } from './dashboard/dashboard.component';
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2693	(TS) 'ChartData' only refers to a type, but is being used as a value here.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\app.module.ts	142	Active
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2305	(TS) Module '"./dashboard/dashboard.component"' has no exported member 'DoughnutChartComponent'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\app.module.ts	68	Active
+
+Application bundle generation failed. [3.704 seconds]
+
+X [ERROR] TS-996002: 'AppModule' does not appear to be an NgModule class. [plugin angular-compiler]
+
+    src/app/app.module.server.ts:9:4:
+      9 │     AppModule,
+        ╵     ~~~~~~~~~
+
+  Is it missing an @NgModule annotation?
+
+    src/app/app.module.ts:153:13:
+      153 │ export class AppModule {}
+          ╵              ~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'data' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:256:21:
+      256 │    <canvas ngChartjs [data]="doughnutChartData" [labels]="doughnu...
+          ╵                      ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:12:15:
+      12 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'labels' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:256:48:
+      256 │ ...ghnutChartData" [labels]="doughnutChartLabels" [chartType]="do...
+          ╵                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:12:15:
+      12 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:256:79:
+      256 │ ...a" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+          ╵                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:12:15:
+      12 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
