@@ -1,18 +1,15 @@
-this.http.get(apiUrls, requestBody).subscribe(
-  (response: any) => {
-    this.changerequest = response;
-    this.countStatus();
-    console.log('sss:', this.changerequest);
-  },
-countStatus() {
-    this.newCount = this.changerequest.filter(item => item.status === 'Draft').length;
-      this.completedCount = this.changerequest.filter(item => item.status === 'Completed').length;
-      this.pendingCount = this.changerequest.filter(item => item.status === 'Approved level1').length;
-      console.log('New Count:', this.newCount);
-      console.log('Completed Count:', this.completedCount);
-      console.log('Pending Count:', this.pendingCount);
-}
+ const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
+ const requestBody = {}
 
+ const httpOptions = {
+   headers: new HttpHeaders({
+     'content-Type': 'application/json'
+   })
+ };
+
+ this.http.get(apiUrls, requestBody).subscribe(
+   (response: any) => {
+     this.changerequest = response;
 
 public doughnutChartLabels: string[] = ['Draft', 'pending Approval', 'Approved', 'Rejected', 'Implemention', 'pending', 'released', 'Closure'];
 public doughnutChartData: any[] = [
