@@ -1,12 +1,9 @@
- public doughnutChartLabels: string[] = ['Draft', 'pending Approval', 'Approved', 'Rejected', 'Implemention', 'pending', 'release', 'Closure'];
- public doughnutChartData = [
-   {
-     data: [this.newCount, this.pendingApproval, this.Approved, this.Rejected, this.Implemention, this.pending, this.release, this.completedCount],
-     backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7'],
-     type: 'doughnut',
-
-   }
- ];
+  public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
+  public doughnutChartData: number[] = [300, 500, 100, 200, 150, 250, 400, 350];
+  public doughnutChartType: string = 'doughnut';
+  public doughnutChartColors: any[] = [
+    { backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7', '#2ab0ed', '#37a6ff', '#5b93ff', '#8a81ff'] }
+  ];
 
  public chartHovered(event: any): void {
    if (event.active.length > 0) {
