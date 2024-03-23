@@ -1,6 +1,4 @@
 
-Application bundle generation failed. [3.704 seconds]
-
 X [ERROR] TS-996002: 'AppModule' does not appear to be an NgModule class. [plugin angular-compiler]
 
     src/app/app.module.server.ts:9:4:
@@ -14,24 +12,11 @@ X [ERROR] TS-996002: 'AppModule' does not appear to be an NgModule class. [plugi
           ╵              ~~~~~~~~~
 
 
-X [ERROR] NG8002: Can't bind to 'data' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+X [ERROR] NG2: Type 'number[]' is not assignable to type 'ChartData<any, any[], string>'. [plugin angular-compiler]
 
-    src/app/dashboard/dashboard.component.html:256:21:
-      256 │    <canvas ngChartjs [data]="doughnutChartData" [labels]="doughnu...
-          ╵                      ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:12:15:
-      12 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG8002: Can't bind to 'labels' since it isn't a known property of 'canvas'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:256:48:
-      256 │ ...ghnutChartData" [labels]="doughnutChartLabels" [chartType]="do...
-          ╵                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    src/app/dashboard/dashboard.component.html:256:22:
+      256 │    <canvas baseChart [data]="doughnutChartData" [labels]="doughnu...
+          ╵                       ~~~~
 
   Error occurs in the template of component DashboardComponent.
 
