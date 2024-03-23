@@ -9,7 +9,15 @@
 
  this.http.get(apiUrls, requestBody).subscribe(
    (response: any) => {
-     this.changerequest = response;
+      // Filter response to get only the items with status 'completed'
+        this.changerequest = response.filter((item: any) => item.status === 'completed');
+
+        // Get the length of the filtered array
+        const completedChangesLength = this.changerequest.length;
+
+        console.log('Completed Changes:', this.changerequest);
+        console.log('Number of completed changes:', completedChangesLength);
+      },
 
 public doughnutChartLabels: string[] = ['Draft', 'pending Approval', 'Approved', 'Rejected', 'Implemention', 'pending', 'released', 'Closure'];
 public doughnutChartData: any[] = [
