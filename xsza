@@ -1,4 +1,30 @@
- public doughnutChartData: any[] = [
+public doughnutChartData: any[] = [];
+
+// Function to update doughnutChartData based on counts
+updateDoughnutChartData(): void {
+  this.doughnutChartData = [{
+    data: [
+      this.newCount,
+      this.completedCount,
+      this.pendingCount,
+      this.pendingApproval,
+      this.Approved,
+      this.Rejected,
+      this.Implemention
+    ],
+    backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7', '#3cb44b', '#e6194B', '#f58231'],
+    type: 'doughnut'
+  }];
+}
+
+
+
+
+
+
+
+
+public doughnutChartData: any[] = [
    {
      data: [350,
        230,
