@@ -20,7 +20,12 @@ X [ERROR] TS2305: Module '"ng2-charts"' has no exported member 'Label'. [plugin 
       6 │ import { Label } from 'ng2-charts';
         ╵          ~~~~~
 
-
+  <canvas baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
+          [colors]="doughnutChartColors">
+  </canvas>
 
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
