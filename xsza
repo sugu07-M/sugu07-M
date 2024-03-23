@@ -3,3 +3,4 @@ import { ChartsModule } from 'ng2-charts';
 TS2305: Module '"chart.js"' has no exported member 'Label'.
  Cannot find name 'CustomLabel'.
 export type CustomLabel = string | number;
+NG2: Type '{ data: number[]; backgroundColor: string[]; type: string; }[]' is not assignable to type 'ChartData<any, any[], string>'.
