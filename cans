@@ -1,1 +1,5 @@
 import { DoughnutChartComponent } from './dashboard/dashboard.component';
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2693	(TS) 'ChartData' only refers to a type, but is being used as a value here.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\app.module.ts	142	Active
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2305	(TS) Module '"./dashboard/dashboard.component"' has no exported member 'DoughnutChartComponent'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\app.module.ts	68	Active
