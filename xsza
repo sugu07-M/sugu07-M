@@ -1,45 +1,28 @@
-public doughnutChartData: any[] = [];
+ public doughnutChartData: any[] = [];
+ public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
 
-// Function to update doughnutChartData based on counts
-updateDoughnutChartData(): void {
-  this.doughnutChartData = [{
-    data: [
-      this.newCount,
-      this.completedCount,
-      this.pendingCount,
-      this.pendingApproval,
-      this.Approved,
-      this.Rejected,
-      this.Implemention
-    ],
-    backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7', '#3cb44b', '#e6194B', '#f58231'],
-    type: 'doughnut'
-  }];
-}
+ updateDoughnutChartData(): void {
+   this.doughnutChartData = [{
+     data: [
+       this.newCount,
+       this.completedCount,
+       this.pendingCount,
+       this.pendingApproval,
+       this.Approved,
+       this.Rejected,
+       this.Implemention
+     ],
+     backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7', '#3cb44b', '#e6194B', '#f58231'],
+     type: 'doughnut'
+   }];
+   console.log('assssssssss:',this.updateDoughnutChartData())
+ }
 
-
-
-
-
-
-
-
-public doughnutChartData: any[] = [
-   {
-     data: [350,
-       230,
-       100,
-       120],
-     backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7'],
-     type: 'doughnut',
-
+ public chartHovered(event: any): void {
+   if (event.active.length > 0) {
+     const chartData = event.active[0]._chart.data.datasets[0].data;
+     const hoveredPartIndex = event.active[0]._index;
+     const hoveredPartValue = chartData[hoveredPartIndex];
+     console.log(`Hovered Part: ${this.doughnutChartLabels[hoveredPartIndex]} - Value: ${hoveredPartValue}`);
    }
- ];
-this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
-this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
-this.pendingCount = this.changerequest.filter(item => item.status.trim() === 'Approved level1').length;
-this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
-this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
-this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
-this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
-    
+ }
