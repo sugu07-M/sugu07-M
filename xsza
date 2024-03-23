@@ -1,3 +1,4 @@
 NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'.
 import { ChartsModule } from 'ng2-charts';
 TS2305: Module '"chart.js"' has no exported member 'Label'.
+ Cannot find name 'CustomLabel'.
