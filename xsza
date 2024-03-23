@@ -1,26 +1,19 @@
- chartHovered(event: any): void {
-    // Handle chart hover event here
-  }
-import { ChartEvent } from 'chart.js';
-NG9: Property 'chartHovered' does not exist on type 'DashboardComponent'.
-<canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
-chartOptions = {
-		animationEnabled: true,
-		title:{
-		  text: "aaaaaaaaaaa"
-		},
-		data: [{
-		  type: "doughnut",
-		  yValueFormatString: "#,###.##'%'",
-		  indexLabel: "{name}",
-		  dataPoints: [
-			{ y: 111, name: "Labour" },
-			{ y: 10, name: "Legal" },
-			{ y: 20, name: "Production" },
-			{ y: 15, name: "License" },
-			{ y: 23, name: "Facilities" },
-			{ y: 17, name: "Taxes" },
-			{ y: 12, name: "Insurance" }
-		  ]
-		}]
-	}	
+ public doughnutChartData: any[] = [
+   {
+     data: [350,
+       230,
+       100,
+       120],
+     backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7'],
+     type: 'doughnut',
+
+   }
+ ];
+this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
+this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
+this.pendingCount = this.changerequest.filter(item => item.status.trim() === 'Approved level1').length;
+this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
+this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
+this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
+    
