@@ -1,3 +1,5 @@
+NG9: This expression is not callable.
+  Type 'any[]' has no call signatures.
 NG9: Property 'chartHovered' does not exist on type 'DashboardComponent'.
 <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
 chartOptions = {
