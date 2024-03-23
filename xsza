@@ -1,8 +1,52 @@
- this.http.get(apiUrls, requestBody).subscribe(
-   (response: any) => {
-     this.changerequest = response;
-     this.countStatus();
-     
-     
-     console.log(this.changerequest);
-   },
+ 
+Application bundle generation failed. [6.087 seconds]
+
+X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:259:10:
+      259 │           [chartType]="doughnutChartType"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:13:15:
+      13 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'colors' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:260:10:
+      260 │           [colors]="doughnutChartColors">
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:13:15:
+      13 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG9: Property 'doughnutChartColors' does not exist on type 'DashboardComponent'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:260:20:
+      260 │           [colors]="doughnutChartColors">
+          ╵                     ~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:13:15:
+      13 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2305: Module '"ng2-charts"' has no exported member 'Label'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:6:9:
+      6 │ import { Label } from 'ng2-charts';
+        ╵          ~~~~~
+
+
+
+
+ 
