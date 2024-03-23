@@ -1,5 +1,15 @@
 NG2: Type 'ChartDataSets[]' is not assignable to type 'ChartData<any, any[], Label>'.
-
+public doughnutChartLabels: Label[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
+  public doughnutChartData: ChartData<any, any[], Label> = {
+    labels: this.doughnutChartLabels,
+    datasets: [
+      {
+        data: [300, 500, 100, 200, 150, 250, 400, 350],
+        backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7', '#2ab0ed', '#37a6ff', '#5b93ff', '#8a81ff']
+      }
+    ]
+  };
+  public doughnutChartType: ChartType = 'doughnut';
 
 src/app/dashboard/dashboard.component.html:257:11:
       257 │           [data]="doughnutChartData"
