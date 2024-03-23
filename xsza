@@ -1,6 +1,7 @@
  chartHovered(event: any): void {
     // Handle chart hover event here
   }
+import { ChartEvent } from 'chart.js';
 NG9: Property 'chartHovered' does not exist on type 'DashboardComponent'.
 <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
 chartOptions = {
