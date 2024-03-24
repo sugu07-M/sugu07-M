@@ -1,4 +1,7 @@
-  countStatus() {
+public doughnutChartData: any[] = [];
+
+// Call countStatus() to update the doughnutChartData array
+countStatus() {
     this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
     this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
     this.pendingCount = this.changerequest.filter(item => item.status.trim() === 'Approved level1').length;
@@ -9,6 +12,25 @@
     this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
     this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
     
+    // Update the doughnutChartData array
+    this.doughnutChartData = [
+      {
+        data: [
+          this.newCount,
+          this.pendingApproval,
+          this.Approved,
+          this.Rejected,
+          this.Implemention,
+          this.pending,
+          this.release,
+          this.completedCount
+        ],
+        backgroundColor: ['#005073', '#107dac', '#1ebbd7', '#189ad3', '#11F5F5', '#09A5F3', '#9E17DD', '#5886C5'],
+        type: 'doughnut',
+      }
+    ];
+
+    // Logging counts
     console.log('New Count:', this.newCount);
     console.log('Completed Count:', this.completedCount);
     console.log('Pending Count:', this.pendingCount);
@@ -18,37 +40,4 @@
     console.log('ImplementCount:', this.Implemention);
     console.log('Pending Count:', this.pending);
     console.log('release Count:', this.release);
-   
-  }
-
-
-public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
-
-public doughnutChartData: any[] = [
- 
-  {
-   
-    data: [this.newCount,
-      this.pendingApproval,
-      this.Approved,
-      this.Rejected,
-      this.Implemention,
-      this.pending,
-      this.release,
-      this.completedCount ],
-      /*data:[5,6,8,4,0,1,0,6],*/
-    backgroundColor: ['#005073', '#107dac', '#1ebbd7', '#189ad3', '#11F5F5', '#09A5F3', '#9E17DD', '#5886C5'],
-    type: 'doughnut',
-
-  }
-];
-
-public chartHovered(event: any): void {
-  if (event.active.length > 0) {
-    const chartData = event.active[0]._chart.data.datasets[0].data;
-    const hoveredPartIndex = event.active[0]._index;
-    const hoveredPartValue = chartData[hoveredPartIndex];
-    console.log(`Hovered Part: ${this.doughnutChartLabels[hoveredPartIndex]} - Value: ${hoveredPartValue}`);
-  }
 }
-
