@@ -15,6 +15,12 @@
 
        this.plant = response.map((item: { plantId: any; }) => item.plantId);
        console.log('plantid:', this.plant)
+   // Create multi array
+    this.multi = this.plant.map((plantId: any) => {
+      return { name: plantId.split(' ')[0] }; // Splitting plantId assuming it's a string and taking the first part
+    });
+
+    console.log('multi:', this.multi);
      },
      (error) => {
        console.log("Post failed", error);
