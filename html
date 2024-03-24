@@ -20,7 +20,8 @@
     });
   }
 
-  onItemSelect(item: any) {
-    // Handle item selection
-    console.log(item);
-  }
+ item: any = '';
+ onItemSelect(item: any) {
+   this.item = item
+   console.log(this.item)
+ }
