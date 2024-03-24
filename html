@@ -9,3 +9,16 @@
                                >
       </ng-multiselect-dropdown>
     </div>
+ ngOnInit() {
+   this.dropdownList = [
+     { item_id: 1, item_text: 'Change Request' },
+     { item_id: 2, item_text: 'Closure' },
+     { item_id: 3, item_text: 'Release' }
+    
+   ];
+   this.dropdownSettings = {
+     idField: 'item_id',
+     textField: 'item_text',
+   };
+    dropdownList!: { item_id: number; item_text: string; }[];
+ dropdownSettings: IDropdownSettings = {};
