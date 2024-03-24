@@ -8,17 +8,19 @@
                           >
  </ng-multiselect-dropdown>
 
+  this.dataService.getData().subscribe((data: any) => {
+      // Assuming data is an array of objects with 'item_id' and 'item_text' properties
+      this.dropdownList = data;
 
-  dropdownList!: { item_id: number; item_text: string; }[];
- dropdownSettings: IDropdownSettings = {};
-  ngOnInit() {
-   this.dropdownList = [
-     { item_id: 1, item_text: 'Change Request' },
-     { item_id: 2, item_text: 'Closure' },
-     { item_id: 3, item_text: 'Release' }
-    
-   ];
-   this.dropdownSettings = {
-     idField: 'item_id',
-     textField: 'item_text',
-   };
+      // Set dropdown settings
+      this.dropdownSettings = {
+        idField: 'item_id',
+        textField: 'item_text'
+      };
+    });
+  }
+
+  onItemSelect(item: any) {
+    // Handle item selection
+    console.log(item);
+  }
