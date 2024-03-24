@@ -1,72 +1,11 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2305	(TS) Module '"ng2-charts"' has no exported member 'Label'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	6	Active
-
-public doughnutChartLabels: Label[] = ['Red', 'Blue', 'Yellow'];
-  public doughnutChartData: number[] = [300, 500, 100];
-  public doughnutChartType: string = 'doughnut';
-
-
-NG2: Type 'ChartDataSets[]' is not assignable to type 'ChartData<any, any[], Label>'.
-public doughnutChartLabels: Label[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
-  public doughnutChartData: ChartData<any, any[], Label> = {
-    labels: this.doughnutChartLabels,
-    datasets: [
-      {
-        data: [300, 500, 100, 200, 150, 250, 400, 350],
-        backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7', '#2ab0ed', '#37a6ff', '#5b93ff', '#8a81ff']
-      }
-    ]
-  };
-  public doughnutChartType: ChartType = 'doughnut';
-
-src/app/dashboard/dashboard.component.html:257:11:
-      257 │           [data]="doughnutChartData"
-          ╵            ~~~~
-
-  Error occurs in the template of component DashboardComponent.
-                                                                                                  lar-compiler]
-    src/app/dashboard/dashboard.component.ts:13:15:
-    src/app/dashboard/dashboard.component.html:259:10:
-      259 │           [colors]="doughnutChartColors"
-          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    src/app/dashboard/dashboard.component.ts:5:9:
-      5 │ import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
-        ╵          ~~~~~~~~~~~~~
-
-
-X [ERROR] TS2305: Module '"ng2-charts"' has no exported member 'Label'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:6:9:
-      6 │ import { Label } from 'ng2-charts';
-        ╵          ~~~~~
-
-  <canvas baseChart
-          [data]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          [chartType]="doughnutChartType"
-          [colors]="doughnutChartColors">
-  </canvas>
-
-import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
-import { Label } from 'ng2-charts';
-
-public doughnutChartLabels: Label[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
-  public doughnutChartData: ChartDataSets[] = [
-    {
-      data: [300, 500, 100, 200, 150, 250, 400, 350],
-      backgroundColor: ['#005073', '#107dac', '#189ad3', '#1ebbd7', '#2ab0ed', '#37a6ff', '#5b93ff', '#8a81ff']
-    }
-  ];
-  public doughnutChartType: ChartType = 'doughnut';
- public chartHovered(event: any): void {
-   if (event.active.length > 0) {
-     const chartData = event.active[0]._chart.data.datasets[0].data;
-     const hoveredPartIndex = event.active[0]._index;
-     const hoveredPartValue = chartData[hoveredPartIndex];
-     console.log(`Hovered Part: ${this.doughnutChartLabels[hoveredPartIndex]} - Value: ${hoveredPartValue}`);
-   }
- }
-TS-991010: Value at position 7 in the NgModule.imports of AppModule is not a reference
-  Value could not be determined statically.
-Could not resolve "./doughnut-chart/doughnut-chart.component"
+    <div style="width: auto; margin-top: -5%; margin-left: -15%">
+      <ng-multiselect-dropdown [(ngModel)]="item_id"
+                               [settings]="dropdownSettings"
+                               [data]="dropdownList"
+                               (onSelect)="onItemSelect($event)"
+                               (onSelectAll)="onItemSelect($event)"
+                               (onDeSelect)="onItemSelect($event)"
+                               (onDeSelectAll)="onItemSelect($event)"
+                               >
+      </ng-multiselect-dropdown>
+    </div>
