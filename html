@@ -1,24 +1,30 @@
-    <div style="width: auto; margin-top: -5%; margin-left: -15%">
-      <ng-multiselect-dropdown [(ngModel)]="item_id"
-                               [settings]="dropdownSettings"
-                               [data]="dropdownList"
-                               (onSelect)="onItemSelect($event)"
-                               (onSelectAll)="onItemSelect($event)"
-                               (onDeSelect)="onItemSelect($event)"
-                               (onDeSelectAll)="onItemSelect($event)"
-                               >
-      </ng-multiselect-dropdown>
-    </div>
- ngOnInit() {
-   this.dropdownList = [
-     { item_id: 1, item_text: 'Change Request' },
-     { item_id: 2, item_text: 'Closure' },
-     { item_id: 3, item_text: 'Release' }
-    
-   ];
-   this.dropdownSettings = {
-     idField: 'item_id',
-     textField: 'item_text',
-   };
-    dropdownList!: { item_id: number; item_text: string; }[];
- dropdownSettings: IDropdownSettings = {};
+  item_id: any; // Assuming this is the property to store selected item(s)
+  dropdownList: { item_id: number; item_text: string; }[] = [
+    { item_id: 1, item_text: 'Change Request' },
+    { item_id: 2, item_text: 'Closure' },
+    { item_id: 3, item_text: 'Release' }
+  ]; // Your dropdown options
+  dropdownSettings: IDropdownSettings = {}; // Your dropdown settings
+
+   onItemSelect() {
+    // Assuming you want to fetch data from the database based on selected item(s)
+    // You may modify this logic based on your requirements
+    // Here, this.item_id contains the selected item(s)
+    this.fetchDataFromDatabase();
+  }
+
+  fetchDataFromDatabase() {
+    // Make an HTTP request to fetch data from the database based on selected options
+    // Example:
+    this.http.post<any>('your-backend-api/fetch-data', { selectedItems: this.item_id })
+      .subscribe(data => {
+        // Handle the data returned from the backend
+        console.log(data);
+        // You can assign the fetched data to a property in your component to display in your template
+        // this.fetchedData = data;
+      }, error => {
+        // Handle errors
+        console.error('Error fetching data:', error);
+      });
+  }
+}
