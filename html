@@ -20,8 +20,22 @@
     });
   }
 
- item: any = '';
  onItemSelect(item: any) {
-   this.item = item
-   console.log(this.item)
- }
+  this.selectedItems.push(item); // Add the selected item to the array
+  console.log(this.selectedItems); // Logging for debugging purposes
+}
+
+onSelectAll(items: any[]) {
+  this.selectedItems = items; // Store all selected items
+  console.log(this.selectedItems); // Logging for debugging purposes
+}
+
+onDeSelect(item: any) {
+  this.selectedItems = this.selectedItems.filter(i => i !== item); // Remove the deselected item from the array
+  console.log(this.selectedItems); // Logging for debugging purposes
+}
+
+onDeSelectAll() {
+  this.selectedItems = []; // Clear the array when all items are deselected
+  console.log(this.selectedItems); // Logging for debugging purposes
+}
