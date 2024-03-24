@@ -1,2 +1,46 @@
-/api/ViewChange/GetAllchanges
-plantId
+ plant: any[] = [];
+ Gettablechart() {
+   const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
+
+
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
+
+   this.http.get(apiUrls).subscribe(
+     (response: any) => {
+       this.chartdata = response;
+
+       this.plant = response.map((item: { plantId: any; }) => item.plantId);
+       console.log('plantid:', this.plant)
+     },
+     (error) => {
+       console.log("Post failed", error);
+     }
+   );
+ }
+
+this.multi = [
+  {
+    name: 'ML24',
+    series: [
+      {
+        name: 'Change-Request',
+        value: 10
+      },
+      {
+        name: 'Approve',
+        value: 16
+      },
+      {
+        name: 'Execute',
+        value: 8
+      },
+      {
+        name: 'Reports',
+        value: 4
+      }
+    ]
+  },
