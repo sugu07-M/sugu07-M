@@ -1,4 +1,19 @@
- <ngx-charts-bar-horizontal-stacked [view]="view"
+ const name = plantId.split(' ')[0]; // Splitting plantId assuming it's a string and taking the first part
+      return {
+        name: name,
+        series: [
+          { name: 'Change-Request', value: 10 },
+          { name: 'Approve', value: 16 },
+          { name: 'Execute', value: 8 },
+          { name: 'Reports', value: 4 }
+        ]
+      };
+    });
+
+
+
+
+<ngx-charts-bar-horizontal-stacked [view]="view"
                                     [results]="multi"
                                     [gradient]="gradient"
                                     [xAxis]="showXAxis"
