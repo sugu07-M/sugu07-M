@@ -1,37 +1,6 @@
-<div class="col">
-  <label>Employee ID</label>
-  <input type="text" placeholder="Employee ID" [(ngModel)]="empid" (input)="filterItems()" />
-</div>
 
-<ul *ngIf="dropdownItems.length > 0">
-  <li *ngFor="let item of dropdownItems" (click)="selectItem(item)">
-    {{ item }}
-  </li>
-</ul>
-  this.supportnames = response.map(item => item.empId);
-        this.supportteamname = this.supportnames;
-        console.log("Support Team Name", this.supportteamname);
-      },
-      (error: any) => {
-        console.error('GET request failed', error);
-      }
-    );
-  }
+X [ERROR] TS2367: This comparison appears to be unintentional because the types 'any[]' and 'string' have no overlap. [plugin angular-compiler]
 
-  filterItems() {
-    const filter = this.empid;
-    this.dropdownItems = this.supportteamname.filter(item =>
-      item.includes(filter)
-    );
-    if (this.dropdownItems.length === 0 && filter !== '') {
-      this.dropdownItems.push('No name found');
-    } else if (filter === '') {
-      this.dropdownItems.length = 0;
-    }
-  }
-
-  selectItem(item: string) {
-    this.selectedValue = item;
-    this.empid = item;
-    this.dropdownItems = [];
-  }
+    src/app/master-support/support-team/support-team.component.ts:318:15:
+      318 │     } else if (filter === '') {
+          ╵                ~~~~~~~~~~~~~
