@@ -1,6 +1,35 @@
+ fetchAllItems() {
+   const apiUrl = this.apiurl + '/EmployeeMasters';
+   this.http.get<any[]>(apiUrl).subscribe(
+     (response: any[]) => {
+       console.log("Function", response);
+       this.supportnames = response.map(item => item.EmployeeId);
+       
+       
+       console.log("Support Team Name", this.supportnames);
+     },
+     (error: any) => {
+       console.error('GET request failed', error);
+     }
+   );
+ }
+ 
+ filterItems() {
+   const filter = this.empid;
+   this.dropdownItems = this.supportnames.filter(item =>
+     item.toString(filter)
+ 
+   );
+   if (this.dropdownItems.length === 0 && filter.length == 0) {
+     this.dropdownItems.push('No name found');
+   } else if (filter.length === 0) {
+     this.dropdownItems.length = 0;
+   }
+ }
+ 
 
-X [ERROR] TS2367: This comparison appears to be unintentional because the types 'any[]' and 'string' have no overlap. [plugin angular-compiler]
-
-    src/app/master-support/support-team/support-team.component.ts:318:15:
-      318 │     } else if (filter === '') {
-          ╵                ~~~~~~~~~~~~~
+ selectItem(item: any) {
+   this.selectedValue = item;
+   this.empid = item;
+   this.dropdownItems = [];
+ }
