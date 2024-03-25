@@ -1,15 +1,16 @@
-   const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
+     const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
 
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
 
-   this.http.get(apiUrls).subscribe(
-     (response: any) => {
-       this.chartdata = response;
-       this.new = response.filter((
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.chartdata = response;
+        this.new = response.filter((item: { stage: string; }) => item.stage.trim() === 'Closure ').length;
+        console.log(this.new)
 
 const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
 
