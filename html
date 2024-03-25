@@ -1,4 +1,12 @@
-  const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
+this.multi.forEach((item: { name: string, series: { name: string, value: number }[] }) => {
+  item.series = item.series.filter((seriesItem: { name: string }) => {
+    // Filter condition based on the length of the name property
+    return seriesItem.name.length > 5; // Modify this condition as per your requirement
+  });
+});
+
+
+const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
 
   const httpOptions = {
     headers: new HttpHeaders({
