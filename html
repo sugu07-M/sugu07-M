@@ -1,41 +1,114 @@
-  this.http.get(apiUrls).subscribe(
-    (response: any) => {
-      this.chartdata = response;
-      this.approval = response.filter((item: { stage: string; }) => item.stage.trim() === 'Approval').length;
-      this.closure = response.filter((item: { stage: string; }) => item.stage.trim() === 'Closure').length;
-      this.implementation = response.filter((item: { stage: string; }) => item.stage.trim() === 'Implementation').length;
-      this.initiated = response.filter((item: { stage: string; }) => item.stage.trim() === 'Initiated').length;
-      this.Release = response.filter((item: { stage: string; }) => item.stage.trim() === 'Release').length;
-   /*   console.log(this.approval)
-      console.log(this.closure)
-      console.log(this.implementation)
-      console.log(this.initiated)
-      console.log(this.Release)*/
-      this.plant = response.map((item: { plantId: any }) => item.plantId);
-    
+ <ngx-charts-bar-horizontal-stacked [view]="view"
+                                    [results]="multi"
+                                    [gradient]="gradient"
+                                    [xAxis]="showXAxis"
+                                    [yAxis]="showYAxis"
+                                    [showXAxisLabel]="showXAxisLabel"
+                                    [showYAxisLabel]="showYAxisLabel"
+                                    [xAxisLabel]="xAxisLabel"
+                                    [yAxisLabel]="yAxisLabel"
+                                    [showDataLabel]="showDataLabel"
+                                    [showGridLines]="false"
+                                    [colorScheme]="colorScheme"
+                                    (select)="onSelect($event)" style="margin-left:2px">
 
-      // Create multi array
-      this.multi = this.plant.map((plantId: any) => {
-        return { name: plantId.split(' ')[0] }; // Splitting plantId assuming it's a string and taking the first part
-      });
+ </ngx-charts-bar-horizontal-stacked>
 
-      // Merge with existing data in this.multi
-      this.multi.forEach((item, index) => {
-        const existingItemIndex = this.multi.findIndex((el) => el.name === item.name);
-        if (existingItemIndex !== -1) {
-          this.multi[existingItemIndex] = { ...item, series: this.multi[existingItemIndex].series };
-        } else {
-          this.multi.push({
-            name: item.name,
-            series: [this.approval, this.closure, this.implementation, this.initiated,this.Release]
-          });
-        }
-      });
 
-      console.log('multi:', this.multi);
-    },
-    (error) => {
-      console.log("Post failed", error);
-    }
-  );
+ multi: any[]=[];
+view: [number, number] = [354, 299];
+showXAxis: boolean = true;
+showYAxis: boolean = true;
+gradient: boolean = false;
+showLegend: boolean = true;
+showXAxisLabel: boolean = true;
+xAxisLabel: string = 'Total Changes';
+showYAxisLabel: boolean = true;
+yAxisLabel: string = 'Plants';
+showDataLabel = false;
+colorScheme = {
+  domain: ['#005073', '#444e86', '#1ebbd7', '#71c7ec']
+};
+
+
+onSelect(event: any) {
+  console.log(event);
 }
+
+axisFormat(val: any) {
+  return val;
+}
+this.multi = [
+      {
+        name: plantId.split()[0],
+        series: [
+          {
+            name: 'Change-Request',
+            value: 10
+          },
+          {
+            name: 'Approve',
+            value: 16
+          },
+          {
+            name: 'Execute',
+            value: 8
+          },
+          {
+            name: 'Reports',
+            value: 4
+          }
+        ]
+
+
+
+         Gettablechart() {
+   const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
+
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
+
+   this.http.get(apiUrls).subscribe(
+     (response: any) => {
+       this.chartdata = response;
+       this.approval = response.filter((item: { stage: string; }) => item.stage.trim() === 'Approval').length;
+       this.closure = response.filter((item: { stage: string; }) => item.stage.trim() === 'Closure').length;
+       this.implementation = response.filter((item: { stage: string; }) => item.stage.trim() === 'Implementation').length;
+       this.initiated = response.filter((item: { stage: string; }) => item.stage.trim() === 'Initiated').length;
+       this.Release = response.filter((item: { stage: string; }) => item.stage.trim() === 'Release').length;
+    /*   console.log(this.approval)
+       console.log(this.closure)
+       console.log(this.implementation)
+       console.log(this.initiated)
+       console.log(this.Release)*/
+       this.plant = response.map((item: { plantId: any }) => item.plantId);
+     
+
+       // Create multi array
+       this.multi = this.plant.map((plantId: any) => {
+         return { name: plantId.split(' ')[0] }; // Splitting plantId assuming it's a string and taking the first part
+       });
+
+       // Merge with existing data in this.multi
+       this.multi.forEach((item, index) => {
+         const existingItemIndex = this.multi.findIndex((el) => el.name === item.name);
+         if (existingItemIndex !== -1) {
+           this.multi[existingItemIndex] = { ...item, series: this.multi[existingItemIndex].series };
+         } else {
+           this.multi.push({
+             name: item.name,
+             series: [this.approval, this.closure, this.implementation, this.initiated,this.Release]
+           });
+         }
+       });
+
+       console.log('multi:', this.multi);
+     },
+     (error) => {
+       console.log("Post failed", error);
+     }
+   );
+ }
