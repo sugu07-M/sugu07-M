@@ -2,20 +2,39 @@
   <label>Employe ID</label>
   <input type="text" placeholder="EmployeID" [(ngModel)]="empid" />
 </div>
-const apiUrl = this.apiurl + '/SupportTeam';
-const requestBody = "supportTeamId": 1,
-    "email": "yavanthi@microlabs.com",
-    "firstName": "Yavanthi ",
-    "middleName": null,
-    "lastName": "Shivakumar",
-    "imgUrl": null,
-    "designation": "Change Analyst",
-    "empId": 107355,
-    "isActive": true,
-    "dol": null,
-    "dob": null,
-    "createdBy": 120678,
-    "createdDate": "2024-03-24T20:00:30.25",
-    "modifiedBy": 120678,
-    "modifiedDate": "2024-03-24T20:00:30.25"
-  },
+ fetchAllItems() {
+   const apiUrl = this.apiurl + '/SupportTeam';
+   this.http.get<any[]>(apiUrl).subscribe(
+     (response: any[]) => {
+       console.log("Function", response);
+       this.supportnames = response.map(item => item.empId);
+       this.supportteamname = this.supportnames;
+       console.log("Suppoert Team Name", this.supportteamname);
+     },
+     (error: any) => {
+       console.error('GET request failed', error);
+     }
+   );
+ }
+
+ dropdownsupportteamid: any;
+ filterItems() {
+   const filter = this.empid;
+   this.dropdownItems = this.supportteamname.filter(item =>
+     item.includes(filter)
+
+   );
+   if (this.dropdownItems.length === 0 && filter !== '') {
+     this.dropdownItems.push('No name found');
+   }
+   else if (filter === '') {
+     this.dropdownItems.length = 0
+   }
+
+ }
+ selectItem(item: string) {
+   this.selectedValue = item;
+   this.empid = item;
+   this.dropdownItems = [];
+
+ }
