@@ -2,3 +2,30 @@
   <label>Employe ID</label>
   <input type="text" placeholder="EmployeID" [(ngModel)]="empid" />
 </div>
+const apiUrl = this.apiurl + '/SupportTeam';
+const requestBody = {
+  "flag": "I",
+  "supportTeamId": this.supportTeamId,
+  "email": this.Email,
+  "firstName": this.firstname,
+  "middleName": this.middlename,
+  "lastName": this.lastname,
+  "imgUrl": this.imageurls,
+  "designation": this.designation,
+  "empId": data.this.empid,
+  "isActive": true,
+  "dol": this.dol,
+  "dob": this.dob,
+  "isApprover": this.isApprover,
+  "isChangeAnalyst": this.isChangeAnalyst,
+  "isSupportEngineer": this.isSupportEngineer,
+  "plantId": this.plantId,
+  "supportId": this.supportId,
+  "categoryId": this.selectedCategory,
+  "classificationId": this.classificationId,
+  "approverstage": this.item_id,
+  "level": this.approvername,
+  "createdBy": 0,
+  "createdDate": this.today
+}
+ 
