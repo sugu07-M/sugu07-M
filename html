@@ -9,8 +9,10 @@
     this.http.get(apiUrls).subscribe(
       (response: any) => {
         this.chartdata = response;
-        this.new = response.filter((item: { stage: string; }) => item.stage.trim() === 'Closure ').length;
-        console.log(this.new)
+this.new = response.filter((item: { stage: string; }) => {
+      console.log("Stage:", item.stage.trim()); // Log the trimmed stage value
+      return item.stage.trim() === 'Closure';
+    }).length;
 
 const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
 
