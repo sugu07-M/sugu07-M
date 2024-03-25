@@ -1,40 +1,37 @@
 <div class="col">
-  <label>Employe ID</label>
-  <input type="text" placeholder="EmployeID" [(ngModel)]="empid" />
+  <label>Employee ID</label>
+  <input type="text" placeholder="Employee ID" [(ngModel)]="empid" (input)="filterItems()" />
 </div>
- fetchAllItems() {
-   const apiUrl = this.apiurl + '/SupportTeam';
-   this.http.get<any[]>(apiUrl).subscribe(
-     (response: any[]) => {
-       console.log("Function", response);
-       this.supportnames = response.map(item => item.empId);
-       this.supportteamname = this.supportnames;
-       console.log("Suppoert Team Name", this.supportteamname);
-     },
-     (error: any) => {
-       console.error('GET request failed', error);
-     }
-   );
- }
 
- dropdownsupportteamid: any;
- filterItems() {
-   const filter = this.empid;
-   this.dropdownItems = this.supportteamname.filter(item =>
-     item.includes(filter)
+<ul *ngIf="dropdownItems.length > 0">
+  <li *ngFor="let item of dropdownItems" (click)="selectItem(item)">
+    {{ item }}
+  </li>
+</ul>
+  this.supportnames = response.map(item => item.empId);
+        this.supportteamname = this.supportnames;
+        console.log("Support Team Name", this.supportteamname);
+      },
+      (error: any) => {
+        console.error('GET request failed', error);
+      }
+    );
+  }
 
-   );
-   if (this.dropdownItems.length === 0 && filter !== '') {
-     this.dropdownItems.push('No name found');
-   }
-   else if (filter === '') {
-     this.dropdownItems.length = 0
-   }
+  filterItems() {
+    const filter = this.empid;
+    this.dropdownItems = this.supportteamname.filter(item =>
+      item.includes(filter)
+    );
+    if (this.dropdownItems.length === 0 && filter !== '') {
+      this.dropdownItems.push('No name found');
+    } else if (filter === '') {
+      this.dropdownItems.length = 0;
+    }
+  }
 
- }
- selectItem(item: string) {
-   this.selectedValue = item;
-   this.empid = item;
-   this.dropdownItems = [];
-
- }
+  selectItem(item: string) {
+    this.selectedValue = item;
+    this.empid = item;
+    this.dropdownItems = [];
+  }
