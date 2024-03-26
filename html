@@ -37,7 +37,10 @@ filterItems() {
     item.toString().includes(filter)
   );
 }
-
+ empid: any = '';
+firstname: any = '';
+middlename: any = '';
+lastname: any = '';
 selectItem(item: any) {
   this.empid = item;
   // Find the selected employee object by EmployeeId
