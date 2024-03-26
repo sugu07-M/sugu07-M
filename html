@@ -1,57 +1,249 @@
-  <label>Employe ID</label>
-  <input class="searchinput" type="text" placeholder="Employe ID" [(ngModel)]="empid" (input)="filterItems()" />
-  <ul class="dropdowns-list" *ngIf="dropdownItems.length > 0">
-    <li class="drop-list" value="" *ngFor="let item of dropdownItems" (click)="selectItem(item)">
-      {{item}}
-    </li>
-  </ul>
-</div>
-<div class="col">
-  <label>First Name</label>
-  <input class="searchinput" type="text" placeholder="Firstname" [(ngModel)]="firstname" />
+interface
 
-</div>
-<div class="col">
-  <label>Middle Name</label>
-  <input type="text" placeholder="Middlename" [(ngModel)]="middlename" />
-</div>
-<div class="col">
-  <label>Last Name</label>
-  <input type="text" placeholder="Lastname" [(ngModel)]="lastname" />
-</div>
-fetchAllItems() {
-  const apiUrl = this.apiurl + '/EmployeeMasters';
-  this.http.get<any[]>(apiUrl).subscribe(
-    (response: any[]) => {
-      this.supportnames = response.map(item => item.EmployeeId);
-    },
-    (error: any) => {
-      console.error('GET request failed', error);
+using IT_Portal.Persistence.IT_Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IT_Portal.Application.Contracts.Persistence
+{
+    public interface IEmployeeMasters
+    {
+        Task<List<EmployeeMaster>> GetEmployeMaster();
     }
-  );
 }
 
-filterItems() {
-  const filter = this.empid;
-  this.dropdownItems = this.supportnames.filter(item =>
-    item.toString().includes(filter)
-  );
+Repository
+
+using IT_Portal.Application.Contracts.Persistence;
+using IT_Portal.Persistence.DatabaseContext;
+using IT_Portal.Persistence.IT_Models;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IT_Portal.Persistence.Repositories
+{
+    public class EmployeeMasterRepository : IEmployeeMasters
+    {
+        private readonly MicroLabsDevContext _context;
+
+        public EmployeeMasterRepository(MicroLabsDevContext context)
+        {
+            this._context = context;
+        }
+
+        public Task<List<EmployeeMaster>> GetEmployeMaster()
+        {
+            var data = _context.EmployeeMasters.ToListAsync();
+            return data;
+        }
+    }
 }
- empid: any = '';
-firstname: any = '';
-middlename: any = '';
-lastname: any = '';
-selectItem(item: any) {
-  this.empid = item;
-  // Find the selected employee object by EmployeeId
-  const selectedEmployee = this.supportnames.find(employee => employee.EmployeeId === item);
-  if (selectedEmployee) {
-    // Assign the first name from the selected employee to the firstname variable
-    this.firstname = selectedEmployee.firstname;
-  } else {
-    // If no employee is found, reset the firstname variable
-    this.firstname = '';
-  }
-  // Clear the dropdownItems array
-  this.dropdownItems = [];
+
+
+controller
+
+using IT_Portal.Application.Contracts.Persistence;
+using IT_Portal.Application.Features;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace IT_Portal.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class EmployeeMastersController : ControllerBase
+    {
+        private readonly IEmployeeMasters _masterscontext;
+
+        public EmployeeMastersController(IEmployeeMasters masterscontext)
+        {
+            this._masterscontext = masterscontext;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetEmployee()
+        {
+            var employeedata = await _masterscontext.GetEmployeMaster();
+            return Ok(employeedata);
+        }
+    }
+}
+
+Model
+
+using System;
+using System.Collections.Generic;
+
+namespace IT_Portal.Persistence.IT_Models;
+
+public partial class EmployeeMaster
+{
+    public int Id { get; set; }
+
+    public string? EmployeeId { get; set; }
+
+    public string? Email { get; set; }
+
+    public int? FkAddressId { get; set; }
+
+    public int? FkOtherDetailsId { get; set; }
+
+    public int? FkProjectId { get; set; }
+
+    public int? FkDesignation { get; set; }
+
+    public int? FkCompetency { get; set; }
+
+    public int? FkDepartment { get; set; }
+
+    public int? FkReportingManager { get; set; }
+
+    public int? FkManager { get; set; }
+
+    public int? FkSbuId { get; set; }
+
+    public int? FkParentId { get; set; }
+
+    public int? FkParentIdCount { get; set; }
+
+    public int? FkApprovalTemplateId { get; set; }
+
+    public int? FkPayroll { get; set; }
+
+    public int? FkProfileId { get; set; }
+
+    public int? FkRoleId { get; set; }
+
+    public string? BaseLocation { get; set; }
+
+    public string? Description { get; set; }
+
+    public int? Interviwer { get; set; }
+
+    public DateTime? JoiningDate { get; set; }
+
+    public string? RedirectUrl { get; set; }
+
+    public string? FirstName { get; set; }
+
+    public string? MiddleName { get; set; }
+
+    public string? LastName { get; set; }
+
+    public string? ImgUrl { get; set; }
+
+    public string? Designation { get; set; }
+
+    public int? CreatedBy { get; set; }
+
+    public DateTime? CreatedDate { get; set; }
+
+    public int? ModifiedBy { get; set; }
+
+    public DateTime? ModifiedDate { get; set; }
+
+    public bool? IsActive { get; set; }
+
+    public DateTime? Dol { get; set; }
+
+    public DateOnly? Dob { get; set; }
+
+    public virtual ICollection<Allertbox> AllertboxCreatedBies { get; set; } = new List<Allertbox>();
+
+    public virtual ICollection<Allertbox> AllertboxModifiedBies { get; set; } = new List<Allertbox>();
+
+    public virtual ICollection<AppointmentOfficialDetail> AppointmentOfficialDetailApprovingManagers { get; set; } = new List<AppointmentOfficialDetail>();
+
+    public virtual ICollection<AppointmentOfficialDetail> AppointmentOfficialDetailReportingManagers { get; set; } = new List<AppointmentOfficialDetail>();
+
+    public virtual ICollection<AppointmentOfficialDetail> AppointmentOfficialDetailSignatories { get; set; } = new List<AppointmentOfficialDetail>();
+
+    public virtual ICollection<ChecklistConfig> ChecklistConfigs { get; set; } = new List<ChecklistConfig>();
+
+    public virtual ICollection<ChecklistItem> ChecklistItemCompletedBies { get; set; } = new List<ChecklistItem>();
+
+    public virtual ICollection<ChecklistItem> ChecklistItemCreatedBies { get; set; } = new List<ChecklistItem>();
+
+    public virtual ICollection<ChecklistItem> ChecklistItemModifiedBies { get; set; } = new List<ChecklistItem>();
+
+    public virtual ICollection<ChecklistItem> ChecklistItemSpocemployees { get; set; } = new List<ChecklistItem>();
+
+    public virtual ICollection<EmailNotificationMapping> EmailNotificationMappings { get; set; } = new List<EmailNotificationMapping>();
+
+    public virtual ICollection<EmpCatMapping> EmpCatMappings { get; set; } = new List<EmpCatMapping>();
+
+    public virtual ICollection<EmpPaygroupMapping> EmpPaygroupMappings { get; set; } = new List<EmpPaygroupMapping>();
+
+    public virtual ICollection<Employee> EmployeeApprovingManagers { get; set; } = new List<Employee>();
+
+    public virtual ICollection<EmployeeAttachment> EmployeeAttachments { get; set; } = new List<EmployeeAttachment>();
+
+    public virtual ICollection<EmployeeConfirmation> EmployeeConfirmationCreatedBies { get; set; } = new List<EmployeeConfirmation>();
+
+    public virtual ICollection<EmployeeConfirmation> EmployeeConfirmationHods { get; set; } = new List<EmployeeConfirmation>();
+
+    public virtual ICollection<EmployeeConfirmation> EmployeeConfirmationModifiedBies { get; set; } = new List<EmployeeConfirmation>();
+
+    public virtual ICollection<EmployeeConfirmation> EmployeeConfirmationSubmitedBies { get; set; } = new List<EmployeeConfirmation>();
+
+    public virtual ICollection<Employee> EmployeeCreatedBies { get; set; } = new List<Employee>();
+
+    public virtual ICollection<EmployeeDocument> EmployeeDocuments { get; set; } = new List<EmployeeDocument>();
+
+    public virtual ICollection<EmployeeInitialAppraisalDetail> EmployeeInitialAppraisalDetailHods { get; set; } = new List<EmployeeInitialAppraisalDetail>();
+
+    public virtual ICollection<EmployeeInitialAppraisalDetail> EmployeeInitialAppraisalDetailInitiatedBies { get; set; } = new List<EmployeeInitialAppraisalDetail>();
+
+    public virtual ICollection<Employee> EmployeeModifiedBies { get; set; } = new List<Employee>();
+
+    public virtual ICollection<EmployeePpcMapping> EmployeePpcMappingCreatedBies { get; set; } = new List<EmployeePpcMapping>();
+
+    public virtual ICollection<EmployeePpcMapping> EmployeePpcMappingEmployees { get; set; } = new List<EmployeePpcMapping>();
+
+    public virtual ICollection<EmployeePpcMapping> EmployeePpcMappingModifiedBies { get; set; } = new List<EmployeePpcMapping>();
+
+    public virtual ICollection<Employee> EmployeeReportingManagers { get; set; } = new List<Employee>();
+
+    public virtual ICollection<EmployeeRetirementDetail> EmployeeRetirementDetailCreatedBies { get; set; } = new List<EmployeeRetirementDetail>();
+
+    public virtual ICollection<EmployeeRetirementDetail> EmployeeRetirementDetailModifiedBies { get; set; } = new List<EmployeeRetirementDetail>();
+
+    public virtual ICollection<EmployeeTerminationDetail> EmployeeTerminationDetailCreatedBies { get; set; } = new List<EmployeeTerminationDetail>();
+
+    public virtual ICollection<EmployeeTerminationDetail> EmployeeTerminationDetailModifiedBies { get; set; } = new List<EmployeeTerminationDetail>();
+
+    public virtual ICollection<FileUpload> FileUploads { get; set; } = new List<FileUpload>();
+
+    public virtual DesignationMaster? FkDesignationNavigation { get; set; }
+
+    public virtual ProfileMaster? FkProfile { get; set; }
+
+    public virtual SubRole? FkRole { get; set; }
+
+    public virtual ICollection<MoreLink> MoreLinkCreatedBies { get; set; } = new List<MoreLink>();
+
+    public virtual ICollection<MoreLink> MoreLinkModifiedBies { get; set; } = new List<MoreLink>();
+
+    public virtual ICollection<OfferDetail> OfferDetailApprovingManagers { get; set; } = new List<OfferDetail>();
+
+    public virtual ICollection<OfferDetail> OfferDetailReportingManagers { get; set; } = new List<OfferDetail>();
+
+    public virtual ICollection<PrintTemplatePpcMapping> PrintTemplatePpcMappingCreatedBies { get; set; } = new List<PrintTemplatePpcMapping>();
+
+    public virtual ICollection<PrintTemplatePpcMapping> PrintTemplatePpcMappingModifiedBies { get; set; } = new List<PrintTemplatePpcMapping>();
+
+    public virtual ICollection<TaskManager> TaskManagerTaskAssignedByNavigations { get; set; } = new List<TaskManager>();
+
+    public virtual ICollection<TaskManager> TaskManagerTaskAssignedToNavigations { get; set; } = new List<TaskManager>();
+
+    public virtual ICollection<UserDeptMaintenance> UserDeptMaintenances { get; set; } = new List<UserDeptMaintenance>();
+
+    public virtual ICollection<UserPlantMaintenance> UserPlantMaintenances { get; set; } = new List<UserPlantMaintenance>();
 }
