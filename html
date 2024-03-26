@@ -1,37 +1,42 @@
-  filterItems() {
-    const filter = this.empid;
-    this.dropdownItems = this.supportnames.filter(item =>
-      item.EmployeeId.toString().includes(filter)
-    );
-  }
+  <label>Employe ID</label>
+  <input class="searchinput" type="text" placeholder="Employe ID" [(ngModel)]="empid" (input)="filterItems()" />
+  <ul class="dropdowns-list" *ngIf="dropdownItems.length > 0">
+    <li class="drop-list" value="" *ngFor="let item of dropdownItems" (click)="selectItem(item)">
+      {{item}}
+    </li>
+  </ul>
+</div>
+<div class="col">
+  <label>First Name</label>
+  <input class="searchinput" type="text" placeholder="Firstname" [(ngModel)]="firstname" />
 
-  // Function to handle selection of an item
-  selectItem(item: any) {
-    this.empid = item.EmployeeId;
-    this.firstname = item.firstname;
-    // Clear dropdownItems array
-    this.dropdownItems = [];
-  }
+</div>
+<div class="col">
+  <label>Middle Name</label>
+  <input type="text" placeholder="Middlename" [(ngModel)]="middlename" />
+</div>
+<div class="col">
+  <label>Last Name</label>
+  <input type="text" placeholder="Lastname" [(ngModel)]="lastname" />
+</div>
+fetchAllItems() {
+  const apiUrl = this.apiurl + '/EmployeeMasters';
+  this.http.get<any[]>(apiUrl).subscribe(
+    (response: any[]) => {
+      this.supportnames = response.map(item => item.EmployeeId);
+    },
+    (error: any) => {
+      console.error('GET request failed', error);
+    }
+  );
+}
 
-
-  fetchAllItems() {
-    const apiUrl = this.apiurl + '/EmployeeMasters';
-    this.http.get<any[]>(apiUrl).subscribe(
-      (response: any[]) => {
-        this.supportnames = response.map(item => item.EmployeeId);
-      },
-      (error: any) => {
-        console.error('GET request failed', error);
-      }
-    );
-  }
-
-  filterItems() {
-    const filter = this.empid;
-    this.dropdownItems = this.supportnames.filter(item =>
-      item.toString().includes(filter)
-    );
-  }
+filterItems() {
+  const filter = this.empid;
+  this.dropdownItems = this.supportnames.filter(item =>
+    item.toString().includes(filter)
+  );
+}
 
 selectItem(item: any) {
   this.empid = item;
