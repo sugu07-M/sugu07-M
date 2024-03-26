@@ -21,3 +21,7 @@
 
             return Ok(employees);
         }
+
+
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	CS1061	'IEmployeeMasters' does not contain a definition for 'StreamEmployeeMaster' and no accessible extension method 'StreamEmployeeMaster' accepting a first argument of type 'IEmployeeMasters' could be found (are you missing a using directive or an assembly reference?)	IT_Portal.API	D:\IT-Portal\IT-Portal\IT_Portal.API\Controllers\EmployeeMastersController.cs	25	Active
