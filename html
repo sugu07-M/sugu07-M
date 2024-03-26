@@ -1,28 +1,78 @@
-<input class="searchinput" type="text" placeholder="Employe ID" [(ngModel)]="empid" (input)="filterItems()" />
-  <ul class="dropdowns-list" *ngIf="dropdownItems.length > 0">
-    <li class="drop-list" value="" *ngFor="let item of dropdownItems" (click)="selectItem(item)">
-      {{item.EmployeeId}}
-    </li>
-  </ul>
-  selectItem(item: any) {
-  this.empid = item.EmployeeId;
-  this.firstname = item.firstname;
-  this.lastname = item.lastname;
-  // Assuming there is a middle name property in item as well
-  this.middlename = item.middlename;
-  this.dropdownItems = [];
+          <label>Employe ID</label>
+          <input class="searchinput" type="text" placeholder="Employe ID" [(ngModel)]="empid" (input)="filterItems()" />
+          <ul class="dropdowns-list" *ngIf="dropdownItems.length > 0">
+            <li class="drop-list" value="" *ngFor="let item of dropdownItems" (click)="selectItem(item)">
+              {{item}}
+            </li>
+          </ul>
+        </div>
+        <div class="col">
+          <label>First Name</label>
+          <input class="searchinput" type="text" placeholder="Firstname" [(ngModel)]="firstname" />
+          <ul class="dropdowns-list" *ngIf="dropdownItems.length > 0">
+  <li class="drop-list" value="" *ngFor="let item of dropdownItems" (click)="selectItem(item)">
+    {{item}}
+  </li>
+</ul>
+
+          dropdownItems: any[] = [];
+dropdownItemscr: any[] = [];
+selectedValue: any = '';
+selectedValuecr: any = '';
+supportteamname: any[] = [];
+supportnames: any[] = [];
+
+
+fetchAllItems() {
+  const apiUrl = this.apiurl + '/EmployeeMasters';
+  this.http.get<any[]>(apiUrl).subscribe(
+    (response: any[]) => {
+      console.log("Function", response);
+      this.supportnames = response.map(item => item.EmployeeId);
+      console.log("Support Team Name", this.supportnames);
+    },
+    (error: any) => {
+      console.error('GET request failed', error);
+    }
+  );
 }
-  filterItems() {
-    const filter = this.empid;
-    this.dropdownItems = this.supportnames.filter(item =>
-      item.EmployeeId.toString().includes(filter)
-    );
+
+filterItems() {
+  const filter = this.empid;
+  this.dropdownItems = this.supportnames.filter(item =>
+    item.toString().includes(filter)
+  );
+  if (this.dropdownItems.length === 0 && filter === '') {
+    this.dropdownItems.push('No name found');
+  } else if (filter === '') {
+    this.dropdownItems.length = 0;
   }
+}
 
 selectItem(item: any) {
+ 
   this.empid = item.EmployeeId;
-  this.firstname = item.firstname;
-  this.middlename = item.middlename || '';
-  this.lastname = item.lastname;
+  this.firstname = item.FirstName;
+  console.log("employe id:", item.empid);
+  console.log("first name:", item.firstname);
   this.dropdownItems = [];
+}
+
+filterItemscr() {
+  const filter = this.firstname.toUpperCase();
+  this.dropdownItemscr = this.supportteamname.filter(item =>
+    item.toUpperCase().includes(filter)
+  );
+  if (this.dropdownItemscr.length === 0 && filter !== '') {
+    this.dropdownItemscr.push('No name found');
+  }
+  else if (filter === 'this.supportteamname') {
+    this.dropdownItemscr.length = 0
+  }
+}
+
+selectItemcr(item: string) {
+  this.selectedValuecr = item;
+  this.firstname = item;
+  this.dropdownItemscr = [];
 }
