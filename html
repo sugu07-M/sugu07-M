@@ -1,3 +1,18 @@
+  filterItems() {
+    const filter = this.empid;
+    this.dropdownItems = this.supportnames.filter(item =>
+      item.EmployeeId.toString().includes(filter)
+    );
+  }
+
+  // Function to handle selection of an item
+  selectItem(item: any) {
+    this.empid = item.EmployeeId;
+    this.firstname = item.firstname;
+    // Clear dropdownItems array
+    this.dropdownItems = [];
+  }
+
 
   fetchAllItems() {
     const apiUrl = this.apiurl + '/EmployeeMasters';
