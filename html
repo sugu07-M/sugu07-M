@@ -12,3 +12,17 @@
   this.middlename = item.middlename;
   this.dropdownItems = [];
 }
+  filterItems() {
+    const filter = this.empid;
+    this.dropdownItems = this.supportnames.filter(item =>
+      item.EmployeeId.toString().includes(filter)
+    );
+  }
+
+  selectItem(item: any) {
+    this.empid = item.EmployeeId;
+    this.firstname = item.firstname;
+    this.middlename = item.middlename || '';
+    this.lastname = item.lastname;
+    this.dropdownItems = [];
+  }
