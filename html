@@ -18,11 +18,17 @@
     );
   }
 
-  selectItem(item: any) {
-    this.empid = item;
-    const selectedEmployee = this.supportnames.find(employee => employee.EmployeeId === item);
-    if (selectedEmployee) {
-      this.firstname = selectedEmployee.firstname;
-    }
-    this.dropdownItems = [];
+selectItem(item: any) {
+  this.empid = item;
+  // Find the selected employee object by EmployeeId
+  const selectedEmployee = this.supportnames.find(employee => employee.EmployeeId === item);
+  if (selectedEmployee) {
+    // Assign the first name from the selected employee to the firstname variable
+    this.firstname = selectedEmployee.firstname;
+  } else {
+    // If no employee is found, reset the firstname variable
+    this.firstname = '';
   }
+  // Clear the dropdownItems array
+  this.dropdownItems = [];
+}
