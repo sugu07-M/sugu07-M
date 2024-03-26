@@ -1,4 +1,25 @@
-fetchAllItems() {
+  <div class="col">
+    <label>Employe ID</label>
+    <input class="searchinput" type="text" placeholder="Employe ID" [(ngModel)]="empid" (input)="filterItems()" />
+    <ul class="dropdowns-list" *ngIf="dropdownItems.length > 0">
+      <li class="drop-list" value="" *ngFor="let item of dropdownItems" (click)="selectItem(item)">{{item}}</li>
+    </ul>
+  </div>
+  <div class="col">
+    <label>First Name</label>
+    <input class="searchinput" type="text" placeholder="Firstname" [(ngModel)]="firstname" />
+
+  </div>
+  <div class="col">
+    <label>Middle Name</label>
+    <input type="text" placeholder="Middlename" [(ngModel)]="middlename" />
+  </div>
+  <div class="col">
+    <label>Last Name</label>
+    <input type="text" placeholder="Lastname" [(ngModel)]="lastname" />
+  </div>
+
+  fetchAllItems() {
   const apiUrl = this.apiurl + '/EmployeeMasters';
   this.http.get<any[]>(apiUrl).subscribe(
     (response: any[]) => {
@@ -25,11 +46,9 @@ filterItems() {
 }
 
 selectItem(item: any) {
-  // Assuming item is an object containing EmployeeId, FirstName, LastName
-  this.selectedValue = item.EmployeeId;
+ 
   this.empid = item.EmployeeId;
-  // Example to show FirstName and LastName
-  console.log("First Name:", item.FirstName);
-  console.log("Last Name:", item.LastName);
+  console.log("employe id:", item.empid);
+  console.log("first name:", item.firstname);
   this.dropdownItems = [];
 }
