@@ -1,5 +1,6 @@
 Severity	Code	Description	Project	File	Line	Suppression State
 Error	CS1061	'SPEmployeeMaster' does not contain a definition for 'GetAwaiter' and no accessible extension method 'GetAwaiter' accepting a first argument of type 'SPEmployeeMaster' could be found (are you missing a using directive or an assembly reference?)	IT_Portal.API	D:\IT-Portal\IT-Portal\IT_Portal.API\Controllers\EmployeeMastersController.cs	22	Active
+Controllers\EmployeeMastersController.cs	22	Active
   namespace IT_Portal.API.Controllers
 {
     [Route("api/[controller]")]
