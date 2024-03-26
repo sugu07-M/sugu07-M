@@ -1,4 +1,16 @@
- public async Task<IActionResult> GetEmployee()
+ public async IAsyncEnumerable<EmployeeMaster> StreamEmployeeMaster()
+        {
+            await foreach (var item in _context.EmployeeMasters.AsAsyncEnumerable())
+            {
+                yield return item;
+            }
+        }
+
+
+
+
+[HttpGet]
+        public async Task<IActionResult> GetEmployee()
         {
             var employees = new List<EmployeeMaster>();
 
