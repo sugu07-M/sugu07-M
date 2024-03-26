@@ -1,31 +1,66 @@
- public async IAsyncEnumerable<EmployeeMaster> StreamEmployeeMaster()
+// EmployeeMasterRepository.cs
+using IT_Portal.Persistence.IT_Models;
+using IT_Portal.Application.Contracts.Persistence;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace IT_Portal.Persistence.Repositories
+{
+    public class EmployeeMasterRepository : IEmployeeMasters
+    {
+        private readonly MicroLabsDevContext _context;
+
+        public EmployeeMasterRepository(MicroLabsDevContext context)
+        {
+            this._context = context;
+        }
+
+        // Streaming method
+        public async IAsyncEnumerable<EmployeeMaster> StreamEmployeeMaster()
         {
             await foreach (var item in _context.EmployeeMasters.AsAsyncEnumerable())
             {
                 yield return item;
             }
         }
+    }
+}
 
 
+controller
 
+// EmployeeMastersController.cs
+using IT_Portal.Persistence.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-[HttpGet]
+namespace IT_Portal.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class EmployeeMastersController : ControllerBase
+    {
+        private readonly EmployeeMasterRepository _repository;
+
+        public EmployeeMastersController(EmployeeMasterRepository repository)
+        {
+            this._repository = repository;
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetEmployee()
         {
             var employees = new List<EmployeeMaster>();
 
-            await foreach (var item in _masterscontext.StreamEmployeeMaster())
+            await foreach (var item in _repository.StreamEmployeeMaster())
             {
                 employees.Add(item);
             }
 
             return Ok(employees);
         }
-
-
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	CS1061	'IEmployeeMasters' does not contain a definition for 'StreamEmployeeMaster' and no accessible extension method 'StreamEmployeeMaster' accepting a first argument of type 'IEmployeeMasters' could be found (are you missing a using directive or an assembly reference?)	IT_Portal.API	D:\IT-Portal\IT-Portal\IT_Portal.API\Controllers\EmployeeMastersController.cs	25	Active
-
-
-var data = await _context.EmployeeMasters.AsNoTracking().ToListAsync();
-            return data;
+    }
+}
