@@ -1,18 +1,7 @@
- [Route("api/[controller]")]
-    [ApiController]
-    public class EmployeeMastersController : ControllerBase
-    {
-        private readonly IEmployeeMasters _masterscontext;
-
-        public EmployeeMastersController(IEmployeeMasters masterscontext)
-        {
-            this._masterscontext = masterscontext;
-        }
-
-        [HttpPost("PostCategorytyp")]
-        public async Task<IActionResult> PostCategory(SPEmployeeMaster obj)
-        {
-            var result = await _masterscontext.CRemployemaster(obj);
-            return Ok(result);
-        }
-    }
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	CS0815	Cannot assign void to an implicitly-typed variable	IT_Portal.API	D:\IT-Portal\IT-Portal\IT_Portal.API\Controllers\EmployeeMastersController.cs	22	Active
+Error	CS0535	'EmployeeMasterRepository' does not implement interface member 'IEmployeeMasters.IEmployeeMasters(SPEmployeeMaster)'	IT_Portal.Persistence	D:\IT-Portal\IT-Portal\IT_Portal.Persistence\Repositories\EmployeeMasterRepository.cs	16	Active
+Error	CS0535	'EmployeeMasterRepository' does not implement interface member 'IEmployeeMasters.GetEmployeMaster()'	IT_Portal.Persistence	D:\IT-Portal\IT-Portal\IT_Portal.Persistence\Repositories\EmployeeMasterRepository.cs	16	Active
+Error	CS0535	'EmployeeMasterRepository' does not implement interface member 'IEmployeeMasters.GetEmployee()'	IT_Portal.Persistence	D:\IT-Portal\IT-Portal\IT_Portal.Persistence\Repositories\EmployeeMasterRepository.cs	16	Active
+Error	CS0535	'EmployeeMasterRepository' does not implement interface member 'IEmployeeMasters.CRemployemasterMasterList(string)'	IT_Portal.Persistence	D:\IT-Portal\IT-Portal\IT_Portal.Persistence\Repositories\EmployeeMasterRepository.cs	16	Active
+Error	CS0535	'EmployeeMasterRepository' does not implement interface member 'IEmployeeMasters.CRemployemaster(SPEmployeeMaster)'	IT_Portal.Persistence	D:\IT-Portal\IT-Portal\IT_Portal.Persistence\Repositories\EmployeeMasterRepository.cs	16	Active
