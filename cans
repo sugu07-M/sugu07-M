@@ -18,3 +18,8 @@
         
     }
 }
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	CS0535	'EmployeeMasterRepository' does not implement interface member 'IEmployeeMasters.IEmployeeMasters(SPEmployeeMaster)'	IT_Portal.Persistence	D:\IT-Portal\IT-Portal\IT_Portal.Persistence\Repositories\EmployeeMasterRepository.cs	16	Active
+Error	CS1001	Identifier expected	IT_Portal.API	D:\IT-Portal\IT-Portal\IT_Portal.API\Controllers\EmployeeMastersController.cs	21	Active
+Error	CS0535	'EmployeeMasterRepository' does not implement interface member 'IEmployeeMasters.CRemployemasterMasterList(string)'	IT_Portal.Persistence	D:\IT-Portal\IT-Portal\IT_Portal.Persistence\Repositories\EmployeeMasterRepository.cs	16	Active
+Error	CS0738	'EmployeeMasterRepository' does not implement interface member 'IEmployeeMasters.CRemployemaster(SPEmployeeMaster)'. 'EmployeeMasterRepository.CRemployemaster(SPEmployeeMaster)' cannot implement 'IEmployeeMasters.CRemployemaster(SPEmployeeMaster)' because it does not have the matching return type of 'Task'.	IT_Portal.Persistence	D:\IT-Portal\IT-Portal\IT_Portal.Persistence\Repositories\EmployeeMasterRepository.cs	16	Active
