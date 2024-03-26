@@ -1,2 +1,20 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	CS0535	'EmployeeMasterRepository' does not implement interface member 'IEmployeeMasters.IEmployeeMasters(SPEmployeeMaster)'	IT_Portal.Persistence	D:\IT-Portal\IT-Portal\IT_Portal.Persistence\Repositories\EmployeeMasterRepository.cs	16	Active
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class EmployeeMastersController : ControllerBase
+    {
+        private readonly IEmployeeMasters _masterscontext;
+
+        public EmployeeMastersController(IEmployeeMasters masterscontext)
+        {
+            this._masterscontext = masterscontext;
+        }
+        [HttpPost("PostCategorytyp")]
+        public async Task<IActionResult> PostCategory(SPEmployeeMaster obj)
+        {
+            var spObj = await _masterscontext(obj);
+            return Ok(spObj);
+        }
+        
+    }
+}
