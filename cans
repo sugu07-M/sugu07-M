@@ -1,5 +1,2 @@
-[legend]="showLegend"
-   [scheme]="colorScheme"
-
-
- showLegend: boolean = true;
+ Type '{ domain: string[]; }' is not assignable to type 'string | Color'.
+  Type '{ domain: string[]; }' is missing the following properties from type 'Color': name, selectable, group
