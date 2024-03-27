@@ -1,1 +1,9 @@
-select SupportName from it.Support where IsActive=1
+CREATE PROCEDURE GetActiveSupportNames
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT SupportName
+    FROM it.Support
+    WHERE IsActive = 1;
+END;
