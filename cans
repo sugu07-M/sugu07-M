@@ -1,3 +1,7 @@
+
+ Property 'filterItems' does not exist on type 'SupportTeamComponent'.
+
+
 supportnames: Employee[] = [];
 
 fetchAllItems() {
