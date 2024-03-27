@@ -1,17 +1,5 @@
   selectedItems: any[] = []; // Initialize array to store selected items
 
-private updateApproverStage() {
-    if (this.selectedItems.length === 0) {
-      this.approverstage = ''; // Reset if no items selected
-    } else if (this.selectedItems.length <= 2) {
-      // If one or two items selected, concatenate their IDs with a separator
-      this.approverstage = this.selectedItems.map(item => item.item_id).join(',');
-    } else {
-      // If more than two items selected, set approverstage to 'selectall'
-      this.approverstage = 'selectall';
-    }
-  }
-
  onItemSelect(item: any) {
     this.selectedItems.push(item);
     this.updateApproverStage();
@@ -33,4 +21,15 @@ private updateApproverStage() {
   onUnSelectAll() {
     this.selectedItems = [];
     this.updateApproverStage();
+  }
+
+  // Update approverstage based on selected items
+  private updateApproverStage() {
+    if (this.selectedItems.length === 0) {
+      this.approverstage = ''; // Reset if no items selected
+    } else {
+      // Concatenate the text values of selected items with a separator
+      this.approverstage = this.selectedItems.map(item => item.item_text).join(', ');
+    }
+    console.log("Approver stage: ", this.approverstage);
   }
