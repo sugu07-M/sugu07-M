@@ -1,3 +1,6 @@
  Type '{ domain: string[]; }' is not assignable to type 'string | Color'.
   Type '{ domain: string[]; }' is missing the following properties from type 'Color': name, selectable, group
 import { Color } from '@swimlane/ngx-charts';
+
+ Type '{ domain: string[]; }' is not assignable to type 'string | Color'.
+  Type '{ domain: string[]; }' is missing the following properties from type 'Color': name, selectable, group
