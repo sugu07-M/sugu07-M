@@ -1,24 +1,96 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	CS1061	'SPEmployeeMaster' does not contain a definition for 'GetAwaiter' and no accessible extension method 'GetAwaiter' accepting a first argument of type 'SPEmployeeMaster' could be found (are you missing a using directive or an assembly reference?)	IT_Portal.API	D:\IT-Portal\IT-Portal\IT_Portal.API\Controllers\EmployeeMastersController.cs	22	Active
-Controllers\EmployeeMastersController.cs	22	Active
-  namespace IT_Portal.API.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class EmployeeMastersController : ControllerBase
-    {
-        private readonly IEmployeeMasters _masterscontext;
+ firstname: any = '';
+ middlename: any = '';
+ lastname: any = '';
+ imageurls: any = '';
+ Email: any = '';
+ designation: any = '';
+ empid: any = '';
 
-        public EmployeeMastersController(IEmployeeMasters masterscontext)
-        {
-            this._masterscontext = masterscontext;
-        }
 
-        [HttpGet]
-        public async Task<IActionResult> GetEmployee()
-        {
-            var employeedata = await _masterscontext.GetEmployeMaster();
-            return Ok(employeedata);
-        }
+dropdownItems: any[] = [];
+dropdownItemscr: any[] = [];
+selectedValue: any = '';
+selectedValuecr: any = '';
+supportteamname: any[] = [];
+supportnames: any[] = [];
+
+
+fetchAllItems() {
+  const apiUrl = this.apiurl + '/SupportTeam';
+  this.http.get<any[]>(apiUrl).subscribe(
+    (response: any[]) => {
+      console.log("Function", response);
+      this.supportnames = response.map(item => item.empId);
+      this.firstname = response.map(item => item.firstName);
+
+      console.log("Support Team Name", this.supportnames);
+    },
+    (error: any) => {
+      console.error('GET request failed', error);
     }
+  );
 }
+
+filterItems() {
+  const filter = this.empid;
+  this.dropdownItems = this.supportnames.filter(item =>
+    item.toString().includes(filter)
+  );
+  if (this.dropdownItems.length === 0 && filter === '') {
+    this.dropdownItems.push('');
+  } else if (filter === '') {
+    this.dropdownItems.length = 0;
+  }
+}
+
+selectItem(item: any) {
+ 
+  this.empid = item;
+  this.firstname = item.firstName;
+  console.log("employe id:", this.empid);
+  console.log("first name:", this.firstname);
+  this.dropdownItems = [];
+}
+
+filterItemscr() {
+  const filter = this.firstname.toUpperCase();
+  this.dropdownItemscr = this.supportteamname.filter(item =>
+    item.toUpperCase().includes(filter)
+  );
+  if (this.dropdownItemscr.length === 0 && filter !== '') {
+    this.dropdownItemscr.push('No name found');
+  }
+  else if (filter === 'this.supportteamname') {
+    this.dropdownItemscr.length = 0
+  }
+}
+
+selectItemcr(item: string) {
+  this.selectedValuecr = item;
+  this.firstname = item;
+  this.dropdownItemscr = [];
+}
+
+
+  <div class="col">
+    <label>Employe ID</label>
+    <input class="searchinput" type="text" placeholder="Employe ID" [(ngModel)]="empid" (input)="filterItems()" />
+    <ul class="dropdowns-list" *ngIf="dropdownItems.length > 0">
+      <li class="drop-list" value="" *ngFor="let item of dropdownItems" (click)="selectItem(item)">
+        {{item}}
+      </li>
+    </ul>
+  </div>
+  <div class="col">
+    <label>First Name</label>
+    <input class="searchinput" type="text" placeholder="Firstname" [(ngModel)]="firstname"  />
+
+  </div>
+  <div class="col">
+    <label>Middle Name</label>
+    <input type="text" placeholder="Middlename" [(ngModel)]="middlename" />
+  </div>
+  <div class="col">
+    <label>Last Name</label>
+    <input type="text" placeholder="Lastname" [(ngModel)]="lastname" />
+  </div>
