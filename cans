@@ -1,29 +1,11 @@
- firstname: any = '';
- middlename: any = '';
- lastname: any = '';
- imageurls: any = '';
- Email: any = '';
- designation: any = '';
- empid: any = '';
-
-
-dropdownItems: any[] = [];
-dropdownItemscr: any[] = [];
-selectedValue: any = '';
-selectedValuecr: any = '';
-supportteamname: any[] = [];
-supportnames: any[] = [];
-
+supportnames: Employee[] = [];
 
 fetchAllItems() {
   const apiUrl = this.apiurl + '/SupportTeam';
-  this.http.get<any[]>(apiUrl).subscribe(
-    (response: any[]) => {
+  this.http.get<Employee[]>(apiUrl).subscribe(
+    (response: Employee[]) => {
       console.log("Function", response);
-      this.supportnames = response.map(item => item.empId);
-      this.firstname = response.map(item => item.firstName);
-
-      console.log("Support Team Name", this.supportnames);
+      this.supportnames = response;
     },
     (error: any) => {
       console.error('GET request failed', error);
@@ -31,66 +13,22 @@ fetchAllItems() {
   );
 }
 
-filterItems() {
-  const filter = this.empid;
-  this.dropdownItems = this.supportnames.filter(item =>
-    item.toString().includes(filter)
-  );
-  if (this.dropdownItems.length === 0 && filter === '') {
-    this.dropdownItems.push('');
-  } else if (filter === '') {
-    this.dropdownItems.length = 0;
-  }
-}
-
-selectItem(item: any) {
- 
-  this.empid = item;
+selectItem(item: Employee) {
+  this.empid = item.empId;
   this.firstname = item.firstName;
-  console.log("employe id:", this.empid);
-  console.log("first name:", this.firstname);
+  this.lastname = item.lastName; // Update last name
+  console.log("Employee ID:", this.empid);
+  console.log("First Name:", this.firstname);
+  console.log("Last Name:", this.lastname);
   this.dropdownItems = [];
 }
 
-filterItemscr() {
-  const filter = this.firstname.toUpperCase();
-  this.dropdownItemscr = this.supportteamname.filter(item =>
-    item.toUpperCase().includes(filter)
-  );
-  if (this.dropdownItemscr.length === 0 && filter !== '') {
-    this.dropdownItemscr.push('No name found');
-  }
-  else if (filter === 'this.supportteamname') {
-    this.dropdownItemscr.length = 0
-  }
-}
-
-selectItemcr(item: string) {
-  this.selectedValuecr = item;
-  this.firstname = item;
-  this.dropdownItemscr = [];
-}
 
 
-  <div class="col">
-    <label>Employe ID</label>
-    <input class="searchinput" type="text" placeholder="Employe ID" [(ngModel)]="empid" (input)="filterItems()" />
-    <ul class="dropdowns-list" *ngIf="dropdownItems.length > 0">
-      <li class="drop-list" value="" *ngFor="let item of dropdownItems" (click)="selectItem(item)">
-        {{item}}
-      </li>
-    </ul>
-  </div>
-  <div class="col">
-    <label>First Name</label>
-    <input class="searchinput" type="text" placeholder="Firstname" [(ngModel)]="firstname"  />
-
-  </div>
-  <div class="col">
-    <label>Middle Name</label>
-    <input type="text" placeholder="Middlename" [(ngModel)]="middlename" />
-  </div>
-  <div class="col">
-    <label>Last Name</label>
-    <input type="text" placeholder="Lastname" [(ngModel)]="lastname" />
-  </div>
+<label>Employe ID</label>
+  <input class="searchinput" type="text" placeholder="Employe ID" [(ngModel)]="empid" (input)="filterItems()" />
+  <ul class="dropdowns-list" *ngIf="dropdownItems.length > 0">
+    <li class="drop-list" value="" *ngFor="let item of dropdownItems" (click)="selectItem(item)">
+      {{ item.empId }} - {{ item.firstName }} {{ item.lastName }}
+    </li>
+  </ul>
