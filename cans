@@ -1,6 +1,17 @@
 
  Property 'filterItems' does not exist on type 'SupportTeamComponent'.
 
+ filterItems() {
+    const filter = this.empid;
+    this.dropdownItems = this.supportnames.filter(item =>
+      item.empId.toString().includes(filter)
+    );
+    if (this.dropdownItems.length === 0 && filter === '') {
+      this.dropdownItems.push('');
+    } else if (filter === '') {
+      this.dropdownItems.length = 0;
+    }
+  }
 
 supportnames: Employee[] = [];
 
