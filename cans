@@ -1,49 +1,18 @@
-
- Property 'filterItems' does not exist on type 'SupportTeamComponent'.
-
- filterItems() {
-    const filter = this.empid;
-    this.dropdownItems = this.supportnames.filter(item =>
-      item.empId.toString().includes(filter)
-    );
-    if (this.dropdownItems.length === 0 && filter === '') {
-      this.dropdownItems.push('');
-    } else if (filter === '') {
-      this.dropdownItems.length = 0;
-    }
-  }
-
-supportnames: Employee[] = [];
-
-fetchAllItems() {
-  const apiUrl = this.apiurl + '/SupportTeam';
-  this.http.get<Employee[]>(apiUrl).subscribe(
-    (response: Employee[]) => {
-      console.log("Function", response);
-      this.supportnames = response;
-    },
-    (error: any) => {
-      console.error('GET request failed', error);
-    }
-  );
-}
-
-selectItem(item: Employee) {
-  this.empid = item.empId;
-  this.firstname = item.firstName;
-  this.lastname = item.lastName; // Update last name
-  console.log("Employee ID:", this.empid);
-  console.log("First Name:", this.firstname);
-  console.log("Last Name:", this.lastname);
-  this.dropdownItems = [];
-}
-
-
-
-<label>Employe ID</label>
-  <input class="searchinput" type="text" placeholder="Employe ID" [(ngModel)]="empid" (input)="filterItems()" />
-  <ul class="dropdowns-list" *ngIf="dropdownItems.length > 0">
-    <li class="drop-list" value="" *ngFor="let item of dropdownItems" (click)="selectItem(item)">
-      {{ item.empId }} - {{ item.firstName }} {{ item.lastName }}
-    </li>
-  </ul>
+  <ng-multiselect-dropdown [(ngModel)]="item_id"
+                           [settings]="dropdownSettings"
+                           [data]="dropdownList"
+                           (onSelect)="onItemSelect($event)"
+                           (onSelectAll)="onSelectAll($event)"
+                           (onDeSelect)="onItemDeSelect($event)"
+                           (onDeSelectAll)="onUnSelectAll()">
+  </ng-multiselect-dropdown>
+this.dropdownList = [
+  { item_id: 'N', item_text: 'Change Request' },
+  { item_id: 'C', item_text: 'Closure' },
+  { item_id: 'R', item_text: 'Release' }
+ 
+];
+this.dropdownSettings = {
+  idField: 'item_id',
+  textField: 'item_text',
+"approverstage": this.item_id,
