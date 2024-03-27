@@ -1,18 +1,45 @@
-  <ng-multiselect-dropdown [(ngModel)]="item_id"
-                           [settings]="dropdownSettings"
-                           [data]="dropdownList"
-                           (onSelect)="onItemSelect($event)"
-                           (onSelectAll)="onSelectAll($event)"
-                           (onDeSelect)="onItemDeSelect($event)"
-                           (onDeSelectAll)="onUnSelectAll()">
-  </ng-multiselect-dropdown>
-this.dropdownList = [
-  { item_id: 'N', item_text: 'Change Request' },
-  { item_id: 'C', item_text: 'Closure' },
-  { item_id: 'R', item_text: 'Release' }
- 
-];
-this.dropdownSettings = {
-  idField: 'item_id',
-  textField: 'item_text',
-"approverstage": this.item_id,
+ item_id: string[] = []; // Initialize as an array for multi-select
+  dropdownList = [
+    { item_id: 'N', item_text: 'Change Request' },
+    { item_id: 'C', item_text: 'Closure' },
+    { item_id: 'R', item_text: 'Release' }
+  ];
+
+  dropdownSettings = {
+    idField: 'item_id',
+    textField: 'item_text'
+  };
+
+  approverstage: string = ''; // Initialize approverstage
+
+  // Function triggered on item select
+  onItemSelect(item: any) {
+    this.updateApproverStage();
+  }
+
+  // Function triggered on item deselect
+  onItemDeSelect(item: any) {
+    this.updateApproverStage();
+  }
+
+  // Function triggered on select all
+  onSelectAll(items: any) {
+    this.updateApproverStage();
+  }
+
+  // Function triggered on deselect all
+  onUnSelectAll() {
+    this.updateApproverStage();
+  }
+
+  // Update approverstage based on selected items
+  private updateApproverStage() {
+    if (this.item_id.length === 0) {
+      this.approverstage = ''; // Reset if no items selected
+    } else if (this.item_id.length === 1) {
+      this.approverstage = this.item_id[0]; // If one item selected, assign it
+    } else {
+      // If more than one item selected, concatenate them with a separator
+      this.approverstage = this.item_id.join(',');
+    }
+  }
