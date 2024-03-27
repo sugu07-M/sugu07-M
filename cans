@@ -1,4 +1,4 @@
-selectedItems
+  selectedItems: any[] = []; // Initialize array to store selected items
 
 private updateApproverStage() {
     if (this.selectedItems.length === 0) {
