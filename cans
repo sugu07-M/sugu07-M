@@ -25,11 +25,9 @@
 
   // Update approverstage based on selected items
   private updateApproverStage() {
-    if (this.selectedItems.length === 0) {
-      this.approverstage = ''; // Reset if no items selected
-    } else {
-      // Concatenate the text values of selected items with a separator
-      this.approverstage = this.selectedItems.map(item => item.item_text).join(', ');
-    }
-    console.log("Approver stage: ", this.approverstage);
+     const newApproverStage = this.selectedItems.map(item => item.item_id).join(',');
+  if (this.approverstage !== newApproverStage) {
+    this.approverstage = newApproverStage;
+    console.log('Approver Stage:', this.approverstage);
+  }
   }
