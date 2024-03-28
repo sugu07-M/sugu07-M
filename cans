@@ -1,18 +1,20 @@
-// Doughnut
-public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'rrrr'];
-public doughnutChartData: number[] = [350, 450, 100, 156];
-public doughnutChartType: any = 'doughnut';
-
-
-public chartHovered(e: any): void {
-  // console.log(e);
-}
-
 <div style="width: 600px; text-align: center; margin-top: 20px;">
   <div>Doughnut Chart</div>
-  <canvas ngChartjs [chartData]="doughnutChartData" [chartLabels]="doughnutChartLabels" [chartType]="doughnutChartType"
-          (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+  <canvas baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
 </div>
- Can't bind to 'datasets' since it isn't a known property of 'canvas'.
-NG8002: Can't bind to 'data' since it isn't a known property of 'canvas'.
-NG8002: Can't bind to 'chartData' since it isn't a known property of 'canvas'.
+  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'rrrr'];
+  public doughnutChartData: number[] = [350, 450, 100, 156];
+  public doughnutChartType: string = 'doughnut';
+
+  public chartHovered(e: any): void {
+    // console.log(e);
+  }
+
+  public chartClicked(e: any): void {
+    // console.log(e);
+  }
