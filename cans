@@ -11,18 +11,14 @@
 <br>
 public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
 
-public chartHovered(event: any): void {
-  if (event.active.length > 0) {
-    const chartData = event.active[0]._chart.data.datasets[0].data;
-    const hoveredPartIndex = event.active[0]._index;
-    const hoveredPartValue = chartData[hoveredPartIndex];
-    console.log(`Hovered Part: ${this.doughnutChartLabels[hoveredPartIndex]} - Value: ${hoveredPartValue}`);
-  }
-}
   public chartHovered(event: any): void {
     if (event.active && event.active.length > 0) {
       const chartData = event.active[0]._chart.data.datasets[0].data;
       const hoveredPartIndex = event.active[0]._index;
-      const hoveredPartValue = chartData[hoveredPartIndex];
-      console.log(`Hovered Part: ${this.doughnutChartLabels[hoveredPartIndex]} - Value: ${hoveredPartValue}`);
+
+      // Check if hoveredPartIndex is within the valid range
+      if (hoveredPartIndex >= 0 && hoveredPartIndex < chartData.length) {
+        const hoveredPartValue = chartData[hoveredPartIndex];
+        console.log(`Hovered Part: ${this.doughnutChartLabels[hoveredPartIndex]} - Value: ${hoveredPartValue}`);
+      }
     }
