@@ -1,16 +1,14 @@
-
-X [ERROR] NG2: Type 'ChartDataset[]' is not assignable to type 'ChartData<"doughnut", number[], string>'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:313:11:
-      313 │           [data]="doughnutChartData"
-          ╵            ~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:13:15:
-      13 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+ public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'rrrr'];
+  public doughnutChartData: ChartData<"doughnut", number[], string> = {
+    labels: this.doughnutChartLabels,
+    datasets: [
+      {
+        data: [350, 450, 100, 156],
+        label: 'Sales'
+      }
+    ]
+  };
+  public doughnutChartType: ChartType = 'doughnut';
 <div style="width: 600px; text-align: center; margin-top: 20px;">
   <div>Doughnut Chart</div>
   <canvas baseChart
