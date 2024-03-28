@@ -15,3 +15,4 @@
   chartClicked(event: any) {
     // Handle chart click event if needed
   }
+ Can't bind to 'datasets' since it isn't a known property of 'canvas'.
