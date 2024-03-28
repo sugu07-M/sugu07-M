@@ -1,19 +1,38 @@
- public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'rrrr'];
-  public doughnutChartData: ChartData<any, any[], string> = {
-    datasets: [
-      { 
-        data: [350, 450, 100, 156], 
-        label: 'Sales' 
-      }
-    ],
-    labels: this.doughnutChartLabels
-  };
-  public doughnutChartType: string = 'doughnut';
 
-  public chartHovered(e: any): void {
-    // console.log(e);
-  }
+X [ERROR] NG2: Type 'ChartData<any, any[], string>' is not assignable to type 'any[]'. [plugin angular-compiler]
 
-  public chartClicked(e: any): void {
-    // console.log(e);
-  }
+    src/app/dashboard/dashboard.component.html:313:11:
+      313 │           [datasets]="doughnutChartData"
+          ╵            ~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:13:15:
+      13 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:315:10:
+      315 │           [chartType]="doughnutChartType"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:13:15:
+      13 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG1: Property 'chartOptions' does not exist on type 'DashboardComponent'. Did you mean 'barChartOptions'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:316:21:
+      316 │           [options]="chartOptions"
+          ╵                      ~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:13:15:
+      13 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
