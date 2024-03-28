@@ -20,3 +20,30 @@ public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mai
   public chartClicked(e: any): void {
     // console.log(e);
   }
+pplication bundle generation failed. [4.219 seconds]
+
+X [ERROR] NG9: Property 'datasets' does not exist on type 'ChartDataset[]'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:313:36:
+      313 │           [data]="doughnutChartData.datasets"
+          ╵                                     ~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:13:15:
+      13 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG2: Type 'string' is not assignable to type 'keyof ChartTypeRegistry'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:315:11:
+      315 │           [type]="doughnutChartType"
+          ╵            ~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:13:15:
+      13 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
