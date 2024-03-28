@@ -1,6 +1,6 @@
 import { ChartDataSets } from 'chart.js';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
-
+npm install ngx-chartjs --save
 
 <div style="width: 600px; text-align: center; margin-top: 20px;">
   <div>Doughnut Chart</div>
