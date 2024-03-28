@@ -1,3 +1,6 @@
+import { ChartDataSets } from 'chart.js';
+
+
 <div style="width: 600px; text-align: center; margin-top: 20px;">
   <div>Doughnut Chart</div>
   <canvas baseChart
@@ -8,7 +11,9 @@
           (chartClick)="chartClicked($event)"></canvas>
 </div>
   public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'rrrr'];
-  public doughnutChartData: number[] = [350, 450, 100, 156];
+  public doughnutChartData: ChartDataSets[] = [
+    { data: [350, 450, 100, 156], label: 'Sales' }
+  ];
   public doughnutChartType: string = 'doughnut';
 
   public chartHovered(e: any): void {
