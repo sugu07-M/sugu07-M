@@ -32,3 +32,4 @@ npm install ngx-chartjs --save
     // console.log(e);
   }
 G2: Type 'number[]' is not assignable to type 'ChartData<any, any[], string>'.
+Type 'ChartDataSets[]' is not assignable to type 'ChartData<any, any[], string>'.
