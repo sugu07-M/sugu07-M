@@ -1,16 +1,22 @@
- <ngx-charts-bar-horizontal-stacked [view]="view"
-                                    [results]="multi"
-                                    [gradient]="gradient"
-                                    [legend]="showLegend"
-                                    [xAxis]="showXAxis"
-                                    [yAxis]="showYAxis"
-                                    [showXAxisLabel]="showXAxisLabel"
-                                    [showYAxisLabel]="showYAxisLabel"
-                                    [xAxisLabel]="xAxisLabel"
-                                    [yAxisLabel]="yAxisLabel"
-                                    [showDataLabel]="showDataLabel"
-                                    [showGridLines]="false"
-                                 
-                                    (select)="onSelect($event)" style="margin-left:2px">
+.ngx-charts-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Adjust as needed */
+}
 
- </ngx-charts-bar-horizontal-stacked>
+.ngx-charts-legend-entry {
+  display: flex;
+  align-items: center;
+  margin-right: 20px; /* Adjust as needed */
+}
+
+/* Adjust the legend entry styles as needed */
+.ngx-charts-legend-entry .name {
+  margin-right: 5px; /* Adjust as needed */
+}
+
+.ngx-charts-legend-entry .swatch {
+  width: 15px; /* Adjust as needed */
+  height: 15px; /* Adjust as needed */
+  margin-right: 5px; /* Adjust as needed */
+}
