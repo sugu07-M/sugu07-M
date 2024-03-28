@@ -1,37 +1,16 @@
- Type '{ domain: string[]; }' is not assignable to type 'string | Color'.
-  Type '{ domain: string[]; }' is missing the following properties from type 'Color': name, selectable, group
-import { Color } from '@swimlane/ngx-charts';
+ <ngx-charts-bar-horizontal-stacked [view]="view"
+                                    [results]="multi"
+                                    [gradient]="gradient"
+                                    [legend]="showLegend"
+                                    [xAxis]="showXAxis"
+                                    [yAxis]="showYAxis"
+                                    [showXAxisLabel]="showXAxisLabel"
+                                    [showYAxisLabel]="showYAxisLabel"
+                                    [xAxisLabel]="xAxisLabel"
+                                    [yAxisLabel]="yAxisLabel"
+                                    [showDataLabel]="showDataLabel"
+                                    [showGridLines]="false"
+                                 
+                                    (select)="onSelect($event)" style="margin-left:2px">
 
- colorScheme: Color[] = [
-    { // Define colors for each series
-      name: 'Approval',
-      selectable: true,
-      group: 'Ordinal',
-      domain: ['#005073']
-    },
-    {
-      name: 'Closure',
-      selectable: true,
-      group: 'Ordinal',
-      domain: ['#444e86']
-    },
-    {
-      name: 'Implementation',
-      selectable: true,
-      group: 'Ordinal',
-      domain: ['#1ebbd7']
-    },
-    {
-      name: 'Initiated',
-      selectable: true,
-      group: 'Ordinal',
-      domain: ['#71c7ec']
-    },
-    {
-      name: 'Release',
-      selectable: true,
-      group: 'Ordinal',
-      domain: ['#ff0000'] // Example color for Release series
-    }
-  ];
-
+ </ngx-charts-bar-horizontal-stacked>
