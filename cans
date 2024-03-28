@@ -2,6 +2,10 @@
   <div>Doughnut Chart</div>
   <canvas ngChartjs [chartData]="doughnutChartData" [chartLabels]="doughnutChartLabels" [chartType]="doughnutChartType"
           (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+</div><div style="width: 600px; text-align: center; margin-top: 20px;">
+  <div>Doughnut Chart</div>
+  <canvas ngChartjs [chartData]="doughnutChartData" [chartLabels]="doughnutChartLabels" [chartType]="doughnutChartType"
+          (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 </div>
 
  doughnutChartData: number[] = [350, 450, 100];
