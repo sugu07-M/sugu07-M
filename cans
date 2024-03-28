@@ -1,1 +1,7 @@
 NG8002: Can't bind to 'data' since it isn't a known property of 'canvas'.
+<div style="width: 600px; text-align: center; margin-top:20px">
+  <div>Doughnut Chart</div>
+  <canvas ngChartjs [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+          (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+ 
+</div>
