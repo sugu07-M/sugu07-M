@@ -18,3 +18,4 @@
   public chartClicked(e: any): void {
     // console.log(e);
   }
+G2: Type 'number[]' is not assignable to type 'ChartData<any, any[], string>'.
