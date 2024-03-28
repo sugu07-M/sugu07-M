@@ -16,3 +16,4 @@
     // Handle chart click event if needed
   }
  Can't bind to 'datasets' since it isn't a known property of 'canvas'.
+NG8002: Can't bind to 'data' since it isn't a known property of 'canvas'.
