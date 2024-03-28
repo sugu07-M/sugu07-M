@@ -1,6 +1,6 @@
-<div style="width: 600px; text-align: center; margin-top: 20px;">
+<div style="width: 600px; text-align: center; margin-top:20px">
   <div>Doughnut Chart</div>
-  <canvas ngChartjs [data]="chartData" [labels]="doughnutChartLabels" [type]="doughnutChartType"
+  <canvas ngChartjs [datasets]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
           (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 </div>
 
