@@ -1,5 +1,1 @@
-  public doughnutChartOptions: any = {
-    legend: {
-      display: true
-    }
-  };
+NG8002: Can't bind to 'data' since it isn't a known property of 'canvas'.
