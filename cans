@@ -1,14 +1,9 @@
  public doughnutChartOptions: any = {
     responsive: true,
     legend: {
-      position: 'bottom',
-    },
-    plugins: {
-      datalabels: {
-        formatter: (value, ctx) => {
-          return ctx.chart.data.labels[ctx.dataIndex];
-        },
-      },
-    },
+      position: 'right', // Adjust position as needed
+      labels: {
+        fontColor: 'black' // Adjust label color as needed
+      }
+    }
   };
-         [options]="doughnutChartOptions"
