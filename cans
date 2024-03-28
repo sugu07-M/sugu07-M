@@ -4,7 +4,6 @@
           (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 </div>
 
-
  doughnutChartData: number[] = [350, 450, 100];
   doughnutChartLabels: string[] = ['Red', 'Green', 'Blue'];
   doughnutChartType: string = 'doughnut';
