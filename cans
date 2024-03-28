@@ -1,24 +1,13 @@
-<div class="dount-chart">
-  <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-OverAll View</h6>
-  <canvas baseChart
-          [datasets]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"
-          style="height: 290px; width: 390px; box-sizing: border-box;">
-  </canvas>
-</div>
-<br>
-public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
-
-  public chartHovered(event: any): void {
-    if (event.active && event.active.length > 0) {
-      const chartData = event.active[0]._chart.data.datasets[0].data;
-      const hoveredPartIndex = event.active[0]._index;
-
-      // Check if hoveredPartIndex is within the valid range
-      if (hoveredPartIndex >= 0 && hoveredPartIndex < chartData.length) {
-        const hoveredPartValue = chartData[hoveredPartIndex];
-        console.log(`Hovered Part: ${this.doughnutChartLabels[hoveredPartIndex]} - Value: ${hoveredPartValue}`);
-      }
-    }
+ public doughnutChartOptions: any = {
+    responsive: true,
+    legend: {
+      position: 'bottom',
+    },
+    plugins: {
+      datalabels: {
+        formatter: (value, ctx) => {
+          return ctx.chart.data.labels[ctx.dataIndex];
+        },
+      },
+    },
+  };
