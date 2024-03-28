@@ -1,17 +1,17 @@
 <div style="width: 600px; text-align: center; margin-top: 20px;">
   <div>Doughnut Chart</div>
   <canvas baseChart
-          [data]="doughnutChartData.datasets"
+          [data]="doughnutChartData"
           [labels]="doughnutChartLabels"
-          [type]="doughnutChartType"
+          type="doughnut"
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>
 </div>
-public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'rrrr'];
+ public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'rrrr'];
   public doughnutChartData: ChartDataSets[] = [
     { data: [350, 450, 100, 156], label: 'Sales' }
   ];
-  public doughnutChartType: string = 'doughnut';
+  public doughnutChartType: string = 'doughnut'; // or any other valid chart type like 'bar', 'line', etc.
 
   public chartHovered(e: any): void {
     // console.log(e);
