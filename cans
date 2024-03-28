@@ -1,9 +1,5 @@
- public doughnutChartOptions: any = {
-    responsive: true,
+  public doughnutChartOptions: any = {
     legend: {
-      position: 'right', // Adjust position as needed
-      labels: {
-        fontColor: 'black' // Adjust label color as needed
-      }
+      display: true
     }
   };
