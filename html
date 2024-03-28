@@ -4,11 +4,18 @@
     datasets: [
       {
         data: [350, 450, 100, 156],
-        label: 'Sales'
+        label: 'Sales',
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.5)',   // Red
+          'rgba(54, 162, 235, 0.5)',    // Blue
+          'rgba(255, 205, 86, 0.5)',    // Yellow
+          'rgba(75, 192, 192, 0.5)'     // Green
+        ],
       }
     ]
   };
   public doughnutChartType: ChartType = 'doughnut';
+
 <div style="width: 600px; text-align: center; margin-top: 20px;">
   <div>Doughnut Chart</div>
   <canvas baseChart
