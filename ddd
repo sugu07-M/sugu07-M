@@ -1,12 +1,1 @@
-  console.log(response);
-        this.supportTeamData = response;
-      },
-
- <tr *ngFor="let item of supportTeamData" class="tr-body">
-      <td>{{ item.supportteamid }}</td>
-      <td>{{ item.supportname }}</td>
-      <td>{{ item.plant }}</td>
-      <td>{{ item.changeAnalysis }}</td> <!-- Replace 'changeAnalysis' with the actual property name if it differs -->
-      <td>{{ item.supportEngineer }}</td>
-      <td>{{ item.approver }}</td>
-    </tr>
+<td>{{ item.firstName+'-'+lastName }}</td>
