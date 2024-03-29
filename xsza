@@ -1,21 +1,7 @@
-
-X [ERROR] NG2: Type 'number[]' is not assignable to type 'ChartData<"doughnut", number[], string>'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:314:11:
-      314 │           [data]="doughnutChartData[0].data"
-          ╵            ~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:18:15:
-      18 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] TS2322: Type '{ datasets: { data: number[]; backgroundColor: string[]; label: string; }[]; }' is not assignable to type 'LocalChartData'.
-  Object literal may only specify known properties, and 'datasets' does not exist in type 'LocalChartData'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:109:6:
-      109 │       datasets: [{
-          ╵       ~~~~~~~~
-
+interface LocalChartData {
+  datasets: {
+    data: number[];
+    backgroundColor: string[];
+    label: string;
+  }[];
+}
