@@ -1,4 +1,10 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2352	(TS) Conversion of type '{ data: number[]; label: string; backgroundColor: string[]; }[]' to type 'ChartData<"doughnut", number[], string>[]' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
-  Type '{ data: number[]; label: string; backgroundColor: string[]; }' is not comparable to type 'ChartData<"doughnut", number[], string>'.
-    Object literal may only specify known properties, and 'data' does not exist in type 'ChartData<"doughnut", number[], string>'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	105	Active
+Type 'any[]' is not assignable to type 'ChartData<"doughnut", number[], string>'.
+<div style="width: 600px; text-align: center; margin-top: 20px;">
+  <div>Doughnut Chart</div>
+  <canvas baseChart
+           [datasets]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [options]="doughnutChartOptions"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
