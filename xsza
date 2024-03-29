@@ -1,8 +1,27 @@
-Application bundle generation failed. [3.213 seconds]                                             ype 'ChartData<"doughnut", number[], string> | undefined'. [plugin angular-compiler]
-X [ERROR] NG2: Type 'ChartData<"doughnut", number[], string>[] | undefined' is not assignable to ty
-
-X [ERROR] TS2322: Type '{ data: number[]; label: string; backgroundColor: string[]; }' is not assignable to type 'ChartData<"doughnut", number[], string>'.
-  Object literal may only specify known properties, and 'data' does not exist in type 'ChartData<"doughnut", number[], string>'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:106:8:
-      106 │         data: [
+this.doughnutChartData = [{
+  labels: ['Draft', 'Completed', 'Approved level1', 'Pending Approval', 'Approved', 'Rejected', 'Implement', 'Pending', 'Release'],
+  datasets: [{
+    data: [
+      this.newCount,
+      this.completedCount,
+      this.pendingCount,
+      this.pendingApproval,
+      this.Approved,
+      this.Rejected,
+      this.Implemention,
+      this.pending,
+      this.release
+    ],
+    backgroundColor: [
+      '#3B71CA',
+      '#808080ff',
+      '#14A44D',
+      '#DC4C64',
+      '#54B4D3',
+      '#E4A11B',
+      '#b5eb49',
+      '#808080ff'
+    ],
+    label: 'Status'
+  }]
+}];
