@@ -1,66 +1,38 @@
-// EmployeeMasterRepository.cs
-using IT_Portal.Persistence.IT_Models;
-using IT_Portal.Application.Contracts.Persistence;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace IT_Portal.Persistence.Repositories
-{
-    public class EmployeeMasterRepository : IEmployeeMasters
+public doughnutChartData: ChartData<"doughnut", number[], string>[] | undefined;
+countStatus() {
+  this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
+  this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
+  this.pendingCount = this.changerequest.filter(item => item.status.trim() === 'Approved level1').length;
+  this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+  this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
+  this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
+  this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
+  this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
+  this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
+  this.doughnutChartData = [
     {
-        private readonly MicroLabsDevContext _context;
-
-        public EmployeeMasterRepository(MicroLabsDevContext context)
-        {
-            this._context = context;
-        }
-
-        // Streaming method
-        public async IAsyncEnumerable<EmployeeMaster> StreamEmployeeMaster()
-        {
-            await foreach (var item in _context.EmployeeMasters.AsAsyncEnumerable())
-            {
-                yield return item;
-            }
-        }
+      data: [
+        this.newCount,
+        this.pendingApproval,
+        this.Approved,
+        this.Rejected,
+        this.Implemention,
+        this.pending,
+        this.release,
+        this.completedCount
+      ],
+      label: 'Sales',
+      backgroundColor: [
+        '#3B71CA',
+        '#808080ff',
+        '#14A44D',
+        '#DC4C64',
+        '#54B4D3',
+        '#E4A11B',
+        '#b5eb49',
+        '#808080ff'
+      ],
     }
-}
-
-
-controller
-
-// EmployeeMastersController.cs
-using IT_Portal.Persistence.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace IT_Portal.API.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class EmployeeMastersController : ControllerBase
-    {
-        private readonly EmployeeMasterRepository _repository;
-
-        public EmployeeMastersController(EmployeeMasterRepository repository)
-        {
-            this._repository = repository;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetEmployee()
-        {
-            var employees = new List<EmployeeMaster>();
-
-            await foreach (var item in _repository.StreamEmployeeMaster())
-            {
-                employees.Add(item);
-            }
-
-            return Ok(employees);
-        }
-    }
+  ]
+  
 }
