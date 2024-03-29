@@ -2,7 +2,16 @@ this.doughnutChartData = {
   labels: this.doughnutChartLabels,
   datasets: [
     {
-      data: [draftCount, pendingApprovalCount, approvedCount, rejectedCount, implementationCount, pendingCount, releaseCount, closureCount],
+      data: [
+        this.newCount,
+        this.pendingApproval,
+        this.Approved,
+        this.Rejected,
+        this.Implemention,
+        this.pending,
+        this.release,
+        this.completedCount
+      ],
       label: 'Sales',
       backgroundColor: [
         'rgba(255, 99, 132, 0.5)',   // Red
@@ -14,6 +23,7 @@ this.doughnutChartData = {
     }
   ]
 };
+
 Severity	Code	Description	Project	File	Line	Suppression State
 Error	TS2322	(TS) Type '{ labels: string[]; datasets: { data: number[]; label: string; backgroundColor: string[]; }[]; }' is not assignable to type 'any[]'.
   Object literal may only specify known properties, and 'labels' does not exist in type 'any[]'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	103	Active
