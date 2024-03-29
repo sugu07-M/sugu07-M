@@ -1,6 +1,8 @@
-  <td>
-    <a><i class="fas fa-check"></i></a>&nbsp;
+<td>
+  <ng-container *ngIf="item.isApproval; else notApproved">
+    <a><i class="fas fa-check"></i></a>
+  </ng-container>
+  <ng-template #notApproved>
     <i class="fas fa-times"></i>
-  </td>
-
- <th>Change Analysis</th>
+  </ng-template>
+</td>
