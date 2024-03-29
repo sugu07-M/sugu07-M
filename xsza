@@ -6,3 +6,53 @@
         [backgroundColor]="doughnutChartData[0].datasets[0].backgroundColor"
         (chartHover)="chartHovered($event)"
         (chartClick)="chartClicked($event)"></canvas>
+X [ERROR] NG2: Type 'number[]' is not assignable to type 'ChartData<any, any[], unknown>'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:315:11:
+      315 │           [data]="doughnutChartData[0].datasets[0].data"
+          ╵            ~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:21:15:
+      21 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG2: Type 'string' is not assignable to type 'unknown[]'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:316:11:
+      316 │           [labels]="doughnutChartData[0].datasets[0].label"
+          ╵            ~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:21:15:
+      21 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:317:10:
+      317 │           [chartType]="'doughnut'"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:21:15:
+      21 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'backgroundColor' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:318:10:
+      318 │           [backgroundColor]="doughnutChartData[0].datasets[0].bac...
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:21:15:
+      21 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
