@@ -1,3 +1,25 @@
+
+X [ERROR] NG2: Type 'ChartDataset[]' is not assignable to type 'ChartData<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], Label>'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:312:11:
+      312 │           [data]="doughnutChartData"
+          ╵            ~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:15:15:
+      15 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2304: Cannot find name 'Label'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:332:30:
+      332 │   public doughnutChartLabels: Label[] = ['Draft', 'Pending Approv...
+          ╵                               ~~~~~
+
+
+
 import { Label } from 'ng2-charts';
  <canvas baseChart
           [data]="doughnutChartData"
