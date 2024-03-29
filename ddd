@@ -1,0 +1,25 @@
+ public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'rrrr'];
+  public doughnutChartData: ChartData<"doughnut", number[], string> = {
+    labels: this.doughnutChartLabels,
+    datasets: [
+      {
+        data: [350, 450, 100, 156],
+        label: 'Sales',
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.5)',   // Red
+          'rgba(54, 162, 235, 0.5)',    // Blue
+          'rgba(255, 205, 86, 0.5)',    // Yellow
+          'rgba(75, 192, 192, 0.5)'     // Green
+        ],
+      }
+    ]
+  };
+  public doughnutChartType: ChartType = 'doughnut';
+
+  public chartHovered(e: any): void {
+    // console.log(e);
+  }
+
+  public chartClicked(e: any): void {
+    // console.log(e);
+  }
