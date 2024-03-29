@@ -3,14 +3,17 @@ public doughnutChartData: ChartData<any, any[], string> = {
    labels: this.doughnutChartLabels,
    datasets: [
      {
-       data: [10,
-         9,
-         3,
-         5,
-         7,
-         8,
-        6,
-        9],
+       this.doughnutChartData.datasets[0].data = [
+    this.newCount,
+    this.pendingApproval,
+    this.Approved,
+    this.Rejected,
+    this.Implementation,
+    this.pending,
+    this.release,
+    this.Closure
+  ];
+  console.log("Chart Data:", this.doughnutChartData);
        label: 'Status',
        backgroundColor: [
          '#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff'
