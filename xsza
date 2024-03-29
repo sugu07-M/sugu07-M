@@ -5,3 +5,15 @@ interface LocalChartData {
     label: string;
   }[];
 }
+
+X [ERROR] NG9: Property 'data' does not exist on type 'LocalChartData'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:314:39:
+      314 │           [data]="doughnutChartData[0].data"
+          ╵                                        ~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:21:15:
+      21 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
