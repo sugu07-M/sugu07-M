@@ -1,87 +1,49 @@
-  src/app/dashboard/dashboard.component.ts:17:15:
-Application bundle generation failed. [6.348 seconds]                                                       ype 'ChartData<"doughnut", number[], string>'. [plugin angular-compiler]
-X [ERROR] NG2: Type '{ data: number[]; label: string; backgroundColor: string[]; }[]' is not assignable to ty
-    src/app/dashboard/dashboard.component.html:313:11:
-      313 │           [data]="doughnutChartData"
-          ╵            ~~~~
+ public doughnutChartData: ChartData<"doughnut", number[], string>[] | undefined;
+ countStatus() {
+   this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
+   this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
+   this.pendingCount = this.changerequest.filter(item => item.status.trim() === 'Approved level1').length;
+   this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+   this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
+   this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
+   this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
+   this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
+   this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
+   this.doughnutChartData = [
+     {
+       data: [
+         this.newCount,
+         this.pendingApproval,
+         this.Approved,
+         this.Rejected,
+         this.Implemention,
+         this.pending,
+         this.release,
+         this.completedCount
+       ],
+       label: 'Sales',
+       backgroundColor: [
+         '#3B71CA',
+         '#808080ff',
+         '#14A44D',
+         '#DC4C64',
+         '#54B4D3',
+         '#E4A11B',
+         '#b5eb49',
+         '#808080ff'
+       ],
+     }
+   ]
+   
+ }
+Type 'ChartData<"doughnut", number[], string>[] | undefined' is not assignable to type 'ChartData<"doughnut", number[], string> | undefined'.
 
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.html:313:11:
-      313 │           [data]="doughnutChartData"
-          ╵            ~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:13:15:
-      13 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-getchangerequest() {
-    const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
-    const httpOptions = {
-        headers: new HttpHeaders({
-            'content-Type': 'application/json'
-        })
-    };
-
-    this.http.get(apiUrls, httpOptions).subscribe(
-        (response: any) => {
-            this.changerequest = response;
-            this.countStatus(); // Call countStatus after data retrieval
-        },
-        (error) => {
-            console.error("API request failed", error);
-        }
-    );
-}
-
-// Method to count statuses and populate doughnutChartData
-countStatus() {
-    // Count occurrences of different statuses
-    this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
-    this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
-    this.pendingCount = this.changerequest.filter(item => item.status.trim() === 'Approved level1').length;
-    this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
-    this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
-    this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
-    this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
-    this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
-    this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
-    this.Closure = this.changerequest.filter(item => item.status.trim() === 'Closure').length; // Count for 'Closure' status
-
-    // Assign data to doughnutChartData with the correct type
-    this.doughnutChartData = [
-        {
-            data: [
-                this.newCount,
-                this.pendingApproval,
-                this.Approved,
-                this.Rejected,
-                this.Implemention,
-                this.pending,
-                this.release,
-                this.completedCount,
-                this.Closure // Include Closure count in the data array
-            ],
-            label: 'Sales',
-            backgroundColor: [
-                '#3B71CA',
-                '#808080ff',
-                '#14A44D',
-                '#DC4C64',
-                '#54B4D3',
-                '#E4A11B',
-                '#b5eb49',
-                '#808080ff',
-                '#YOUR_COLOR' // Add color for Closure status
-            ],
-        }
-    ];
-
-interface ChartData<T, U, V> {
-    data: U[];
-    label: T;
-    backgroundColor: V[];
-}
+<div style="width: 600px; text-align: center; margin-top: 20px;">
+  <div>Doughnut Chart</div>
+  <canvas baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          type="doughnut"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
