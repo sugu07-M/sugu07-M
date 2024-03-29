@@ -1,23 +1,30 @@
-this.doughnutChartData = [{
-  data: [
-    this.newCount,
-    this.pendingApproval,
-    this.Approved,
-    this.Rejected,
-    this.Implemention,
-    this.pending,
-    this.release,
-    this.completedCount
-  ],
-  label: 'Sales',
-  backgroundColor: [
-    '#3B71CA',
-    '#808080ff',
-    '#14A44D',
-    '#DC4C64',
-    '#54B4D3',
-    '#E4A11B',
-    '#b5eb49',
-    '#808080ff'
-  ]
-}] as ChartData<"doughnut", number[], string>[] | undefined;
+   this.doughnutChartData = [{
+        data: [
+            this.newCount,
+            this.pendingApproval,
+            this.Approved,
+            this.Rejected,
+            this.Implemention,
+            this.pending,
+            this.release,
+            this.completedCount
+        ],
+        label: 'Sales',
+        backgroundColor: [
+            '#3B71CA',
+            '#808080ff',
+            '#14A44D',
+            '#DC4C64',
+            '#54B4D3',
+            '#E4A11B',
+            '#b5eb49',
+            '#808080ff'
+        ]
+    }];
+    doughnutChartData: ChartData<"doughnut", number[], string>[] | undefined;
+
+      interface ChartData<T, U, V> {
+    data: U[];
+    label: T;
+    backgroundColor: V[];
+}
