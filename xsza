@@ -1,3 +1,23 @@
+  src/app/dashboard/dashboard.component.ts:17:15:
+Application bundle generation failed. [6.348 seconds]                                                       ype 'ChartData<"doughnut", number[], string>'. [plugin angular-compiler]
+X [ERROR] NG2: Type '{ data: number[]; label: string; backgroundColor: string[]; }[]' is not assignable to ty
+    src/app/dashboard/dashboard.component.html:313:11:
+      313 │           [data]="doughnutChartData"
+          ╵            ~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.html:313:11:
+      313 │           [data]="doughnutChartData"
+          ╵            ~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:13:15:
+      13 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 getchangerequest() {
     const apiUrls = this.apiurl + '/ViewChange/GetAllchanges';
     const httpOptions = {
