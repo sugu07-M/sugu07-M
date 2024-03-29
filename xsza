@@ -8,4 +8,19 @@ let doughnutChartData: { labels: string[]; datasets: { data: number[]; label: st
     }
   ]
 };
- Type 'any[]' is not assignable to type 'ChartData<"doughnut", number[], unknown>'.
+ interface DoughnutChartData {
+  labels: string[];
+  datasets: ChartDataSets[];
+}
+
+// Assign the data with the correct structure to doughnutChartData
+const doughnutChartData: DoughnutChartData = {
+  labels: ['Label1', 'Label2', 'Label3'],
+  datasets: [
+    {
+      data: [10, 20, 30],
+      backgroundColor: ['#FF5733', '#33FFC0', '#334AFF'],
+      label: 'Data'
+    }
+  ]
+};
