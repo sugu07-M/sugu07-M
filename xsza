@@ -1,11 +1,10 @@
-interface LocalChartData {
-  datasets: {
-    data: number[];
-    backgroundColor: string[];
-    label: string;
-  }[];
-}
-
+<canvas *ngIf="doughnutChartData" 
+        [data]="doughnutChartData[0].datasets[0].data"
+        [labels]="doughnutChartData[0].datasets[0].label"
+        [backgroundColor]="doughnutChartData[0].datasets[0].backgroundColor"
+        type="doughnut"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
 X [ERROR] NG9: Property 'data' does not exist on type 'LocalChartData'. [plugin angular-compiler]
 
     src/app/dashboard/dashboard.component.html:314:39:
