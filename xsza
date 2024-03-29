@@ -3,3 +3,4 @@ interface ChartData<T, U, V> {
     label: T;
     backgroundColor: V[];
 }
+ Type '{ data: number[]; label: string; backgroundColor: string[]; }[]' is not assignable to type 'ChartData<"doughnut", number[], string>'.
