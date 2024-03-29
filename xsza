@@ -1,4 +1,4 @@
-
+*ngIf="doughnutChartData" 
 
 X [ERROR] NG2: Type 'ChartData<"doughnut", number[], string>[] | undefined' is not assignable to type 'ChartData<"doughnut", number[], string> | undefined'. [plugin angular-compiler]
 
