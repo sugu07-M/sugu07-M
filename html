@@ -1,1 +1,27 @@
-NG2: Type 'any[]' is not assignable to type 'ChartData<"doughnut", number[], string>'.
+ this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
+ this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
+ this.pendingCount = this.changerequest.filter(item => item.status.trim() === 'Approved level1').length;
+ this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+ this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
+ this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
+ this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
+ this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
+ this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
+
+
+ public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
+/*public doughnutChartData: ChartData<"doughnut", number[], string> = {
+  labels: this.doughnutChartLabels,
+  datasets: [
+    {
+      data: [350, 450, 100, 333, 156],
+      label: 'Sales',
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.5)',   // Red
+        '#14A44D',    // Blue
+        'rgba(255, 205, 86, 0.5)',    // Yellow
+        'rgba(75, 192, 192, 0.5)'     // Green
+      ],
+    }
+  ]
+};*/
