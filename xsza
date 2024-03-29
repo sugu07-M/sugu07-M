@@ -1,18 +1,7 @@
- doughnutChartData: ChartDataSets[] = [];
-
-this.doughnutChartData = [{
-      data: [
-        this.newCount,
-        this.pendingApproval,
-        this.Approved,
-        this.Rejected,
-        this.Implementation,
-        this.pending,
-        this.release,
-        this.Closure // Assuming Closure is defined somewhere in your code
-      ],
-      label: 'Status',
-      backgroundColor: [
-        '#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff'
-      ],
-    }];
+  doughnutChartData: ChartDataSets[] = [{
+    data: [],
+    label: 'Status',
+    backgroundColor: [
+      '#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff'
+    ]
+  }];
