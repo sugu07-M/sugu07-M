@@ -1,1 +1,6 @@
-as ChartData<"doughnut", number[], string> 
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS1434	(TS) Unexpected keyword or identifier.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	128	Active
+Error	TS2322	(TS) Type '{ data: number[]; label: string; backgroundColor: string[]; }' is not assignable to type 'ChartData<"doughnut", number[], string>'.
+  Object literal may only specify known properties, and 'data' does not exist in type 'ChartData<"doughnut", number[], string>'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	106	Active
+Error	TS2304	(TS) Cannot find name 'as'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	128	Active
+Error	TS2689	(TS) Cannot extend an interface 'ChartData'. Did you mean 'implements'?	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	128	Active
