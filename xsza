@@ -1,4 +1,6 @@
- public doughnutChartLabels: Label[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
+import { Label } from 'ng2-charts';
+
+public doughnutChartLabels: Label[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
 
   public doughnutChartData: ChartDataSets[] = [{
     data: [0, 0, 0, 0, 0, 0, 0, 0], // Initialize with zeros
