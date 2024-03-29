@@ -1,5 +1,11 @@
 import { Label } from 'ng2-charts';
-
+ <canvas baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
+          [options]="doughnutChartOptions"
+          [legend]="doughnutChartLegend">
+  </canvas>
 public doughnutChartLabels: Label[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
 
   public doughnutChartData: ChartDataSets[] = [{
