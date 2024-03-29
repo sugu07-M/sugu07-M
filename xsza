@@ -27,9 +27,9 @@ X [ERROR] NG0: Type '"'doughnut'"' is not assignable to type 'keyof ChartTypeReg
   <div>Doughnut Chart</div>
   <canvas baseChart 
           *ngIf="doughnutChartData" 
-          [data]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          type="'doughnut'"
+          [data]="doughnutChartData[0]?.data"
+          [labels]="doughnutChartData[0]?.labels"
+          [type]="'doughnut'"
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>
 </div>
