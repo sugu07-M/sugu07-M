@@ -15,3 +15,7 @@
       this.release,
       this.Closure // Assuming Closure is defined somewhere in your code
     ];
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2717	(TS) Subsequent property declarations must have the same type.  Property 'doughnutChartData' must be of type 'ChartDataset[]', but here has type 'Chart.ChartDataSet[]'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	450	Active
+Error	TS2300	(TS) Duplicate identifier 'doughnutChartData'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	450	Active
+Error	TS2724	(TS) '"D:/IT-Portal/IT-Portal/IT-Portal.UI/node_modules/chart.js/dist/types"' has no exported member named 'ChartDataSet'. Did you mean 'ChartDataset'?	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	450	Active
