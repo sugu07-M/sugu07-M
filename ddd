@@ -1,25 +1,36 @@
- public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'rrrr'];
-  public doughnutChartData: ChartData<"doughnut", number[], string> = {
-    labels: this.doughnutChartLabels,
-    datasets: [
-      {
-        data: [350, 450, 100, 156],
-        label: 'Sales',
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.5)',   // Red
-          'rgba(54, 162, 235, 0.5)',    // Blue
-          'rgba(255, 205, 86, 0.5)',    // Yellow
-          'rgba(75, 192, 192, 0.5)'     // Green
-        ],
-      }
-    ]
-  };
-  public doughnutChartType: ChartType = 'doughnut';
+pplication bundle generation failed. [4.804 seconds]                                             [plugin angular-compiler]
 
-  public chartHovered(e: any): void {
-    // console.log(e);
-  }
+    src/app/dashboard/dashboard.component.html:314:11:
+      314 │           [data]="doughnutChartData"
+          ╵etected. Reb~~~~
 
-  public chartClicked(e: any): void {
-    // console.log(e);
-  }
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:16:15:
+      16 │   templateUrl: './dashboard.component.html',                                            mean 'doughnutChartLabels'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:315:20:
+      315 │           [labels]="doughnutChartlabels"
+          ╵                     ~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:16:15:
+      16 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2300: Duplicate identifier 'doughnutChartData'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:331:9:
+      331 │   public doughnutChartData: number[] = [350, 450, 100, 156];                          rtData' must be of type 'any[]', but here has type 'number[]'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:331:9:
+      331 │   public doughnutChartData: number[] = [350, 450, 100, 156];
+          ╵          ~~~~~~~~~~~~~~~~~
+
+  'doughnutChartData' was also declared here.
+
+    src/app/dashboard/dashboard.component.ts:92:9:
+      92 │   public doughnutChartData: any[] = [];
+         ╵          ~~~~~~~~~~~~~~~~~
