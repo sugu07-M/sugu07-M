@@ -1,47 +1,20 @@
-a
-X [ERROR] NG2: Type 'any[]' is not assignable to type 'ChartData<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], string>'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:313:11:
-      313 │           [data]="doughnutChartData"
-          ╵            ~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:16:15:
-      16 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] TS2300: Duplicate identifier 'doughnutChartData'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:318:9:
-      318 │   public doughnutChartData: ChartData<any, any[], string> = {
-          ╵          ~~~~~~~~~~~~~~~~~
+public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
+public doughnutChartData: ChartData<any, any[], string> = {
+  labels: this.doughnutChartLabels,
+  datasets: [
+    {
+      data: [350, 450, 100, 156,87,98,55,88],
+      label: 'Sales',
+      backgroundColor: [
+        '#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff'
+      ],
+    }
+  ]
+};
+public doughnutChartType: ChartType = 'doughnut';
 
 
-X [ERROR] TS2717: Subsequent property declarations must have the same type.  Property 'doughnutChartData' must be of type 'any[]', but here has type 'ChartData<any, any[], string>'. [plugin angular-compiler]
 
-    src/app/dashboard/dashboard.component.ts:318:9:
-      318 │   public doughnutChartData: ChartData<any, any[], string> = {
-          ╵          ~~~~~~~~~~~~~~~~~
-
-  'doughnutChartData' was also declared here.
-
-    src/app/dashboard/dashboard.component.ts:92:9:
-      92 │   public doughnutChartData: any[] = [];  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'rrrr'];
-  public doughnutChartData: ChartData<any, any[], string> = {
-    labels: this.doughnutChartLabels,
-    datasets: [
-      {
-        data: [350, 450, 100, 156],
-        label: 'Sales',
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.5)',   // Red
-          'rgba(54, 162, 235, 0.5)',    // Blue
-          'rgba(255, 205, 86, 0.5)',    // Yellow
-          'rgba(75, 192, 192, 0.5)'     // Green
-        ],
-      }
-    ]
-  };
-  public doughnutChartType: ChartType = 'doughnut';
+public chartHovered(e: any): void {
+  // console.log(e);
+}
