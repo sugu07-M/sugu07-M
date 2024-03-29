@@ -1,38 +1,8 @@
-
-X [ERROR] NG8002: Can't bind to 'data' since it isn't a known property of 'canvas'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:313:10:
-      313 │           [data]="doughnutChartData[0].datasets[0].data"
-          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:21:15:
-      21 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG8002: Can't bind to 'labels' since it isn't a known property of 'canvas'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:314:10:
-      314 │           [labels]="doughnutChartData[0].datasets[0].label"
-          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:21:15:
-      21 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG8002: Can't bind to 'backgroundColor' since it isn't a known property of 'canvas'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:315:10:
-      315 │           [backgroundColor]="doughnutChartData[0].datasets[0].bac...
-          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:21:15:
-      21 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<canvas *ngIf="doughnutChartData"
+        baseChart
+        [data]="doughnutChartData[0].datasets[0].data"
+        [labels]="doughnutChartData[0].datasets[0].label"
+        [chartType]="'doughnut'"
+        [backgroundColor]="doughnutChartData[0].datasets[0].backgroundColor"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
