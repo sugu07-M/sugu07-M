@@ -1,3 +1,1 @@
- public doughnutChartData: ChartDataSets[] = [
-    { data: [10, 20, 30, 40, 50, 60, 70, 80], label: 'Status' }
-  ];
+NG2: Type 'any[]' is not assignable to type 'ChartData<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], string>'.
