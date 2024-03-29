@@ -1,4 +1,45 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2564	(TS) Property 'initialData' has no initializer and is not definitely assigned in the constructor.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	139	Active
-Error	TS2663	(TS) Cannot find name 'initialData'. Did you mean the instance member 'this.initialData'?	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	145	Active
-Error	TS1248	(TS) A class member cannot have the 'const' keyword.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	139	Active
+ <table class="fl-table">
+   <thead class="table-head">
+     <tr class="border-bottom">
+       <th>ID</th>
+       <th>SupportName</th>
+       <th>Plant</th>
+       <th>Change analysis</th>
+       <th>Support Engineer</th>
+       <th>Approver</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr class="tr-body">
+       <td></td>
+       <td></td>
+       <td></td>
+       <td></td>
+       <td></td>
+       <td></td>
+
+     </tr>
+     
+   </tbody>
+ </table>
+ getdata() {
+
+   const apiUrls = this.apiurl + '/SupportTeam'
+   const requestBody = {
+
+   }
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
+   this.http.get(apiUrls, requestBody).subscribe(
+     (response: any) => {
+       console.log(response);
+       
+     },
+     (error) => {
+       console.error("Post failed", error)
+     }
+   )
+ }
