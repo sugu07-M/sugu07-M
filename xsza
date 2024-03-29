@@ -4,3 +4,17 @@ interface ChartData {
   backgroundColor: string[];
 }
   doughnutChartData: ChartData[] = [];
+
+X [ERROR] TS2440: Import declaration conflicts with local declaration of 'ChartData'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:7:9:
+      7 │ import { ChartData, ChartDataset, ChartType, ChartOptions } from 'c...
+        ╵          ~~~~~~~~~
+
+
+X [ERROR] TS2315: Type 'ChartData' is not generic. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:72:21:
+      72 │ ...tChartData: ChartData<"doughnut", number[], string>[] | undefined;
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
