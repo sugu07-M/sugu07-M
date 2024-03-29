@@ -1,13 +1,36 @@
-*ngIf="doughnutChartData" 
 
-X [ERROR] NG2: Type 'ChartData<"doughnut", number[], string>[] | undefined' is not assignable to type 'ChartData<"doughnut", number[], string> | undefined'. [plugin angular-compiler]
+X [ERROR] NG8002: Can't bind to 'data' since it isn't a known property of 'canvas'. [plugin angular-compiler]
 
-    src/app/dashboard/dashboard.component.html:313:11:
+    src/app/dashboard/dashboard.component.html:313:10:
       313 │           [data]="doughnutChartData"
-          ╵            ~~~~
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Error occurs in the template of component DashboardComponent.
 
     src/app/dashboard/dashboard.component.ts:14:15:
       14 │   templateUrl: './dashboard.component.html',
          ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG8002: Can't bind to 'labels' since it isn't a known property of 'canvas'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:314:10:
+      314 │           [labels]="doughnutChartLabels"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:14:15:
+      14 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+<div style="width: 600px; text-align: center; margin-top: 20px;">
+  <div>Doughnut Chart</div>
+  <canvas *ngIf="doughnutChartData" 
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          type="doughnut"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
