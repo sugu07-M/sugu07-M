@@ -1,1 +1,6 @@
-<td>{{ item.firstName+'-'+lastName }}</td>
+  <td>
+    <a><i class="fas fa-check"></i></a>&nbsp;
+    <i class="fas fa-times"></i>
+  </td>
+
+ <th>Change Analysis</th>
