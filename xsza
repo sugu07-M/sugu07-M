@@ -1,21 +1,3 @@
- public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
- public doughnutChartData: ChartData<any, any[], string> = {
-   labels: this.doughnutChartLabels,
-   datasets: [
-     {
-       data: [this.newCount,
-         this.pendingApproval,
-         this.Approved,
-         this.Rejected,
-         this.Implemention,
-         this.pending,
-         this.release,
-         this.completedCount],
-       label: 'Status',
-       backgroundColor: [
-         '#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff'
-       ],
-     }
-   ]
- };
- public doughnutChartType: ChartType = 'doughnut';
+ public doughnutChartData: ChartDataSets[] = [
+    { data: [10, 20, 30, 40, 50, 60, 70, 80], label: 'Status' }
+  ];
