@@ -26,3 +26,18 @@ countStatus() {
   
   
 };
+
+  public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
+  public doughnutChartData: ChartData<any, any[], string> = {
+    labels: this.doughnutChartLabels,
+    datasets: [
+      {
+        data: [0,0,0,0,0,0,0,0],
+        label: 'Status',
+        backgroundColor: [
+          '#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff'
+        ],
+      }
+    ]
+  };
+  public doughnutChartType: ChartType = 'doughnut';
