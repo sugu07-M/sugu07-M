@@ -1,4 +1,5 @@
 
+
 X [ERROR] NG2: Type 'ChartData<"doughnut", number[], string>[] | undefined' is not assignable to type 'ChartData<"doughnut", number[], string> | undefined'. [plugin angular-compiler]
 
     src/app/dashboard/dashboard.component.html:313:11:
