@@ -1,43 +1,24 @@
-countStatus() {
-  this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
-  this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
-  this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
-  this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
-  this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
-  this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
-  this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
-  this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
-  this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
+ public doughnutChartLabels: Label[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
 
-  this.doughnutChartData.datasets= [
-    this.newCount,
-    this.pendingApproval,
-    this.Approved,
-    this.Rejected,
-    this.Implemention,
-    this.pending,
-    this.release,
-    this.Closure
-  ]
-     
+  public doughnutChartData: ChartDataSets[] = [{
+    data: [0, 0, 0, 0, 0, 0, 0, 0], // Initialize with zeros
+    label: 'Status',
+    backgroundColor: [
+      '#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff'
+    ],
+  }];
 
-  console.log('data:',this.doughnutChartData.datasets)
-
-  
-  
-};
-
-  public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
-  public doughnutChartData: ChartData<any, any[], string> = {
-    labels: this.doughnutChartLabels,
-    datasets: [
-      {
-        data: [0,0,0,0,0,0,0,0],
-        label: 'Status',
-        backgroundColor: [
-          '#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff'
-        ],
-      }
-    ]
-  };
   public doughnutChartType: ChartType = 'doughnut';
+
+  const newCount = changerequest.filter(item => item.status.trim() === 'Draft').length;
+    const pendingApproval = changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+    const Approved = changerequest.filter(item => item.status.trim() === 'Approved').length;
+    const Rejected = changerequest.filter(item => item.status.trim() === 'Rejected').length;
+    const Implementation = changerequest.filter(item => item.status.trim() === 'Implementation').length;
+    const pending = changerequest.filter(item => item.status.trim() === 'Pending').length;
+    const release = changerequest.filter(item => item.status.trim() === 'Release').length;
+    const Closure = changerequest.filter(item => item.status.trim() === 'Closure').length;
+
+    // Update doughnutChartData with counts
+    this.doughnutChartData[0].data = [newCount, pendingApproval, Approved, Rejected, Implementation, pending, release, Closure];
+  }
