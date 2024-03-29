@@ -1,27 +1,3 @@
-<div style="width: 600px; text-align: center; margin-top: 20px;">
-  <div>Doughnut Chart</div>
-  <canvas baseChart
-          [data]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          [type]="doughnutChartType"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
-</div>
-
- public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'rrrr'];
-  public doughnutChartData: ChartData<"doughnut", number[], string> = {
-    labels: this.doughnutChartLabels,
-    datasets: [
-      {
-        data: [350, 450, 100, 156],
-        label: 'Sales',
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.5)',   // Red
-          'rgba(54, 162, 235, 0.5)',    // Blue
-          'rgba(255, 205, 86, 0.5)',    // Yellow
-          'rgba(75, 192, 192, 0.5)'     // Green
-        ],
-      }
-    ]
-  };
-  public doughnutChartType: ChartType = 'doughnut';
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2717	(TS) Subsequent property declarations must have the same type.  Property 'doughnutChartData' must be of type 'any[]', but here has type 'ChartData<"doughnut", number[], string>'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	316	Active
+Error	TS2300	(TS) Duplicate identifier 'doughnutChartData'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	316	Active
