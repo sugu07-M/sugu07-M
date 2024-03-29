@@ -1,10 +1,5 @@
- doughnutChartData: ChartData<string, number, string> = {
-        labels: [],
-        datasets: [
-            {
-                data: [],
-                label: 'Sales',
-                backgroundColor: []
-            }
-        ]
-    };
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2322	(TS) Type '{ data: number[]; label: string; backgroundColor: string[]; }' is not assignable to type 'ChartData<string, number, string>'.
+  Object literal may only specify known properties, and 'data' does not exist in type 'ChartData<string, number, string>'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	113	Active
+Error	TS2344	(TS) Type 'string' does not satisfy the constraint 'keyof ChartTypeRegistry'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	68	Active
+Error	TS2322	(TS) Type 'never[]' is not assignable to type 'number'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	72	Active
