@@ -1,45 +1,12 @@
- <table class="fl-table">
-   <thead class="table-head">
-     <tr class="border-bottom">
-       <th>ID</th>
-       <th>SupportName</th>
-       <th>Plant</th>
-       <th>Change analysis</th>
-       <th>Support Engineer</th>
-       <th>Approver</th>
-     </tr>
-   </thead>
-   <tbody>
-     <tr class="tr-body">
-       <td></td>
-       <td></td>
-       <td></td>
-       <td></td>
-       <td></td>
-       <td></td>
+  console.log(response);
+        this.supportTeamData = response;
+      },
 
-     </tr>
-     
-   </tbody>
- </table>
- getdata() {
-
-   const apiUrls = this.apiurl + '/SupportTeam'
-   const requestBody = {
-
-   }
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
-   this.http.get(apiUrls, requestBody).subscribe(
-     (response: any) => {
-       console.log(response);
-       
-     },
-     (error) => {
-       console.error("Post failed", error)
-     }
-   )
- }
+ <tr *ngFor="let item of supportTeamData" class="tr-body">
+      <td>{{ item.supportteamid }}</td>
+      <td>{{ item.supportname }}</td>
+      <td>{{ item.plant }}</td>
+      <td>{{ item.changeAnalysis }}</td> <!-- Replace 'changeAnalysis' with the actual property name if it differs -->
+      <td>{{ item.supportEngineer }}</td>
+      <td>{{ item.approver }}</td>
+    </tr>
