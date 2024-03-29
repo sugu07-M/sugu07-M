@@ -1,10 +1,12 @@
-interface ChartData {
+interface ChartDataset {
   data: number[];
-  label: string;
   backgroundColor: string[];
+  label: string;
 }
-  doughnutChartData: ChartData[] = [];
 
+interface ChartData {
+  datasets: ChartDataset[];
+}
 X [ERROR] NG2: Type 'number[]' is not assignable to type 'ChartData<"doughnut", number[], string>'. [plugin angular-compiler]
 
     src/app/dashboard/dashboard.component.html:314:11:
