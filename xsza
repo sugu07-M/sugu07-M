@@ -8,3 +8,4 @@ let doughnutChartData: { labels: string[]; datasets: { data: number[]; label: st
     }
   ]
 };
+ Type 'any[]' is not assignable to type 'ChartData<"doughnut", number[], unknown>'.
