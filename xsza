@@ -1,25 +1,10 @@
-
-X [ERROR] NG2: Type 'ChartData<"doughnut", number[], string>[]' is not assignable to type 'ChartData<"doughnut", number[], unknown>'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:314:11:
-      314 │           [data]="doughnutChartData"
-          ╵            ~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:14:15:
-      14 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG1: Property 'doughnutChartlabel' does not exist on type 'DashboardComponent'. Did you mean 'doughnutChartLabels'? [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:315:20:
-      315 │           [labels]="doughnutChartlabel"
-          ╵                     ~~~~~~~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:14:15:
-      14 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div style="width: 600px; text-align: center; margin-top: 20px;">
+  <div>Doughnut Chart</div>
+  <canvas baseChart 
+          *ngIf="doughnutChartData" 
+          [data]="doughnutChartData[0]?.data"
+          [labels]="doughnutChartLabels"
+          [type]="'doughnut'"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
