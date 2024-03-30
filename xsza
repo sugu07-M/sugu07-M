@@ -3,3 +3,4 @@ import { ChartDataLabelsPlugin } from 'chartjs-plugin-datalabels';
 barChartPlugins: ChartDataLabelsPlugin[] = [{} as ChartDataLabelsPlugin];
 Severity	Code	Description	Project	File	Line	Suppression State
 Error	TS2614	(TS) Module '"chartjs-plugin-datalabels"' has no exported member 'ChartDataLabelsPlugin'. Did you mean to use 'import ChartDataLabelsPlugin from "chartjs-plugin-datalabels"' instead?	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	7	Active
+datalabels: { color: 'black' }
