@@ -22,59 +22,41 @@
    )
  }
 
-<table class="fl-table">
-   <thead class="table-head">
-     <tr class="border-bottom">
-       <th>ID</th>
-       <th>Support Name</th>
-       <th>plantId</th>
-       <th>Change Analysis</th>
-       <th>Support Engineer</th>
-       <th>Approver</th>
-       <th>Action</th>
-     </tr>
-   </thead>
-   <tbody>
-     <tr *ngFor="let item of supportTeamData" class="tr-body">
-     <tr *ngFor="let Data of teamAssignedData">
-       <td>{{ Data.supportId }}</td>
-       <td>{{ item.firstName+item.lastName }}</td>
-       <td>{{ Data.plantId }}</td>
-       <td>
-         <ng-container *ngIf="item.isChangeAnalyst; else notChangeAnalyst">
-           <i class="fas fa-check"></i>
-         </ng-container>
-         <ng-template #notChangeAnalyst>
-           <i class="fas fa-times"></i>
-         </ng-template>
-       </td>
-
-       <td>
-         <ng-container *ngIf="item.isSupportEngineer; else notSupportEngineer">
-           <i class="fas fa-check"></i>
-         </ng-container>
-         <ng-template #notSupportEngineer>
-           <i class="fas fa-times"></i>
-         </ng-template>
-       </td>
-
-       <td>
-         <ng-container *ngIf="item.isApproval; else notApproved">
-           <i class="fas fa-check"></i>
-         </ng-container>
-         <ng-template #notApproved>
-           <i class="fas fa-times"></i>
-         </ng-template>
-       </td>
-
-       <td>
-         <a href="" [routerLink]="'/support'">
-           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-         </a>
-         <i class="fa fa-trash" aria-hidden="true"></i>
-       </td>
-     </tr>
-
-
-   </tbody>
- </table>
+  <tbody>
+    <tr *ngFor="let data of teamAssignedData" class="tr-body">
+      <td>{{ data.supportId }}</td>
+      <!-- Assuming 'item' is the same object structure as 'data' -->
+      <td>{{ data.firstName + ' ' + data.lastName }}</td>
+      <td>{{ data.plantId }}</td>
+      <td>
+        <ng-container *ngIf="data.isChangeAnalyst; else notChangeAnalyst">
+          <i class="fas fa-check"></i>
+        </ng-container>
+        <ng-template #notChangeAnalyst>
+          <i class="fas fa-times"></i>
+        </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="data.isSupportEngineer; else notSupportEngineer">
+          <i class="fas fa-check"></i>
+        </ng-container>
+        <ng-template #notSupportEngineer>
+          <i class="fas fa-times"></i>
+        </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="data.isApproval; else notApproved">
+          <i class="fas fa-check"></i>
+        </ng-container>
+        <ng-template #notApproved>
+          <i class="fas fa-times"></i>
+        </ng-template>
+      </td>
+      <td>
+        <a href="" [routerLink]="'/support'">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </a>
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </td>
+    </tr>
+  </tbody>
