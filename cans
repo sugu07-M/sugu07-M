@@ -1,35 +1,3 @@
-mergeData() {
-  if (this.supportTeamData && this.teamAssignedData) {
-    // Merge the data based on a common attribute (supportId)
-    this.mergedData = this.supportTeamData.map((item) => ({
-      ...item,
-      ...this.teamAssignedData.find((data) => data.supportId === item.supportId),
-    }));
-  }
-}
-
- <tbody>
-    <tr *ngFor="let data of mergedData" class="tr-body">
-      <td>{{ data.supportId }}</td>
-      <td>{{ data.firstName + ' ' + data.lastName }}</td> <!-- Concatenate firstName and lastName -->
-      <td>{{ data.plantId }}</td>
-      <td>
-        <!-- Display Change Analysis icon based on data.isChangeAnalysis -->
-        <i class="fas" [ngClass]="{'fa-check': data.isChangeAnalysis, 'fa-times': !data.isChangeAnalysis}"></i>
-      </td>
-      <td>
-        <!-- Display Support Engineer icon based on data.isSupportEngineer -->
-        <i class="fas" [ngClass]="{'fa-check': data.isSupportEngineer, 'fa-times': !data.isSupportEngineer}"></i>
-      </td>
-      <td>
-        <!-- Display Approver icon based on data.isApprover -->
-        <i class="fas" [ngClass]="{'fa-check': data.isApprover, 'fa-times': !data.isApprover}"></i>
-      </td>
-      <td>
-        <a href="" [routerLink]="'/support'">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-        </a>
-        <i class="fa fa-trash" aria-hidden="true"></i>
-      </td>
-    </tr>
-  </tbody>
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2322	(TS) Type 'any[]' is not assignable to type '() => void'.
+  Type 'any[]' provides no match for the signature '(): void'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\master-support\support-view\support-view.component.ts	80	Active
