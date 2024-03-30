@@ -1,11 +1,12 @@
 
-  chartdata: any;
-  completed: any[]=[];
-  noncompleted: any[]=[];
-  month: any[] = [];
-  barChartData: any[] = [];
-  barChartLabels: string[] = [];
-  barChartPlugins = [pluginDataLabels];
+import { ChartType, Plugin } from 'chart.js';
+import { Label } from 'ng2-charts';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+
+barChartPlugins: Plugin[] = [pluginDataLabels]; // Adjusted type declaration
+
+  constructor(private http: HttpClient) {}
+
   getBarchart() {
     const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
@@ -50,7 +51,6 @@
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     return monthNames[month - 1];
   }
-  public barChartPlugins: Plugin[] = [pluginDataLabels]
 
   public barChartType: ChartType = 'bar';
 
@@ -60,23 +60,3 @@
   public chartClicked(e: any): void {
     // console.log(e);
   }
-
-
-X [ERROR] TS2717: Subsequent property declarations must have the same type.  Property 'barChartPlugins' must be of type 'typeof import("D:/IT-Portal/IT-Portal/IT-Portal.UI/node_modules/chartjs-plugin-datalabels/types/index")[]', but here has type 'Plugin<keyof ChartTypeRegistry, AnyObject>[]'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:221:9:
-      221 │   public barChartPlugins: Plugin[] = [pluginDataLabels]
-          ╵          ~~~~~~~~~~~~~~~
-
-  'barChartPlugins' was also declared here.
-
-    src/app/dashboard/dashboard.component.ts:176:2:
-      176 │   barChartPlugins = [pluginDataLabels];
-          ╵   ~~~~~~~~~~~~~~~
-
-
-X [ERROR] TS2741: Property 'id' is missing in type 'typeof import("D:/IT-Portal/IT-Portal/IT-Portal.UI/node_modules/chartjs-plugin-datalabels/types/index")' but required in type 'Plugin<keyof ChartTypeRegistry, AnyObject>'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:221:38:
-      221 │   public barChartPlugins: Plugin[] = [pluginDataLabels]
-          ╵                                       ~~~~~~~~~~~~~~~~
