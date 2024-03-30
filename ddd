@@ -1,8 +1,23 @@
-<td>
-  <ng-container *ngIf="item.isApproval; else notApproved">
-    <a><i class="fas fa-check"></i></a>
-  </ng-container>
-  <ng-template #notApproved>
-    <i class="fas fa-times"></i>
-  </ng-template>
-</td>
+public doughnutChartData: ChartData<any, any[], string> = {
+  labels: this.doughnutChartLabels,
+  datasets: [
+    {
+      data:[2,3,4,5,6,7,8,1],
+     
+      label: 'Sales',
+      backgroundColor: [
+        '#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff'
+      ],
+    }
+  ]
+};
+
+   this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
+   this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
+   this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
+   this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+   this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
+   this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
+   this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
+   this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
+   this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
