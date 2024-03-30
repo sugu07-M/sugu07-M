@@ -1,68 +1,13 @@
-
-X [ERROR] NG2: Type 'typeof import("D:/IT-Portal/IT-Portal/IT-Portal.UI/node_modules/chartjs-plugin-datalabels/types/index")[]' is not assignable to type 'Plugin<any, AnyObject>[]'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:244:11:
-      244 │           [plugins]="barChartPlugins"
-          ╵            ~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:15:15:
-      15 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG9: Property 'chartClicked' does not exist on type 'DashboardComponent'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:245:24:
-      245 │           (chartClick)="chartClicked($event)"
-          ╵                         ~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:15:15:
-      15 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] NG9: Property 'chartClicked' does not exist on type 'DashboardComponent'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:263:24:
-      263 │           (chartClick)="chartClicked($event)"
-          ╵                         ~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:15:15:
-      15 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-npm install chartjs-plugin-datalabels
-yarn add chartjs-plugin-datalabels
-
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-
-
- [datasets]="barChartData"
+ <canvas baseChart
+          [datasets]="barChartData"
           [labels]="barChartLabels"
           [options]="barChartOptions"
           [plugins]="barChartPlugins"
           [legend]="barChartLegend"
           [chartType]="barChartType">
+  </canvas>
 
-
-  // Define your properties
-  chartdata: any;
-  completed: any[] = [];
-  noncompleted: any[] = [];
-  month: any[] = [];
-  barChartLabels: string[] = [];
-  barChartData: any[] = [];
-  barChartPlugins = [pluginDataLabels];
-
-  constructor(private http: HttpClient) {}
-
-  // Call this function to fetch data and update the chart
-  getBarchart() {
+getBarchart() {
     const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
     const httpOptions = {
@@ -91,7 +36,6 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
     );
   }
 
-  // Update chart data
   updateBarChartData() {
     this.barChartData = [
       { data: this.noncompleted, label: 'Open' },
@@ -99,19 +43,16 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
     ];
   }
 
-  // Update chart labels
   updateBarChartLabels(month: number[]) {
     this.barChartLabels = month.map(month => this.getMonthName(month));
   }
 
-  // Convert month number to month name
   getMonthName(month: number): string {
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     return monthNames[month - 1];
   }
 
-  // Chart options
-  public barChartOptions: any = {
+  public barChartOptions: ChartOptions = {
     responsive: true,
     plugins: {
       datalabels: {
@@ -122,9 +63,6 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
     }
   };
 
-  // Chart type
-  public barChartType: Chart.ChartType = 'bar';
+  public barChartType: ChartType = 'bar';
 
-  // Chart legend
   public barChartLegend = true;
-}
