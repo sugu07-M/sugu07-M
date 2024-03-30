@@ -1,74 +1,12 @@
 
-import { ChartType, Plugin } from 'chart.js';
-import { Label } from 'ng2-charts';
+X [ERROR] NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'. [plugin angular-compiler]
 
-<canvas baseChart
-    [datasets]="barChartData"
-    [labels]="barChartLabels"
-    [options]="barChartOptions"
-    [plugins]="barChartPlugins"
-    [legend]="barChartLegend"
-    [chartType]="barChartType"
-    style="display: block; box-sizing: border-box; height: 317px; width: 340px;">
-</canvas>
+    src/app/dashboard/dashboard.component.html:247:10:
+      247 │           [chartType]="barChartType"
+          ╵           ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+  Error occurs in the template of component DashboardComponent.
 
-barChartData: any[] = [];
-  barChartLabels: Label[] = [];
-  barChartPlugins: Plugin[] = [];
-  barChartOptions: any = {
-    // Add your chart options here
-  };
-  barChartType: ChartType = 'bar';
-  barChartLegend = true;
-
-  constructor(private http: HttpClient) { }
-
-  ngOnInit(): void {
-    this.getBarchart();
-  }
-
-  getBarchart() {
-    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
-
-    this.http.get(apiUrls).subscribe(
-      (response: any) => {
-        this.chartdata = response;
-
-        // Extracting data
-        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-        const month = response.map((item: { crmonth: any }) => item.crmonth);
-
-        // Update chart data and labels
-        this.updateBarChartLabels(month);
-        this.updateBarChartData();
-
-      },
-      (error) => {
-        console.log("Post failed", error);
-      }
-    );
-  }
-
-  updateBarChartData() {
-    this.barChartData = [
-      { data: this.noncompleted, label: 'Open' },
-      { data: this.completed, label: 'Completed' }
-    ];
-  }
-
-  updateBarChartLabels(month: number[]) {
-    this.barChartLabels = month.map(month => this.getMonthName(month));
-  }
-
-  getMonthName(month: number): string {
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return monthNames[month - 1];
-  }
+    src/app/dashboard/dashboard.component.ts:16:15:
+      16 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
