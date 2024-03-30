@@ -1,28 +1,22 @@
-postCategory() {
+getCategory() {
 
-  const apiUrl = this.apiurl + '/Category'
+  const apiUrls = this.apiurl + '/Category'
   const requestBody = {
-    "flag": "I",
-    "categoryID": 0,
-    "Category": this.category,
-    "isActive": true,
-    "createdBy": "null",
-    "createdDate": "2024-03-13T13:59:05.155Z",
-    "modifiedBy": "null",
-    "modifiedDate": "2024-03-13T13:59:05.155Z",
+
   }
   const httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'content-Type': 'application/json'
     })
   };
-  this.http.post(apiUrl, requestBody, httpOptions).subscribe(
+  this.http.get(apiUrls, requestBody).subscribe(
     (response: any) => {
       console.log(response);
-      alert("Saved Successfully!");
-      this.router.navigate(['/mastersupport']);
+      this.Category = response;
+      console.log(this.Category)
     },
-    (error: any) => {
-      console.log('Post request failed', error);
-    });
+    (error) => {
+      console.error("Post failed", error)
+    }
+  )
 }
