@@ -1,74 +1,74 @@
-chartdata: any;
-completed: any[]=[];
-noncompleted: any[]=[];
-month: any[] = [];
+
+import { ChartType, Plugin } from 'chart.js';
+import { Label } from 'ng2-charts';
+
+<canvas baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [chartType]="barChartType"
+    style="display: block; box-sizing: border-box; height: 317px; width: 340px;">
+</canvas>
+
+
 barChartData: any[] = [];
-barChartLabels: string[] = [];
-barChartPlugins: Plugin[] = [pluginDataLabels];
-getBarchart() {
-  const apiUrls = this.apiurl + '/Barchart/Getbarchart';
-
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
+  barChartLabels: Label[] = [];
+  barChartPlugins: Plugin[] = [];
+  barChartOptions: any = {
+    // Add your chart options here
   };
+  barChartType: ChartType = 'bar';
+  barChartLegend = true;
 
-  this.http.get(apiUrls).subscribe(
-    (response: any) => {
-      this.chartdata = response;
+  constructor(private http: HttpClient) { }
 
-      // Extracting data
-      this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-      this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-      const month = response.map((item: { crmonth: any }) => item.crmonth);
+  ngOnInit(): void {
+    this.getBarchart();
+  }
 
-      // Update chart data and labels
-      this.updateBarChartLabels(month);
-      this.updateBarChartData();
+  getBarchart() {
+    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
-    },
-    (error) => {
-      console.log("Post failed", error);
-    }
-  );
-}
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
 
-updateBarChartData() {
-  this.barChartData = [
-    { data: this.noncompleted, label: 'Open' },
-    { data: this.completed, label: 'Completed' }
-  ];
-}
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.chartdata = response;
 
-updateBarChartLabels(month: number[]) {
-  this.barChartLabels = month.map(month => this.getMonthName(month));
-}
+        // Extracting data
+        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+        const month = response.map((item: { crmonth: any }) => item.crmonth);
 
-getMonthName(month: number): string {
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  return monthNames[month - 1];
-}
+        // Update chart data and labels
+        this.updateBarChartLabels(month);
+        this.updateBarChartData();
 
-public barChartType: ChartType = 'bar';
+      },
+      (error) => {
+        console.log("Post failed", error);
+      }
+    );
+  }
 
-public barChartLegend = true;
+  updateBarChartData() {
+    this.barChartData = [
+      { data: this.noncompleted, label: 'Open' },
+      { data: this.completed, label: 'Completed' }
+    ];
+  }
 
-// events
-public chartClicked(e: any): void {
-  // console.log(e);
-}
+  updateBarChartLabels(month: number[]) {
+    this.barChartLabels = month.map(month => this.getMonthName(month));
+  }
 
-
-  <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [plugins]="barChartPlugins"
-          [legend]="barChartLegend"
-          [chartType]="barChartType"
-  style="display: block;
-  box-sizing: border-box;
-  height: 317px;
-  width: 340px;">
-  </canvas>
+  getMonthName(month: number): string {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return monthNames[month - 1];
+  }
