@@ -1,3 +1,6 @@
+npm install chartjs-plugin-datalabels
+yarn add chartjs-plugin-datalabels
+
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 
