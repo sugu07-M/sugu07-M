@@ -1,26 +1,5 @@
-this.doughnutChartData: ChartData<any, any[], string> = {
-  labels: ['Draft', 'Completed', 'Pending', 'Pending Approval', 'Approved', 'Rejected', 'Implement', 'Pending', 'Release'],
-  datasets: [
-    {
-      data: [
-        this.newCount,
-        this.completedCount,
-        this.pendingCount,
-        this.pendingApproval,
-        this.approvedCount,
-        this.rejectedCount,
-        this.implementationCount,
-        this.pendingCount,
-        this.releaseCount
-      ],
-      label: 'Status Counts',
-      backgroundColor: [
-        '#3B71CA', '#808080', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080'
-      ],
-    }
-  ]
-};
-
+ public doughnutChartData: ChartData | undefined:any: any[]=[];
+ countStatus() {
    this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
    this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
    this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
@@ -30,3 +9,26 @@ this.doughnutChartData: ChartData<any, any[], string> = {
    this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
    this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
    this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
+
+   this.doughnutChartData: ChartData<any, any[], string> = {
+     labels: ['Draft', 'Completed', 'Pending', 'Pending Approval', 'Approved', 'Rejected', 'Implement', 'Pending', 'Release'],
+     datasets: [
+       {
+         data: [
+           this.newCount,
+           this.completedCount,
+           this.pendingCount,
+           this.pendingApproval,
+           this.Approved,
+           this.Rejected,
+           this.Implemention,
+           this.pending,
+           this.release
+         ],
+         label: 'Status Counts',
+         backgroundColor: [
+           '#3B71CA', '#808080', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080'
+         ],
+       }
+     ]
+   };
