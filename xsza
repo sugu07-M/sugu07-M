@@ -1,8 +1,4 @@
-  tableData: any[] = [];
-
-  constructor(private http: HttpClient) { }
-
-  ngOnInit(): void {
+ngOnInit(): void {
     // Make API calls to retrieve data from both tables
     this.http.get<any[]>('api/first-table-data').subscribe(firstTableData => {
       this.http.get<any[]>('api/second-table-data').subscribe(secondTableData => {
@@ -19,32 +15,9 @@
       return {
         plantId: item1.plantId,
         plantCode: item1.plantCode,
-        propertyName1: correspondingItem.propertyName1,
-        propertyName2: correspondingItem.propertyName2,
+        propertyName1: correspondingItem ? correspondingItem.propertyName1 : null,
+        propertyName2: correspondingItem ? correspondingItem.propertyName2 : null,
         // Add more properties as needed
       };
     });
   }
-}
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Plant ID</th>
-      <th>Plant Code</th>
-      <th>Property Name 1</th>
-      <th>Property Name 2</th>
-      <!-- Add other table headers as needed -->
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let row of tableData">
-      <td>{{ row.plantId }}</td>
-      <td>{{ row.plantCode }}</td>
-      <td>{{ row.propertyName1 }}</td>
-      <td>{{ row.propertyName2 }}</td>
-      <!-- Add other table cells as needed -->
-    </tr>
-  </tbody>
-</table>
