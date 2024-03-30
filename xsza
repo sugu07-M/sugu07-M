@@ -1,16 +1,11 @@
-barChartOptions: any = {
-  responsive: true,
-  plugins: {
-    datalabels: {
-      anchor: 'center',
-      align: 'center',
-      formatter: (value: any, context: any) => {
-        return value; // Adjust this to format your label as needed
-      },
-      font: {
-        weight: 'bold'
-      },
-      display: true
-    }
-  }
-};
+
+X [ERROR] NG2: Type 'typeof import("D:/IT-Portal/IT-Portal/IT-Portal.UI/node_modules/chartjs-plugin-datalabels/types/index")[]' is not assignable to type 'Plugin<any, AnyObject>[]'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:245:11:
+      245 │           [plugins]="barChartPlugins"
+          ╵            ~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:16:15:
+      16 │   templateUrl: './dashboard.component.html',
