@@ -1,54 +1,50 @@
+  tableData: any[] = [];
 
-X [ERROR] NG2: Type 'ChartDataset[]' is not assignable to type 'ChartData<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], Label>'. [plugin angular-compiler]
+  constructor(private http: HttpClient) { }
 
-    src/app/dashboard/dashboard.component.html:312:11:
-      312 │           [data]="doughnutChartData"
-          ╵            ~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:15:15:
-      15 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] TS2304: Cannot find name 'Label'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:332:30:
-      332 │   public doughnutChartLabels: Label[] = ['Draft', 'Pending Approv...
-          ╵                               ~~~~~
-
-
-
-import { Label } from 'ng2-charts';
- <canvas baseChart
-          [data]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          [chartType]="doughnutChartType"
-          [options]="doughnutChartOptions"
-          [legend]="doughnutChartLegend">
-  </canvas>
-public doughnutChartLabels: Label[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
-
-  public doughnutChartData: ChartDataSets[] = [{
-    data: [0, 0, 0, 0, 0, 0, 0, 0], // Initialize with zeros
-    label: 'Status',
-    backgroundColor: [
-      '#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff'
-    ],
-  }];
-
-  public doughnutChartType: ChartType = 'doughnut';
-
-  const newCount = changerequest.filter(item => item.status.trim() === 'Draft').length;
-    const pendingApproval = changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
-    const Approved = changerequest.filter(item => item.status.trim() === 'Approved').length;
-    const Rejected = changerequest.filter(item => item.status.trim() === 'Rejected').length;
-    const Implementation = changerequest.filter(item => item.status.trim() === 'Implementation').length;
-    const pending = changerequest.filter(item => item.status.trim() === 'Pending').length;
-    const release = changerequest.filter(item => item.status.trim() === 'Release').length;
-    const Closure = changerequest.filter(item => item.status.trim() === 'Closure').length;
-
-    // Update doughnutChartData with counts
-    this.doughnutChartData[0].data = [newCount, pendingApproval, Approved, Rejected, Implementation, pending, release, Closure];
+  ngOnInit(): void {
+    // Make API calls to retrieve data from both tables
+    this.http.get<any[]>('api/first-table-data').subscribe(firstTableData => {
+      this.http.get<any[]>('api/second-table-data').subscribe(secondTableData => {
+        // Join the data based on the common identifier
+        this.tableData = this.joinData(firstTableData, secondTableData);
+      });
+    });
   }
+
+  joinData(firstTableData: any[], secondTableData: any[]): any[] {
+    return firstTableData.map(item1 => {
+      const correspondingItem = secondTableData.find(item2 => item2.plantId === item1.plantId);
+      // Return a combined object
+      return {
+        plantId: item1.plantId,
+        plantCode: item1.plantCode,
+        propertyName1: correspondingItem.propertyName1,
+        propertyName2: correspondingItem.propertyName2,
+        // Add more properties as needed
+      };
+    });
+  }
+}
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Plant ID</th>
+      <th>Plant Code</th>
+      <th>Property Name 1</th>
+      <th>Property Name 2</th>
+      <!-- Add other table headers as needed -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of tableData">
+      <td>{{ row.plantId }}</td>
+      <td>{{ row.plantCode }}</td>
+      <td>{{ row.propertyName1 }}</td>
+      <td>{{ row.propertyName2 }}</td>
+      <!-- Add other table cells as needed -->
+    </tr>
+  </tbody>
+</table>
