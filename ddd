@@ -1,12 +1,21 @@
-public doughnutChartData: ChartData<any, any[], string> = {
-  labels: this.doughnutChartLabels,
+this.doughnutChartData: ChartData<any, any[], string> = {
+  labels: ['Draft', 'Completed', 'Pending', 'Pending Approval', 'Approved', 'Rejected', 'Implement', 'Pending', 'Release'],
   datasets: [
     {
-      data:[2,3,4,5,6,7,8,1],
-     
-      label: 'Sales',
+      data: [
+        this.newCount,
+        this.completedCount,
+        this.pendingCount,
+        this.pendingApproval,
+        this.approvedCount,
+        this.rejectedCount,
+        this.implementationCount,
+        this.pendingCount,
+        this.releaseCount
+      ],
+      label: 'Status Counts',
       backgroundColor: [
-        '#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff'
+        '#3B71CA', '#808080', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080'
       ],
     }
   ]
