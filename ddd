@@ -1,4 +1,28 @@
- <table class="fl-table">
+ getdata() {
+
+   const apiUrls = this.apiurl + '/SupportTeam'
+   const requestBody = {
+
+   }
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
+   this.http.get(apiUrls, requestBody).subscribe(
+     (response: any) => {
+       console.log(response);
+       this.supportTeamData = response;
+    
+       
+     },
+     (error) => {
+       console.error("Post failed", error)
+     }
+   )
+ }
+
+<table class="fl-table">
    <thead class="table-head">
      <tr class="border-bottom">
        <th>ID</th>
