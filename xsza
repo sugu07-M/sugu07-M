@@ -1,3 +1,41 @@
+
+X [ERROR] NG2: Type 'typeof import("D:/IT-Portal/IT-Portal/IT-Portal.UI/node_modules/chartjs-plugin-datalabels/types/index")[]' is not assignable to type 'Plugin<any, AnyObject>[]'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:244:11:
+      244 │           [plugins]="barChartPlugins"
+          ╵            ~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:15:15:
+      15 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG9: Property 'chartClicked' does not exist on type 'DashboardComponent'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:245:24:
+      245 │           (chartClick)="chartClicked($event)"
+          ╵                         ~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:15:15:
+      15 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG9: Property 'chartClicked' does not exist on type 'DashboardComponent'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:263:24:
+      263 │           (chartClick)="chartClicked($event)"
+          ╵                         ~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:15:15:
+      15 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 npm install chartjs-plugin-datalabels
 yarn add chartjs-plugin-datalabels
 
