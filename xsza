@@ -1,3 +1,6 @@
+src/app/dashboard/dashboard.component.html:245:11:
+      245 │           [plugins]="barChartPlugins"
+          ╵G2: Type 'ty~~~~~~~
 import { ChartDataLabelsPlugin } from 'chartjs-plugin-datalabels';
 
 barChartPlugins: ChartDataLabelsPlugin[] = [{} as ChartDataLabelsPlugin];
