@@ -1,23 +1,74 @@
-ngOnInit(): void {
-    // Make API calls to retrieve data from both tables
-    this.http.get<any[]>('api/first-table-data').subscribe(firstTableData => {
-      this.http.get<any[]>('api/second-table-data').subscribe(secondTableData => {
-        // Join the data based on the common identifier
-        this.tableData = this.joinData(firstTableData, secondTableData);
-      });
-    });
-  }
+chartdata: any;
+completed: any[]=[];
+noncompleted: any[]=[];
+month: any[] = [];
+barchartdata: any[] = [];
+barChartLabels: string[] = [];
 
-  joinData(firstTableData: any[], secondTableData: any[]): any[] {
-    return firstTableData.map(item1 => {
-      const correspondingItem = secondTableData.find(item2 => item2.plantId === item1.plantId);
-      // Return a combined object
-      return {
-        plantId: item1.plantId,
-        plantCode: item1.plantCode,
-        propertyName1: correspondingItem ? correspondingItem.propertyName1 : null,
-        propertyName2: correspondingItem ? correspondingItem.propertyName2 : null,
-        // Add more properties as needed
-      };
-    });
-  }
+Getbarchart() {
+  const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+  
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
+
+  this.http.get(apiUrls).subscribe(
+    (response: any) => {
+      this.chartdata = response;
+
+      this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+      this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+      const month = response.map((item: { crmonth: any }) => item.crmonth);
+      this.updateBarChartLabels(month);
+      this.updateBarChartData(month)
+ 
+    }, 
+    (error) => {
+      console.log("Post failed", error);
+    }
+  );
+}
+
+
+/*Chart tabs*/
+public barChartOptions: any = {
+  
+  responsive: true
+};
+/*public barChartLabels = this.updateBarChartLabels(this.month);*/
+public barChartType: Chart.ChartType = 'bar';
+public barChartLegend = true;
+public barChartPlugins = [];
+public barChartData = [
+  { data: this.noncompleted, label: 'Open' },
+  { data: this.completed, label: 'Completed' },
+ 
+ ] 
+
+// events
+public chartClicked(e: any): void {
+  // console.log(e);
+}
+
+updateBarChartData(month: number[]) {
+ 
+  this.barChartData = [
+    { data: this.noncompleted, label: 'Open' },
+    { data: this.completed, label: 'Completed' }
+  ];
+
+ /* Update chart labels*/
+  this.updateBarChartLabels(month);
+}
+updateBarChartLabels(month: number[]) {
+
+  this.barChartLabels = month.map(month => this.getMonthName(month));
+}
+getMonthName(month: number): string {
+  const monthNames = ["January", "Feb", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  return monthNames[month - 1];
+}
+
