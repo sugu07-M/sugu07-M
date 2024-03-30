@@ -1,88 +1,35 @@
-getdata() {
-
-  const apiUrls = this.apiurl + '/SupportTeam'
-  const requestBody = {
-
+mergeData() {
+  if (this.supportTeamData && this.teamAssignedData) {
+    // Merge the data based on a common attribute (supportId)
+    this.mergedData = this.supportTeamData.map((item) => ({
+      ...item,
+      ...this.teamAssignedData.find((data) => data.supportId === item.supportId),
+    }));
   }
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
-  this.http.get(apiUrls, requestBody).subscribe(
-    (response: any) => {
-      console.log(response);
-      this.supportTeamData = response;
-   
-      
-    },
-    (error) => {
-      console.error("Post failed", error)
-    }
-  )
-}
-
-
-//supportteamAssigned
-getteamAssigned() {
-
-  const apiUrls = this.apiurl + '/SupportteamAssigned'
-  const requestBody = {
-
-  }
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
-  this.http.get(apiUrls, requestBody).subscribe(
-    (response: any) => {
-      console.log(response);
-      this.teamAssignedData = response;
-
-
-    },
-    (error) => {
-      console.error("Post failed", error)
-    }
-  )
 }
 
  <tbody>
-   <tr *ngFor="let data of teamAssignedData" class="tr-body">
-     <td>{{ data.supportId }}</td>
-     <!-- Assuming 'item' is the same object structure as 'data' -->
-     <td>{{ data.firstName + ' ' + data.lastName }}</td>
-     <td>{{ data.plantId }}</td>
-     <td>
-       <ng-container *ngIf="data.isChangeAnalyst; else notChangeAnalyst">
-         <i class="fas fa-check"></i>
-       </ng-container>
-       <ng-template #notChangeAnalyst>
-         <i class="fas fa-times"></i>
-       </ng-template>
-     </td>
-     <td>
-       <ng-container *ngIf="data.isSupportEngineer; else notSupportEngineer">
-         <i class="fas fa-check"></i>
-       </ng-container>
-       <ng-template #notSupportEngineer>
-         <i class="fas fa-times"></i>
-       </ng-template>
-     </td>
-     <td>
-       <ng-container *ngIf="data.isApprover; else notApprover">
-         <i class="fas fa-check"></i>
-       </ng-container>
-       <ng-template #notApprover>
-         <i class="fas fa-times"></i>
-       </ng-template>
-     </td>
-     <td>
-       <a href="" [routerLink]="'/support'">
-         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-       </a>&nbsp;&nbsp;
-       <i class="fa fa-trash" aria-hidden="true"></i>
-     </td>
-   </tr>
- </tbody>
+    <tr *ngFor="let data of mergedData" class="tr-body">
+      <td>{{ data.supportId }}</td>
+      <td>{{ data.firstName + ' ' + data.lastName }}</td> <!-- Concatenate firstName and lastName -->
+      <td>{{ data.plantId }}</td>
+      <td>
+        <!-- Display Change Analysis icon based on data.isChangeAnalysis -->
+        <i class="fas" [ngClass]="{'fa-check': data.isChangeAnalysis, 'fa-times': !data.isChangeAnalysis}"></i>
+      </td>
+      <td>
+        <!-- Display Support Engineer icon based on data.isSupportEngineer -->
+        <i class="fas" [ngClass]="{'fa-check': data.isSupportEngineer, 'fa-times': !data.isSupportEngineer}"></i>
+      </td>
+      <td>
+        <!-- Display Approver icon based on data.isApprover -->
+        <i class="fas" [ngClass]="{'fa-check': data.isApprover, 'fa-times': !data.isApprover}"></i>
+      </td>
+      <td>
+        <a href="" [routerLink]="'/support'">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </a>
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </td>
+    </tr>
+  </tbody>
