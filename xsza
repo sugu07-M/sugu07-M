@@ -1,9 +1,28 @@
-src/app/dashboard/dashboard.component.html:245:11:
-      245 │           [plugins]="barChartPlugins"
-          ╵G2: Type 'ty~~~~~~~
-import { ChartDataLabelsPlugin } from 'chartjs-plugin-datalabels';
+postCategory() {
 
-barChartPlugins: ChartDataLabelsPlugin[] = [{} as ChartDataLabelsPlugin];
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2614	(TS) Module '"chartjs-plugin-datalabels"' has no exported member 'ChartDataLabelsPlugin'. Did you mean to use 'import ChartDataLabelsPlugin from "chartjs-plugin-datalabels"' instead?	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	7	Active
-datalabels: { color: 'black' }
+  const apiUrl = this.apiurl + '/Category'
+  const requestBody = {
+    "flag": "I",
+    "categoryID": 0,
+    "Category": this.category,
+    "isActive": true,
+    "createdBy": "null",
+    "createdDate": "2024-03-13T13:59:05.155Z",
+    "modifiedBy": "null",
+    "modifiedDate": "2024-03-13T13:59:05.155Z",
+  }
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+  this.http.post(apiUrl, requestBody, httpOptions).subscribe(
+    (response: any) => {
+      console.log(response);
+      alert("Saved Successfully!");
+      this.router.navigate(['/mastersupport']);
+    },
+    (error: any) => {
+      console.log('Post request failed', error);
+    });
+}
