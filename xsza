@@ -8,5 +8,8 @@
   
  </div>
 
-isActive: any = "";
+ isActive: boolean=true;
  "isActive": this.isActive,
+ "$.isActive": [
+            "The JSON value could not be converted to System.Nullable`1[System.Boolean]. Path: $.isActive | LineNumber: 0 | BytePositionInLine: 85."
+        ]
