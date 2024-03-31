@@ -1,25 +1,5 @@
-
-  getCategory() {
-
-    const apiUrl = this.apiurl + '/Category'
-    const requestBody = {
-      "itCategoryID": 0,
-      "supportID": 0,
-      "categoryName": "string",
-      "isActive": true,
-    }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-    this.http.post(apiUrl, requestBody, httpOptions).subscribe(
-      (response: any) => {
-        console.log(response);
-        alert("Saved Successfully!");
-        this.router.navigate(['/mastersupport']);
-      },
-      (error: any) => {
-        console.log('Post request failed', error);
-      });
-  }
+<select [(ngModel)]="selectedValue">
+  <option [ngValue]="true">True</option>
+  <option [ngValue]="false">False</option>
+</select>
+  selectedValue: boolean = false; // Default value
