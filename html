@@ -1,62 +1,43 @@
-chartClicked(event: any) {
-  if (event.active.length > 0) {
-    const chartData = event.active[0]._chart.data;
-    const selectedIndex = event.active[0]._index;
-    const selectedLabel = chartData.labels[selectedIndex];
-    const selectedValue = chartData.datasets[event.active[0]._datasetIndex].data[selectedIndex];
+  getBarchart() {
+    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
-    // Check if open or completed is clicked
-    if (event.active[0]._datasetIndex === 0) {
-      // Navigate to details page for open items
-      this.router.navigate(['/bar-details'], { queryParams: { type: 'open', month: selectedLabel } });
-    } else if (event.active[0]._datasetIndex === 1) {
-      // Navigate to details page for completed items
-      this.router.navigate(['/bar-details'], { queryParams: { type: 'completed', month: selectedLabel } });
-    }
-  }
-}
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
 
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.chartdata = response;
 
-ngOnInit() {
-  this.route.queryParams.subscribe(params => {
-    const type = params['type'];
-    const month = params['month'];
-    // Fetch data based on type and month
-    if (type === 'open') {
-      // Fetch open data for the specified month
-    } else if (type === 'completed') {
-      // Fetch completed data for the specified month
-    }
-  });
-}
+        // Extracting data
+        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+        const month = response.map((item: { crmonth: any }) => item.crmonth);
 
- public chartClicked(e: any): void {
-    if (e.active && e.active.length > 0) {
-      const chart = e.active[0]._chart;
-      const activePoints = chart.getElementAtEvent(e.event);
-      if (activePoints.length > 0) {
-        const clickedElementIndex = activePoints[0]._index;
-        const label = chart.data.labels[clickedElementIndex];
-        const datasetLabel = chart.data.datasets[activePoints[0]._datasetIndex].label;
-        if (datasetLabel === 'Open') {
-          // Handle drill-down for Open data
-          this.showOpenDataForMonth(label);
-        } else if (datasetLabel === 'Completed') {
-          // Handle drill-down for Completed data
-          this.showCompletedDataForMonth(label);
-        }
+        // Update chart data and labels
+        this.updateBarChartLabels(month);
+        this.updateBarChartData();
+
+      },
+      (error) => {
+        console.log("Post failed", error);
       }
-    }
+    );
   }
 
-  showOpenDataForMonth(month: string) {
-    // Navigate or show detailed data for Open tasks for the selected month
-    // You can implement navigation logic or display detailed data in a modal or another component
-    console.log('Showing Open data for month:', month);
+  updateBarChartData() {
+    this.barChartData = [
+      { data: this.noncompleted, label: 'Open' },
+     { data: this.completed, label: 'Completed' }
+    ];  }
+
+  updateBarChartLabels(month: number[]) {
+    this.barChartLabels = month.map(month => this.getMonthName(month));
   }
 
-  showCompletedDataForMonth(month: string) {
-    // Navigate or show detailed data for Completed tasks for the selected month
-    // You can implement navigation logic or display detailed data in a modal or another component
-    console.log('Showing Completed data for month:', month);
+  getMonthName(month: number): string {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return monthNames[month - 1];
   }
