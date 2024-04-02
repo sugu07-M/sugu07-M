@@ -1,46 +1,74 @@
- <tbody>
-   <tr *ngFor="let data of categorydata" class="tr-body">
-     <td>{{ data.categoryName }}</td>
-     <td>{{ data.itcategoryId }}</td>
-     <td>{{ data.supportId }}</td>
-     <td>{{ data.isActive }}</td>
-     <td>
-       <a href="" [routerLink]="'update_master/{{ data.itcategoryId }}/edit'">
-         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-       </a>&nbsp;&nbsp;
-       <i class="fa fa-trash" aria-hidden="true"></i>
+  chartdata: any;
+  completed: any[]=[];
+  noncompleted: any[]=[];
+  month: any[] = [];
+  barChartData: any[] = [];
+  barChartLabels: string[] = [];
+  barChartPlugins = [pluginDataLabels];
+ barChartOptions: any = {
+  responsive: true,
+  plugins: {
+    datalabels: {
+      anchor: 'center',
+      align: 'center',
+      formatter: (value: any, context: any) => {
+        return value; // Adjust this to format your label as needed
+      },
+      font: {
+        weight: 'bold'
+      },
+      display: true
+    }
+  }
+};
+ 
+  barChartLegend = true;
 
-     </td>
-   </tr>
- </tbody>
+  getBarchart() {
+    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
 
-<div class="container-implement">
-  <div class="container-field-line">
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.chartdata = response;
 
-    <!-- bootstrap -->
-    <div class="border-rfc-heading">
-      <div class="row mt-2">
-        <div class="col">
-          <label>Category Name</label>
-          <input class="searchinput" type="text" placeholder="CategoryName" />
-        </div>
-        <div class="col">
-          <label>Support Id</label>
-          <input type="text" placeholder="SupportId"  />
-        </div>
-        <div class="col">
-          <label>Is Active</label>
+        // Extracting data
+        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+        const month = response.map((item: { crmonth: any }) => item.crmonth);
 
-          <select >
-            <option [ngValue]="true">True</option>
-            <option [ngValue]="false">False</option>
-          </select>
+        // Update chart data and labels
+        this.updateBarChartLabels(month);
+        this.updateBarChartData();
 
-        </div>
+      },
+      (error) => {
+        console.log("Post failed", error);
+      }
+    );
+  }
 
+  updateBarChartData() {
+    this.barChartData = [
+      { data: this.noncompleted, label: 'Open', datalabels: { color: 'black' } },
+      { data: this.completed, label: 'Completed', datalabels: { color: 'black' } }
+    ];
+  }
 
-      </div>
-      <button (click)="postcategorytyp()" class="btn btn-primary">Submit</button>
+  updateBarChartLabels(month: number[]) {
+    this.barChartLabels = month.map(month => this.getMonthName(month));
+  }
 
-    </div>
+  getMonthName(month: number): string {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return monthNames[month - 1];
+  }
+  // events
+  public chartClicked(e: any): void {
+    // console.log(e);
+  }
