@@ -1,16 +1,19 @@
-(chartClick)="handleDrillDownClick($event)"
+public isDrillDown: boolean = false;
 
-public drillDownChart(status: string): void {
-  // Navigate to the drilled-down chart component with the selected status
-  this.router.navigate(['/drilldownchart', status]);
-}
-
-// Modify chartClicked method to call drillDownChart when a segment is clicked
-public chartClicked(e: any): void {
+// Define a method to handle drill-down actions
+public handleDrillDownClick(e: any): void {
   if (e.active.length > 0) {
     const clickedSegment = e.active[0]._model.label;
-    this.drillDownChart(clickedSegment);
+    
+    if (this.isDrillDown) {
+      // Reset the flag
+      this.isDrillDown = false;
+      
+      // Handle drill-down action
+      this.drillDownChart(clickedSegment);
+    } else {
+      // Handle regular chart click
+      this.router.navigate(['/filterdashboard']);
+    }
   }
 }
-
- Duplicate function implementation.
