@@ -1,3 +1,5 @@
+(chartClick)="handleDrillDownClick($event)"
+
 public drillDownChart(status: string): void {
   // Navigate to the drilled-down chart component with the selected status
   this.router.navigate(['/drilldownchart', status]);
