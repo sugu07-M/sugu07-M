@@ -1,7 +1,102 @@
-ngOnInit() {
-  this.route.queryParams.subscribe(params => {
-    const month = params['month'];
-    const status = params['status'];
-    // Use month and status to filter your data
-    // Display only the relevant data on this page
-  });
+onBarClick(event: any) {
+  if (event.active.length > 0) {
+    const clickedIndex = event.active[0]._index;
+    const selectedMonth = this.barChartLabels[clickedIndex];
+    // Navigate to another page passing selectedMonth as parameter
+    this.router.navigate(['/filterdashboard'], { queryParams: { month: selectedMonth } });
+  }
+}
+
+plant: any;
+approval: any[] = [];
+closure: any[] = [];
+implementation: any[] = [];
+initiated: any[] = [];
+Release:any[]=[];
+Gettablechart() {
+  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
+
+  this.http.get(apiUrls).subscribe(
+    (response: any) => {
+      this.chartdata = response;
+      this.approval = response.filter((item: { stage: string; }) => item.stage.trim() === 'Approval').length;
+      this.closure = response.filter((item: { stage: string; }) => item.stage.trim() === 'Closure').length;
+      this.implementation = response.filter((item: { stage: string; }) => item.stage.trim() === 'Implementation').length;
+      this.initiated = response.filter((item: { stage: string; }) => item.stage.trim() === 'Initiated').length;
+      this.Release = response.filter((item: { stage: string; }) => item.stage.trim() === 'Release').length;
+      this.plant = response.map((item: { plantId: any }) => item.plantId);
+    
+
+      // Create multi array
+      this.multi = this.plant.map((plantId: any) => {
+        const name = plantId.split(' ')[0];
+        return {
+          name: name,
+          series: [
+            { name: 'Approval', value: this.approval },
+            { name: 'Closure', value: this.closure },
+            { name: 'Implementation', value: this.implementation },
+            { name: 'Initiated', value: this.initiated },
+            { name: 'Release', value: this.Release }
+          ]
+        };
+      
+      });
+      
+
+      // Merge with existing data in this.multi
+      this.multi.forEach((item, index) => {
+        const existingItemIndex = this.multi.findIndex((el) => el.name === item.name);
+        if (existingItemIndex !== -1) {
+          this.multi[existingItemIndex] = { ...item, series: this.multi[existingItemIndex].series };
+        } else {
+          this.multi.push({
+            name: item.name,
+            series: [
+              { name: 'Approval', value: this.approval },
+              { name:'Closure', value:this.closure },
+              { name:'Implementation',value:this.implementation },
+              { name:'Initiated',value:this.initiated },
+              { name:'Release',value:this.Release }]
+          });
+        }
+      });
+
+      console.log('multi:', this.multi);
+    },
+    (error) => {
+      console.log("Post failed", error);
+    }
+  );
+}
+
+multi: any[]=[];
+view: [number, number] = [350, 270];
+
+showXAxis: boolean = true;
+showYAxis: boolean = true;
+gradient: boolean = false;
+showLegend: boolean = false;
+showXAxisLabel: boolean = true;
+xAxisLabel: string = 'Total Changes';
+showYAxisLabel: boolean = true;
+yAxisLabel: string = 'Plants';
+showDataLabel = false;
+colorScheme!: {
+  domain: ['#14A44D', '#808080ff', '#54B4D3','#DC4C64','#b5eb49'];
+  };
+
+
+onSelect(event: any) {
+  console.log(event);
+}
+
+axisFormat(val: any) {
+  return val;
+}
