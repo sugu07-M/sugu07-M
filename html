@@ -1,4 +1,31 @@
-category api :/Category
-classification api:/Classification
+import { Router } from '@angular/router';
 
-systemlandscape api:/SystemLandscape/Allsystems
+constructor(private router: Router) {}
+
+public chartClicked(event: any): void {
+    if (event.active && event.active.length > 0) {
+        const clickedIndex = event.active[0]._index; // Get the index of the clicked bar
+        const clickedMonth = this.barChartLabels[clickedIndex]; // Get the label of the clicked bar (month)
+
+        // Navigate to another page with the clicked month's data
+        this.router.navigate(['/monthly-data'], {
+            queryParams: {
+                month: clickedMonth
+            }
+        });
+    }
+}
+
+
+import { ActivatedRoute } from '@angular/router';
+
+constructor(private route: ActivatedRoute) {}
+
+ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+        const month = params['month'];
+        
+        // Fetch detailed data for the selected month and display it
+        // You can use this data to populate your template
+    });
+}
