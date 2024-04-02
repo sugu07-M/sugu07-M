@@ -1,4 +1,41 @@
-Declaration or statement expected
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+export class DetailPageComponent implements OnInit {
+  month: string; // To store the selected month
+  filteredData: any[]; // To store the filtered data for the selected month
+
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    // Retrieve the selected month from query parameter
+    this.route.queryParams.subscribe(params => {
+      this.month = params['month'];
+      // Call a function to filter data based on the selected month
+      this.filterData();
+    });
+  }
+
+  // Function to filter data based on the selected month
+  filterData() {
+    // Assuming your data is stored in some array named 'data'
+    // Filter the data based on the selected month
+    this.filteredData = data.filter(item => {
+      // Check if the item corresponds to the selected month (either open or completed)
+      return item.month === this.month; // Assuming 'month' is a property in your data
+    });
+  }
+}
+<div *ngFor="let item of filteredData">
+  <!-- Display data for the selected month -->
+  <p>{{ item }}</p> <!-- Modify this according to your data structure -->
+</div>
+
+
+
+
+
+
+
 
 onBarClick(event: any) {
     if (event.active.length > 0) {
