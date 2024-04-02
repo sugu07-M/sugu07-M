@@ -1,3 +1,13 @@
+onSelect(event: any) {
+  // Extract the necessary data from the event
+  const selectedPlantName = event.name;
+  const selectedStage = event.seriesName;
+
+  // Navigate to another page with required data
+  this.router.navigate(['/detail'], { queryParams: { plantName: selectedPlantName, stage: selectedStage } });
+}
+
+
 onBarClick(event: any) {
   if (event.active.length > 0) {
     const clickedIndex = event.active[0]._index;
