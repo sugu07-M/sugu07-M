@@ -1,31 +1,31 @@
-import { Router } from '@angular/router';
+chartClicked(event: any) {
+  if (event.active.length > 0) {
+    const chartData = event.active[0]._chart.data;
+    const selectedIndex = event.active[0]._index;
+    const selectedLabel = chartData.labels[selectedIndex];
+    const selectedValue = chartData.datasets[event.active[0]._datasetIndex].data[selectedIndex];
 
-constructor(private router: Router) {}
-
-public chartClicked(event: any): void {
-    if (event.active && event.active.length > 0) {
-        const clickedIndex = event.active[0]._index; // Get the index of the clicked bar
-        const clickedMonth = this.barChartLabels[clickedIndex]; // Get the label of the clicked bar (month)
-
-        // Navigate to another page with the clicked month's data
-        this.router.navigate(['/monthly-data'], {
-            queryParams: {
-                month: clickedMonth
-            }
-        });
+    // Check if open or completed is clicked
+    if (event.active[0]._datasetIndex === 0) {
+      // Navigate to details page for open items
+      this.router.navigate(['/bar-details'], { queryParams: { type: 'open', month: selectedLabel } });
+    } else if (event.active[0]._datasetIndex === 1) {
+      // Navigate to details page for completed items
+      this.router.navigate(['/bar-details'], { queryParams: { type: 'completed', month: selectedLabel } });
     }
+  }
 }
 
 
-import { ActivatedRoute } from '@angular/router';
-
-constructor(private route: ActivatedRoute) {}
-
-ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-        const month = params['month'];
-        
-        // Fetch detailed data for the selected month and display it
-        // You can use this data to populate your template
-    });
+ngOnInit() {
+  this.route.queryParams.subscribe(params => {
+    const type = params['type'];
+    const month = params['month'];
+    // Fetch data based on type and month
+    if (type === 'open') {
+      // Fetch open data for the specified month
+    } else if (type === 'completed') {
+      // Fetch completed data for the specified month
+    }
+  });
 }
