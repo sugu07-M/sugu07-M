@@ -29,3 +29,34 @@ ngOnInit() {
     }
   });
 }
+
+ public chartClicked(e: any): void {
+    if (e.active && e.active.length > 0) {
+      const chart = e.active[0]._chart;
+      const activePoints = chart.getElementAtEvent(e.event);
+      if (activePoints.length > 0) {
+        const clickedElementIndex = activePoints[0]._index;
+        const label = chart.data.labels[clickedElementIndex];
+        const datasetLabel = chart.data.datasets[activePoints[0]._datasetIndex].label;
+        if (datasetLabel === 'Open') {
+          // Handle drill-down for Open data
+          this.showOpenDataForMonth(label);
+        } else if (datasetLabel === 'Completed') {
+          // Handle drill-down for Completed data
+          this.showCompletedDataForMonth(label);
+        }
+      }
+    }
+  }
+
+  showOpenDataForMonth(month: string) {
+    // Navigate or show detailed data for Open tasks for the selected month
+    // You can implement navigation logic or display detailed data in a modal or another component
+    console.log('Showing Open data for month:', month);
+  }
+
+  showCompletedDataForMonth(month: string) {
+    // Navigate or show detailed data for Completed tasks for the selected month
+    // You can implement navigation logic or display detailed data in a modal or another component
+    console.log('Showing Completed data for month:', month);
+  }
