@@ -1,3 +1,13 @@
+private zone: NgZone
+import { NgZone } from '@angular/core';
+public chartClicked(event: any, item: any): void {
+  if (item && item.length > 0) {
+    this.zone.run(() => {
+      this.router.navigate(['/filterdashboard']);
+    });
+  }
+}
+
 <div class="dount-chart">
   <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-OverAll View</h6>
   <canvas baseChart
