@@ -11,3 +11,10 @@ X [ERROR] NG4: Expected 2 arguments, but got 0. [plugin angular-compiler]
     src/app/dashboard/dashboard.component.ts:18:15:
       18 │   templateUrl: './dashboard.component.html',
          ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+public chartClicked(event: any, item: any): void {
+  if (item && item.length > 0) {
+    this.zone.run(() => {
+      this.router.navigate(['/filterdashboard']);
+    });
+  }
+}
