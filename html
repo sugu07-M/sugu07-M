@@ -1,20 +1,55 @@
+public doughnutChartData: ChartData<any, any[], string> = {
+  labels: [],
+  datasets: [
+    {
+      data: [],
+      label: 'Status Counts',
+      backgroundColor: []
+    }
+  ]
+};
+countStatus() {
+  this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
+  this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
+  this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
+  this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+  this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
+  this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
+  this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
+  this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
+  this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
 
+  this.doughnutChartData = {
+    labels: ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'],
+    datasets: [
+      {
+        data: [
+          this.newCount,
+          this.pendingApproval,
+          this.Approved,
+          this.Rejected,
+          this.Implemention,
+          this.pending,
+          this.release,
+          this.completedCount
+        ],
+        label: 'Status Counts',
+        backgroundColor: ['#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff']
+      }
+    ]
+  };
 
-X [ERROR] NG4: Expected 2 arguments, but got 0. [plugin angular-compiler]
+};
 
-    src/app/dashboard/dashboard.component.html:260:24:
-      260 │           (chartClick)="chartClicked()"
-          ╵                         ~~~~~~~~~~~~
+public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
 
-  Error occurs in the template of component DashboardComponent.
+public doughnutChartType: ChartType = 'doughnut';
 
-    src/app/dashboard/dashboard.component.ts:18:15:
-      18 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-public chartClicked(event: any, item: any): void {
-  if (item && item.length > 0) {
-    this.zone.run(() => {
+public chartHovered(e: any): void {
+  // console.log(e);
+}
+public chartClicked(): void {
+ 
       this.router.navigate(['/filterdashboard']);
-    });
-  }
+    
 }
