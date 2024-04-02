@@ -1,92 +1,40 @@
+import { Routes, RouterModule } from '@angular/router';
+RouterModule.forRoot(routes)
+
+<div *ngFor="let item of data">
+  <!-- Display data for the selected month -->
+  <p>{{ item | json }}</p> <!-- Adjust this according to your data structure -->
+</div>
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-export class DetailPageComponent implements OnInit {
-  month: string; // To store the selected month
-  filteredData: any[]; // To store the filtered data for the selected month
+import { DataService } from 'path-to-your-data-service'; // Adjust this import as per your project structure
 
-  constructor(private route: ActivatedRoute) { }
+@Component({
+  selector: 'app-detail-page',
+  templateUrl: './detail-page.component.html',
+  styleUrls: ['./detail-page.component.css']
+})
+export class DetailPageComponent implements OnInit {
+  month: string;
+  data: any[];
+
+  constructor(
+    private route: ActivatedRoute,
+    private dataService: DataService // Inject your data service
+  ) { }
 
   ngOnInit(): void {
-    // Retrieve the selected month from query parameter
-    this.route.queryParams.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.month = params['month'];
-      // Call a function to filter data based on the selected month
-      this.filterData();
+      this.loadData();
     });
   }
 
-  // Function to filter data based on the selected month
-  filterData() {
-    // Assuming your data is stored in some array named 'data'
-    // Filter the data based on the selected month
-    this.filteredData = data.filter(item => {
-      // Check if the item corresponds to the selected month (either open or completed)
-      return item.month === this.month; // Assuming 'month' is a property in your data
+  loadData() {
+    // Assuming you have a method in your data service to fetch data for the specified month
+    this.dataService.getDataForMonth(this.month).subscribe((data: any[]) => {
+      this.data = data;
     });
   }
 }
-<div *ngFor="let item of filteredData">
-  <!-- Display data for the selected month -->
-  <p>{{ item }}</p> <!-- Modify this according to your data structure -->
-</div>
-
-
-
-
-
-
-
-
-onBarClick(event: any) {
-    if (event.active.length > 0) {
-        const clickedIndex = event.active[0]._index;
-        const selectedMonth = this.barChartLabels[clickedIndex];
-        // Navigate to another page passing selectedMonth as parameter
-        this.router.navigate(['/detail-page'], { queryParams: { month: selectedMonth } });
-    }
-
-
-
-getBarchart() {
-    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
-
-    this.http.get(apiUrls).subscribe(
-      (response: any) => {
-        this.chartdata = response;
-
-        // Extracting data
-        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-        const month = response.map((item: { crmonth: any }) => item.crmonth);
-
-        // Update chart data and labels
-        this.updateBarChartLabels(month);
-        this.updateBarChartData();
-
-      },
-      (error) => {
-        console.log("Post failed", error);
-      }
-    );
-  }
-
-  updateBarChartData() {
-    this.barChartData = [
-      { data: this.noncompleted, label: 'Open' },
-     { data: this.completed, label: 'Completed' }
-    ];  }
-
-  updateBarChartLabels(month: number[]) {
-    this.barChartLabels = month.map(month => this.getMonthName(month));
-  }
-
-  getMonthName(month: number): string {
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return monthNames[month - 1];
-  }
