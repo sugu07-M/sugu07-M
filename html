@@ -1,4 +1,14 @@
-  getBarchart() {
+onBarClick(event: any) {
+    if (event.active.length > 0) {
+        const clickedIndex = event.active[0]._index;
+        const selectedMonth = this.barChartLabels[clickedIndex];
+        // Navigate to another page passing selectedMonth as parameter
+        this.router.navigate(['/detail-page'], { queryParams: { month: selectedMonth } });
+    }
+
+
+
+getBarchart() {
     const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
     const httpOptions = {
