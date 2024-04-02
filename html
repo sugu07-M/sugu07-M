@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
   @ViewChild('chart') chartRef!: ElementRef;
-
+  doughnutChart: Chart;
    ngAfterViewInit() {
     this.doughnutChart = new Chart(this.chartRef.nativeElement, {
       type: 'doughnut',
