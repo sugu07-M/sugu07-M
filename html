@@ -1,22 +1,12 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-  @ViewChild('chart') chartRef!: ElementRef;
-  doughnutChart: Chart;
-   ngAfterViewInit() {
-    this.doughnutChart = new Chart(this.chartRef.nativeElement, {
-      type: 'doughnut',
-      data: this.doughnutChartData,
-      options: {
-        onClick: (event, elements) => {
-          if (elements && elements.length > 0) {
-            const index = elements[0]._index;
-            this.handleChartClick(index);
-          }
-        }
-      }
-    });
-  }
 
-  private handleChartClick(index: number): void {
-    // Always navigate to the same page when any segment is clicked
-    this.router.navigate(['/filterdashboard']);
-  }
+X [ERROR] NG4: Expected 2 arguments, but got 1. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:260:24:
+      260 │           (chartClick)="chartClicked($event)"
+          ╵                         ~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:18:15:
+      18 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
