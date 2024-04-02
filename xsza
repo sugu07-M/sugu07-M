@@ -1,74 +1,61 @@
-  chartdata: any;
-  completed: any[]=[];
-  noncompleted: any[]=[];
-  month: any[] = [];
-  barChartData: any[] = [];
-  barChartLabels: string[] = [];
-  barChartPlugins = [pluginDataLabels];
- barChartOptions: any = {
-  responsive: true,
-  plugins: {
-    datalabels: {
-      anchor: 'center',
-      align: 'center',
-      formatter: (value: any, context: any) => {
-        return value; // Adjust this to format your label as needed
-      },
-      font: {
-        weight: 'bold'
-      },
-      display: true
-    }
-  }
-};
+ chartdata: any;
+ completed: any[]=[];
+ noncompleted: any[]=[];
+ month: any[] = [];
+ barChartData: any[] = [];
+ barChartLabels: string[] = [];
  
-  barChartLegend = true;
+ barChartLegend = true;
 
-  getBarchart() {
-    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+ getBarchart() {
+   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
 
-    this.http.get(apiUrls).subscribe(
-      (response: any) => {
-        this.chartdata = response;
+   this.http.get(apiUrls).subscribe(
+     (response: any) => {
+       this.chartdata = response;
 
-        // Extracting data
-        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-        const month = response.map((item: { crmonth: any }) => item.crmonth);
+       // Extracting data
+       this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+       this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+       const month = response.map((item: { crmonth: any }) => item.crmonth);
 
-        // Update chart data and labels
-        this.updateBarChartLabels(month);
-        this.updateBarChartData();
+       // Update chart data and labels
+       this.updateBarChartLabels(month);
+       this.updateBarChartData();
 
-      },
-      (error) => {
-        console.log("Post failed", error);
-      }
-    );
-  }
+     },
+     (error) => {
+       console.log("Post failed", error);
+     }
+   );
+ }
 
-  updateBarChartData() {
-    this.barChartData = [
-      { data: this.noncompleted, label: 'Open', datalabels: { color: 'black' } },
-      { data: this.completed, label: 'Completed', datalabels: { color: 'black' } }
-    ];
-  }
+ updateBarChartData() {
+   this.barChartData = [
+     { data: this.noncompleted, label: 'Open' },
+    { data: this.completed, label: 'Completed' }
+   ];  }
 
-  updateBarChartLabels(month: number[]) {
-    this.barChartLabels = month.map(month => this.getMonthName(month));
-  }
+ updateBarChartLabels(month: number[]) {
+   this.barChartLabels = month.map(month => this.getMonthName(month));
+ }
 
-  getMonthName(month: number): string {
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return monthNames[month - 1];
-  }
-  // events
-  public chartClicked(e: any): void {
-    // console.log(e);
-  }
+ getMonthName(month: number): string {
+   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+   return monthNames[month - 1];
+ }
+ public barChartOptions: any = {
+
+   responsive: true
+ };
+
+ // events
+ public chartClicked(e: any): void {
+   // console.log(e);
+ }
