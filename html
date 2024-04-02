@@ -1,6 +1,5 @@
-public isDrillDown: boolean = false;
+(chartClick)="handleDrillDownClick($event)"
 
-// Define a method to handle drill-down actions
 public handleDrillDownClick(e: any): void {
   if (e.active.length > 0) {
     const clickedSegment = e.active[0]._model.label;
