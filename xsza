@@ -1,26 +1,44 @@
-  mergedData: any[] = [];
- <tr *ngFor="let item of mergedData">
-getData() {
-    const apiUrls = [
-      this.apiurl + '/SupportTeam',
-      this.apiurl + '/SupportteamAssigned'
-    ];
+  ngOnInit(): void {
+    this.dataService.getTable1Data().subscribe(data => {
+      this.table1Data = data;
+    });
 
-    const requests = apiUrls.map(url => this.http.get(url));
+    this.dataService.getTable2Data().subscribe(data => {
+      this.table2Data = data;
+    });
 
-    forkJoin(requests).subscribe(
-      (responses: any[]) => {
-        // Assuming both responses are arrays of objects with a common 'id' property
-        const [supportTeamData, teamAssignedData] = responses;
-
-        // Merge data based on the common 'id' property
-        this.mergedData = supportTeamData.map((item: any) => ({
-          ...item,
-          ...(teamAssignedData.find((x: any) => x.id === item.id) || {})
-        }));
-      },
-      (error) => {
-        console.error("Get failed", error);
-      }
-    );
+    this.dataService.getTable3Data().subscribe(data => {
+      this.table3Data = data;
+    });
   }
+
+  getJoinedData(): any[] {
+    let joinedData: any[] = [];
+
+    if (this.table1Data && this.table2Data && this.table3Data) {
+      this.table1Data.forEach((item1: any) => {
+        this.table2Data.forEach((item2: any) => {
+          this.table3Data.forEach((item3: any) => {
+            if (item1.commonKey === item2.commonKey && item2.commonKey === item3.commonKey) {
+              joinedData.push({
+                commonKey: item1.commonKey,
+                propertyFromTable1: item1.property1,
+                propertyFromTable2: item2.property2,
+                propertyFromTable3: item3.property3
+                // Add more properties as needed
+              });
+            }
+          });
+        });
+      });
+    }
+
+    return joinedData;
+  }
+
+<div *ngFor="let item of getJoinedData()">
+  <p>Common Key: {{ item.commonKey }}</p>
+  <p>Property from Table 1: {{ item.propertyFromTable1 }}</p>
+  <p>Property from Table 2: {{ item.propertyFromTable2 }}</p>
+  <p>Property from Table 3: {{ item.propertyFromTable3 }}</p>
+</div>
