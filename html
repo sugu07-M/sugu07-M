@@ -1,13 +1,13 @@
  public handleDrillDownClick(event: any): void {
-    if (!this.isDrillDown && event.active.length > 0) {
+    if (event.active.length > 0 && !this.isDrillDown) {
       const clickedSegment = event.active[0]._model.label;
-      // Perform drill-down action here using clickedSegment
-      this.isDrillDown = true; // Set isDrillDown to true to handle subsequent clicks differently
+      // Perform drill-down action using clickedSegment
+      this.isDrillDown = true;
     } else {
-      // Handle regular chart click
       this.router.navigate(['/filterdashboard']);
     }
   }
+
 
   public barChartOptions: any = {
     responsive: true,
