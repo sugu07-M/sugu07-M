@@ -1,9 +1,109 @@
- public chartClicked(event: any): void {
-    if (event.active.length > 0) {
-      const clickedIndex = event.active[0]._index;
-      // Here you can implement logic to fetch more detailed data based on the clicked bar
-      // and then update your chart data accordingly
-      // For simplicity, let's just show an alert with the clicked index
-      alert('Clicked index: ' + clickedIndex);
-    }
-  }
+ getdata() {
+
+   const apiUrls = this.apiurl + '/SupportTeam'
+   const requestBody = {
+
+   }
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
+   this.http.get(apiUrls, requestBody).subscribe(
+     (response: any) => {
+       console.log(response);
+       this.supportTeamData = response;
+
+
+     },
+     (error) => {
+       console.error("Post failed", error)
+     }
+   )
+ }
+
+
+ //supportteamAssigned
+ getteamAssigned() {
+
+   const apiUrls = this.apiurl + '/SupportteamAssigned'
+   const requestBody = {
+
+   }
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
+   this.http.get(apiUrls, requestBody).subscribe(
+     (response: any) => {
+       console.log(response);
+       this.teamAssignedData = response;
+
+
+     },
+     (error) => {
+       console.error("Post failed", error)
+     }
+   )
+ }
+
+
+ <table class="fl-table">
+   <thead class="table-head">
+     <tr class="border-bottom">
+       <th>Support ID</th>
+       <th>Support Name</th>
+       <th>plant ID</th>
+       <th>Change Analyst</th>
+       <th>Support Engineer</th>
+       <th>Approver</th>
+      <!-- <th>Action</th>-->
+       <th>View</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr *ngFor="let data of teamAssignedData" class="tr-body">
+       <td>{{ data.supportId }}</td>
+       <td>{{ data.firstName + ' ' + data.lastName }}</td>
+       <td>{{ data.plantId }}</td>
+       <td>
+         <ng-container *ngIf="data.isChangeAnalyst; else notChangeAnalyst">
+           <i class="fas fa-check"></i>
+         </ng-container>
+         <ng-template #notChangeAnalyst>
+           <i class="fas fa-times"></i>
+         </ng-template>
+       </td>
+       <td>
+         <ng-container *ngIf="data.isSupportEngineer; else notSupportEngineer">
+           <i class="fas fa-check"></i>
+         </ng-container>
+         <ng-template #notSupportEngineer>
+           <i class="fas fa-times"></i>
+         </ng-template>
+       </td>
+       <td>
+         <ng-container *ngIf="data.isApprover; else notApprover">
+           <i class="fas fa-check"></i>
+         </ng-container>
+         <ng-template #notApprover>
+           <i class="fas fa-times"></i>
+         </ng-template>
+       </td>
+      <!-- <td>
+         <a href="" [routerLink]="'/support'">
+           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+         </a>&nbsp;&nbsp;
+         <i class="fa fa-trash" aria-hidden="true"></i>
+
+       </td>-->
+       <td>
+         <a href="" [routerLink]="'/support'">
+           <i class="fa fa-eye" style="font-size:15px;color:black"></i>
+         </a>
+        
+       </td>
+     </tr>
+   </tbody>
+ </table>
