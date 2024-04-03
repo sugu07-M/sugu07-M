@@ -23,4 +23,3 @@ Error	TS2769	(TS) No overload matches this call.
       Types of parameters 'data1' and 'value' are incompatible.
         Type 'Object' is not assignable to type 'any[]'.
           The 'Object' type is assignable to very few other types. Did you mean to use the 'any' type instead?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\master-support\support-view\support-view.component.ts	43	Active
-Error	TS1206	(TS) Decorators are not valid here.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\master-support\support-view\support-view.component.ts	6	Active
