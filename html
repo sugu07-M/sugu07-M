@@ -1,5 +1,5 @@
-public handleDrillDownClick(event: any): void {
-    const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
+  public handleDrillDownClick(event: any): void {
+    const clickedSegmentLabel = this.barChartLabels[event.native.index];
     console.log("Clicked segment label:", clickedSegmentLabel);
     const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
     const monthData = {
@@ -7,10 +7,9 @@ public handleDrillDownClick(event: any): void {
       completed: this.completed[monthIndex],
       noncompleted: this.noncompleted[monthIndex]
     };
-    // Navigate to a different route upon clicking a bar segment, passing the month data
+    // Navigate to the detail page upon clicking a bar segment, passing the month data
     this.router.navigate(['/detail'], { state: { monthData: monthData } });
   }
-}
  public handleDrillDownClick(event: ChartEvent): void {
     if (event.active && event.active.length > 0) {
       const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
