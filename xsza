@@ -1,8 +1,14 @@
-src/app/master-support/support-view/support-view.component.ts:26:27:
-      26 │     this.getteamAssigned().subscribe((data: any[]) => {
+   src/app/master-support/support-view/support-view.component.ts:27:27:
+      27 │     this.getteamAssigned().subscribe((data: any[]) => {
          ╵                            ~~~~~~~~~
-  joinTables(): void {
-    if (this.table1Data && this.table2Data && this.table3Data) {
-      this.joinedData = this.getJoinedData();
-    }
-  }
+ngOnInit(): void {
+  this.getdata().subscribe((data: any[]) => {
+    this.table1Data = data;
+  });
+
+  this.getteamAssigned().subscribe((data: any[]) => {
+    this.table2Data = data;
+  });
+  this.joinTables();
+
+}
