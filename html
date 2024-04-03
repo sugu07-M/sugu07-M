@@ -1,17 +1,15 @@
-
-  public handleDrillDownClick(event: ChartEvent): void {
-    if (event.active && event.active.length > 0) {
-      const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
-      console.log("Clicked segment label:", clickedSegmentLabel);
-      const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
-      const monthData = {
-        label: clickedSegmentLabel,
-        completed: this.completed[monthIndex],
-        noncompleted: this.noncompleted[monthIndex]
-      };
-      // Navigate to a different route upon clicking a bar segment, passing the month data
-      this.router.navigate(['/detail'], { state: { monthData: monthData } });
-    }
+public handleDrillDownClick(event: any): void {
+  const chartEvent = event.event;
+  if (chartEvent && chartEvent.active && chartEvent.active.length > 0) {
+    const clickedSegmentLabel = this.barChartLabels[chartEvent.active[0]._index];
+    console.log("Clicked segment label:", clickedSegmentLabel);
+    const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
+    const monthData = {
+      label: clickedSegmentLabel,
+      completed: this.completed[monthIndex],
+      noncompleted: this.noncompleted[monthIndex]
+    };
+    // Navigate to a different route upon clicking a bar segment, passing the month data
+    this.router.navigate(['/detail'], { state: { monthData: monthData } });
   }
-NG5: Argument of type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is not assignable to parameter of type 'ChartEvent'.
-  Type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is missing the following properties from type 'ChartEvent': type, native, x, y
+}
