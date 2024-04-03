@@ -1,6 +1,3 @@
-   src/app/master-support/support-view/support-view.component.ts:27:27:
-      27 │     this.getteamAssigned().subscribe((data: any[]) => {
-         ╵                            ~~~~~~~~~
 ngOnInit(): void {
   this.getdata().subscribe((data: any[]) => {
     this.table1Data = data;
@@ -11,4 +8,88 @@ ngOnInit(): void {
   });
   this.joinTables();
 
+}
+
+private apiurl = environment.apiurls;
+
+getdata() {
+
+  const apiUrls = this.apiurl + '/SupportTeam'
+  const requestBody = {
+
+  }
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
+  this.http.get(apiUrls, requestBody).subscribe(
+    (response: any) => {
+      console.log(response);
+      this.supportTeamData = response;
+
+
+    },
+    (error) => {
+      console.error("Post failed", error)
+    }
+  )
+}
+
+
+//supportteamAssigned
+getteamAssigned() {
+
+  const apiUrls = this.apiurl + '/SupportteamAssigned'
+  const requestBody = {
+
+  }
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
+  this.http.get(apiUrls, requestBody).subscribe(
+    (response: any) => {
+      console.log(response);
+      this.teamAssignedData = response;
+
+
+    },
+    (error) => {
+      console.error("Post failed", error)
+    }
+  )
+}
+
+
+joinTables(): void {
+  if (this.table1Data && this.table2Data ) {
+    this.joinedData = this.getJoinedData();
+  }
+}
+getJoinedData(): any[] {
+  let joinedData: any[] = [];
+
+  if (this.table1Data && this.table2Data) {
+    this.table1Data.forEach((item1: any) => {
+      this.table2Data.forEach((item2: any) => {
+        
+        if (item1.commonKey === item2.supportId && item2.supportId === item2.supportId) {
+            joinedData.push({
+              supportId: item2.supportId,
+              firstName: item1.firstName,
+              lastName: item1.lastName,
+              plantId: item2.plantId,
+              isChangeAnalyst: item2.isChangeAnalyst,
+              isSupportEngineer: item2.isSupportEngineer,
+              isApprover: item2.isApprover,
+            });
+          }
+        
+      });
+    });
+  }
+
+  return joinedData;
 }
