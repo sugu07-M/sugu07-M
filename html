@@ -1,4 +1,17 @@
-  public handleDrillDownClick(event: any): void {
+<div>
+  <h2>Monthly Data</h2>
+  <div *ngIf="monthData">
+    <p><strong>Month:</strong> {{ monthData.label }}</p>
+    <p><strong>Completed:</strong> {{ monthData.completed }}</p>
+    <p><strong>Noncompleted:</strong> {{ monthData.noncompleted }}</p>
+  </div>
+</div>
+  ngOnInit() {
+    // Retrieve monthData from the router state
+    this.monthData = history.state.monthData;
+  }
+
+    public handleDrillDownClick(event: ChartEvent): void {
     if (event.active && event.active.length > 0) {
       const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
       console.log("Clicked segment label:", clickedSegmentLabel);
