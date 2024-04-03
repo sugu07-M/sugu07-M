@@ -1,4 +1,15 @@
- fetchData() {
+export interface SupportData {
+  supportId: string;
+  firstName: string;
+  lastName: string;
+  plantId: string;
+  isChangeAnalyst: boolean;
+  isSupportEngineer: boolean;
+  isApprover: boolean;
+}
+
+
+fetchData() {
     const apiUrl1 = this.apiurl + '/SupportTeam';
     const apiUrl2 = this.apiurl + '/SupportteamAssigned';
 
