@@ -1,7 +1,13 @@
-  public handleDrillDownClick(label: string): void {
+ public handleDrillDownClick(label: string): void {
     console.log("Clicked segment label:", label);
-    // Navigate to a different route upon clicking a bar segment
-    this.router.navigate(['/detail', label]);
+    const monthIndex = this.barChartLabels.indexOf(label);
+    const monthData = {
+      label: label,
+      completed: this.completed[monthIndex],
+      noncompleted: this.noncompleted[monthIndex]
+    };
+    // Navigate to a different route upon clicking a bar segment, passing the month data
+    this.router.navigate(['/detail'], { state: { monthData: monthData } });
   }
 
 
