@@ -1,3 +1,8 @@
 src/app/master-support/support-view/support-view.component.ts:26:27:
       26 │     this.getteamAssigned().subscribe((data: any[]) => {
          ╵                            ~~~~~~~~~
+  joinTables(): void {
+    if (this.table1Data && this.table2Data && this.table3Data) {
+      this.joinedData = this.getJoinedData();
+    }
+  }
