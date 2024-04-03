@@ -1,65 +1,34 @@
-table1Data: any[];
-  table2Data: any[];
-  joinedData: any[];
+  getsupportteamid() {
+    debugger
+    this.http.get('https://localhost:7236/api/SupportTeam').subscribe((response1: any) => {
+      this.supportTeam = response1;
+      
+      this.http.get('https://localhost:7236/api/SupportteamAssigned').subscribe((response2: any) => {
+        this.supportTeamAssign = response2;
 
+       this.http.get('https://localhost:7236/api/Plantid').subscribe((response3: any) => {
+          this.plantid = response3
 
-ngOnInit(): void {
-    this.getdata().subscribe((data: any[]) => {
-      this.table1Data = data;
-      this.joinTables();
-    });
-
-    this.getteamAssigned().subscribe((data: any[]) => {
-      this.table2Data = data;
-      this.joinTables();
-    });
-  }
- getdata() {
-    const apiUrls = 'your_api_url_for_table1Data';
-    const requestBody = {};
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
-    return this.http.get(apiUrls, httpOptions);
-  }
-
-  getteamAssigned() {
-    const apiUrls = 'your_api_url_for_table2Data';
-    const requestBody = {};
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
-    return this.http.get(apiUrls, httpOptions);
-  }
-
-  joinTables(): void {
-    if (this.table1Data && this.table2Data) {
-      this.joinedData = this.getJoinedData();
-    }
-  }
-
-  getJoinedData(): any[] {
-    let joinedData: any[] = [];
-
-    this.table1Data.forEach((item1: any) => {
-      this.table2Data.forEach((item2: any) => {
-        if (item1.commonKey === item2.supportId) {
-          joinedData.push({
-            supportId: item2.supportId,
-            firstName: item1.firstName,
-            lastName: item1.lastName,
-            plantId: item2.plantId,
-            isChangeAnalyst: item2.isChangeAnalyst,
-            isSupportEngineer: item2.isSupportEngineer,
-            isApprover: item2.isApprover,
-          });
-        }
+          this.combineData();
+        });
+       
       });
     });
-
-    return joinedData;
   }
+
+
+  supportAssignName: any[] = []
+  combineData() {
+    this.supportAssignName = this.supportTeam.map((item: any) => ({
+      ...item,
+      ...this.supportTeamAssign.find((innerItem: any) => ({
+        ...innerItem,
+
+        ...this.plantid.find((initem: any) => initem.plantId == initem.code && innerItem.supportAssignName)
+      }),
+      )})
+    );
+    console.log("CombineData:",this.supportAssignName);
+  }
+}
+  
