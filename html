@@ -10,7 +10,7 @@
     // Retrieve monthData from the router state
     this.monthData = history.state.monthData;
   }
-
+import { ChartEvent } from 'chart.js';
     public handleDrillDownClick(event: ChartEvent): void {
     if (event.active && event.active.length > 0) {
       const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
