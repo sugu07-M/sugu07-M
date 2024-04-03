@@ -1,4 +1,14 @@
- public handleDrillDownClick(label: string): void {
+ ngOnInit() {
+    // Retrieve monthData from the router state
+    this.monthData = history.state.monthData;
+    console.log("Month data:", this.monthData);
+  }
+
+import { ActivatedRoute, RouterStateSnapshot } from '@angular/router';
+
+
+
+public handleDrillDownClick(label: string): void {
     console.log("Clicked segment label:", label);
     const monthIndex = this.barChartLabels.indexOf(label);
     const monthData = {
