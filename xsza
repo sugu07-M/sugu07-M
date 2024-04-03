@@ -1,69 +1,26 @@
-export interface SupportData {
-  supportId: string;
-  firstName: string;
-  lastName: string;
-  plantId: string;
-  isChangeAnalyst: boolean;
-  isSupportEngineer: boolean;
-  isApprover: boolean;
-}
-
-
-fetchData() {
-    const apiUrl1 = this.apiurl + '/SupportTeam';
-    const apiUrl2 = this.apiurl + '/SupportteamAssigned';
-
-    this.http.get(apiUrl1).subscribe((data1: any[]) => {
-      this.http.get(apiUrl2).subscribe((data2: any[]) => {
-        // Merge data from both APIs
-        this.supportData = this.mergeData(data1, data2);
-      });
-    });
-  }
-
-  mergeData(data1: any[], data2: any[]): SupportData[] {
-    const mergedData: SupportData[] = [];
-
-    data1.forEach(team => {
-      const teamAssignment = data2.find(a => a.supportId === team.supportId);
-      if (teamAssignment) {
-        const supportData: SupportData = {
-          supportId: team.supportId,
-          firstName: team.firstName,
-          lastName: team.lastName,
-          plantId: team.plantId,
-          isChangeAnalyst: teamAssignment.isChangeAnalyst,
-          isSupportEngineer: teamAssignment.isSupportEngineer,
-          isApprover: teamAssignment.isApprover
-        };
-        mergedData.push(supportData);
-      }
-    });
-
-    return mergedData;
-  }
-
- <tbody>
-    <tr *ngFor="let data of supportData" class="tr-body">
-      <td>{{ data.supportId }}</td>
-      <td>{{ data.firstName + ' ' + data.lastName }}</td>
-      <td>{{ data.plantId }}</td>
-      <td>
-        <i *ngIf="data.isChangeAnalyst" class="fas fa-check"></i>
-        <i *ngIf="!data.isChangeAnalyst" class="fas fa-times"></i>
-      </td>
-      <td>
-        <i *ngIf="data.isSupportEngineer" class="fas fa-check"></i>
-        <i *ngIf="!data.isSupportEngineer" class="fas fa-times"></i>
-      </td>
-      <td>
-        <i *ngIf="data.isApprover" class="fas fa-check"></i>
-        <i *ngIf="!data.isApprover" class="fas fa-times"></i>
-      </td>
-      <td>
-        <a href="" [routerLink]="'/support'">
-          <i class="fa fa-eye" style="font-size:15px;color:black"></i>
-        </a>
-      </td>
-    </tr>
-  </tbody>
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2769	(TS) No overload matches this call.
+  Overload 1 of 2, '(observerOrNext?: Partial<Observer<Object>> | ((value: Object) => void) | undefined): Subscription', gave the following error.
+    Argument of type '(data2: any[]) => void' is not assignable to parameter of type 'Partial<Observer<Object>> | ((value: Object) => void) | undefined'.
+      Type '(data2: any[]) => void' is not assignable to type '(value: Object) => void'.
+        Types of parameters 'data2' and 'value' are incompatible.
+          Type 'Object' is not assignable to type 'any[]'.
+            The 'Object' type is assignable to very few other types. Did you mean to use the 'any' type instead?
+  Overload 2 of 2, '(next?: ((value: Object) => void) | null | undefined, error?: ((error: any) => void) | null | undefined, complete?: (() => void) | null | undefined): Subscription', gave the following error.
+    Argument of type '(data2: any[]) => void' is not assignable to parameter of type '(value: Object) => void'.
+      Types of parameters 'data2' and 'value' are incompatible.
+        Type 'Object' is not assignable to type 'any[]'.
+          The 'Object' type is assignable to very few other types. Did you mean to use the 'any' type instead?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\master-support\support-view\support-view.component.ts	44	Active
+Error	TS2769	(TS) No overload matches this call.
+  Overload 1 of 2, '(observerOrNext?: Partial<Observer<Object>> | ((value: Object) => void) | undefined): Subscription', gave the following error.
+    Argument of type '(data1: any[]) => void' is not assignable to parameter of type 'Partial<Observer<Object>> | ((value: Object) => void) | undefined'.
+      Type '(data1: any[]) => void' is not assignable to type '(value: Object) => void'.
+        Types of parameters 'data1' and 'value' are incompatible.
+          The 'Object' type is assignable to very few other types. Did you mean to use the 'any' type instead?
+            Type 'Object' is missing the following properties from type 'any[]': length, pop, push, concat, and 35 more.
+  Overload 2 of 2, '(next?: ((value: Object) => void) | null | undefined, error?: ((error: any) => void) | null | undefined, complete?: (() => void) | null | undefined): Subscription', gave the following error.
+    Argument of type '(data1: any[]) => void' is not assignable to parameter of type '(value: Object) => void'.
+      Types of parameters 'data1' and 'value' are incompatible.
+        Type 'Object' is not assignable to type 'any[]'.
+          The 'Object' type is assignable to very few other types. Did you mean to use the 'any' type instead?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\master-support\support-view\support-view.component.ts	43	Active
+Error	TS1206	(TS) Decorators are not valid here.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\master-support\support-view\support-view.component.ts	6	Active
