@@ -1,44 +1,49 @@
- getSupportTeamData() {
-    const apiUrl = this.apiurl + '/SupportTeam';
-    this.http.get(apiUrl).subscribe((data: any[]) => {
-      this.supportTeamData = data;
-    });
-  }
+getdata() {
 
-  getSupportTeamAssignedData() {
-    const apiUrl = this.apiurl + '/SupportteamAssigned';
-    this.http.get(apiUrl).subscribe((data: any[]) => {
-      this.supportTeamAssignedData = data;
-    });
-  }
+  const apiUrls = this.apiurl + '/SupportTeam'
+  const requestBody = {
 
-  getAssignedTeam(supportId: string): any {
-    return this.supportTeamAssignedData.find(data => data.supportId === supportId);
   }
- <tbody>
-    <tr *ngFor="let data of supportTeamData" class="tr-body">
-      <td>{{ data.supportId }}</td>
-      <td>{{ data.firstName + ' ' + data.lastName }}</td>
-      <td>{{ data.plantId }}</td>
-      <td>
-        <ng-container *ngIf="getAssignedTeam(data.supportId); then assignedTeam else noAssignedTeam"></ng-container>
-        <ng-template #assignedTeam>
-          <i class="fas fa-check"></i>
-        </ng-template>
-        <ng-template #noAssignedTeam>
-          <i class="fas fa-times"></i>
-        </ng-template>
-      </td>
-      <td>
-        <!-- Repeat the same pattern for isSupportEngineer -->
-      </td>
-      <td>
-        <!-- Repeat the same pattern for isApprover -->
-      </td>
-      <td>
-        <a href="" [routerLink]="'/support'">
-          <i class="fa fa-eye" style="font-size:15px;color:black"></i>
-        </a>
-      </td>
-    </tr>
-  </tbody>
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
+  this.http.get(apiUrls, requestBody).subscribe(
+    (response: any) => {
+      console.log(response);
+      this.supportTeamData = response;
+
+
+    },
+    (error) => {
+      console.error("Post failed", error)
+    }
+  )
+}
+
+
+//supportteamAssigned
+getteamAssigned() {
+
+  const apiUrls = this.apiurl + '/SupportteamAssigned'
+  const requestBody = {
+
+  }
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
+  this.http.get(apiUrls, requestBody).subscribe(
+    (response: any) => {
+      console.log(response);
+      this.teamAssignedData = response;
+
+
+    },
+    (error) => {
+      console.error("Post failed", error)
+    }
+  )
+}
