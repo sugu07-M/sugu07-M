@@ -1,21 +1,39 @@
-<table class="fl-table" *ngIf="supportData.length > 0">
-<tbody>
-    <!-- Iterate over supportData and create table rows -->
-    <tr *ngFor="let data of supportData" class="tr-body">
+ getSupportTeamData() {
+    const apiUrl = this.apiurl + '/SupportTeam';
+    this.http.get(apiUrl).subscribe((data: any[]) => {
+      this.supportTeamData = data;
+    });
+  }
+
+  getSupportTeamAssignedData() {
+    const apiUrl = this.apiurl + '/SupportteamAssigned';
+    this.http.get(apiUrl).subscribe((data: any[]) => {
+      this.supportTeamAssignedData = data;
+    });
+  }
+
+  getAssignedTeam(supportId: string): any {
+    return this.supportTeamAssignedData.find(data => data.supportId === supportId);
+  }
+ <tbody>
+    <tr *ngFor="let data of supportTeamData" class="tr-body">
       <td>{{ data.supportId }}</td>
       <td>{{ data.firstName + ' ' + data.lastName }}</td>
       <td>{{ data.plantId }}</td>
       <td>
-        <i *ngIf="data.isChangeAnalyst" class="fas fa-check"></i>
-        <i *ngIf="!data.isChangeAnalyst" class="fas fa-times"></i>
+        <ng-container *ngIf="getAssignedTeam(data.supportId); then assignedTeam else noAssignedTeam"></ng-container>
+        <ng-template #assignedTeam>
+          <i class="fas fa-check"></i>
+        </ng-template>
+        <ng-template #noAssignedTeam>
+          <i class="fas fa-times"></i>
+        </ng-template>
       </td>
       <td>
-        <i *ngIf="data.isSupportEngineer" class="fas fa-check"></i>
-        <i *ngIf="!data.isSupportEngineer" class="fas fa-times"></i>
+        <!-- Repeat the same pattern for isSupportEngineer -->
       </td>
       <td>
-        <i *ngIf="data.isApprover" class="fas fa-check"></i>
-        <i *ngIf="!data.isApprover" class="fas fa-times"></i>
+        <!-- Repeat the same pattern for isApprover -->
       </td>
       <td>
         <a href="" [routerLink]="'/support'">
@@ -24,40 +42,3 @@
       </td>
     </tr>
   </tbody>
-</table>
-<div *ngIf="supportData.length === 0">No data available</div>
-
-
-  fetchData() {
-    const apiUrl1 = this.apiurl + '/SupportTeam';
-    const apiUrl2 = this.apiurl + '/SupportteamAssigned';
-
-    this.http.get(apiUrl1).subscribe((data1: any[]) => {
-      this.http.get(apiUrl2).subscribe((data2: any[]) => {
-        // Merge data from both APIs
-        this.supportData = this.mergeData(data1, data2);
-      });
-    });
-  }
-
-  mergeData(data1: any[], data2: any[]): SupportData[] {
-    const mergedData: SupportData[] = [];
-
-    data1.forEach(team => {
-      const teamAssignment = data2.find(a => a.supportId === team.supportId);
-      if (teamAssignment) {
-        const supportData: SupportData = {
-          supportId: team.supportId,
-          firstName: team.firstName,
-          lastName: team.lastName,
-          plantId: team.plantId,
-          isChangeAnalyst: teamAssignment.isChangeAnalyst,
-          isSupportEngineer: teamAssignment.isSupportEngineer,
-          isApprover: teamAssignment.isApprover
-        };
-        mergedData.push(supportData);
-      }
-    });
-
-    return mergedData;
-  }
