@@ -1,6 +1,8 @@
- public handleDrillDownClick(event: any): void {
+   public handleDrillDownClick(event: any): void {
+    console.log("Clicked", event);
     if (event.active.length > 0 && !this.isDrillDown) {
       const clickedSegment = event.active[0]._model.label;
+      console.log("Clicked Segment", clickedSegment);
       // Perform drill-down action using clickedSegment
       this.isDrillDown = true;
     } else {
