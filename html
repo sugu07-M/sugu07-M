@@ -1,9 +1,9 @@
-public handleDrillDownClick(event: any): void {
+  public handleDrillDownClick(event: any): void {
     if (event.active.length > 0) {
-      const clickedSegment = event.active[0]._index;
-      console.log("Clicked segment index:", clickedSegment);
-      // Perform drill-down action here, for example:
-      // this.router.navigate(['/detail', clickedSegment]);
+      const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
+      console.log("Clicked segment label:", clickedSegmentLabel);
+      // Perform navigation with the clicked segment label
+      this.router.navigate(['/detail', clickedSegmentLabel]);
     }
   }
 
