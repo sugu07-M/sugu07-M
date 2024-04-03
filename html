@@ -1,12 +1,8 @@
-  public handleDrillDownClick(event: any): void {
-    if (event.active.length > 0) {
-      const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
-      console.log("Clicked segment label:", clickedSegmentLabel);
-      // Perform navigation with the clicked segment label
-      this.router.navigate(['/detail', clickedSegmentLabel]);
-    }
+  public handleDrillDownClick(label: string): void {
+    console.log("Clicked segment label:", label);
+    // Navigate to a different route upon clicking a bar segment
+    this.router.navigate(['/detail', label]);
   }
-
 
 
   public barChartOptions: any = {
