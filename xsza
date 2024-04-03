@@ -1,49 +1,26 @@
-getdata() {
+  mergedData: any[] = [];
+ <tr *ngFor="let item of mergedData">
+getData() {
+    const apiUrls = [
+      this.apiurl + '/SupportTeam',
+      this.apiurl + '/SupportteamAssigned'
+    ];
 
-  const apiUrls = this.apiurl + '/SupportTeam'
-  const requestBody = {
+    const requests = apiUrls.map(url => this.http.get(url));
 
+    forkJoin(requests).subscribe(
+      (responses: any[]) => {
+        // Assuming both responses are arrays of objects with a common 'id' property
+        const [supportTeamData, teamAssignedData] = responses;
+
+        // Merge data based on the common 'id' property
+        this.mergedData = supportTeamData.map((item: any) => ({
+          ...item,
+          ...(teamAssignedData.find((x: any) => x.id === item.id) || {})
+        }));
+      },
+      (error) => {
+        console.error("Get failed", error);
+      }
+    );
   }
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
-  this.http.get(apiUrls, requestBody).subscribe(
-    (response: any) => {
-      console.log(response);
-      this.supportTeamData = response;
-
-
-    },
-    (error) => {
-      console.error("Post failed", error)
-    }
-  )
-}
-
-
-//supportteamAssigned
-getteamAssigned() {
-
-  const apiUrls = this.apiurl + '/SupportteamAssigned'
-  const requestBody = {
-
-  }
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
-  this.http.get(apiUrls, requestBody).subscribe(
-    (response: any) => {
-      console.log(response);
-      this.teamAssignedData = response;
-
-
-    },
-    (error) => {
-      console.error("Post failed", error)
-    }
-  )
-}
