@@ -1,3 +1,6 @@
+TS2339: Property 'subscribe' does not exist on type 'void'.
+
+
 ngOnInit(): void {
   this.getdata().subscribe((data: any[]) => {
     this.table1Data = data;
