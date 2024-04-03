@@ -1,4 +1,4 @@
-(chartClick)="handleDrillDownClick($event)"
+
 public handleDrillDownClick(event: ChartEvent): void {
     if (event.active && event.active.length > 0) {
       const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
@@ -13,21 +13,7 @@ public handleDrillDownClick(event: ChartEvent): void {
       this.router.navigate(['/detail'], { state: { monthData: monthData } });
     }
   }
+NG5: Argument of type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is not assignable to parameter of type 'ChartEvent'.
+  Type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is missing the following properties from type 'ChartEvent': type, native, x, y
 
-   monthData: any;
-
-  constructor(private route: ActivatedRoute) { }
-
-  ngOnInit() {
-    // Retrieve monthData from the router state
-    this.monthData = history.state.monthData;
-  }
-
-  <div>
-  <h2>Monthly Data</h2>
-  <div *ngIf="monthData">
-    <p><strong>Month:</strong> {{ monthData.label }}</p>
-    <p><strong>Completed:</strong> {{ monthData.completed }}</p>
-    <p><strong>Noncompleted:</strong> {{ monthData.noncompleted }}</p>
-  </div>
-</div>
+ 
