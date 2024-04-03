@@ -1,13 +1,12 @@
-  getsupportteamid() {
-    debugger
+ getSupportTeamId() {
     this.http.get('https://localhost:7236/api/SupportTeam').subscribe((response1: any) => {
       this.supportTeam = response1;
       
       this.http.get('https://localhost:7236/api/SupportteamAssigned').subscribe((response2: any) => {
         this.supportTeamAssign = response2;
 
-       this.http.get('https://localhost:7236/api/Plantid').subscribe((response3: any) => {
-          this.plantid = response3
+        this.http.get('https://localhost:7236/api/Plantid').subscribe((response3: any) => {
+          this.plantid = response3;
 
           this.combineData();
         });
@@ -16,19 +15,21 @@
     });
   }
 
-
-  supportAssignName: any[] = []
   combineData() {
-    this.supportAssignName = this.supportTeam.map((item: any) => ({
-      ...item,
-      ...this.supportTeamAssign.find((innerItem: any) => ({
-        ...innerItem,
+    this.supportAssignName = this.supportTeam.map((item: any) => {
+      const matchedAssign = this.supportTeamAssign.find((innerItem: any) => innerItem.supportAssignName === item.supportTeamName);
+      const matchedPlant = this.plantid.find((initem: any) => initem.plantId === (matchedAssign ? matchedAssign.plantId : null));
 
-        ...this.plantid.find((initem: any) => initem.plantId == initem.code && innerItem.supportAssignName)
-      }),
-      )})
-    );
-    console.log("CombineData:",this.supportAssignName);
+      if (matchedAssign && matchedPlant) {
+        return {
+          ...item,
+          ...matchedAssign,
+          plantName: matchedPlant.plantName
+        };
+      } else {
+        return null;
+      }
+    }).filter((item: any) => item !== null);
+
+    console.log("CombineData:", this.supportAssignName);
   }
-}
-  
