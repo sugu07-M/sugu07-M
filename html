@@ -1,13 +1,69 @@
-(chartClick)="handleDrillDownClick($event)"
+chartdata: any;
+completed: any[]=[];
+noncompleted: any[]=[];
+month: any[] = [];
+barChartData: any[] = [];
+barChartLabels: string[] = [];
 
+barChartLegend = true;
+
+
+getBarchart() {
+  const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
+
+  this.http.get(apiUrls).subscribe(
+    (response: any) => {
+      this.chartdata = response;
+
+      // Extracting data
+      this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+      this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+      const month = response.map((item: { crmonth: any }) => item.crmonth);
+
+      // Update chart data and labels
+      this.updateBarChartLabels(month);
+      this.updateBarChartData();
+
+    },
+    (error) => {
+      console.log("Post failed", error);
+    }
+  );
+}
+
+updateBarChartData() {
+  this.barChartData = [
+    { data: this.noncompleted, label: 'Open' },
+   { data: this.completed, label: 'Completed' }
+  ];  }
+
+updateBarChartLabels(month: number[]) {
+  this.barChartLabels = month.map(month => this.getMonthName(month));
+}
+
+getMonthName(month: number): string {
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  return monthNames[month - 1];
+}
+
+
+public isDrillDown: boolean = false;
+
+// Define a method to handle drill-down actions
 public handleDrillDownClick(e: any): void {
   if (e.active.length > 0) {
     const clickedSegment = e.active[0]._model.label;
-    
+
     if (this.isDrillDown) {
       // Reset the flag
       this.isDrillDown = false;
-      
+
       // Handle drill-down action
       this.drillDownChart(clickedSegment);
     } else {
@@ -16,3 +72,8 @@ public handleDrillDownClick(e: any): void {
     }
   }
 }
+
+public barChartOptions: any = {
+
+  responsive: true
+};
