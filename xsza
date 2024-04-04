@@ -1,35 +1,11 @@
- getSupportTeamId() {
-    this.http.get('https://localhost:7236/api/SupportTeam').subscribe((response1: any) => {
-      this.supportTeam = response1;
-      
-      this.http.get('https://localhost:7236/api/SupportteamAssigned').subscribe((response2: any) => {
-        this.supportTeamAssign = response2;
-
-        this.http.get('https://localhost:7236/api/Plantid').subscribe((response3: any) => {
-          this.plantid = response3;
-
-          this.combineData();
-        });
-       
-      });
-    });
-  }
-
-  combineData() {
-    this.supportAssignName = this.supportTeam.map((item: any) => {
-      const matchedAssign = this.supportTeamAssign.find((innerItem: any) => innerItem.supportAssignName === item.supportTeamName);
-      const matchedPlant = this.plantid.find((initem: any) => initem.plantId === (matchedAssign ? matchedAssign.plantId : null));
-
-      if (matchedAssign && matchedPlant) {
-        return {
-          ...item,
-          ...matchedAssign,
-          plantName: matchedPlant.plantName
-        };
-      } else {
-        return null;
-      }
-    }).filter((item: any) => item !== null);
-
-    console.log("CombineData:", this.supportAssignName);
-  }
+        <div class="col">
+         <label>Category Name</label>
+         <select [(ngModel)]="categoryID">
+           <option value="" disabled selected>Select categoryName</option>
+           <option *ngFor="let cldata of categoryName" value="{{cldata.categoryId}}">{{cldata.categoryName}}</option>
+         </select>
+        </div>
+        <div class="col">
+          <label>Category Type</label>
+          <input type="text" placeholder="CategoryType" [(ngModel)]="categoryType" />
+        </div>
