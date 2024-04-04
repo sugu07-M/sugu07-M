@@ -1,18 +1,18 @@
 public handleDrillDownClick(event: ChartEvent): void {
-  if (event.native && event.native.length > 0) {
-    const clickedSegmentLabel = this.barChartLabels[event.native[0]._index];
+  if (event.native) {
+    const clickedSegmentLabel = this.barChartLabels[event.native._index];
     console.log("Clicked segment label:", clickedSegmentLabel);
     const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
-    const monthData = {
-      label: clickedSegmentLabel,
-      completed: this.completed[monthIndex],
-      noncompleted: this.noncompleted[monthIndex]
-    };
-    // Navigate to the detail page upon clicking a bar segment, passing the month data
-    this.router.navigate(['/detail'], { state: { monthData: monthData } });
+    if (monthIndex !== -1) {
+      const monthData = {
+        label: clickedSegmentLabel,
+        completed: this.completed[monthIndex],
+        noncompleted: this.noncompleted[monthIndex]
+      };
+      // Navigate to the detail page upon clicking a bar segment, passing the month data
+      this.router.navigate(['/detail'], { state: { monthData: monthData } });
+    } else {
+      console.error("Month index not found.");
+    }
   }
 }
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2339	(TS) Property 'length' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	233	Active
-Error	TS7053	(TS) Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'Event'.
-  Property '0' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	234	Active
