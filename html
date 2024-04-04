@@ -1,60 +1,76 @@
 
-X [ERROR] NG5: Argument of type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is not assignable to parameter of type 'ChartEvent'.
-  Type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is missing the following properties from type 'ChartEvent': type, native, x, y [plugin angular-compiler]
+  chartData: any;
+  completed: any[]=[];
+  noncompleted: any[]=[];
+  month: any[] = [];
+  barChartData: any[] = [];
+  barChartLabels: string[] = [];
+  isDrillDown: boolean = false;
+  barChartLegend = true;
+  
 
-    src/app/dashboard/dashboard.component.html:245:43:
-      245 │         (chartClick)="handleDrillDownClick($event)"
-          ╵                                            ~~~~~~
+  getBarchart() {
+    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
-  Error occurs in the template of component DashboardComponent.
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
 
-    src/app/dashboard/dashboard.component.ts:19:15:
-      19 │   templateUrl: './dashboard.component.html',
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.chartData = response;
+        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+        this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
 
+        this.updateBarChartLabels();
+        this.updateBarChartData();
 
-X [ERROR] TS2551: Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'? [plugin angular-compiler]
+      },
+      (error) => {
+        console.log("Post failed", error);
+      }
+    );
+  }
 
-    src/app/dashboard/dashboard.component.ts:229:14:
-      229 │     if (event.active && event.active.length > 0) {
-          ╵               ~~~~~~
+  updateBarChartData() {
+    this.barChartData = [
+      { data: this.noncompleted, label: 'Open' },
+     { data: this.completed, label: 'Completed' }
+    ];  }
 
-  'native' is declared here.
+  updateBarChartLabels() {
+    this.barChartLabels = this.month;
+  }
 
-    node_modules/chart.js/dist/types/index.d.ts:1547:2:
-      1547 │   native: Event | null;
-           ╵   ~~~~~~
+  getMonthName(month: number): string {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return monthNames[month - 1];
+  }
 
+  public handleDrillDownClick(event: any): void {
+    if (event && event.active && event.active.length > 0) {
+      const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
+      console.log("Clicked segment label:", clickedSegmentLabel);
+      const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
+      if (monthIndex !== -1) {
+        const monthData = {
+          label: clickedSegmentLabel,
+          completed: this.completed[monthIndex],
+          noncompleted: this.noncompleted[monthIndex]
+        };
+        console.log("Month Dataaaaaaaaaaa:", monthData); // Log the monthData object
+        // Navigate to the detail page upon clicking a bar segment, passing the month data
+        this.router.navigate(['/filterdashboard'], { state: { monthData: monthData } });
+      } else {
+        console.error("Month index not found.");
+      }
+    }
+  }
 
-X [ERROR] TS2551: Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'? [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:229:30:
-      229 │     if (event.active && event.active.length > 0) {
-          ╵                               ~~~~~~
-
-  'native' is declared here.
-
-    node_modules/chart.js/dist/types/index.d.ts:1547:2:
-      1547 │   native: Event | null;
-           ╵   ~~~~~~
-
-
-X [ERROR] TS2551: Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'? [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:231:33:
-      231 │       const clickedIndex = event.active[0]._index;
-          ╵                                  ~~~~~~
-
-  'native' is declared here.
-
-    node_modules/chart.js/dist/types/index.d.ts:1547:2:
-      1547 │   native: Event | null;
-           ╵   ~~~~~~
-
-
-X [ERROR] TS2339: Property 'chart' does not exist on type 'ChartEvent'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:232:32:
-      232 │       const clickedData = event.chart?.data?.datasets?.[0]?.data[...
-          ╵                                 ~~~~~
-
+  public barChartOptions: any = {
+    responsive: true,
+    onClick: this.handleDrillDownClick.bind(this) // Bind the click event handler
+  };
