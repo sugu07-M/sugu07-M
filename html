@@ -1,35 +1,19 @@
-public handleDrillDownClick(event: any): void {
-  if (event && event.active && event.active.length > 0) {
-    const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
-    console.log("Clicked segment label:", clickedSegmentLabel);
-    const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
-    if (monthIndex !== -1) {
-      const monthData = {
-        label: clickedSegmentLabel,
-        completed: this.completed[monthIndex],
-        noncompleted: this.noncompleted[monthIndex]
-      };
-      console.log("Month Data:", monthData); // Log the monthData object
-      // Navigate to the detail page upon clicking a bar segment, passing the month data
-      this.router.navigate(['/filterdashboard'], { state: { monthData: monthData } });
-    } else {
-      console.error("Month index not found.");
-    }
-  }
-}
+X [ERROR] TS4111: Property 'state' comes from an index signature, so it must be accessed with ['state']. [plugin angular-compiler]
 
- monthData: any;
- ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      if (params && params.state && params.state.monthData) {
-        this.monthData = params.state.monthData;
-        console.log('Received monthData:', this.monthData); // Log the received data
-      }
-    });
-  }
+    src/app/dashboard/filter-dashboard/filter-dashboard.component.ts:20:27:
+      20 │       if (params && params.state && params.state.monthData) {
+         ╵                            ~~~~~
 
-<div *ngIf="monthData">
-  <h1>{{ monthData.label }}</h1>
-  <p>Completed: {{ monthData.completed }}</p>
-  <p>Non-Completed: {{ monthData.noncompleted }}</p>
-</div>
+
+X [ERROR] TS4111: Property 'state' comes from an index signature, so it must be accessed with ['state']. [plugin angular-compiler]
+
+    src/app/dashboard/filter-dashboard/filter-dashboard.component.ts:20:43:
+      20 │       if (params && params.state && params.state.monthData) {
+         ╵                                            ~~~~~
+
+
+X [ERROR] TS4111: Property 'state' comes from an index signature, so it must be accessed with ['state']. [plugin angular-compiler]
+
+    src/app/dashboard/filter-dashboard/filter-dashboard.component.ts:21:32:
+      21 │         this.monthData = params.state.monthData;
+         ╵                                 ~~~~~
