@@ -9,6 +9,7 @@ public handleDrillDownClick(event: any): void {
         completed: this.completed[monthIndex],
         noncompleted: this.noncompleted[monthIndex]
       };
+      console.log("Month Data:", monthData); // Log the monthData object
       // Navigate to the detail page upon clicking a bar segment, passing the month data
       this.router.navigate(['/detail'], { state: { monthData: monthData } });
     } else {
