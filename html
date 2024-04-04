@@ -1,24 +1,22 @@
-  this.http.get(apiUrls).subscribe(
-      (response: any) => {
-        this.chartData = response;
-        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-        this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
+handleDrillDownClick(event: ChartEvent) {
+  console.log('handleDrillDownClick method called');
+  if (event.active && event.active.length > 0) {
+    const clickedIndex = event.active[0]._index;
+    const clickedMonth = this.month[clickedIndex];
+    const completed = this.completed[clickedIndex];
+    const noncompleted = this.noncompleted[clickedIndex];
 
-        this.updateBarChartLabels();
-        this.updateBarChartData();
-
-      },
-updateBarChartLabels() {
-    this.barChartLabels = this.month;
-       handleDrillDownClick(event: ChartEvent) {
-    if (event.active && event.active.length > 0) {
-      const clickedIndex = event.active[0]._index;
-      const clickedMonth = this.month[clickedIndex];
-      const completed = this.completed[clickedIndex];
-      const noncompleted = this.noncompleted[clickedIndex];
-
-      // Navigate to detail page with data
-      this.router.navigate(['/detail'], { state: { month: clickedMonth, completed, noncompleted } });
-    }
+    // Navigate to detail page with data
+    this.router.navigate(['/detail'], { state: { month: clickedMonth, completed, noncompleted } });
   }
+}
+ ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.month = params.get('month');
+      this.completed = +params.get('completed');
+      this.noncompleted = +params.get('noncompleted');
+    });
+  }
+  month: string;
+  completed: number;
+  noncompleted: number;
