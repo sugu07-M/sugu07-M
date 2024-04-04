@@ -1,10 +1,4 @@
-handleDrillDownClick(event: ChartEvent) {
-    if (event.active && event.active.length > 0) {
-      const clickedIndex = event.active[0]._index;
-      const clickedMonth = this.month[clickedIndex];
-      const completed = this.completed[clickedIndex];
-      const noncompleted = this.noncompleted[clickedIndex];
-      
-      this.router.navigate(['/detail'], { state: { month: clickedMonth, completed, noncompleted } });
-    }
-  }
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2551	(TS) Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	229	Active
+Error	TS2551	(TS) Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	229	Active
+Error	TS2551	(TS) Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	230	Active
