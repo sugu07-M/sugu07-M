@@ -1,21 +1,60 @@
-handleDrillDownClick(event: ChartEvent) {
-    if (event.active && event.active.length > 0) {
-      // Extract information from the chart event
-      const clickedIndex = event.active[0]._index;
-      const clickedData = event.chart?.data?.datasets?.[0]?.data[clickedIndex]; // Modify based on your data structure
 
-      // Navigate to the desired URL
-      this.router.navigate(['/new-url'], { queryParams: { data: clickedData } });
-    }
-  }
-   clickedData: any;
-    ngOnInit(): void {
-    // Retrieve the data from query parameters
-    this.route.queryParams.subscribe(params => {
-      this.clickedData = params['data']; // Assuming 'data' is the name of the query parameter
-    });
-  }
-<div>
-  <h1>Clicked Data</h1>
-  <p>{{ clickedData }}</p>
-</div>
+X [ERROR] NG5: Argument of type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is not assignable to parameter of type 'ChartEvent'.
+  Type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is missing the following properties from type 'ChartEvent': type, native, x, y [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:245:43:
+      245 │         (chartClick)="handleDrillDownClick($event)"
+          ╵                                            ~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:19:15:
+      19 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2551: Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:229:14:
+      229 │     if (event.active && event.active.length > 0) {
+          ╵               ~~~~~~
+
+  'native' is declared here.
+
+    node_modules/chart.js/dist/types/index.d.ts:1547:2:
+      1547 │   native: Event | null;
+           ╵   ~~~~~~
+
+
+X [ERROR] TS2551: Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:229:30:
+      229 │     if (event.active && event.active.length > 0) {
+          ╵                               ~~~~~~
+
+  'native' is declared here.
+
+    node_modules/chart.js/dist/types/index.d.ts:1547:2:
+      1547 │   native: Event | null;
+           ╵   ~~~~~~
+
+
+X [ERROR] TS2551: Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:231:33:
+      231 │       const clickedIndex = event.active[0]._index;
+          ╵                                  ~~~~~~
+
+  'native' is declared here.
+
+    node_modules/chart.js/dist/types/index.d.ts:1547:2:
+      1547 │   native: Event | null;
+           ╵   ~~~~~~
+
+
+X [ERROR] TS2339: Property 'chart' does not exist on type 'ChartEvent'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:232:32:
+      232 │       const clickedData = event.chart?.data?.datasets?.[0]?.data[...
+          ╵                                 ~~~~~
+
