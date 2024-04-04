@@ -16,3 +16,18 @@
   ngOnInit(): void {
     console.log(this.monthData); // Log the received data
   }
+ handleDrillDownClick(event: any): void {
+    if (event && event.active && event.active.length > 0) {
+      const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
+      const clickedSegmentData = this.barChartData.map(data => data.data[event.active[0]._index]);
+
+      // Navigate to the filterdashboard component and pass clicked segment data
+      this.router.navigate(['/filterdashboard'], {
+        state: {
+          label: clickedSegmentLabel,
+          completed: clickedSegmentData[0],
+          open: clickedSegmentData[1]
+        }
+      });
+    }
+  }
