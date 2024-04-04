@@ -1,5 +1,7 @@
- ngOnInit() {
+ngOnInit() {
     // Retrieve monthData from the router state
-    this.monthData = history.state.monthData;
-    console.log("Month Data in Detail Component:", this.monthData);
+    this.route.paramMap.subscribe(params => {
+      this.monthData = params.get('monthData');
+      console.log("Month Data in Detail Component:", this.monthData);
+    });
   }
