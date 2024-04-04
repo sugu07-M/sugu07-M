@@ -1,23 +1,18 @@
- handleDrillDownClick(event: any): void {
-    if (event && event.active && event.active.length > 0) {
-      const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
-      const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
-      if (monthIndex !== -1) {
-        const monthData = {
-          label: clickedSegmentLabel,
-          completed: this.completed[monthIndex],
-          noncompleted: this.noncompleted[monthIndex]
-        };
-        this.router.navigate(['/filterdashboard'], { state: { monthData: monthData } });
-      }
+<div *ngIf="monthData">
+  <h2>{{ monthData.label }}</h2>
+  <p>Completed: {{ monthData.completed }}</p>
+  <p>Open: {{ monthData.open }}</p>
+</div>
+
+  monthData: any;
+
+  constructor(private router: Router) {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation && navigation.extras && navigation.extras.state) {
+      this.monthData = navigation.extras.state;
     }
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      if (params && params.monthData) {
-        this.monthData = JSON.parse(params.monthData);
-        console.log('Received monthData:', this.monthData); // Log the received data
-      }
-    });
+    console.log(this.monthData); // Log the received data
   }
