@@ -1,8 +1,7 @@
- ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const monthData = params.get('monthData');
-      if (monthData) {
-        this.monthData = JSON.parse(monthData);
+ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if (params && params.monthData) {
+        this.monthData = JSON.parse(params.monthData);
         console.log('Received monthData:', this.monthData); // Log the received data
       }
     });
