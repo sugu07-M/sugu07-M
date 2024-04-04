@@ -1,4 +1,4 @@
-handleDrillDownClick(event: any): void {
+ handleDrillDownClick(event: any): void {
     if (event && event.active && event.active.length > 0) {
       const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
       const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
@@ -8,7 +8,16 @@ handleDrillDownClick(event: any): void {
           completed: this.completed[monthIndex],
           noncompleted: this.noncompleted[monthIndex]
         };
-        this.router.navigate(['/filterdashboard'], { queryParams: { monthData: JSON.stringify(monthData) } });
+        this.router.navigate(['/filterdashboard'], { state: { monthData: monthData } });
       }
     }
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      if (params && params.monthData) {
+        this.monthData = JSON.parse(params.monthData);
+        console.log('Received monthData:', this.monthData); // Log the received data
+      }
+    });
   }
