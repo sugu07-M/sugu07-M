@@ -16,3 +16,31 @@ public handleDrillDownClick(event: ChartEvent): void {
     }
   }
 }
+
+X [ERROR] NG5: Argument of type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is not assignable to parameter of type 'ChartEvent'.
+  Type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is missing the following properties from type 'ChartEvent': type, native, x, y [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:245:43:
+      245 │         (chartClick)="handleDrillDownClick($event)"
+          ╵                                            ~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:19:15:
+      19 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'length' does not exist on type 'Event'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:233:37:
+      233 │     if (event.native && event.native.length > 0) {
+          ╵                                      ~~~~~~
+
+
+X [ERROR] TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'Event'.
+  Property '0' does not exist on type 'Event'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:234:54:
+      234 │ ...lickedSegmentLabel = this.barChartLabels[event.native[0]._index];
+          ╵                                             ~~~~~~~~~~~~~~~
