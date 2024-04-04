@@ -1,8 +1,15 @@
-ngOnInit(): void {
-  this.route.params.subscribe(params => {
-    if (params && params['state'] && params['state'].monthData) {
-      this.monthData = params['state'].monthData;
-      console.log('Received monthData:', this.monthData); // Log the received data
-    }
-  });
-}
+ ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const monthData = params.get('monthData');
+      if (monthData) {
+        this.monthData = JSON.parse(monthData);
+        console.log('Received monthData:', this.monthData); // Log the received data
+      }
+    });
+  }
+
+  <div *ngIf="monthData">
+  <h1>{{ monthData.label }}</h1>
+  <p>Completed: {{ monthData.completed }}</p>
+  <p>Non-Completed: {{ monthData.noncompleted }}</p>
+</div>
