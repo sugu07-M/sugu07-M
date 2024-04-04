@@ -1,19 +1,8 @@
-X [ERROR] TS4111: Property 'state' comes from an index signature, so it must be accessed with ['state']. [plugin angular-compiler]
-
-    src/app/dashboard/filter-dashboard/filter-dashboard.component.ts:20:27:
-      20 │       if (params && params.state && params.state.monthData) {
-         ╵                            ~~~~~
-
-
-X [ERROR] TS4111: Property 'state' comes from an index signature, so it must be accessed with ['state']. [plugin angular-compiler]
-
-    src/app/dashboard/filter-dashboard/filter-dashboard.component.ts:20:43:
-      20 │       if (params && params.state && params.state.monthData) {
-         ╵                                            ~~~~~
-
-
-X [ERROR] TS4111: Property 'state' comes from an index signature, so it must be accessed with ['state']. [plugin angular-compiler]
-
-    src/app/dashboard/filter-dashboard/filter-dashboard.component.ts:21:32:
-      21 │         this.monthData = params.state.monthData;
-         ╵                                 ~~~~~
+ngOnInit(): void {
+  this.route.params.subscribe(params => {
+    if (params && params['state'] && params['state'].monthData) {
+      this.monthData = params['state'].monthData;
+      console.log('Received monthData:', this.monthData); // Log the received data
+    }
+  });
+}
