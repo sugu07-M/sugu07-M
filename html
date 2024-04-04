@@ -1,14 +1,14 @@
-ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      if (params && params.monthData) {
-        this.monthData = JSON.parse(params.monthData);
-        console.log('Received monthData:', this.monthData); // Log the received data
+handleDrillDownClick(event: any): void {
+    if (event && event.active && event.active.length > 0) {
+      const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
+      const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
+      if (monthIndex !== -1) {
+        const monthData = {
+          label: clickedSegmentLabel,
+          completed: this.completed[monthIndex],
+          noncompleted: this.noncompleted[monthIndex]
+        };
+        this.router.navigate(['/filterdashboard'], { queryParams: { monthData: JSON.stringify(monthData) } });
       }
-    });
+    }
   }
-
-  <div *ngIf="monthData">
-  <h1>{{ monthData.label }}</h1>
-  <p>Completed: {{ monthData.completed }}</p>
-  <p>Non-Completed: {{ monthData.noncompleted }}</p>
-</div>
