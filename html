@@ -1,7 +1,17 @@
 handleDrillDownClick(event: ChartEvent) {
-  const activeElements = event?.chart?.getElementsAtEventForMode(event.native, 'point', { intersect: true });
-  if (activeElements && activeElements.length > 0) {
-    const clickedIndex = activeElements[0]._index;
-    // Perform your logic here
+    if (event.active && event.active.length > 0) {
+      // Extract information from the chart event
+      const clickedIndex = event.active[0]._index;
+      const clickedData = event.chart?.data?.datasets?.[0]?.data[clickedIndex]; // Modify based on your data structure
+
+      // Navigate to the desired URL
+      this.router.navigate(['/new-url'], { queryParams: { data: clickedData } });
+    }
   }
-}
+   clickedData: any;
+    ngOnInit(): void {
+    // Retrieve the data from query parameters
+    this.route.queryParams.subscribe(params => {
+      this.clickedData = params['data']; // Assuming 'data' is the name of the query parameter
+    });
+  }
