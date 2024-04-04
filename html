@@ -1,4 +1,7 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2551	(TS) Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	229	Active
-Error	TS2551	(TS) Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	229	Active
-Error	TS2551	(TS) Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	230	Active
+handleDrillDownClick(event: ChartEvent) {
+  const activeElements = event?.chart?.getElementsAtEventForMode(event.native, 'point', { intersect: true });
+  if (activeElements && activeElements.length > 0) {
+    const clickedIndex = activeElements[0]._index;
+    // Perform your logic here
+  }
+}
