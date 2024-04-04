@@ -1,1 +1,25 @@
-https://github.com/atherosai/ui/blob/main/sidebar-07/index.html
+ public handleDrillDownClick(event: ChartEvent): void {
+    if (event.active && event.active.length > 0) {
+      const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
+      console.log("Clicked segment label:", clickedSegmentLabel);
+      const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
+      const monthData = {
+        label: clickedSegmentLabel,
+        completed: this.completed[monthIndex],
+        noncompleted: this.noncompleted[monthIndex]
+      };
+      // Navigate to the detail page upon clicking a bar segment, passing the month data
+      this.router.navigate(['/detail'], { state: { monthData: monthData } });
+    }
+  }
+
+    ngOnInit() {
+    // Retrieve monthData from the router state
+    this.route.paramMap.subscribe(params => {
+      this.monthData = {
+        label: params.get('label'),
+        completed: params.get('completed'),
+        noncompleted: params.get('noncompleted')
+      };
+    });
+  }
