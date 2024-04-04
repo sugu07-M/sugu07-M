@@ -4,7 +4,9 @@
     this.completed = state.completed;
     this.noncompleted = state.noncompleted;
   }
-
+  month: string;
+  completed: number;
+  noncompleted: number;
    handleDrillDownClick(event: ChartEvent) {
     if (event.active && event.active.length > 0) {
       const clickedIndex = event.active[0]._index;
