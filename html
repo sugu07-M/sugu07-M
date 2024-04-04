@@ -1,19 +1,23 @@
-public handleDrillDownClick(event: any): void {
-  if (event && event.active && event.active.length > 0) {
-    const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
-    console.log("Clicked segment label:", clickedSegmentLabel);
-    const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
-    if (monthIndex !== -1) {
-      const monthData = {
-        label: clickedSegmentLabel,
-        completed: this.completed[monthIndex],
-        noncompleted: this.noncompleted[monthIndex]
-      };
-      console.log("Month Data:", monthData); // Log the monthData object
-      // Navigate to the detail page upon clicking a bar segment, passing the month data
-      this.router.navigate(['/detail'], { state: { monthData: monthData } });
-    } else {
-      console.error("Month index not found.");
+  this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.chartData = response;
+        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+        this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
+
+        this.updateBarChartLabels();
+        this.updateBarChartData();
+
+      },
+
+       handleDrillDownClick(event: ChartEvent) {
+    if (event.active && event.active.length > 0) {
+      const clickedIndex = event.active[0]._index;
+      const clickedMonth = this.month[clickedIndex];
+      const completed = this.completed[clickedIndex];
+      const noncompleted = this.noncompleted[clickedIndex];
+
+      // Navigate to detail page with data
+      this.router.navigate(['/detail'], { state: { month: clickedMonth, completed, noncompleted } });
     }
   }
-}
