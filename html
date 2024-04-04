@@ -1,76 +1,35 @@
-
-  chartData: any;
-  completed: any[]=[];
-  noncompleted: any[]=[];
-  month: any[] = [];
-  barChartData: any[] = [];
-  barChartLabels: string[] = [];
-  isDrillDown: boolean = false;
-  barChartLegend = true;
-  
-
-  getBarchart() {
-    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
-
-    this.http.get(apiUrls).subscribe(
-      (response: any) => {
-        this.chartData = response;
-        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-        this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
-
-        this.updateBarChartLabels();
-        this.updateBarChartData();
-
-      },
-      (error) => {
-        console.log("Post failed", error);
-      }
-    );
-  }
-
-  updateBarChartData() {
-    this.barChartData = [
-      { data: this.noncompleted, label: 'Open' },
-     { data: this.completed, label: 'Completed' }
-    ];  }
-
-  updateBarChartLabels() {
-    this.barChartLabels = this.month;
-  }
-
-  getMonthName(month: number): string {
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return monthNames[month - 1];
-  }
-
-  public handleDrillDownClick(event: any): void {
-    if (event && event.active && event.active.length > 0) {
-      const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
-      console.log("Clicked segment label:", clickedSegmentLabel);
-      const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
-      if (monthIndex !== -1) {
-        const monthData = {
-          label: clickedSegmentLabel,
-          completed: this.completed[monthIndex],
-          noncompleted: this.noncompleted[monthIndex]
-        };
-        console.log("Month Dataaaaaaaaaaa:", monthData); // Log the monthData object
-        // Navigate to the detail page upon clicking a bar segment, passing the month data
-        this.router.navigate(['/filterdashboard'], { state: { monthData: monthData } });
-      } else {
-        console.error("Month index not found.");
-      }
+public handleDrillDownClick(event: any): void {
+  if (event && event.active && event.active.length > 0) {
+    const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
+    console.log("Clicked segment label:", clickedSegmentLabel);
+    const monthIndex = this.barChartLabels.indexOf(clickedSegmentLabel);
+    if (monthIndex !== -1) {
+      const monthData = {
+        label: clickedSegmentLabel,
+        completed: this.completed[monthIndex],
+        noncompleted: this.noncompleted[monthIndex]
+      };
+      console.log("Month Data:", monthData); // Log the monthData object
+      // Navigate to the detail page upon clicking a bar segment, passing the month data
+      this.router.navigate(['/filterdashboard'], { state: { monthData: monthData } });
+    } else {
+      console.error("Month index not found.");
     }
   }
+}
 
-  public barChartOptions: any = {
-    responsive: true,
-    onClick: this.handleDrillDownClick.bind(this) // Bind the click event handler
-  };
+ monthData: any;
+ ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      if (params && params.state && params.state.monthData) {
+        this.monthData = params.state.monthData;
+        console.log('Received monthData:', this.monthData); // Log the received data
+      }
+    });
+  }
+
+<div *ngIf="monthData">
+  <h1>{{ monthData.label }}</h1>
+  <p>Completed: {{ monthData.completed }}</p>
+  <p>Non-Completed: {{ monthData.noncompleted }}</p>
+</div>
