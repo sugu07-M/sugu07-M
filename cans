@@ -19,6 +19,49 @@
    textField: 'item_text',
  };
 
-approverstage
-: 
-[{item_id: "N", item_text: "Change Request"}]
+selectedItems: string[] = []; // Array to store selected item_ids
+    selectedN: boolean = false; // To store if 'N' is selected
+    selectedC: boolean = false; // To store if 'C' is selected
+    selectedR: boolean = false; // To store if 'R' is selected
+
+    constructor() {}
+
+    onItemSelect(item: any) {
+        if (item.item_id === 'N') {
+            this.selectedN = true;
+        } else if (item.item_id === 'C') {
+            this.selectedC = true;
+        } else if (item.item_id === 'R') {
+            this.selectedR = true;
+        }
+        this.selectedItems.push(item.item_id);
+        console.log('Selected Items:', this.selectedItems);
+    }
+
+    onSelectAll(items: any) {
+        this.selectedItems = items.map((item: any) => item.item_id);
+        this.selectedN = true;
+        this.selectedC = true;
+        this.selectedR = true;
+        console.log('Selected All:', this.selectedItems);
+    }
+
+    onItemDeSelect(item: any) {
+        if (item.item_id === 'N') {
+            this.selectedN = false;
+        } else if (item.item_id === 'C') {
+            this.selectedC = false;
+        } else if (item.item_id === 'R') {
+            this.selectedR = false;
+        }
+        this.selectedItems = this.selectedItems.filter((id: string) => id !== item.item_id);
+        console.log('Deselected Item:', item);
+    }
+
+    onUnSelectAll() {
+        this.selectedN = false;
+        this.selectedC = false;
+        this.selectedR = false;
+        this.selectedItems = [];
+        console.log('Deselected All');
+    }
