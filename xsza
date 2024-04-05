@@ -1,74 +1,11 @@
- <div class="search-hero">
-   <input class="form-control" type="text" name="search" [(ngModel)]="searchText"  autocomplete="off" placeholder="&#61442;  Start searching ">
- </div>
- <button class="btn btn-primary" [routerLink]="'/new_master'" style="margin-left: 92%; margin-top: -5%; width: 7%;">New</button>
- <div class="border-rfc-heading">
-   <div class="table-wrapper" style="overflow-x: auto">
-     <table class="fl-table">
-       <thead class="table-head">
-         <tr class="border-bottom">
-           <th>Category ID</th>
-           <th>Module Name</th>
-           <th>Category Name</th>
-           <th>Is Active</th>
-           <th>Action</th>
-         </tr>
-       </thead>
-       <tbody>
-         <tr *ngFor="let data of categorydata" class="tr-body">
-           <td>{{ data.itcategoryId }}</td>
-           <td>
-             <span *ngIf="data.supportId == 1">Change Request</span>
-             <span *ngIf="data.supportId == 2">Help Disk</span>
-             <span *ngIf="data.supportId == 3">Project Management</span>
-           </td>
-           <td>{{ data.categoryName }}</td>
-           <td>{{ data.isActive }}</td>
-           <td>
-             <a href="" routerLink="/updatecategory/{{data.itcategoryId}}/edit">
-               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-             </a>&nbsp;&nbsp;
-             <i class="fa fa-trash" aria-hidden="true"></i>
+ this.categorydata = response;
+        this.filterData(); // Filter data after fetching
+        console.log(this.categorydata);
 
-           </td>
-         </tr>
-       </tbody>
-     </table>
-
-
-
-
-  filteredData: any[]; // Array to hold filtered data
-  searchText: string = '';
   filterData() {
     this.filteredData = this.categorydata.filter(item =>
       item.categoryName.toUpperCase().includes(this.searchText.toUpperCase())
     );
   }
 
-
-
-  categorydata: any[] = [];
-
-  getcategory() {
-    const apiUrls = this.apiurl + '/Category'
-    const requestBody = {
-
-    }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
-    this.http.get(apiUrls, requestBody).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.categorydata = response;
-        console.log(this.categorydata)
-
-      },
-      (error) => {
-        console.error("Post failed", error)
-      }
-    )
-  }
+ *ngFor="let data of filteredData ? filteredData : categorydata"
