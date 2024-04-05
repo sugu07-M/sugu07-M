@@ -1,8 +1,4 @@
-ngOnInit() {
-  this.searchText.valueChanges.subscribe(() => {
-    this.filterData();
-  });
-}
+(ngModelChange)="filterData()"
 filterData() {
   // If searchText is empty, show all data
   if (!this.searchText.trim()) {
