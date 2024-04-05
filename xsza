@@ -1,34 +1,15 @@
- filterData() {
-    this.filteredData = this.categorydata.filter(item =>
-      item.categoryName.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
-<input type="text" [(ngModel)]="searchTerm" placeholder="Search..." (input)="filterData()">
-/* Style for the search input */
-input[type="text"] {
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+ <div class="search-hero">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a hero by id or name or country">
+    </div>
+.search-hero {
+  max-width: 500px;
+  padding-bottom: 50px;
+  margin:auto;
 }
 
-/* Style for the table */
-.fl-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 15px 0;
+.form-control {
+  box-shadow: 0 10px 40px 0 #B0C1D9;
 }
-
-.fl-table th,
-.fl-table td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.fl-table th {
-  background-color: #f2f2f2;
-}
-
-.fl-table tbody tr:hover {
-  background-color: #f5f5f5;
+.form-control::placeholder  {
+  font-family: FontAwesome;
 }
