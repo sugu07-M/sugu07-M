@@ -1,18 +1,1 @@
-X [ERROR] TS-996002: This import contains errors, which may affect components that depend on this NgModule. [plugin angular-compiler]
-
-    src/app/app.module.server.ts:9:4:
-      9 │     AppModule,
-        ╵     ~~~~~~~~~
-
-
-X [ERROR] TS-996002: 'Ng2SearchPipeModule' does not appear to be an NgModule class. [plugin angular-compiler]
-
-    src/app/app.module.ts:197:4:
-      197 │     Ng2SearchPipeModule
-          ╵     ~~~~~~~~~~~~~~~~~~~
-
-  This likely means that the library (ng2-search-filter) which declares Ng2SearchPipeModule is not compatible with Angular Ivy. Check if a newer version of the library is available, and update if so. Also consider checking with the library's authors to see if the library is expected to be compatible with Ivy.
-
-    node_modules/ng2-search-filter/src/ng2-filter.module.d.ts:1:21:
-      1 │ export declare class Ng2SearchPipeModule {
-        ╵                      ~~~~~~~~~~~~~~~~~~~
+npm update ng2-search-filter
