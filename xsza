@@ -9,3 +9,4 @@
   }
 
  *ngFor="let data of filteredData ? filteredData : categorydata"
+ (input)="filterData()"
