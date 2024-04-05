@@ -7,3 +7,5 @@ filterData() {
 }
 
 this.filteredData = this.categorydata;
+
+[(ngModel)]="searchText"
