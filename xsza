@@ -45,3 +45,12 @@ getCheckList() {
        </tr>
      </tbody>
    </table>
+
+ "itChecklistID": 0,
+  "plantID": 0,
+  "supportID": 0,
+  "categoryID": 0,
+  "classificationID": 0,
+  "checklistTitle": "string",
+  "checklistDesc": "string",
+  "mandatoryFlag": true,
