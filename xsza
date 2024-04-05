@@ -1,21 +1,12 @@
-<table width="80%" *ngIf="checklist.length > 0">
-  <thead>
-    <tr>
-      <th width="10%">Sl.no</th>
-      <th width="30%">Title</th>
-      <th width="50%">Description</th>
-      <th width="10%">Mandatory</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of checklist; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ item.checklistTitle }}</td>
-      <td>{{ item.checklistDesc }}</td>
-      <td>{{ item.mandatoryFlag ? 'Yes' : 'No' }}</td>
-    </tr>
-  </tbody>
-</table>
-<div *ngIf="checklist.length === 0">
-  Loading checklist...
-</div>
+{
+        // Filter checklist based on conditions
+        this.checklist = response.filter(item =>
+          item.supportID === this.supportID &&
+          item.categoryID === this.categoryID &&
+          item.classificationID === this.classificationID
+        );
+      },
+ checklist: any[] = [];
+  supportID: number = 0; // Assign the appropriate supportID
+  categoryID: number = 0; // Assign the appropriate categoryID
+  classificationID: number = 0;
