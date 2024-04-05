@@ -1,1 +1,441 @@
-selectedItems: { item_id: string }[] = [];
+value could not be converted to System.String. Path: $.approverstage |
+import { Component, numberAttribute } from '@angular/core';
+import { IDropdownSettings, } from 'ng-multiselect-dropdown';
+import { environment } from '/IT_Portal/IT-Portal/IT-Portal.UI/src/environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Console } from 'console';
+import { response } from 'express';
+@Component({
+  selector: 'app-support-team',
+  templateUrl: './support-team.component.html',
+  styleUrl: './support-team.component.css'
+})
+export class SupportTeamComponent {
+  showMiniForm: boolean = false;
+  formFields: any[] = [];
+  dropdownList!: { item_id: string; item_text: string; } [];
+  dropdownSettings: IDropdownSettings = {};
+  
+  constructor(private http:HttpClient, private route:Router) {
+    this.addFormField();
+    const currentDate = new Date()
+    this.today = currentDate.toISOString().slice(0, 10);
+  }
+
+  /* form*/
+
+  toggleMiniForm() {
+    this.showMiniForm = !this.showMiniForm;
+  }
+
+  addFormField() {
+    this.formFields.push({});
+  }
+
+  removeFormField() {
+    this.formFields.pop();
+  }
+
+  /*multiselect*/
+
+  ngOnInit() {
+    this.dropdownList = [
+      { item_id: 'N', item_text: 'Change Request' },
+      { item_id: 'C', item_text: 'Closure' },
+      { item_id: 'R', item_text: 'Release' }
+     
+    ];
+    this.dropdownSettings = {
+      idField: 'item_id',
+      textField: 'item_text',
+    };
+    
+    this.getcategorytype();
+    this.categoryfunctions();
+    this.getcategorytype();
+    this.getsystemlandscape();
+    this.getclassification();
+    this.getsystemlandscape();
+    this.getcategory();
+    this.getplant();
+    this.fetchAllItems();
+    this.filterItems();
+    this.getitsupport();
+    
+  }
+  selectedCategory: any = '';
+  categoryTypeId: any = '';
+  supportId: any = '';
+  classificationId: any = '';
+  today: any = '';
+  firstname: any = '';
+  middlename: any = '';
+  lastname: any = '';
+  imageurls: any = '';
+  Email: any = '';
+  designation: any = '';
+  empid: any = '';
+  dob: any = '';
+  dol: any = '';
+  category: any = '';
+  classfication: any = '';
+  isactive: boolean = false;
+  approvername: any = '';
+  approverstage: string = '';
+  IsApprove: boolean = false;
+  IsEngineer: boolean = false;
+  IsAnalyst: boolean = false;
+  plantId: any = '';
+  selectedItems: string[] = []; 
+  systemlandscape: any[] = [];
+  categorytype: any[] = [];
+  checkcatid: any = '';
+  catidfilter: any = '';
+  categorydata: any = '';
+  supportTeamId: any = '';
+  supportid: any = '';
+  supportname: any = '';
+  private apiurl = environment.apiurls;
+
+  postSupportTeam() {
+
+    const apiUrl = this.apiurl + '/SupportTeam/PostSupportTeam'
+    const requestBody = {
+      "flag": "I",
+      "supportTeamId": 0,
+      "email": this.Email,
+      "firstName": this.firstname,
+      "middleName": this.middlename,
+      "lastName": this.lastname,
+      "imgUrl": this.imageurls,
+      "designation": this.designation,
+      "empId": this.empid,
+      "isActive": this.isactive,
+      "dol": this.dol,
+      "dob": this.dob,
+      "isApprover": this.IsApprove,
+      "isChangeAnalyst": this.IsAnalyst,
+      "isSupportEngineer": this.IsEngineer,
+      "plantId": this.plantId,
+      "supportId": this.supportId,
+      "categoryId": this.selectedCategory,
+      "classificationId": this.classificationId,
+      "approverstage": this.selectedItems,
+      "level": this.approvername,
+      "createdBy": this.supportid,
+      "createdDate": this.today
+
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    this.http.post(apiUrl, requestBody, httpOptions).subscribe(
+      (response: any) => {
+        console.log(response);
+        alert("Saved Successfully!");
+        
+      },
+      (error: any) => {
+        console.log('Post request failed', error);
+      });
+  }
+
+
+
+
+
+  classifications: any[] = [];
+  plantcode: any[] = [];
+
+  getplant() {
+
+    const apiUrls = this.apiurl + '/Plantid'
+    const requestBody = {
+
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+    this.http.get(apiUrls, requestBody).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.plantcode = response;
+        console.log(this.plantcode)
+      },
+      (error) => {
+        console.error("Post failed", error)
+      }
+    )
+  }
+  getclassification() {
+
+    const apiUrls = this.apiurl + '/Classification'
+    const requestBody = {
+
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+    this.http.get(apiUrls, requestBody).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.classifications = response;
+        console.log(this.classifications)
+      },
+      (error) => {
+        console.error("Post failed", error)
+      }
+    )
+  }
+
+  getsystemlandscape() {
+    const apiUrl = this.apiurl + '/SystemLandscape/Getsystems';
+    const requestBody = {
+      "categroyId": this.selectedCategory,
+      "supportId": 1,
+      "classificationId": this.classificationId
+    };
+    this.http.post(apiUrl, requestBody).subscribe(
+      (response: any) => {
+        console.log("Sys", response);
+        this.systemlandscape = response;
+      },
+      (error: any) => {
+        console.error('POST request failed', error);
+      }
+    );
+  }
+
+  getcategorytype() {
+    
+    const apiUrls = this.apiurl + '/CategoryTyp'
+    const requestBody = {
+
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+    this.http.get(apiUrls, requestBody).subscribe(
+      (response: any) => {
+        console.log(response);
+        const checkcatid = this.selectedCategory
+        this.catidfilter = checkcatid
+        this.categorytype = response.filter((item: any) => item.categoryId.toString() === this.catidfilter);
+        console.log("category type id based on categoryid", this.categorytype)
+        console.log(this.catidfilter)
+      },
+      (error) => {
+        console.error("Post failed", error)
+      }
+    )
+
+  }
+  getcategory() {
+    
+    const apiUrls = this.apiurl + '/Category'
+    const requestBody = {
+
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+    this.http.get(apiUrls, requestBody).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.categorydata = response.filter((item: any) => item.supportId === 1);
+        console.log("category data test", this.categorydata)
+      },
+      (error) => {
+        console.error("Post failed", error)
+      }
+    )
+  }
+
+  itsupportid: any[] = [];
+  getitsupport() {
+    const apiUrls = this.apiurl + '/ITSupport/GetSupport'
+    const requestBody = {
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+    this.http.get(apiUrls, requestBody).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.itsupportid = response;
+        console.log("Muthu",this.itsupportid)
+      },
+      (error) => {
+        console.error("Post failed", error)
+      }
+    )
+  }
+
+  categoryfunctions() {
+    this.getsystemlandscape();
+    this.getcategorytype();
+  }
+
+
+
+  item: any = '';
+
+
+  onItemSelect(item: any) {
+    this.selectedItems.push(item);
+  }
+
+  onSelectAll(items: any) {
+    this.selectedItems = items;
+  }
+
+  onItemDeSelect(item: any) {
+    this.selectedItems = this.selectedItems.filter(selectedItem => selectedItem !== item);
+  }
+
+  onUnSelectAll() {
+    this.selectedItems = [];
+  }
+
+
+    private updateApproverStage() {
+  /*  const newApproverStage = this.selectedItems.map(item => item.item_id).join(',');
+    if (this.approverstage !== newApproverStage) {
+      this.approverstage = newApproverStage;
+      console.log('Approver Stage:', this.approverstage);
+    }*/
+  
+  }
+  isApprover: boolean = false;
+  isChangeAnalyst: boolean = false;
+  isSupportEngineer: boolean = false;
+  getsupport() {
+    debugger
+    if (this.item.item_text == "Change Request") {
+      this.isApprover = true;
+    }
+    else if (this.item.item_text == "Closure") {
+      this.isChangeAnalyst = true;
+    }
+    else if (this.item.item_text == "Release")  {
+      this.isSupportEngineer = true;
+    }
+    else if (this.item.length == 2) {
+      this.item = true;
+    }
+    else {
+      this.isApprover = true;
+      this.isChangeAnalyst = true;
+      this.isSupportEngineer = true;
+    }
+    
+    const apiUrl = this.apiurl + '/SupportTeam/PostSupportTeam';
+    const requestBody = {
+      "flag": "I",
+      "supportTeamId": this.supportTeamId,
+      "email": this.Email,
+      "firstName":this.firstname,
+      "middleName": this.middlename,
+      "lastName": this.lastname,
+      "imgUrl": this.imageurls,
+      "designation":this.designation,
+      "empId": this.empid,
+      "isActive": this.isactive,
+      "dol": this.dol,
+      "dob": this.dob,
+      "isApprover": this.isApprover,
+      "isChangeAnalyst": this.isChangeAnalyst,
+      "isSupportEngineer": this.isSupportEngineer,
+      "plantId": this.plantId,
+      "supportId": this.supportId,
+      "categoryId": this.selectedCategory,
+      "classificationId": this.classificationId,
+      "approverstage": this.item,
+      "level": this.approvername,
+      "createdBy": 0,
+      "createdDate": this.today
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    this.http.post(apiUrl, requestBody, httpOptions).subscribe(
+      (response: any) => {
+        console.log(response);
+        alert("Approve Successfully!");
+        this.route.navigate(['/change-request']);
+      },
+      (error: any) => {
+        console.error('POST request failed', error);
+      });
+  }
+
+  
+  dropdownItems: any[] = [];
+  dropdownItemscr: any[] = [];
+  selectedValue: any = '';
+  selectedValuecr: any = '';
+  supportteamname: any[] = [];
+  supportnames: any[] = [];
+
+  filterItems() {
+    const filter = this.empid;
+    this.dropdownItems = this.supportnames.filter(item =>
+      item.empId.toString().includes(filter)
+    );
+    if (this.dropdownItems.length === 0 && filter === '') {
+      this.dropdownItems.push('');
+    } else if (filter === '') {
+      this.dropdownItems.length = 0;
+    }
+  }
+  fetchAllItems() {
+    const apiUrl = this.apiurl + '/SupportTeam';
+    this.http.get(apiUrl).subscribe(
+      (response:any) => {
+        console.log("Function", response);
+        this.supportnames = response;
+      },
+      (error: any) => {
+        console.error('GET request failed', error);
+      }
+    );
+  }
+
+  selectItem(item:any) {
+    this.empid = item.empId;
+    this.firstname = item.firstName;
+    this.middlename = item.middleName;
+    this.lastname = item.lastName; 
+    this.Email = item.email;
+    this.imageurls = item.imgUrl;
+    this.designation = item.designation;
+    this.dol = item.dol;
+    this.dob = item.dob;
+    this.isactive = item.isActive;
+  
+   
+
+    console.log("Employee ID:", this.empid);
+    console.log("First Name:", this.firstname);
+    console.log("Last Name:", this.lastname);
+    this.dropdownItems = [];
+  }
+
+
+}
