@@ -1,12 +1,30 @@
-{
-        // Filter checklist based on conditions
-        this.checklist = response.filter(item =>
-          item.supportID === this.supportID &&
-          item.categoryID === this.categoryID &&
-          item.classificationID === this.classificationID
-        );
-      },
- checklist: any[] = [];
-  supportID: number = 0; // Assign the appropriate supportID
-  categoryID: number = 0; // Assign the appropriate categoryID
-  classificationID: number = 0;
+ <table class="fl-table">
+   <thead class="table-head">
+     <tr class="border-bottom">
+       <th>Category ID</th>
+       <th>Module Name</th>
+       <th>Category Name</th>
+       <th>Is Active</th>
+       <th>Action</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr *ngFor="let data of categorydata" class="tr-body">
+       <td>{{ data.itcategoryId }}</td>
+       <td>
+         <span *ngIf="data.supportId == 1">Change Request</span>
+         <span *ngIf="data.supportId == 2">Help Disk</span>
+         <span *ngIf="data.supportId == 3">Project Management</span>
+       </td>
+       <td>{{ data.categoryName }}</td>
+       <td>{{ data.isActive }}</td>
+       <td>
+         <a href="" routerLink="/updatecategory/{{data.itcategoryId}}/edit">
+           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+         </a>&nbsp;&nbsp;
+         <i class="fa fa-trash" aria-hidden="true"></i>
+
+       </td>
+     </tr>
+   </tbody>
+ </table>
