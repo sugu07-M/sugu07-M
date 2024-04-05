@@ -1,12 +1,1 @@
-<div class="col">
-  <label>Category Name</label>
- <!-- <input type="text" placeholder="CategoryID" [(ngModel)]="CategoryID" />-->
-  <select [(ngModel)]="categoryId">
-    <option value="" disabled selected>Select categoryName</option>
-    <option *ngFor="let cldata of categoryName" [value]="cldata.itcategoryId">{{cldata.categoryName}}</option>
-  </select>
-</div>
-<div class="col">
-  <label>	Nature Of Change</label>
-  <input type="text" placeholder="NatureOfChange" [(ngModel)]="natureofchange"  [disabled]="!categoryId" />
-</div>
+[disabled]="!categoryId"
