@@ -1,20 +1,20 @@
-filterData() {
-    const searchTerm = this.searchText.trim().toUpperCase(); // Trim whitespace and convert to uppercase
-    this.filteredData = this.supportAssignName.filter(item =>
-      item.firstName.toUpperCase().includes(searchTerm)
-    );
-  }
+   <div style="width: auto; margin-top: -5%; margin-left: -15%">
+     <ng-multiselect-dropdown [(ngModel)]="selectedItems"
+                              [settings]="dropdownSettings"
+                              [data]="dropdownList"
+                              (onSelect)="onItemSelect($event)"
+                              (onSelectAll)="onSelectAll($event)"
+                              (onDeSelect)="onItemDeSelect($event)"
+                              (onDeSelectAll)="onUnSelectAll()">
+     </ng-multiselect-dropdown>
 
-filterData() {
-  const searchTerm = this.searchText.trim().toUpperCase(); // Trim whitespace and convert to uppercase
-  this.filteredData = this.supportAssignName.filter(item =>
-    item.firstName.toUpperCase().includes(searchTerm)
-  );
-}
-
-filterData() {
-  const searchTerm = this.searchText.trim().toUpperCase(); // Convert to uppercase
-  this.filteredData = this.supportAssignName.filter(item =>
-    item.firstName.toUpperCase().includes(searchTerm)
-  );
-}
+ this.dropdownList = [
+   { item_id: 'N', item_text: 'Change Request' },
+   { item_id: 'C', item_text: 'Closure' },
+   { item_id: 'R', item_text: 'Release' }
+  
+ ];
+ this.dropdownSettings = {
+   idField: 'item_id',
+   textField: 'item_text',
+ };
