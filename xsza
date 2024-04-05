@@ -18,3 +18,5 @@
       item.categoryName.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
+filteredData: any[]; // Array to hold filtered data
+  searchTerm: string = '';
