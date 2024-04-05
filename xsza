@@ -13,3 +13,8 @@
 .form-control::placeholder  {
   font-family: FontAwesome;
 }
+ filterData() {
+    this.filteredData = this.categorydata.filter(item =>
+      item.categoryName.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
