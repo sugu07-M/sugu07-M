@@ -1,13 +1,20 @@
-(ngModelChange)="filterData()"
 filterData() {
-  // If searchText is empty, show all data
-  if (!this.searchText.trim()) {
-    this.filteredData = this.supportAssignName;
-    return;
+    const searchTerm = this.searchText.trim().toUpperCase(); // Trim whitespace and convert to uppercase
+    this.filteredData = this.supportAssignName.filter(item =>
+      item.firstName.toUpperCase().includes(searchTerm)
+    );
   }
 
-  // Filter based on searchText
+filterData() {
+  const searchTerm = this.searchText.trim().toUpperCase(); // Trim whitespace and convert to uppercase
   this.filteredData = this.supportAssignName.filter(item =>
-    item.firstName.toUpperCase().includes(this.searchText.trim().toUpperCase())
+    item.firstName.toUpperCase().includes(searchTerm)
+  );
+}
+
+filterData() {
+  const searchTerm = this.searchText.trim().toUpperCase(); // Convert to uppercase
+  this.filteredData = this.supportAssignName.filter(item =>
+    item.firstName.toUpperCase().includes(searchTerm)
   );
 }
