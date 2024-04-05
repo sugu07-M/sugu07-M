@@ -1,111 +1,18 @@
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+X [ERROR] TS-996002: This import contains errors, which may affect components that depend on this NgModule. [plugin angular-compiler]
+
+    src/app/app.module.server.ts:9:4:
+      9 │     AppModule,
+        ╵     ~~~~~~~~~
 
 
-<div class="search-hero">
-  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" (ngModelChange)="filterData()" placeholder="&#61442;  Start searching ">
-</div>
+X [ERROR] TS-996002: 'Ng2SearchPipeModule' does not appear to be an NgModule class. [plugin angular-compiler]
 
-<tbody>
-    <tr *ngFor="let data of supportAssignName;let i=index" class="tr-body">
-      <td>{{i+1}}</td>
+    src/app/app.module.ts:197:4:
+      197 │     Ng2SearchPipeModule
+          ╵     ~~~~~~~~~~~~~~~~~~~
 
-      <td>{{ data.firstName + '' + data.lastName }}</td>
-      <td>{{ data.plantId }}</td>
-      <td>
-        <ng-container *ngIf="data.isChangeAnalyst; else notChangeAnalyst">
-          <i class="fas fa-check"></i>
-        </ng-container>
-        <ng-template #notChangeAnalyst>
-          <i class="fas fa-times"></i>
-        </ng-template>
-      </td>
-      <td>
-        <ng-container *ngIf="data.isSupportEngineer; else notSupportEngineer">
-          <i class="fas fa-check"></i>
-        </ng-container>
-        <ng-template #notSupportEngineer>
-          <i class="fas fa-times"></i>
-        </ng-template>
-      </td>
-      <td>
-        <ng-container *ngIf="data.isApprover; else notApprover">
-          <i class="fas fa-check"></i>
-        </ng-container>
-        <ng-template #notApprover>
-          <i class="fas fa-times"></i>
-        </ng-template>
-      </td>
-      <td>
-        <a href="" [routerLink]="'/support'">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-        </a>&nbsp;&nbsp;
-        <i class="fa fa-trash" aria-hidden="true"></i>
+  This likely means that the library (ng2-search-filter) which declares Ng2SearchPipeModule is not compatible with Angular Ivy. Check if a newer version of the library is available, and update if so. Also consider checking with the library's authors to see if the library is expected to be compatible with Ivy.
 
-      </td>
-      <td>
-        <a href="" [routerLink]="'     '">
-          <i class="fa fa-eye" style="font-size:15px;color:black"></i>
-        </a>
-      </td>
-    </tr>
-  </tbody>
-
-
-  constructor(private http: HttpClient, private route: Router) {
-    this.joinsupportTeam();
-    this.filteredData = this.supportAssignName;
-  }
-  
-  supportName: { supportTeamAssgnId: number; supportTeamId: number; firstName: string; middleName: string; lastName: string, name:string }[] = []
-  supportTeamname: any = ''
-  joinsupportTeam() {
-    this.supportName = this.supportTeamAssign.map(item => ({
-      ...item,
-      ...this.supportTeamname.find((innerItem:any) => innerItem.firstname === item.id)
-    }))
-  }
-  supportTeam: any = '';
-  supportTeamAssign: any[] = []
-  plantid: any[] = [];
-  ngOnInit(): void {
-    this.getsupportteamid();
-    
-  }
-
-  getsupportteamid() {
-    debugger
-    this.http.get('http://localhost:5014/api/SupportTeam').subscribe((response1: any) => {
-      this.supportTeam = response1;
-      
-      this.http.get('http://localhost:5014/api/SupportteamAssigned').subscribe((response2: any) => {
-       
-        this.supportTeamAssign = response2;
-        this.http.get('http://localhost:5014/api/Plantid').subscribe((response3: any) => {
-          this.plantid = response3
-          this.combineData();
-        });
-       
-      });
-    });
-  }
-
-  filteredData: any[]; // Array to hold filtered data
-  searchText: string = '';
-  filterData() {
-    const searchTerm = this.searchText.trim().toUpperCase(); // Trim whitespace and convert to uppercase
-    this.filteredData = this.supportAssignName.filter(item =>
-      item.firstName.toUpperCase().includes(searchTerm)
-    );
-  }
-
-  supportAssignName: any[] = []
-  combineData() {
-    this.supportAssignName = this.supportTeam.map((item: any) => ({
-      ...item,
-      ...this.supportTeamAssign.find((innerItem: any) => innerItem.supportTeamId === item.supportTeamId)
-
-    }));
-    console.log("CombineData:",this.supportAssignName);
-  }
-}
-  
+    node_modules/ng2-search-filter/src/ng2-filter.module.d.ts:1:21:
+      1 │ export declare class Ng2SearchPipeModule {
+        ╵                      ~~~~~~~~~~~~~~~~~~~
