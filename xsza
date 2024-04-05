@@ -1,1 +1,47 @@
-[disabled]="!categoryId"
+checklist: any = "";
+getCheckList() {
+  const apiUrls = this.apiurl + '/CheckList'
+  const requestBody = {
+
+  }
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
+  this.http.get(apiUrls, requestBody).subscribe(
+    (response: any) => {
+      console.log(response);
+      this.checklist = response;
+      console.log("checklist:", this.checklist)
+    },
+    (error) => {
+      console.error("Post failed", error)
+    }
+  )
+}
+
+
+
+   <table width="80%">
+     <thead>
+       <tr>
+         <th width="10%">Sl.no</th>
+         <th width="90%">Tasks</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr>
+         <td>1</td>
+         <td>Do you have access</td>
+       </tr>
+       <tr>
+         <td>2</td>
+         <td>Does Changes completed?</td>
+       </tr>
+       <tr>
+         <td>3</td>
+         <td>When the Request Recived?</td>
+       </tr>
+     </tbody>
+   </table>
