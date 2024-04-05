@@ -10,3 +10,9 @@
 
  *ngFor="let data of filteredData ? filteredData : categorydata"
  (input)="filterData()"
+.custom-input {
+  border: none;
+  border-bottom: 1px solid #ccc; /* Add underline style */
+  outline: none; /* Removes the default focus outline */
+  /* Add any additional styling as needed */
+}
