@@ -9,3 +9,14 @@ filterData() {
 this.filteredData = this.categorydata;
 
 [(ngModel)]="searchText"
+
+filterData() {
+  const searchTerm = this.searchTerm.toLowerCase();
+  this.filteredData = this.categorydata.filter(item => {
+    // Filter based on the search term
+    const matchesSearchTerm = item.categoryName.toLowerCase().includes(searchTerm);
+    // Filter based on classification
+    const matchesClassification = item.classification.toLowerCase().includes(searchTerm);
+    return matchesSearchTerm || matchesClassification;
+  });
+}
