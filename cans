@@ -1,16 +1,17 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2322	(TS) Type 'any[]' is not assignable to type '() => void'.
-  Type 'any[]' provides no match for the signature '(): void'.	D:\IT-Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT-Portal\IT-Portal\IT-Portal.UI\src\app\master-support\support-view\support-view.component.ts	80	Active
- mergeData(teamAssignedData: any[]): void { // Define mergeData() to accept teamAssignedData as parameter
-    if (this.supportTeamData && teamAssignedData) {
-      // Merge the data based on a common attribute (supportId)
-      // Example merge logic, adjust according to your needs
-      this.supportTeamData.forEach(item => {
-        const matchingData = teamAssignedData.find(data => data.supportId === item.supportId);
-        if (matchingData) {
-          item.plantId = matchingData.plantId;
-          // Merge other properties as needed
-        }
-      });
-    }
+ngOnInit() {
+  this.searchText.valueChanges.subscribe(() => {
+    this.filterData();
+  });
+}
+filterData() {
+  // If searchText is empty, show all data
+  if (!this.searchText.trim()) {
+    this.filteredData = this.supportAssignName;
+    return;
   }
+
+  // Filter based on searchText
+  this.filteredData = this.supportAssignName.filter(item =>
+    item.firstName.toUpperCase().includes(this.searchText.trim().toUpperCase())
+  );
+}
