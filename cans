@@ -65,3 +65,15 @@ selectedItems: string[] = []; // Array to store selected item_ids
         this.selectedItems = [];
         console.log('Deselected All');
     }
+ "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "errors": {
+        "obj": [
+            "The obj field is required."
+        ],
+        "$.approverstage": [
+            "The JSON value could not be converted to System.String. Path: $.approverstage | LineNumber: 0 | BytePositionInLine: 390."
+        ]
+    },
+    "traceId": "00-c1d0d66dc47da33001ab42d774d64b1d-19535a7a0fb4e0d0-00"
