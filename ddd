@@ -107,61 +107,65 @@
 </div>
 
 
-  filterdropdown() {
-    if (this.crfilter.length === 0) {
-      console.log("No data to filter");
-      return;
-    }
+ filterdropdown() {
+  // Reset filterflag and filtersdata
+  this.filterflag = false;
+  this.filtersdata = [];
 
-    // Ensure filtersdata is initialized with crfilter if it's empty
-    if (this.filtersdata.length === 0) {
-      this.filtersdata = this.crfilter;
-    }
-
-    // Apply filters based on selected criteria
-    if (this.plantscode !== '') {
-      this.filterflag = true;
-      this.filtersdata = this.filtersdata.filter((item: any) => item.plantcode === parseInt(this.plantscode));
-    }
-
-    if (this.categoryids !== '') {
-      this.filterflag = true;
-      this.filtersdata = this.filtersdata.filter((item: any) => item.itcategoryId === parseInt(this.categoryids));
-    }
-
-    if (this.classificationid !== '') {
-      this.filterflag = true;
-      this.filtersdata = this.filtersdata.filter((item: any) => item.itclassificationId === parseInt(this.classificationid));
-    }
-
-    if (this.prioritytypeid !== '') {
-      this.filterflag = true;
-      this.filtersdata = this.filtersdata.filter((item: any) => item.priorityType === parseInt(this.prioritytypeid));
-    }
-
-    if (this.fromDt !== '') {
-      if (this.endDt === '') {
-        this.endDt = new Date(); // Assuming today is defined somewhere in your component
-      }
-      this.filterflag = true;
-      this.filtersdata = this.filtersdata.filter((item: any) => item.crdate <= this.fromDt && item.crdate >= this.endDt);
-    }
-
-    if (this.statusfilter.trim() !== '') {
-      this.filterflag = true;
-      // Apply status filter if statusfilter is not 'All'
-      if (this.statusfilter.trim() !== 'All') {
-        this.filtersdata = this.filtersdata.filter((item: any) => item.status.trim() === this.statusfilter.trim());
-      }
-    }
-
-    // If no filters were applied, revert to original data in crfilter
-    if (!this.filterflag) {
-      this.filtersdata = this.crfilter;
-    }
-
-    console.log("Filtered Data:", this.filtersdata);
+  // If crfilter is empty, return
+  if (this.crfilter.length === 0) {
+    console.log("No data to filter");
+    return;
   }
+
+  // Apply filters based on selected criteria
+  this.filtersdata = this.crfilter.filter((item: any) => {
+    let match = true; // Assume the item matches initially
+
+    // Check if each filter criteria is not empty and if the item matches
+    if (this.plantscode !== '' && item.plantcode !== parseInt(this.plantscode)) {
+      match = false;
+    }
+
+    if (this.categoryids !== '' && item.itcategoryId !== parseInt(this.categoryids)) {
+      match = false;
+    }
+
+    if (this.classificationid !== '' && item.itclassificationId !== parseInt(this.classificationid)) {
+      match = false;
+    }
+
+    if (this.prioritytypeid !== '' && item.priorityType !== parseInt(this.prioritytypeid)) {
+      match = false;
+    }
+
+    if (this.fromDt !== '' && item.crdate > this.fromDt) {
+      match = false;
+    }
+
+    if (this.endDt !== '' && item.crdate < this.endDt) {
+      match = false;
+    }
+
+    if (this.statusfilter.trim() !== '' && this.statusfilter.trim() !== 'All' && item.status.trim() !== this.statusfilter.trim()) {
+      match = false;
+    }
+
+    // Update filterflag if any filter criteria is applied
+    if (!match) {
+      this.filterflag = true;
+    }
+
+    return match; // Return whether the item matches all filter criteria
+  });
+
+  // If no filters were applied, retain original data from crfilter
+  if (!this.filterflag) {
+    this.filtersdata = this.crfilter;
+  }
+
+  console.log("Filtered Data:", this.filtersdata);
+}
 
  statusfilter: any;
   crfilter: any = ''; // Initialize with your data
