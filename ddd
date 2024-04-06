@@ -1,4 +1,4 @@
-<div class="table-wrapper">
+v<div class="table-wrapper">
    <table class="fl-table">
      <thead class="table-head">
        <tr class="border-bottom">
@@ -11,6 +11,7 @@
          <th>Type</th>
          <th>Classifications</th>
          <th>RFC Date</th>
+         <!--<th>Attachments</th>-->
          <th>Update</th>
          <th>Delete</th>
        </tr>
@@ -25,11 +26,23 @@
          <td [ngSwitch]="pltdata.status.trim()">
            <span *ngSwitchCase="'Draft'"> <span style="color: #3c8dbc;">{{ pltdata.status }}</span></span>
            <span *ngSwitchCase="'Pending Approval'"> <span style="color: #808080ff; ">{{ pltdata.status }}</span></span>
-           <!-- Add more cases for other statuses -->
+           <span *ngSwitchCase="'Submitted'"> <span style="color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;">{{ pltdata.status }}</span></span>
+           <span *ngSwitchCase="'Approved'"> <span style="color: green;">{{ pltdata.status }}</span></span>
+           <span *ngSwitchCase="'Approved level1'"> <span style="color: green;">{{ pltdata.status }}</span></span>
+           <span *ngSwitchCase="'Approved level2'"> <span style="color: green;">{{ pltdata.status }}</span></span>
+           <span *ngSwitchCase="'Completed'"> <span style="color: green;">{{ pltdata.status }}</span></span>
+           <span *ngSwitchCase="'Rejected'"> <span style="color: red;">{{ pltdata.status }}</span></span>
+           <span *ngSwitchCase="'Seek Clarification'"> <span style="color:cornflowerblue;">{{ pltdata.status }}</span></span>
+           <span *ngSwitchCase="'Implement'"> <span class=" text-info">{{ pltdata.status }}</span></span>
+           <span *ngSwitchCase="'Implemented'"> <span class=" text-info">{{ pltdata.status }}</span></span>
+           <span *ngSwitchCase="'Pending'"> <span style="color: rgba(var(--bs-warning-rgb), var(--bs-text-opacity)) !important;">{{ pltdata.status }}</span></span>
+           <span *ngSwitchCase="'Released'"> <span style="color: rgb(154, 235, 73);">{{ pltdata.status }}</span></span>
          </td>
-         <td>{{pltdata.categoryName}}</td>
+
+        <td>{{pltdata.categoryName}}</td>
          <td>{{pltdata.classificationName}}</td>
          <td>{{pltdata.crdate | date:'dd-MM-yyyy' }}</td>
+         <!--<td><i class="fa fa-download" aria-hidden="true"></i></td>-->
          <td>
            <a href="" (click)="updatepage()" routerLink="/executive/{{pltdata.itcrid}}/edit">
              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -39,9 +52,8 @@
            <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
          </td>
        </tr>
+
      </tbody>
-   </table>
-</div>
 
 <div class="card change_request_card_filter">
   <div class="card-body card_body_filter">
@@ -108,72 +120,56 @@
 
 
  filterdropdown() {
-  // Reset filterflag and filtersdata
-  this.filterflag = false;
-  this.filtersdata = [];
+    // Reset filterflag and filtersdata
+    this.filterflag = false;
+    this.filtersdata = [];
 
-  // If crfilter is empty, return
-  if (this.crfilter.length === 0) {
-    console.log("No data to filter");
-    return;
+    // If crfilter is empty, return
+    if (this.crfilter.length === 0) {
+      console.log("No data to filter");
+      return;
+    }
+
+    // Apply filters based on selected criteria
+    this.filtersdata = this.crfilter.filter((item: any) => {
+      let match = true; // Assume the item matches initially
+
+      // Check if each filter criteria is not empty and if the item matches
+      if (this.plantscode !== '' && item.plantcode !== parseInt(this.plantscode)) {
+        match = false;
+      }
+
+      // Add more filter criteria checks here...
+
+      // Update filterflag if any filter criteria is applied
+      if (!match) {
+        this.filterflag = true;
+      }
+
+      return match; // Return whether the item matches all filter criteria
+    });
+
+    // If no filters were applied, retain original data from crfilter
+    if (!this.filterflag) {
+      this.filtersdata = this.crfilter;
+    }
+
+    console.log("Filtered Data:", this.filtersdata);
   }
 
-  // Apply filters based on selected criteria
-  this.filtersdata = this.crfilter.filter((item: any) => {
-    let match = true; // Assume the item matches initially
+ 
 
-    // Check if each filter criteria is not empty and if the item matches
-    if (this.plantscode !== '' && item.plantcode !== parseInt(this.plantscode)) {
-      match = false;
-    }
+ ischangeanalyst: boolean = true; // Assuming this variable is defined
 
-    if (this.categoryids !== '' && item.itcategoryId !== parseInt(this.categoryids)) {
-      match = false;
-    }
+  crfilter: any[] = []; // Initialize with your data
+  filtersdata: any[] = [];
 
-    if (this.classificationid !== '' && item.itclassificationId !== parseInt(this.classificationid)) {
-      match = false;
-    }
-
-    if (this.prioritytypeid !== '' && item.priorityType !== parseInt(this.prioritytypeid)) {
-      match = false;
-    }
-
-    if (this.fromDt !== '' && item.crdate > this.fromDt) {
-      match = false;
-    }
-
-    if (this.endDt !== '' && item.crdate < this.endDt) {
-      match = false;
-    }
-
-    if (this.statusfilter.trim() !== '' && this.statusfilter.trim() !== 'All' && item.status.trim() !== this.statusfilter.trim()) {
-      match = false;
-    }
-
-    // Update filterflag if any filter criteria is applied
-    if (!match) {
-      this.filterflag = true;
-    }
-
-    return match; // Return whether the item matches all filter criteria
-  });
-
-  // If no filters were applied, retain original data from crfilter
-  if (!this.filterflag) {
-    this.filtersdata = this.crfilter;
-  }
-
-  console.log("Filtered Data:", this.filtersdata);
-}
-
- statusfilter: any;
-  crfilter: any = ''; // Initialize with your data
   plantscode: any = '';
   categoryids: any = '';
   classificationid: any = '';
   prioritytypeid: any = '';
   fromDt: any = '';
   endDt: any = '';
+  statusfilter: any = '';
   filterflag: boolean = false;
-  filtersdata: any[] = []; // This array will hold the filtered data
+ // This array will hold the filtered data
