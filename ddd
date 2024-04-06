@@ -13,12 +13,11 @@
       <option value="Released">Released</option>
       <option value="Closure">Closure</option>
     </select>
-  </div>
 </div>
+
 <div class="access-checkbox">
-  
-  <button *ngIf="isapprover" (click)="isassignbutton()" class="btn btn-rounded filter_button">Assigned To Me</button>&nbsp;&nbsp;&nbsp;
-  <button class="btn btn-rounded filter_button" (click)="filterdropdown()">Filter</button>
+    <button *ngIf="isapprover" (click)="isassignbutton()" class="btn btn-rounded filter_button">Assigned To Me</button>&nbsp;&nbsp;&nbsp;
+    <button class="btn btn-rounded filter_button" (click)="filterdropdown()">Filter</button>
 </div>
 
 
