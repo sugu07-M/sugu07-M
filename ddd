@@ -1,92 +1,135 @@
-  <div class="col">
-    <label>Status</label><br />
-    <select class="input-change" [(ngModel)]="statusfilter">
-      <option disabled selected>Select Status</option>
-      <option value="All">All</option>
-      <option class="input-change" *ngIf="ischangeanalyst">Draft</option>
-      <option value="Pending Approval">Pending Approval</option>
-      <option value="Approved level1">Approved level1</option>
-      <option value="Approved level2">Approved level2</option>
-      <option value="Approved level3">Approved level3</option>
-      <option value="Approved">Approved</option>
-      <option value="Implementation">Implementation</option>
-      <option value="Released">Released</option>
-      <option value="Closure">Closure</option>
-    </select>
-</div>
+<div class="card change_request_card_filter">
+  <div class="card-body card_body_filter">
+    <div class="row filter_cr">
+      <div class="col">
+        <label>Plant</label><br />
+        <select [(ngModel)]="plantscode" class="input-change">
+          <option selected>Select-plant</option>
+          <option *ngFor="let plantid of plantcode" value="{{plantid.id}}">{{plantid.code}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Category</label><br />
+        <select [(ngModel)]="categoryids" class="input-change">
+          <option selected>Select-category</option>
+          <option *ngFor="let catid of categorydata" value="{{catid.itcategoryId}}">{{catid.categoryName}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Classifications</label><br />
+        <select [(ngModel)]="classificationid" class="input-change">
+          <option selected>Select-classification</option>
+          <option *ngFor="let classf of classifications" value="{{classf.itclassificationId}}">{{classf.classificationName}}</option>
+        </select>
 
-<div class="access-checkbox">
-    <button *ngIf="isapprover" (click)="isassignbutton()" class="btn btn-rounded filter_button">Assigned To Me</button>&nbsp;&nbsp;&nbsp;
-    <button class="btn btn-rounded filter_button" (click)="filterdropdown()">Filter</button>
+      </div>
+      <div class="col">
+        <label>Priority</label><br />
+        <select [(ngModel)]="prioritytypeid" class="input-change">
+          <option selected>Select-priority</option>
+          <option *ngFor="let prio of prioritydata" value="{{prio.priorityId}}">{{prio.priorityName}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Start Date:</label><br />
+        <input [(ngModel)]="fromDt" class="input-change cr_date" type="date" id="fromDate" name="fromDate" required />
+      </div>
+      <div class="col">
+        <label>End Date:</label><br />
+        <input [(ngModel)]="endDt" class="input-change cr_date" type="date" id="toDate" name="toDate" required />
+      </div>
+      <div class="col">
+        <label>Status</label><br />
+        <select class="input-change" [(ngModel)]="statusfilter">
+          <option disabled selected>Select Status</option>
+          <option value="All">All</option>
+          <option class="input-change" *ngIf="ischangeanalyst">Draft</option>
+          <option value="Pending Approval">Pending Approval</option>
+          <option value="Approved level1">Approved level1</option>
+          <option value="Approved level2">Approved level2</option>
+          <option value="Approved level3">Approved level3</option>
+          <option value="Approved">Approved</option>
+          <option value="Implementation">Implementation</option>
+          <option value="Released">Released</option>
+          <option value="Closure">Closure</option>
+        </select>
+      </div>
+    </div>
+    <div class="access-checkbox">
+
+      <button *ngIf="isapprover" (click)="isassignbutton()" class="btn btn-rounded filter_button">Assigned To Me</button>&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-rounded filter_button" (click)="filterdropdown()">Filter</button>
+    </div>
+  </div>
 </div>
 
 
 statusfilter: any;
-  crfilter: any = '';
-  plantscode: any = '';
-  categoryids: any = '';
-  classificationid: any = '';
-  prioritytypeid: any = '';
-  fromDt: any = '';
-  endDt: any = '';
-  filterflag: boolean = false;
-  filtersdata: any[] = [];
+crfilter: any = '';
+plantscode: any = '';
+categoryids: any = '';
+classificationid: any = '';
+prioritytypeid: any = '';
+fromDt: any = '';
+endDt: any = '';
+filterflag: boolean = false;
+filtersdata: any[] = [];
 
-  filterdropdown() {
-    this.filtersdata = [];
+filterdropdown() {
+  this.filtersdata = [];
 
-    if (this.plantscode !== '') {
-      this.filterflag = true;
-      this.filtersdata = this.crfilter.filter((item: any) => item.plantcode === parseInt(this.plantscode));
-    }
+  if (this.plantscode !== '') {
+    this.filterflag = true;
+    this.filtersdata = this.crfilter.filter((item: any) => item.plantcode === parseInt(this.plantscode));
+  }
 
-    if (this.categoryids !== '') {
-      this.filterflag = true;
-      if (this.filtersdata.length === 0) {
-        this.filtersdata = this.crfilter;
-      }
-      this.filtersdata = this.filtersdata.filter((item: any) => item.itcategoryId === parseInt(this.categoryids));
-    }
-
-    if (this.classificationid !== '') {
-      this.filterflag = true;
-      if (this.filtersdata.length === 0) {
-        this.filtersdata = this.crfilter;
-      }
-      this.filtersdata = this.filtersdata.filter((item: any) => item.itclassificationId === parseInt(this.classificationid));
-    }
-
-    if (this.prioritytypeid !== '') {
-      this.filterflag = true;
-      if (this.filtersdata.length === 0) {
-        this.filtersdata = this.crfilter;
-      }
-      this.filtersdata = this.filtersdata.filter((item: any) => item.priorityType === parseInt(this.prioritytypeid));
-    }
-
-    if (this.fromDt !== '') {
-      if (this.endDt === '') {
-        this.endDt = this.today; // Assuming today is defined somewhere in your component
-      }
-      this.filterflag = true;
-      if (this.filtersdata.length === 0) {
-        this.filtersdata = this.crfilter;
-      }
-      this.filtersdata = this.filtersdata.filter((item: any) => item.crdate <= this.fromDt && item.crdate >= this.endDt);
-    }
-
-    if (this.statusfilter.trim() !== '') {
-      this.filterflag = true;
-      if (this.filtersdata.length === 0) {
-        this.filtersdata = this.crfilter;
-      } else if (this.statusfilter.trim() !== 'All') {
-        this.filtersdata = this.filtersdata.filter((item: any) => item.status.trim() === this.statusfilter.trim());
-      }
-    }
-
-    if (!this.filterflag) {
+  if (this.categoryids !== '') {
+    this.filterflag = true;
+    if (this.filtersdata.length === 0) {
       this.filtersdata = this.crfilter;
     }
-
-    console.log("Filtered Data:", this.filtersdata);
+    this.filtersdata = this.filtersdata.filter((item: any) => item.itcategoryId === parseInt(this.categoryids));
   }
+
+  if (this.classificationid !== '') {
+    this.filterflag = true;
+    if (this.filtersdata.length === 0) {
+      this.filtersdata = this.crfilter;
+    }
+    this.filtersdata = this.filtersdata.filter((item: any) => item.itclassificationId === parseInt(this.classificationid));
+  }
+
+  if (this.prioritytypeid !== '') {
+    this.filterflag = true;
+    if (this.filtersdata.length === 0) {
+      this.filtersdata = this.crfilter;
+    }
+    this.filtersdata = this.filtersdata.filter((item: any) => item.priorityType === parseInt(this.prioritytypeid));
+  }
+
+  if (this.fromDt !== '') {
+    if (this.endDt === '') {
+      this.endDt = this.today; // Assuming today is defined somewhere in your component
+    }
+    this.filterflag = true;
+    if (this.filtersdata.length === 0) {
+      this.filtersdata = this.crfilter;
+    }
+    this.filtersdata = this.filtersdata.filter((item: any) => item.crdate <= this.fromDt && item.crdate >= this.endDt);
+  }
+
+  if (this.statusfilter.trim() !== '') {
+    this.filterflag = true;
+    if (this.filtersdata.length === 0) {
+      this.filtersdata = this.crfilter;
+    } else if (this.statusfilter.trim() !== 'All') {
+      this.filtersdata = this.filtersdata.filter((item: any) => item.status.trim() === this.statusfilter.trim());
+    }
+  }
+
+  if (!this.filterflag) {
+    this.filtersdata = this.crfilter;
+  }
+
+  console.log("Filtered Data:", this.filtersdata);
+}
