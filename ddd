@@ -1,4 +1,4 @@
- <div class="table-wrapper">
+<div class="table-wrapper">
    <table class="fl-table">
      <thead class="table-head">
        <tr class="border-bottom">
@@ -11,7 +11,6 @@
          <th>Type</th>
          <th>Classifications</th>
          <th>RFC Date</th>
-         <!--<th>Attachments</th>-->
          <th>Update</th>
          <th>Delete</th>
        </tr>
@@ -26,23 +25,11 @@
          <td [ngSwitch]="pltdata.status.trim()">
            <span *ngSwitchCase="'Draft'"> <span style="color: #3c8dbc;">{{ pltdata.status }}</span></span>
            <span *ngSwitchCase="'Pending Approval'"> <span style="color: #808080ff; ">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Submitted'"> <span style="color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Approved'"> <span style="color: green;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Approved level1'"> <span style="color: green;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Approved level2'"> <span style="color: green;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Completed'"> <span style="color: green;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Rejected'"> <span style="color: red;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Seek Clarification'"> <span style="color:cornflowerblue;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Implement'"> <span class=" text-info">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Implemented'"> <span class=" text-info">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Pending'"> <span style="color: rgba(var(--bs-warning-rgb), var(--bs-text-opacity)) !important;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Released'"> <span style="color: rgb(154, 235, 73);">{{ pltdata.status }}</span></span>
+           <!-- Add more cases for other statuses -->
          </td>
-
          <td>{{pltdata.categoryName}}</td>
          <td>{{pltdata.classificationName}}</td>
          <td>{{pltdata.crdate | date:'dd-MM-yyyy' }}</td>
-         <!--<td><i class="fa fa-download" aria-hidden="true"></i></td>-->
          <td>
            <a href="" (click)="updatepage()" routerLink="/executive/{{pltdata.itcrid}}/edit">
              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -52,8 +39,9 @@
            <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
          </td>
        </tr>
-
      </tbody>
+   </table>
+</div>
 
 <div class="card change_request_card_filter">
   <div class="card-body card_body_filter">
@@ -118,16 +106,19 @@
   </div>
 </div>
 
-filterdropdown() {
+
+  filterdropdown() {
     if (this.crfilter.length === 0) {
       console.log("No data to filter");
       return;
     }
 
+    // Ensure filtersdata is initialized with crfilter if it's empty
     if (this.filtersdata.length === 0) {
-      this.filtersdata = this.crfilter; // Initialize filtersdata with crfilter if it's empty
+      this.filtersdata = this.crfilter;
     }
 
+    // Apply filters based on selected criteria
     if (this.plantscode !== '') {
       this.filterflag = true;
       this.filtersdata = this.filtersdata.filter((item: any) => item.plantcode === parseInt(this.plantscode));
@@ -158,11 +149,13 @@ filterdropdown() {
 
     if (this.statusfilter.trim() !== '') {
       this.filterflag = true;
+      // Apply status filter if statusfilter is not 'All'
       if (this.statusfilter.trim() !== 'All') {
         this.filtersdata = this.filtersdata.filter((item: any) => item.status.trim() === this.statusfilter.trim());
       }
     }
 
+    // If no filters were applied, revert to original data in crfilter
     if (!this.filterflag) {
       this.filtersdata = this.crfilter;
     }
@@ -170,7 +163,7 @@ filterdropdown() {
     console.log("Filtered Data:", this.filtersdata);
   }
 
-statusfilter: any;
+ statusfilter: any;
   crfilter: any = ''; // Initialize with your data
   plantscode: any = '';
   categoryids: any = '';
@@ -179,4 +172,4 @@ statusfilter: any;
   fromDt: any = '';
   endDt: any = '';
   filterflag: boolean = false;
-  filtersdata: any[] = [];
+  filtersdata: any[] = []; // This array will hold the filtered data
