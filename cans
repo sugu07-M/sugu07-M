@@ -1,35 +1,104 @@
-  private updateApproverStage() {
-    const newApproverStage = this.selectedItems.map(item => item.item_id).join(',');
-    if (this.approverstage !== newApproverStage) {
-      this.approverstage = newApproverStage;
-      console.log('Approver Stage:', this.approverstage);
-    }
-  }
+ statusfilter: any;
+ crfilter: any = '';
+ plantscode: any = '';
+ categoryids: any = '';
+ classificationid: any = '';
+ prioritytypeid: any = '';
+ fromDt: any = '';
+ endDt: any = '';
+ filterflag: boolean = false;
 
-  // Other functions in your component
+ filtersdata: any[] = [];
+ filterdropdown() {
+   alert('in fliter')
+   if (this.plantscode != '') {
+     this.filterflag = true;
+     if (this.filtersdata.length == 0) {
+       this.filtersdata = this.crfilter
+     }
+     //alert('first' + this.filtersdata.length)
+     this.filtersdata = this.filtersdata.filter((item: any) => item.plantcode === parseInt(this.plantscode))
+     this.filtersdata = this.parseAndSortResponse(this.filtersdata);
+     
+     console.log("filter in cahage", this.plantscode, this.viewchangerequest)
+     //return this.viewchangerequest
+   }
+   //alert('post plant' + this.filtersdata.length)
+   if (this.categoryids != '') {
+     this.filterflag = true;
+     if (this.filtersdata.length == 0) {
+       this.filtersdata = this.crfilter
+     }
+     this.filtersdata = this.filtersdata.filter((item: any) => item.itcategoryId === parseInt(this.categoryids))
+     this.filtersdata = this.parseAndSortResponse(this.filtersdata);
+     //return this.viewchangerequest
+   }
+   //alert('post category' + this.filtersdata.length)
+   if (this.classificationid != '') {
+     this.filterflag = true;
+     if (this.filtersdata.length == 0) {
+       this.filtersdata = this.crfilter
+     }
+     this.filtersdata = this.filtersdata.filter((item: any) => item.itclassificationId === parseInt(this.classificationid))
+     this.filtersdata = this.parseAndSortResponse(this.filtersdata);
+     //return this.viewchangerequest
+   } else {
+     this.filterflag = false;
+   }
+  
+   if (this.prioritytypeid != '') {
+     this.filterflag = true;
+     if (this.filtersdata.length == 0) {
+       this.filtersdata = this.crfilter
 
-  onItemSelect(item: any) {
-    this.selectedItems.push(item);
-    this.updateApproverStage(); // Call the function to update the approver stage
-  }
+     }
+     this.filtersdata = this.filtersdata.filter((item: any) => item.priorityType === parseInt(this.prioritytypeid))
+     this.filtersdata = this.parseAndSortResponse(this.filtersdata);
 
-  onSelectAll(items: any) {
-    this.selectedItems = items;
-    this.updateApproverStage(); // Call the function to update the approver stage
-  }
+   }
+  // alert('post prioritytypeid' + this.filtersdata.length)
+  
 
-  onItemDeSelect(item: any) {
-    this.selectedItems = this.selectedItems.filter(selectedItem => selectedItem.item_id !== item.item_id);
-    this.updateApproverStage(); // Call the function to update the approver stage
-  }
+   
+   if (this.fromDt != '') {
+     if (this.endDt == '') this.endDt = this.today;
+     alert('in date cond'+this.filtersdata.length);
+     this.filterflag = true; 
+     if (this.filtersdata.length == 0) {
+       this.filtersdata = this.crfilter
 
-  onUnSelectAll() {
-    this.selectedItems = [];
-    this.updateApproverStage(); // Call the function to update the approver stage
-  }
+     }
+     this.filtersdata = this.filtersdata.filter((item: any) => item.crdate <= this.fromDt && item.crdate >= this.endDt)
+     this.filtersdata = this.parseAndSortResponse(this.filtersdata);
+     alert('in post cond' + this.filtersdata.length);
+   }
+   // alert('post prioritytypeid' + this.filtersdata.length)
+   if (this.statusfilter.trim() != '') {
+     this.filterflag = true;
+     //alert('v' + this.filtersdata.length + 'value status filter' + this.statusfilter)
+     if (this.filtersdata.length == 0) {
+       this.filtersdata = this.crfilter
+     }
+     else if (this.statusfilter.trim() == 'All') {
+       this.filtersdata = this.crfilter
+       this.filtersdata = this.parseAndSortResponse(this.filtersdata);
+     }
+     else {
+       this.filtersdata = this.filtersdata.filter((item: any) => item.status.trim() === this.statusfilter.trim())
+       this.filtersdata = this.parseAndSortResponse(this.filtersdata);
+       //alert('v later' + this.filtersdata.length)
+     }
+   }
+   //alert('Last record count' + this.filtersdata.length)
+   if (this.filterflag == false) {
+     alert('fliter' + this.filterflag)
+     this.filtersdata = this.crfilter
 
-dropdownList!: { item_id: string; item_text: string; }[];
-  dropdownSettings: any = {};
-
-  // Define type for selectedItems array
-  selectedItems: { item_id: string, item_text: string }[] = []; 
+   }
+   //else {
+   //  alert('in else');
+   //  this.filtersdata = this.parseAndSortResponse(this.filtersdata);
+   //}
+   //this.filtersdata = this.crfilter.filter((item: any) => item.plantcode === parseInt(this.plantscode) || item.itcategoryId === this.categoryids || item.itclassificationId === this.classificationid || item.priorityType === this.prioritytypeid)
+   console.log("(filtereddata", this.filtersdata)
+ }
