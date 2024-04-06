@@ -1,1 +1,70 @@
-npm update ng2-search-filter
+filterdropdown() {
+    // Reset filtersdata and filterflag
+    this.filtersdata = [];
+    let filterflag = false;
+
+    // Filter by plant code
+    if (this.plantscode !== '') {
+        filterflag = true;
+        this.filtersdata = this.crfilter.filter((item: any) => item.plantcode === parseInt(this.plantscode));
+    }
+
+    // Filter by category id
+    if (this.categoryids !== '') {
+        filterflag = true;
+        if (this.filtersdata.length === 0) {
+            this.filtersdata = this.crfilter;
+        }
+        this.filtersdata = this.filtersdata.filter((item: any) => item.itcategoryId === parseInt(this.categoryids));
+    }
+
+    // Filter by classification id
+    if (this.classificationid !== '') {
+        filterflag = true;
+        if (this.filtersdata.length === 0) {
+            this.filtersdata = this.crfilter;
+        }
+        this.filtersdata = this.filtersdata.filter((item: any) => item.itclassificationId === parseInt(this.classificationid));
+    }
+
+    // Filter by priority type id
+    if (this.prioritytypeid !== '') {
+        filterflag = true;
+        if (this.filtersdata.length === 0) {
+            this.filtersdata = this.crfilter;
+        }
+        this.filtersdata = this.filtersdata.filter((item: any) => item.priorityType === parseInt(this.prioritytypeid));
+    }
+
+    // Filter by date range
+    if (this.fromDt !== '') {
+        if (this.endDt === '') {
+            this.endDt = this.today;
+        }
+        filterflag = true;
+        if (this.filtersdata.length === 0) {
+            this.filtersdata = this.crfilter;
+        }
+        this.filtersdata = this.filtersdata.filter((item: any) => item.crdate <= this.fromDt && item.crdate >= this.endDt);
+    }
+
+    // Filter by status
+    if (this.statusfilter.trim() !== '') {
+        filterflag = true;
+        if (this.filtersdata.length === 0) {
+            this.filtersdata = this.crfilter;
+        } else if (this.statusfilter.trim() !== 'All') {
+            this.filtersdata = this.filtersdata.filter((item: any) => item.status.trim() === this.statusfilter.trim());
+        }
+    }
+
+    // If no filters were applied, set filtersdata to crfilter
+    if (!filterflag) {
+        this.filtersdata = this.crfilter;
+    }
+
+    // Optionally, you can sort the filtered data
+    this.filtersdata = this.parseAndSortResponse(this.filtersdata);
+
+    console.log("Filtered Data:", this.filtersdata);
+}
