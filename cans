@@ -1,4 +1,38 @@
-  <div class="col">
-    <div class="col"><input type="checkbox"  [(ngModel)]="ApproverN" id="Change Request"  value="N" required><label >Change Request</label></div>
-    <div class="col"><input type="checkbox"  [(ngModel)]="ApproverC" id="Closure" value="C" required><label >Closure</label></div>
-    <div class="col"><input type="checkbox"  [(ngModel)]="ApproverR" id="Release" value="R" required><label >Release</label></div>
+<div class="col">
+  <div class="checkbox-group">
+    <input type="checkbox" [(ngModel)]="ApproverN" id="ChangeRequest" value="N" required>
+    <label for="ChangeRequest">Change Request</label>
+  </div>
+  <div class="checkbox-group">
+    <input type="checkbox" [(ngModel)]="ApproverC" id="Closure" value="C" required>
+    <label for="Closure">Closure</label>
+  </div>
+  <div class="checkbox-group">
+    <input type="checkbox" [(ngModel)]="ApproverR" id="Release" value="R" required>
+    <label for="Release">Release</label>
+  </div>
+</div>
+
+.checkbox-group {
+  display: inline-block;
+  margin-right: 10px; /* Adjust spacing between checkboxes */
+}
+
+/* Custom checkbox style */
+.checkbox-group input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox-group label {
+  display: inline-block;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style for checked state */
+.checkbox-group input[type="checkbox"]:checked + label {
+  background-color: #007bff;
+  color: #fff;
+}
