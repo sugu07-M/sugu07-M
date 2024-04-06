@@ -1,70 +1,55 @@
-filterdropdown() {
-    // Reset filtersdata and filterflag
-    this.filtersdata = [];
-    let filterflag = false;
-
-    // Filter by plant code
-    if (this.plantscode !== '') {
-        filterflag = true;
-        this.filtersdata = this.crfilter.filter((item: any) => item.plantcode === parseInt(this.plantscode));
-    }
-
-    // Filter by category id
-    if (this.categoryids !== '') {
-        filterflag = true;
-        if (this.filtersdata.length === 0) {
-            this.filtersdata = this.crfilter;
-        }
-        this.filtersdata = this.filtersdata.filter((item: any) => item.itcategoryId === parseInt(this.categoryids));
-    }
-
-    // Filter by classification id
-    if (this.classificationid !== '') {
-        filterflag = true;
-        if (this.filtersdata.length === 0) {
-            this.filtersdata = this.crfilter;
-        }
-        this.filtersdata = this.filtersdata.filter((item: any) => item.itclassificationId === parseInt(this.classificationid));
-    }
-
-    // Filter by priority type id
-    if (this.prioritytypeid !== '') {
-        filterflag = true;
-        if (this.filtersdata.length === 0) {
-            this.filtersdata = this.crfilter;
-        }
-        this.filtersdata = this.filtersdata.filter((item: any) => item.priorityType === parseInt(this.prioritytypeid));
-    }
-
-    // Filter by date range
-    if (this.fromDt !== '') {
-        if (this.endDt === '') {
-            this.endDt = this.today;
-        }
-        filterflag = true;
-        if (this.filtersdata.length === 0) {
-            this.filtersdata = this.crfilter;
-        }
-        this.filtersdata = this.filtersdata.filter((item: any) => item.crdate <= this.fromDt && item.crdate >= this.endDt);
-    }
-
-    // Filter by status
-    if (this.statusfilter.trim() !== '') {
-        filterflag = true;
-        if (this.filtersdata.length === 0) {
-            this.filtersdata = this.crfilter;
-        } else if (this.statusfilter.trim() !== 'All') {
-            this.filtersdata = this.filtersdata.filter((item: any) => item.status.trim() === this.statusfilter.trim());
-        }
-    }
-
-    // If no filters were applied, set filtersdata to crfilter
-    if (!filterflag) {
-        this.filtersdata = this.crfilter;
-    }
-
-    // Optionally, you can sort the filtered data
-    this.filtersdata = this.parseAndSortResponse(this.filtersdata);
-
-    console.log("Filtered Data:", this.filtersdata);
-}
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2339	(TS) Property 'categoryids' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	122	Active
+Error	TS2339	(TS) Property 'categoryids' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	127	Active
+Error	TS2551	(TS) Property 'classificationid' does not exist on type 'ChangeRequestComponent'. Did you mean 'classifications'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	131	Active
+Error	TS2551	(TS) Property 'classificationid' does not exist on type 'ChangeRequestComponent'. Did you mean 'classifications'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	136	Active
+Error	TS2339	(TS) Property 'crfilter' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	95	Active
+Error	TS2339	(TS) Property 'crfilter' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	118	Active
+Error	TS2339	(TS) Property 'crfilter' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	125	Active
+Error	TS2339	(TS) Property 'crfilter' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	134	Active
+Error	TS2339	(TS) Property 'crfilter' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	143	Active
+Error	TS2339	(TS) Property 'crfilter' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	155	Active
+Error	TS2339	(TS) Property 'crfilter' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	164	Active
+Error	TS2339	(TS) Property 'crfilter' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	172	Active
+Error	TS2339	(TS) Property 'endDt' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	150	Active
+Error	TS2339	(TS) Property 'endDt' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	151	Active
+Error	TS2339	(TS) Property 'endDt' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	157	Active
+Error	TS2339	(TS) Property 'filterData' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	47	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	96	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	97	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	100	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	112	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	118	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	124	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	125	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	127	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	127	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	133	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	134	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	136	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	136	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	142	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	143	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	145	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	145	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	154	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	155	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	157	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	157	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	163	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	164	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	166	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	166	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	172	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	176	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	176	Active
+Error	TS2339	(TS) Property 'filtersdata' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	178	Active
+Error	TS2339	(TS) Property 'fromDt' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	149	Active
+Error	TS2339	(TS) Property 'fromDt' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	157	Active
+Error	TS2551	(TS) Property 'plantscode' does not exist on type 'ChangeRequestComponent'. Did you mean 'plantcode'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	116	Active
+Error	TS2551	(TS) Property 'plantscode' does not exist on type 'ChangeRequestComponent'. Did you mean 'plantcode'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	118	Active
+Error	TS2339	(TS) Property 'prioritytypeid' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	140	Active
+Error	TS2339	(TS) Property 'prioritytypeid' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	145	Active
+Error	TS2339	(TS) Property 'statusfilter' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	161	Active
+Error	TS2339	(TS) Property 'statusfilter' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	165	Active
+Error	TS2339	(TS) Property 'statusfilter' does not exist on type 'ChangeRequestComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\change-request\change-request.component.ts	166	Active
