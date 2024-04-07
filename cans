@@ -16,3 +16,7 @@
       }
     }
   }
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2339	(TS) Property 'active' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	233	Active
+Error	TS2339	(TS) Property 'active' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	233	Active
+Error	TS2339	(TS) Property 'active' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	235	Active
