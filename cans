@@ -1,63 +1,17 @@
-
-  getBarchart() {
-    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
-
-    this.http.get(apiUrls).subscribe(
-      (response: any) => {
-        this.chartData = response;
-        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-        this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
-
-        this.updateBarChartLabels();
-        this.updateBarChartData();
-
-      },
-      (error) => {
-        console.log("Post failed", error);
-      }
-    );
-  }
-
-  updateBarChartData() {
-    this.barChartData = [
-      { data: this.noncompleted, label: 'Open' },
-     { data: this.completed, label: 'Completed' }
-    ];  }
-
-  updateBarChartLabels() {
-    this.barChartLabels = this.month;
-  }
-
-  getMonthName(month: number): string {
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return monthNames[month - 1];
-  }
-
-
-
-
-
-  chartClicked(event: ChartEvent) {
+  chartClicked(event: any, chart: Chart) {
     // Check if the event object exists
     if (event) {
       // Access the active elements through the event object
-      const activeElements = Chart.getElementsAtEventForMode(event, 'point', event.options)[0];
+      const activeElements = chart.getElementsAtEventForMode(event, 'point', chart.options)[0];
       if (activeElements) {
         // Access the label from the active elements
         const label = activeElements._model.label;
         // Navigate based on the label
         switch (label) {
-          case 'Label 1':
+          case 'Open':
             this.router.navigate(['/filterdashboard']);
             break;
-          case 'Label 2':
+          case 'Completed':
             this.router.navigate(['/filterdashboard']);
             break;
           default:
@@ -66,18 +20,3 @@
       }
     }
   }
-
-
-
-
-
-
-
-
-
-
-  public barChartOptions: any = {
-    responsive: true,
-    
-  };
-  
