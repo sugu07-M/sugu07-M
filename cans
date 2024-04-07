@@ -20,3 +20,6 @@
       }
     }
   }
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2339	(TS) Property 'options' does not exist on type 'ChartEvent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	236	Active
+Error	TS2339	(TS) Property 'getElementsAtEventForMode' does not exist on type 'typeof Chart'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	236	Active
