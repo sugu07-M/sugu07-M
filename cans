@@ -20,3 +20,6 @@
       }
     }
   }
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2339	(TS) Property '_model' does not exist on type 'InteractionItem'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	240	Active
+Error	TS2554	(TS) Expected 4 arguments, but got 3.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	237	Active
