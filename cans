@@ -1,4 +1,50 @@
- chartClicked(event: ChartEvent) {
+
+  getBarchart() {
+    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.chartData = response;
+        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+        this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
+
+        this.updateBarChartLabels();
+        this.updateBarChartData();
+
+      },
+      (error) => {
+        console.log("Post failed", error);
+      }
+    );
+  }
+
+  updateBarChartData() {
+    this.barChartData = [
+      { data: this.noncompleted, label: 'Open' },
+     { data: this.completed, label: 'Completed' }
+    ];  }
+
+  updateBarChartLabels() {
+    this.barChartLabels = this.month;
+  }
+
+  getMonthName(month: number): string {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return monthNames[month - 1];
+  }
+
+
+
+
+
+  chartClicked(event: ChartEvent) {
     // Check if the event object exists
     if (event) {
       // Access the active elements through the event object
@@ -20,6 +66,18 @@
       }
     }
   }
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2339	(TS) Property 'options' does not exist on type 'ChartEvent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	236	Active
-Error	TS2339	(TS) Property 'getElementsAtEventForMode' does not exist on type 'typeof Chart'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	236	Active
+
+
+
+
+
+
+
+
+
+
+  public barChartOptions: any = {
+    responsive: true,
+    
+  };
+  
