@@ -1,22 +1,22 @@
-  chartClicked(event: ChartEvent) {
-    // Check if the event object and its properties exist
-    if (event && event.native && event.native.active && event.native.active.length > 0) {
-      // Access the label from the event object
-      const label = event.native.active[0]._model.label;
-      // Navigate based on the label
-      switch (label) {
-        case 'Label 1':
-          this.router.navigate(['/filterdashboard']);
-          break;
-        case 'Label 2':
-          this.router.navigate(['/filterdashboard']);
-          break;
-        default:
-          console.log('No action defined for this label');
+ chartClicked(event: ChartEvent) {
+    // Check if the event object exists
+    if (event) {
+      // Access the active elements through the event object
+      const activeElements = Chart.getElementsAtEventForMode(event, 'point', event.options)[0];
+      if (activeElements) {
+        // Access the label from the active elements
+        const label = activeElements._model.label;
+        // Navigate based on the label
+        switch (label) {
+          case 'Label 1':
+            this.router.navigate(['/filterdashboard']);
+            break;
+          case 'Label 2':
+            this.router.navigate(['/filterdashboard']);
+            break;
+          default:
+            console.log('No action defined for this label');
+        }
       }
     }
   }
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2339	(TS) Property 'active' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	233	Active
-Error	TS2339	(TS) Property 'active' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	233	Active
-Error	TS2339	(TS) Property 'active' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	235	Active
