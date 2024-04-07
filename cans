@@ -1,12 +1,11 @@
- chartClicked(event: any): void {
-    if (event && event.active && event.active.length > 0) {
-      const clickedIndex = event.active[0]._index;
-      const clickedLabel = this.barChartLabels[clickedIndex];
-
-      if (clickedLabel === 'Open') {
-        this.router.navigateByUrl('/open-page').then(() => console.log('Navigated to Open Page'));
-      } else if (clickedLabel === 'Completed') {
-        this.router.navigateByUrl('/completed-page').then(() => console.log('Navigated to Completed Page'));
-      }
+chartClicked(event: any): void {
+    if (event.active.length > 0) {
+        const chartLabel = event.active[0]._model.label;
+        if (chartLabel === 'Open') {
+            // Navigate to the page for 'Open' tasks
+            this.router.navigate(['/open-tasks']);
+        } else if (chartLabel === 'Completed') {
+            // Navigate to the page for 'Completed' tasks
+            this.router.navigate(['/completed-tasks']);
+        }
     }
-  }
