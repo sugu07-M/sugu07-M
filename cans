@@ -1,11 +1,78 @@
-chartClicked(event: any): void {
+
+  chartData: any;
+  completed: any[]=[];
+  noncompleted: any[]=[];
+  month: any[] = [];
+  barChartData: any[] = [];
+  barChartLabels: string[] = [];
+  isDrillDown: boolean = false;
+  barChartLegend = true;
+  
+
+  getBarchart() {
+    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.chartData = response;
+        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+        this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
+
+        this.updateBarChartLabels();
+        this.updateBarChartData();
+
+      },
+      (error) => {
+        console.log("Post failed", error);
+      }
+    );
+  }
+
+  updateBarChartData() {
+    this.barChartData = [
+      { data: this.noncompleted, label: 'Open' },
+     { data: this.completed, label: 'Completed' }
+    ];  }
+
+  updateBarChartLabels() {
+    this.barChartLabels = this.month;
+  }
+
+  getMonthName(month: number): string {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return monthNames[month - 1];
+  }
+
+
+
+  chartClicked(event: any): void {
     if (event.active.length > 0) {
-        const chartLabel = event.active[0]._model.label;
-        if (chartLabel === 'Open') {
-            // Navigate to the page for 'Open' tasks
-            this.router.navigate(['/open-tasks']);
-        } else if (chartLabel === 'Completed') {
-            // Navigate to the page for 'Completed' tasks
-            this.router.navigate(['/completed-tasks']);
-        }
+      const chartLabel = event.active[0]._model.label;
+      if (chartLabel === 'Open') {
+        // Navigate to the page for 'Open' tasks
+        this.router.navigate(['/filterdashboard']);
+      } else if (chartLabel === 'Completed') {
+        // Navigate to the page for 'Completed' tasks
+        this.router.navigate(['/filterdashboard']);
+      }
     }
+  }
+
+
+
+
+
+
+
+
+  public barChartOptions: any = {
+    responsive: true,
+    
+  };
