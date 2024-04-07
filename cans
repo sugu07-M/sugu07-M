@@ -1,13 +1,13 @@
- (chartClick)="handleDrillDownClick($event)"
- handleDrillDownClick(event: any): void {
+ barChartLabels: string[] = ['Open', 'Completed'];
+handleDrillDownClick(event: any): void {
     if (event && event.active && event.active.length > 0) {
       const clickedIndex = event.active[0]._index;
       const clickedLabel = this.barChartLabels[clickedIndex];
 
       if (clickedLabel === 'Open') {
-        this.router.navigate(['/open-page']).then(() => console.log('Navigated to Open Page'));
+        this.router.navigateByUrl('/open-page').then(() => console.log('Navigated to Open Page'));
       } else if (clickedLabel === 'Completed') {
-        this.router.navigate(['/completed-page']).then(() => console.log('Navigated to Completed Page'));
+        this.router.navigateByUrl('/completed-page').then(() => console.log('Navigated to Completed Page'));
       }
     }
   }
