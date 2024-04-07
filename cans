@@ -28,3 +28,13 @@ chartClicked(event: MouseEvent, chart: Chart) {
     }
   }
 }
+X [ERROR] NG4: Expected 2 arguments, but got 1. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:245:22:
+      245 │         (chartClick)="chartClicked($event)"
+          ╵                       ~~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:19:15:
+      19 │   templateUrl: './dashboard.component.html',
