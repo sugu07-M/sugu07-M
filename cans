@@ -13,3 +13,7 @@
       }
     }
   }
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2339	(TS) Property 'length' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	232	Active
+Error	TS7053	(TS) Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'Event'.
+  Property '0' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	233	Active
