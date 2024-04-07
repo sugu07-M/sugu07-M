@@ -1,25 +1,24 @@
-  chartClicked(event: any, chart: Chart) {
-    // Check if the event object exists
-    if (event) {
-      // Access the active elements through the event object
-      const activeElements = chart.getElementsAtEventForMode(event, 'point', chart.options)[0];
-      if (activeElements) {
-        // Access the label from the active elements
-        const label = activeElements._model.label;
-        // Navigate based on the label
-        switch (label) {
-          case 'Open':
-            this.router.navigate(['/filterdashboard']);
-            break;
-          case 'Completed':
-            this.router.navigate(['/filterdashboard']);
-            break;
-          default:
-            console.log('No action defined for this label');
-        }
+chartClicked(event: MouseEvent, chart: Chart) {
+  // Check if the event object exists
+  if (event) {
+    // Retrieve the active elements based on the event
+    const activeElements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
+
+    if (activeElements && activeElements.length > 0) {
+      // Assuming the label is in the tooltip label
+      const label = chart.data.labels[activeElements[0].index];
+
+      // Navigate based on the label
+      switch (label) {
+        case 'Open':
+          this.router.navigate(['/filterdashboard']);
+          break;
+        case 'Completed':
+          this.router.navigate(['/filterdashboard']);
+          break;
+        default:
+          console.log('No action defined for this label');
       }
     }
   }
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2339	(TS) Property '_model' does not exist on type 'InteractionItem'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	240	Active
-Error	TS2554	(TS) Expected 4 arguments, but got 3.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	237	Active
+}
