@@ -1,17 +1,19 @@
-  isDrillDown: boolean = false;
-
- handleDrillDownClick(event: any): void {
-    if (event && event.active && event.active.length > 0) {
-      const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
-      const clickedSegmentData = this.barChartData.map(data => data.data[event.active[0]._index]);
-      console.log('Clicked Segment Data:', clickedSegmentData);
-      // Navigate based on the clicked segment
-      if (event.active[0]._datasetIndex === 0) {
-        // Open segment clicked
-        this.router.navigate(['/open-page']);
-      } else {
-        // Completed segment clicked
-        this.router.navigate(['/completed-page']);
-      }
+handleDrillDownClick(event: any): void {
+  if (event && event.active && event.active.length > 0) {
+    const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
+    const clickedSegmentData = this.barChartData.map(data => data.data[event.active[0]._index]);
+    console.log('Clicked Segment Data:', clickedSegmentData);
+    // Navigate based on the clicked segment
+    if (event.active[0]._datasetIndex === 0) {
+      // Open segment clicked
+      this.router.navigate(['/open-page']).catch(error => {
+        console.error('Navigation failed:', error);
+      });
+    } else {
+      // Completed segment clicked
+      this.router.navigate(['/completed-page']).catch(error => {
+        console.error('Navigation failed:', error);
+      });
     }
   }
+}
