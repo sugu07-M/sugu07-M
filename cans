@@ -1,16 +1,15 @@
- chartClicked(label: string) {
-   switch (label) {
-     case 'Label 1':
-       this.router.navigate(['/filterdashboard']);
-       break;
-     case 'Label 2':
-       this.router.navigate(['/filterdashboard']);
-       break;
-    
-     default:
-       console.log('No action defined for this label');
-   }
- }
-
-(click)="chartClicked('Label 1')"
-NG5: Argument of type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is not assignable to parameter of type 'string'.
+ chartClicked(event: ChartEvent) {
+    if (event.active && event.active.length > 0) {
+      const label = event.active[0]._model.label;
+      switch (label) {
+        case 'Label 1':
+          this.router.navigate(['/filterdashboard']);
+          break;
+        case 'Label 2':
+          this.router.navigate(['/filterdashboard']);
+          break;
+        default:
+          console.log('No action defined for this label');
+      }
+    }
+  }
