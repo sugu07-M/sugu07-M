@@ -1,11 +1,10 @@
-
-  handleDrillDownClick(event: any): void {
+ handleDrillDownClick(event: any): void {
     if (event && event.active && event.active.length > 0) {
       const clickedIndex = event.active[0]._index;
       const clickedLabel = this.barChartLabels[clickedIndex];
 
       if (clickedLabel === 'Open') {
-        this.router.navigateByUrl('/filterdashboard').then(() => console.log('Navigated to Open Page'));
+        this.router.navigateByUrl('/filterdashboard').then(() => console.log('Navigated to Filter Dashboard'));
       } else if (clickedLabel === 'Completed') {
         this.router.navigateByUrl('/completed-page').then(() => console.log('Navigated to Completed Page'));
       }
