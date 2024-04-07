@@ -13,3 +13,4 @@
  }
 
 (click)="chartClicked('Label 1')"
+NG5: Argument of type '{ event?: ChartEvent | undefined; active?: object[] | undefined; }' is not assignable to parameter of type 'string'.
