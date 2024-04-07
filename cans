@@ -1,20 +1,18 @@
 handleDrillDownClick(event: any): void {
   if (event && event.active && event.active.length > 0) {
-    const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
-    const clickedSegmentData = this.barChartData[event.active[0]._datasetIndex].label; // Get the label of the clicked segment
-    console.log('Clicked Segment Data:', clickedSegmentData);
-    
-    // Navigate based on the clicked segment label
-    if (clickedSegmentData === 'Open') {
-      // Open label clicked
-      this.router.navigate(['/open-page']).catch(error => {
-        console.error('Navigation failed:', error);
-      });
-    } else if (clickedSegmentData === 'Completed') {
-      // Completed label clicked
-      this.router.navigate(['/completed-page']).catch(error => {
-        console.error('Navigation failed:', error);
-      });
+    const clickedLabel = this.barChartLabels[event.active[0]._index];
+
+    // Navigate based on the clicked label
+    switch (clickedLabel) {
+      case 'Open':
+        this.router.navigate(['/open-page']).catch(error => console.error('Navigation failed:', error));
+        break;
+      case 'Completed':
+        this.router.navigate(['/completed-page']).catch(error => console.error('Navigation failed:', error));
+        break;
+      default:
+        // Do nothing if other labels are clicked
+        break;
     }
   }
 }
