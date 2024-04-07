@@ -22,3 +22,5 @@ chartClicked(event: MouseEvent, chart: Chart) {
     }
   }
 }
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS18048	(TS) 'chart.data.labels' is possibly 'undefined'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	242	Active
