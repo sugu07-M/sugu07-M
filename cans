@@ -1,40 +1,43 @@
-chartClicked(event: MouseEvent, chart: Chart) {
-  // Check if the event object exists
-  if (event) {
-    // Retrieve the active elements based on the event
-    const activeElements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
+ chartClicked(event: MouseEvent, chart: Chart) {
+    try {
+      // Check if the event object and chart instance exist
+      if (event && chart) {
+        // Retrieve the active elements based on the event
+        const activeElements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
 
-    if (activeElements && activeElements.length > 0) {
-      // Ensure that chart data and labels are defined before accessing
-      if (chart.data && chart.data.labels) {
-        // Assuming the label is in the tooltip label
-        const labelIndex = activeElements[0].index;
-        if (labelIndex !== undefined && labelIndex < chart.data.labels.length) {
-          const label = chart.data.labels[labelIndex];
+        if (activeElements && activeElements.length > 0) {
+          // Ensure that chart data and labels are defined before accessing
+          if (chart.data && chart.data.labels) {
+            // Get the index of the clicked label
+            const labelIndex = activeElements[0].index;
 
-          // Navigate based on the label
-          switch (label) {
-            case 'Open':
-              this.router.navigate(['/filterdashboard']);
-              break;
-            case 'Completed':
-              this.router.navigate(['/filterdashboard']);
-              break;
-            default:
-              console.log('No action defined for this label');
+            // Check if labelIndex is valid
+            if (labelIndex !== undefined && labelIndex < chart.data.labels.length) {
+              // Get the label corresponding to the index
+              const label = chart.data.labels[labelIndex];
+
+              // Log the clicked label for debugging
+              console.log('Clicked label:', label);
+
+              // Navigate based on the label
+              switch (label) {
+                case 'Open':
+                  this.router.navigate(['/filterdashboard']);
+                  break;
+                case 'Completed':
+                  this.router.navigate(['/filterdashboard']);
+                  break;
+                default:
+                  console.log('No action defined for this label');
+              }
+            }
           }
         }
+      } else {
+        console.error('Event or chart is undefined.');
       }
+    } catch (error) {
+      console.error('Error in chartClicked:', error);
     }
   }
 }
-X [ERROR] NG4: Expected 2 arguments, but got 1. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:245:22:
-      245 │         (chartClick)="chartClicked($event)"
-          ╵                       ~~~~~~~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:19:15:
-      19 │   templateUrl: './dashboard.component.html',
