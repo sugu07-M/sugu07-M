@@ -1,38 +1,75 @@
-<div class="col">
-  <div class="checkbox-group">
-    <input type="checkbox" [(ngModel)]="ApproverN" id="ChangeRequest" value="N" required>
-    <label for="ChangeRequest">Change Request</label>
-  </div>
-  <div class="checkbox-group">
-    <input type="checkbox" [(ngModel)]="ApproverC" id="Closure" value="C" required>
-    <label for="Closure">Closure</label>
-  </div>
-  <div class="checkbox-group">
-    <input type="checkbox" [(ngModel)]="ApproverR" id="Release" value="R" required>
-    <label for="Release">Release</label>
-  </div>
-</div>
 
-.checkbox-group {
-  display: inline-block;
-  margin-right: 10px; /* Adjust spacing between checkboxes */
-}
 
-/* Custom checkbox style */
-.checkbox-group input[type="checkbox"] {
-  display: none;
-}
+ chartData: any;
+ completed: any[]=[];
+ noncompleted: any[]=[];
+ month: any[] = [];
+ barChartData: any[] = [];
+ barChartLabels: string[] = [];
+ isDrillDown: boolean = false;
+ barChartLegend = true;
+ 
 
-.checkbox-group label {
-  display: inline-block;
-  cursor: pointer;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+ getBarchart() {
+   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
-/* Style for checked state */
-.checkbox-group input[type="checkbox"]:checked + label {
-  background-color: #007bff;
-  color: #fff;
-}
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
+
+   this.http.get(apiUrls).subscribe(
+     (response: any) => {
+       this.chartData = response;
+       this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+       this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+       this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
+
+       this.updateBarChartLabels();
+       this.updateBarChartData();
+
+     },
+     (error) => {
+       console.log("Post failed", error);
+     }
+   );
+ }
+
+ updateBarChartData() {
+   this.barChartData = [
+     { data: this.noncompleted, label: 'Open' },
+    { data: this.completed, label: 'Completed' }
+   ];  }
+
+ updateBarChartLabels() {
+   this.barChartLabels = this.month;
+ }
+
+ getMonthName(month: number): string {
+   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+   return monthNames[month - 1];
+ }
+
+ handleDrillDownClick(event: any): void {
+   if (event && event.active && event.active.length > 0) {
+     const clickedSegmentLabel = this.barChartLabels[event.active[0]._index];
+     const clickedSegmentData = this.barChartData.map(data => data.data[event.active[0]._index]);
+     console.log('aasassasas:', clickedSegmentData)
+     // Navigate to the filterdashboard component and pass clicked segment data
+     this.router.navigate(['/filterdashboard'], {
+       state: {
+         label: clickedSegmentLabel,
+         completed: clickedSegmentData[0],
+         open: clickedSegmentData[1]
+       }
+     });
+   }
+ }
+
+
+
+ public barChartOptions: any = {
+   responsive: true,
+   onClick: this.handleDrillDownClick.bind(this) 
+ };
