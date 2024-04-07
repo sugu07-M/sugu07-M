@@ -1,12 +1,15 @@
-chartClicked(event: any): void {
-    if (event.active.length > 0) {
-      const chartLabel = event.active[0]._model.label;
-      if (chartLabel === 'Open') {
-        // Navigate to the page for 'Open' tasks
-        this.router.navigate(['/open-tasks']);
-      } else if (chartLabel === 'Completed') {
-        // Navigate to the page for 'Completed' tasks
-        this.router.navigate(['/completed-tasks']);
-      }
+ navigateToPage(label: string) {
+    switch (label) {
+      case 'Label 1':
+        this.router.navigate(['/page1']);
+        break;
+      case 'Label 2':
+        this.router.navigate(['/page2']);
+        break;
+      case 'Label 3':
+        this.router.navigate(['/page3']);
+        break;
+      default:
+        console.log('No action defined for this label');
     }
   }
