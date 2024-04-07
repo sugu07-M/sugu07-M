@@ -1,6 +1,4 @@
-(chartClick)="chartClicked($event)"
-
-chartClicked(event: any): void {
+ chartClicked(event: any): void {
     if (event && event.active && event.active.length > 0) {
       const clickedIndex = event.active[0]._index;
       const clickedLabel = this.barChartLabels[clickedIndex];
