@@ -1,18 +1,15 @@
 handleDrillDownClick(event: any): void {
-  if (event && event.active && event.active.length > 0) {
-    const clickedLabel = this.barChartLabels[event.active[0]._index];
+  console.log('Clicked event:', event);
 
-    // Navigate based on the clicked label
-    switch (clickedLabel) {
-      case 'Open':
-        this.router.navigate(['/open-page']).catch(error => console.error('Navigation failed:', error));
-        break;
-      case 'Completed':
-        this.router.navigate(['/completed-page']).catch(error => console.error('Navigation failed:', error));
-        break;
-      default:
-        // Do nothing if other labels are clicked
-        break;
+  if (event && event.active && event.active.length > 0) {
+    const clickedIndex = event.active[0]._index;
+    const clickedLabel = this.barChartLabels[clickedIndex];
+    console.log('Clicked label:', clickedLabel);
+
+    if (clickedLabel === 'Open') {
+      this.router.navigate(['/open-page']).then(() => console.log('Navigated to Open Page'));
+    } else if (clickedLabel === 'Completed') {
+      this.router.navigate(['/completed-page']).then(() => console.log('Navigated to Completed Page'));
     }
   }
 }
