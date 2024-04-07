@@ -1,6 +1,9 @@
-chartClicked(event: ChartEvent) {
-    if (event.active && event.active.length > 0) {
-      const label = event.active[0]._model.label;
+  chartClicked(event: ChartEvent) {
+    // Check if the event object and its properties exist
+    if (event && event.native && event.native.active && event.native.active.length > 0) {
+      // Access the label from the event object
+      const label = event.native.active[0]._model.label;
+      // Navigate based on the label
       switch (label) {
         case 'Label 1':
           this.router.navigate(['/filterdashboard']);
@@ -13,8 +16,3 @@ chartClicked(event: ChartEvent) {
       }
     }
   }
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2551	(TS) Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	232	Active
-Error	TS2551	(TS) Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	232	Active
-Error	TS2551	(TS) Property 'active' does not exist on type 'ChartEvent'. Did you mean 'native'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	233	Active
-
