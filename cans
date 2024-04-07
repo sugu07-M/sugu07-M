@@ -11,3 +11,5 @@
        console.log('No action defined for this label');
    }
  }
+
+(click)="chartClicked('Label 1')"
