@@ -1,18 +1,30 @@
- this.categorydata = response;
-        this.filterData(); // Filter data after fetching
-        console.log(this.categorydata);
+  checklist: any[] = [];
+  supportID: number = 0; 
+  categoryID: number = 0;
+  plantID: number = 0;
+  classificationID: number = 0;
+  getCheckList() {
+    const apiUrls = this.apiurl + '/CheckList'
+    const requestBody = {
 
-  filterData() {
-    this.filteredData = this.categorydata.filter(item =>
-      item.categoryName.toUpperCase().includes(this.searchText.toUpperCase())
-    );
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+    this.http.get(apiUrls, requestBody).subscribe(
+      (response: any) => {
+        // Filter checklist based on conditions
+        this.checklist = response.filter((item: { supportId: number; plantID: number; categoryID: number; classificationID: number; }) =>
+          item.supportId === this.supportID &&
+          item.categoryID === this.categoryID &&
+          item.plantID === this.plantID &&
+          item.classificationID === this.classificationID
+        );
+      },
+      (error) => {
+        console.error("Post failed", error)
+      }
+    )
   }
-
- *ngFor="let data of filteredData ? filteredData : categorydata"
- (input)="filterData()"
-.custom-input {
-  border: none;
-  border-bottom: 1px solid #ccc; /* Add underline style */
-  outline: none; /* Removes the default focus outline */
-  /* Add any additional styling as needed */
-}
