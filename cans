@@ -1,14 +1,13 @@
 handleDrillDownClick(event: any): void {
-  console.log('Clicked event:', event);
-
   if (event && event.active && event.active.length > 0) {
-    const clickedIndex = event.active[0]._index;
-    const clickedLabel = this.barChartLabels[clickedIndex];
-    console.log('Clicked label:', clickedLabel);
-
+    const clickedLabel = this.barChartLabels[event.active[0]._index];
+    
+    // Check if the clicked label is 'Open'
     if (clickedLabel === 'Open') {
+      // Navigate to the 'open-page'
       this.router.navigate(['/open-page']).then(() => console.log('Navigated to Open Page'));
     } else if (clickedLabel === 'Completed') {
+      // Navigate to the 'completed-page'
       this.router.navigate(['/completed-page']).then(() => console.log('Navigated to Completed Page'));
     }
   }
