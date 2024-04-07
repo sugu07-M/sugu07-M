@@ -5,22 +5,26 @@ chartClicked(event: MouseEvent, chart: Chart) {
     const activeElements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
 
     if (activeElements && activeElements.length > 0) {
-      // Assuming the label is in the tooltip label
-      const label = chart.data.labels[activeElements[0].index];
+      // Ensure that chart data and labels are defined before accessing
+      if (chart.data && chart.data.labels) {
+        // Assuming the label is in the tooltip label
+        const labelIndex = activeElements[0].index;
+        if (labelIndex !== undefined && labelIndex < chart.data.labels.length) {
+          const label = chart.data.labels[labelIndex];
 
-      // Navigate based on the label
-      switch (label) {
-        case 'Open':
-          this.router.navigate(['/filterdashboard']);
-          break;
-        case 'Completed':
-          this.router.navigate(['/filterdashboard']);
-          break;
-        default:
-          console.log('No action defined for this label');
+          // Navigate based on the label
+          switch (label) {
+            case 'Open':
+              this.router.navigate(['/filterdashboard']);
+              break;
+            case 'Completed':
+              this.router.navigate(['/filterdashboard']);
+              break;
+            default:
+              console.log('No action defined for this label');
+          }
+        }
       }
     }
   }
 }
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS18048	(TS) 'chart.data.labels' is possibly 'undefined'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	242	Active
