@@ -1,29 +1,14 @@
-public chartClicked({ event, active }: { event: MouseEvent, active: any[] }): void {
-    if (active.length > 0) {
-      const chartData = active[0]._chart.data;
-      const clickedIndex = active[0]._index;
+plication bundle generation failed. [3.647 seconds]
 
-      // Determine which segment was clicked
-      const label = chartData.labels[clickedIndex];
-      const value = chartData.datasets[0].data[clickedIndex];
+X [ERROR] NG5: Argument of type 'Event' is not assignable to parameter of type '{ event: MouseEvent; active: any[]; }'.
+  Type 'Event' is missing the following properties from type '{ event: MouseEvent; active: any[]; }': event, active [plugin angular-compiler]
 
-      // Perform drill-down action based on the clicked segment
-      switch (label) {
-        case 'Red':
-          // Navigate to a page or perform an action related to the Red segment
-          console.log('Red segment clicked');
-          break;
-        case 'Blue':
-          // Navigate to a page or perform an action related to the Blue segment
-          console.log('Blue segment clicked');
-          break;
-        case 'Yellow':
-          // Navigate to a page or perform an action related to the Yellow segment
-          console.log('Yellow segment clicked');
-          break;
-        default:
-          // Handle default case
-          break;
-      }
-    }
-  }
+    src/app/dashboard/dashboard.component.html:265:39:
+      265 │           (chartClicked)="chartClicked($event)"
+          ╵                                        ~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:19:15:
+      19 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
