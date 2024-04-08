@@ -1,14 +1,14 @@
-  onClick(event: any): void {
+ onClick(event: any): void {
     const clickedIndex = event.active[0]._index;
     const clickedLabel = this.barChartLabels[clickedIndex];
 
     // Check the value of clicked label and navigate accordingly
     if (clickedLabel === 'Open') {
-      console.log('Navigating to open tasks page');
-      this.router.navigate(['/open-tasks']);
+      console.log('Navigating to open reports');
+      this.router.navigate(['/open-reports']);
     } else if (clickedLabel === 'Completed') {
-      console.log('Navigating to completed tasks page');
-      this.router.navigate(['/completed-tasks']);
+      console.log('Navigating to completed reports');
+      this.router.navigate(['/completed-reports']);
     } else {
       console.error('Unknown label clicked:', clickedLabel);
     }
