@@ -1,29 +1,17 @@
- public chartClicked(event: MouseEvent): void {
-    const chartElement = event.target as HTMLCanvasElement;
-    const chart = Chart.getChart(chartElement);
-
-    if (chart) {
-      const activeElements = chart.getElementsAtEventForMode('point', event, { intersect: true }, true) || [];
-
-      if (activeElements.length > 0) {
-        const clickedIndex = activeElements[0]._index;
-        const clickedLabel = this.doughnutChartLabels[clickedIndex];
-
-        switch (clickedLabel) {
-          case 'Draft':
-            this.router.navigate(['/draft-page']);
-            break;
-          case 'Pending Approval':
-            this.router.navigate(['/pending-approval-page']);
-            break;
-          case 'Approved':
-            this.router.navigate(['/approved-page']);
-            break;
-          // Add cases for other labels
-          default:
-            // Handle default case
-            break;
-        }
-      }
+public chartClicked(event: any): void {
+  if (event.active.length > 0) {
+    const clickedIndex = event.active[0]._index;
+    const clickedLabel = this.doughnutChartLabels[clickedIndex];
+    // Here, you can navigate to the desired route based on the clicked label
+    switch (clickedLabel) {
+      case 'Draft':
+        this.router.navigate(['/draft']);
+        break;
+      case 'Pending Approval':
+        this.router.navigate(['/pending-approval']);
+        break;
+      // Add cases for other labels as needed
+      default:
+        break;
     }
   }
