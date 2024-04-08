@@ -1,10 +1,8 @@
-onChartClick(event: any) {
-  // Get the label clicked
-  const labelClicked = this.barChartLabels[event.active[0]._index];
-
-  // Navigate based on the label clicked
-  if (labelClicked === 'Open') {
-    this.router.navigate(['/open-page']); // Replace 'open-page' with the path to your open page component
-  } else if (labelClicked === 'Completed') {
-    this.router.navigate(['/completed-page']); // Replace 'completed-page' with the path to your completed page component
+ onChartClick(event: any) {
+    const labelClicked = this.barChartLabels[event.active[0]._index];
+    if (labelClicked === 'Open') {
+      this.router.navigate(['/open-page']); // Navigate to 'open-page' component
+    } else if (labelClicked === 'Completed') {
+      this.router.navigate(['/completed-page']); // Navigate to 'completed-page' component
+    }
   }
