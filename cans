@@ -1,14 +1,18 @@
-onChartClick(event: any) {
+ onChartClick(event: any) {
+    console.log('Chart clicked:', event);
+    // Simulate navigation
     if (event.active.length > 0) {
       const chartDataIndex = event.active[0]._index;
-      const clickedLabel = this.barChartData[event.active[0]._datasetIndex].label;
-      // Check which label was clicked and navigate accordingly
+      const clickedLabel = event.active[0]._model.label;
       if (clickedLabel === 'Open') {
-        this.router.navigate(['/open-page']); // Change '/open-page' to the route you want to navigate to for 'Open' label
+        console.log('Navigating to Open page');
+        // Replace 'open-page' with your actual route
+        this.router.navigate(['/open-page']);
       } else if (clickedLabel === 'Completed') {
-        this.router.navigate(['/completed-page']); // Change '/completed-page' to the route you want to navigate to for 'Completed' label
+        console.log('Navigating to Completed page');
+        // Replace 'completed-page' with your actual route
+        this.router.navigate(['/completed-page']);
       }
     }
   }
-
 (chartClicked)="onChartClick($event)"
