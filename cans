@@ -1,12 +1,14 @@
 onChartClicked(event: MouseEvent): void {
   const chartElement = event.target as HTMLCanvasElement;
   const chart = Chart.getChart(chartElement); // Get the chart instance
-  const activePoints = chart?.getElementsAtEventForMode('point', event as MouseEvent, { intersect: true }, true);
 
-  if (activePoints && activePoints.length > 0) {
-    const clickedIndex = activePoints[0]?.index;
-    if (clickedIndex !== undefined) {
+  if (chart) {
+    const activeElements = chart.getElementsAtEvent(event) || [];
+
+    if (activeElements.length > 0) {
+      const clickedIndex = activeElements[0].index;
       const clickedLabel = this.doughnutChartLabels[clickedIndex];
+
       switch (clickedLabel) {
         case 'Draft':
           this.router.navigate(['/draft-page']);
