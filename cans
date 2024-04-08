@@ -1,15 +1,10 @@
  onChartClick(event: any): void {
-        // Extract the clicked dataset and index
-        const clickedDatasetIndex = event.active[0]._datasetIndex;
-
-        // Determine which bar was clicked and navigate accordingly
-        if (clickedDatasetIndex === 0) {
-            // Open bar was clicked
-            // Navigate to the report page for open tasks
-            this.router.navigate(['/open-tasks-report']);
-        } else if (clickedDatasetIndex === 1) {
-            // Completed bar was clicked
-            // Navigate to the report page for completed tasks
-            this.router.navigate(['/completed-tasks-report']);
-        }
+    const clickedDatasetIndex = event.active[0]._datasetIndex;
+    if (clickedDatasetIndex === 0) {
+      // Open bar was clicked, navigate to open-tasks-report
+      this.router.navigate(['/open-tasks-report']);
+    } else if (clickedDatasetIndex === 1) {
+      // Completed bar was clicked, navigate to completed-tasks-report
+      this.router.navigate(['/completed-tasks-report']);
     }
+  }
