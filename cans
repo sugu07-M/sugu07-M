@@ -1,10 +1,15 @@
- this.route.queryParams.subscribe(params => {
-    const type = params['type'];
-    const month = params['month'];
-    // Fetch data based on type and month
-    if (type === 'open') {
-      // Fetch open data for the specified month
-    } else if (type === 'completed') {
-      // Fetch completed data for the specified month
+ onChartClick(event: any): void {
+        // Extract the clicked dataset and index
+        const clickedDatasetIndex = event.active[0]._datasetIndex;
+
+        // Determine which bar was clicked and navigate accordingly
+        if (clickedDatasetIndex === 0) {
+            // Open bar was clicked
+            // Navigate to the report page for open tasks
+            this.router.navigate(['/open-tasks-report']);
+        } else if (clickedDatasetIndex === 1) {
+            // Completed bar was clicked
+            // Navigate to the report page for completed tasks
+            this.router.navigate(['/completed-tasks-report']);
+        }
     }
-  });
