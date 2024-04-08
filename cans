@@ -1,13 +1,19 @@
 onClick(event: any): void {
-  const clickedIndex = event.active[0]._index;
-  const clickedLabel = this.barChartLabels[clickedIndex];
-  console.log('Clicked Label:', clickedLabel); // Check clickedLabel value in console
+  try {
+    const clickedIndex = event.active[0]._index;
+    const clickedLabel = this.barChartLabels[clickedIndex];
+    console.log('Clicked Label:', clickedLabel); // Check clickedLabel value in console
 
-  if (clickedLabel === 'Open') {
-    console.log('Navigating to open tasks report');
-    this.router.navigate(['/filterdashboard']); // Navigate to open tasks report
-  } else if (clickedLabel === 'Completed') {
-    console.log('Navigating to completed tasks report');
-    this.router.navigate(['/filterdashboard']); // Navigate to completed tasks report
+    if (clickedLabel === 'Open') {
+      console.log('Navigating to open tasks report');
+      this.router.navigate(['/filterdashboard']); // Navigate to open tasks report
+    } else if (clickedLabel === 'Completed') {
+      console.log('Navigating to completed tasks report');
+      this.router.navigate(['/filterdashboard']); // Navigate to completed tasks report
+    } else {
+      console.log('Unknown label clicked:', clickedLabel);
+    }
+  } catch (error) {
+    console.error('Error handling click event:', error);
   }
 }
