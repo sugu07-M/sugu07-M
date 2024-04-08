@@ -1,4 +1,8 @@
-  public chartClicked(event: any): void {
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2532	(TS) Object is possibly 'undefined'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	170	Active
+
+
+public chartClicked(event: any): void {
     if (event.active && event.active.length > 0) {
       const clickedLabel = this.doughnutChartData.labels[event.active[0]._index];
       this.navigateToPage(clickedLabel);
