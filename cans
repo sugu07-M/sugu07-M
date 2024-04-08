@@ -1,16 +1,10 @@
-chartClicked(event: any) {
-  if (event.active.length > 0) {
-    const chartData = event.active[0]._chart.data;
-    const selectedIndex = event.active[0]._index;
-    const selectedLabel = chartData.labels[selectedIndex];
-    const selectedValue = chartData.datasets[event.active[0]._datasetIndex].data[selectedIndex];
-
-    // Check if open or completed is clicked
-    if (event.active[0]._datasetIndex === 0) {
-      // Navigate to details page for open items
-      this.router.navigate(['/bar-details'], { queryParams: { type: 'open', month: selectedLabel } });
-    } else if (event.active[0]._datasetIndex === 1) {
-      // Navigate to details page for completed items
-      this.router.navigate(['/bar-details'], { queryParams: { type: 'completed', month: selectedLabel } });
+ this.route.queryParams.subscribe(params => {
+    const type = params['type'];
+    const month = params['month'];
+    // Fetch data based on type and month
+    if (type === 'open') {
+      // Fetch open data for the specified month
+    } else if (type === 'completed') {
+      // Fetch completed data for the specified month
     }
-  }
+  });
