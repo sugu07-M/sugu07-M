@@ -1,18 +1,68 @@
- onChartClick(event: any) {
-    console.log('Chart clicked:', event);
-    // Simulate navigation
-    if (event.active.length > 0) {
-      const chartDataIndex = event.active[0]._index;
-      const clickedLabel = event.active[0]._model.label;
-      if (clickedLabel === 'Open') {
-        console.log('Navigating to Open page');
-        // Replace 'open-page' with your actual route
-        this.router.navigate(['/open-page']);
-      } else if (clickedLabel === 'Completed') {
-        console.log('Navigating to Completed page');
-        // Replace 'completed-page' with your actual route
-        this.router.navigate(['/completed-page']);
-      }
+getBarchart() {
+  const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
+
+  this.http.get(apiUrls).subscribe(
+    (response: any) => {
+      this.chartData = response;
+      this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+      this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+      this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
+
+      this.updateBarChartLabels();
+      this.updateBarChartData();
+
+    },
+    (error) => {
+      console.log("Post failed", error);
     }
-  }
-(chartClicked)="onChartClick($event)"
+  );
+}
+
+updateBarChartData() {
+  this.barChartData = [
+    { data: this.noncompleted, label: 'Open' },
+   { data: this.completed, label: 'Completed' }
+  ];  }
+
+updateBarChartLabels() {
+  this.barChartLabels = this.month;
+}
+
+getMonthName(month: number): string {
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  return monthNames[month - 1];
+}
+
+
+public barChartOptions: any = {
+  responsive: true,
+  
+};
+
+
+
+<div class="chart-graph">
+  <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request Monthly Views</h6>
+  &nbsp;
+  <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+       (chartClicked)="onChartClick($event)"
+          (chartHover)="chartHovered($event)"
+
+          [legend]="barChartLegend"
+         
+          style="display: block; box-sizing: border-box; height: 317px; width: 340px;">
+  </canvas>
+ 
+   
+ 
+
+</div>
