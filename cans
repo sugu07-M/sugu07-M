@@ -1,68 +1,10 @@
-getBarchart() {
-  const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+onChartClick(event: any) {
+  // Get the label clicked
+  const labelClicked = this.barChartLabels[event.active[0]._index];
 
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
-
-  this.http.get(apiUrls).subscribe(
-    (response: any) => {
-      this.chartData = response;
-      this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-      this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-      this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
-
-      this.updateBarChartLabels();
-      this.updateBarChartData();
-
-    },
-    (error) => {
-      console.log("Post failed", error);
-    }
-  );
-}
-
-updateBarChartData() {
-  this.barChartData = [
-    { data: this.noncompleted, label: 'Open' },
-   { data: this.completed, label: 'Completed' }
-  ];  }
-
-updateBarChartLabels() {
-  this.barChartLabels = this.month;
-}
-
-getMonthName(month: number): string {
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  return monthNames[month - 1];
-}
-
-
-public barChartOptions: any = {
-  responsive: true,
-  
-};
-
-
-
-<div class="chart-graph">
-  <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request Monthly Views</h6>
-  &nbsp;
-  <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-       (chartClicked)="onChartClick($event)"
-          (chartHover)="chartHovered($event)"
-
-          [legend]="barChartLegend"
-         
-          style="display: block; box-sizing: border-box; height: 317px; width: 340px;">
-  </canvas>
- 
-   
- 
-
-</div>
+  // Navigate based on the label clicked
+  if (labelClicked === 'Open') {
+    this.router.navigate(['/open-page']); // Replace 'open-page' with the path to your open page component
+  } else if (labelClicked === 'Completed') {
+    this.router.navigate(['/completed-page']); // Replace 'completed-page' with the path to your completed page component
+  }
