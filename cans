@@ -1,7 +1,7 @@
 onChartClicked(event: MouseEvent): void {
   const chartElement = event.target as HTMLCanvasElement;
   const chart = Chart.getChart(chartElement); // Get the chart instance
-  const activePoints = chart?.getElementsAtEventForMode('point', event, { intersect: true });
+  const activePoints = chart?.getElementsAtEventForMode('point', event, { intersect: true }, true);
 
   if (activePoints && activePoints.length > 0) {
     const clickedIndex = activePoints[0]?.index;
@@ -24,3 +24,4 @@ onChartClicked(event: MouseEvent): void {
       }
     }
   }
+}
