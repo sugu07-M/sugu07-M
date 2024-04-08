@@ -1,2 +1,25 @@
 Severity	Code	Description	Project	File	Line	Suppression State
 Error	TS2532	(TS) Object is possibly 'undefined'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	168	Active
+ onSelect(event) {
+    // Handle click event here
+    console.log('Clicked on slice', event);
+
+    // Determine the associated route or navigation action based on the label clicked
+    let label = event.name; // Assuming the label is stored in the 'name' property of the event
+
+    // Implement logic to map labels to routes or navigation actions
+    switch (label) {
+      case 'Label 1':
+        this.router.navigate(['/page1']); // Navigate to page1 component
+        break;
+      case 'Label 2':
+        this.router.navigate(['/page2']); // Navigate to page2 component
+        break;
+      case 'Label 3':
+        this.router.navigate(['/page3']); // Navigate to page3 component
+        break;
+      default:
+        // Handle other labels if needed
+        break;
+    }
+  }
