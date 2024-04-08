@@ -1,4 +1,4 @@
- public chartClicked(event: any): void {
+public chartClicked(event: any): void {
     if (event.active.length > 0) {
       const clickedIndex = event.active[0]._index;
       const clickedLabel = this.doughnutChartLabels[clickedIndex];
