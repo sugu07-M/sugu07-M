@@ -1,27 +1,24 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS7006	(TS) Parameter 'event' implicitly has an 'any' type.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	165	Active
-Error	TS2393	(TS) Duplicate function implementation.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	165	Active
-Error	TS2393	(TS) Duplicate function implementation.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	378	Active
+public chartClicked(event: ChartEvent): void {
+  // Check if a doughnut chart slice was clicked
+  if (event.active && event.active.length > 0) {
+    // Get the index of the clicked slice
+    const clickedIndex = event.active[0]._index;
 
-    // Handle click event here
-    console.log('Clicked on slice', event);
+    // Determine the label of the clicked slice
+    const clickedLabel = this.doughnutChartLabels[clickedIndex];
 
-    // Determine the associated route or navigation action based on the label clicked
-    let label = event.name; // Assuming the label is stored in the 'name' property of the event
-
-    // Implement logic to map labels to routes or navigation actions
-    switch (label) {
-      case 'Label 1':
-        this.router.navigate(['/page1']); // Navigate to page1 component
+    // Perform navigation based on the clicked label
+    switch (clickedLabel) {
+      case 'Draft':
+        this.router.navigate(['/draft-page']); // Navigate to the draft page
         break;
-      case 'Label 2':
-        this.router.navigate(['/page2']); // Navigate to page2 component
+      case 'Pending Approval':
+        this.router.navigate(['/pending-approval-page']); // Navigate to the pending approval page
         break;
-      case 'Label 3':
-        this.router.navigate(['/page3']); // Navigate to page3 component
-        break;
+      // Add cases for other statuses as needed
       default:
-        // Handle other labels if needed
         break;
     }
   }
+}
+(select)="chartClicked($event)"
