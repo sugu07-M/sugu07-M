@@ -1,6 +1,8 @@
 Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2532	(TS) Object is possibly 'undefined'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	168	Active
- onSelect(event) {
+Error	TS7006	(TS) Parameter 'event' implicitly has an 'any' type.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	165	Active
+Error	TS2393	(TS) Duplicate function implementation.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	165	Active
+Error	TS2393	(TS) Duplicate function implementation.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	378	Active
+
     // Handle click event here
     console.log('Clicked on slice', event);
 
