@@ -1,5 +1,4 @@
-  (chartClicked)="chartClicked($event as MouseEvent)"
-         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+NG5002: Parser Error: Missing expected ) at column 21 in [chartClicked($event as MouseEvent)]
 <div class="dount-chart">
   <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-OverAll View</h6>
   <canvas baseChart
