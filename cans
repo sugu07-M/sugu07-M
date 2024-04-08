@@ -3,8 +3,8 @@
     const clickedLabel = this.barChartLabels[clickedIndex];
 
     if (clickedLabel === 'Open') {
-      this.router.navigate(['/open-report']); // Navigate to open report page
+      this.router.navigate(['/open-reports']); // Navigate to open reports page
     } else if (clickedLabel === 'Completed') {
-      this.router.navigate(['/completed-report']); // Navigate to completed report page
+      this.router.navigate(['/completed-reports']); // Navigate to completed reports page
     }
   }
