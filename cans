@@ -1,16 +1,4 @@
-plication bundle generation failed. [3.647 seconds]
-
-X [ERROR] NG5: Argument of type 'Event' is not assignable to parameter of type '{ event: MouseEvent; active: any[]; }'.
-  Type 'Event' is missing the following properties from type '{ event: MouseEvent; active: any[]; }': event, active [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.html:265:39:
-      265 │           (chartClicked)="chartClicked($event)"
-          ╵                                        ~~~~~~
-
-  Error occurs in the template of component DashboardComponent.
-
-    src/app/dashboard/dashboard.component.ts:19:15:
-      19 │   templateUrl: './dashboard.component.html',
+  (chartClicked)="chartClicked($event as MouseEvent)"
          ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div class="dount-chart">
   <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-OverAll View</h6>
