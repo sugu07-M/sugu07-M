@@ -1,17 +1,21 @@
-public chartClicked(event: any): void {
-  if (event.active.length > 0) {
-    const clickedIndex = event.active[0]._index;
-    const clickedLabel = this.doughnutChartLabels[clickedIndex];
-    // Here, you can navigate to the desired route based on the clicked label
-    switch (clickedLabel) {
-      case 'Draft':
-        this.router.navigate(['/draft']);
-        break;
-      case 'Pending Approval':
-        this.router.navigate(['/pending-approval']);
-        break;
-      // Add cases for other labels as needed
-      default:
-        break;
+ public chartClicked(event: any): void {
+    if (event.active.length > 0) {
+      const clickedIndex = event.active[0]._index;
+      const clickedLabel = this.doughnutChartLabels[clickedIndex];
+      // Navigate based on the clicked label
+      switch (clickedLabel) {
+        case 'Draft':
+          this.router.navigate(['/draft']);
+          break;
+        case 'Pending Approval':
+          this.router.navigate(['/pending-approval']);
+          break;
+        case 'Approved':
+          this.router.navigate(['/approved']);
+          break;
+        // Add cases for other statuses
+        default:
+          break;
+      }
     }
   }
