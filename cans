@@ -1,18 +1,18 @@
- onChartClicked(event: any): void {
+onChartClicked(event: any): void {
     const clickedLabel = this.doughnutChartLabels[event.active[0]._index];
     switch (clickedLabel) {
       case 'Draft':
-        this.router.navigate(['/draft-page']);
+        this.router.navigate(['/draft']);
         break;
       case 'Pending Approval':
-        this.router.navigate(['/pending-approval-page']);
+        this.router.navigate(['/pending-approval']);
         break;
       case 'Approved':
-        this.router.navigate(['/approved-page']);
+        this.router.navigate(['/approved']);
         break;
       // Add cases for other labels
       default:
-        // Handle default case
+        console.error('Unknown label clicked:', clickedLabel);
         break;
     }
   }
