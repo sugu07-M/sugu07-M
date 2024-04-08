@@ -1,44 +1,26 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2532	(TS) Object is possibly 'undefined'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	170	Active
+ngOnInit(): void {
+    document.addEventListener('DOMContentLoaded', () => {
+      const labels = document.querySelectorAll('#doughnutChartLabels .label');
 
-
-public chartClicked(event: any): void {
-  if (event.active && event.active.length > 0 && this.doughnutChartData.labels) {
-    const clickedLabel = this.doughnutChartData.labels[event.active[0]._index];
-    if (clickedLabel) {
-      this.navigateToPage(clickedLabel);
-    }
-  }
-}
-
-  private navigateToPage(label: string): void {
-    switch (label) {
-      case 'Draft':
-        this.router.navigate(['/draft']);
-        break;
-      case 'Pending Approval':
-        this.router.navigate(['/pending-approval']);
-        break;
-      case 'Approved':
-        this.router.navigate(['/approved']);
-        break;
-      case 'Rejected':
-        this.router.navigate(['/rejected']);
-        break;
-      case 'Implementation':
-        this.router.navigate(['/implementation']);
-        break;
-      case 'Pending':
-        this.router.navigate(['/pending']);
-        break;
-      case 'Release':
-        this.router.navigate(['/release']);
-        break;
-      case 'Closure':
-        this.router.navigate(['/closure']);
-        break;
-      default:
-        console.warn('Unhandled label:', label);
-        break;
-    }
+      labels.forEach(label => {
+        label.addEventListener('click', () => {
+          const labelText = label.textContent.trim();
+          switch (labelText) {
+            case 'Draft':
+              window.location.href = '/draft';
+              break;
+            case 'Pending Approval':
+              window.location.href = '/pending-approval';
+              break;
+            case 'Approved':
+              window.location.href = '/approved';
+              break;
+            // Add more cases for other labels as needed
+            default:
+              console.warn('Unhandled label:', labelText);
+              break;
+          }
+        });
+      });
+    });
   }
