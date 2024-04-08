@@ -1,78 +1,17 @@
- getchangerequest() {
-    
-   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-   const requestBody = {}
-
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
-
-   this.http.get(apiUrls, requestBody).subscribe(
-     (response: any) => {
-       this.changerequest = response;
-       this.countStatus();
-      
-     },
-      
-     (error) => {
-       console.error("Post failed", error);
-     }
-   );
- }
- public doughnutChartData: ChartData<any, any[], string> = {
-   labels: [],
-   datasets: [
-     {
-       data: [],
-       label: 'Status Counts',
-       backgroundColor: []
-     }
-   ]
- };
- countStatus() {
-   this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
-   this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
-   this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
-   this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
-   this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
-   this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
-   this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
-   this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
-   this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
-
-   this.doughnutChartData = {
-     labels: ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'],
-     datasets: [
-       {
-         data: [
-           this.newCount,
-           this.pendingApproval,
-           this.Approved,
-           this.Rejected,
-           this.Implemention,
-           this.pending,
-           this.release,
-           this.completedCount
-         ],
-         label: 'Status Counts',
-         backgroundColor: ['#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#006400']
-       }
-     ]
-   };
- 
- };
-
- public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
- 
- public doughnutChartType: ChartType = 'doughnut';
-
- public chartHovered(e: any): void {
-   // console.log(e);
- }
- public chartClicked(): void {
-  
-     
-     
- }
+onChartClick(event: any): void {
+  if (event.active.length > 0) {
+    const chartLabel = this.doughnutChartLabels[event.active[0]._index];
+    // Navigate based on the clicked label
+    switch (chartLabel) {
+      case 'Draft':
+        this.router.navigate(['/draft-page']);
+        break;
+      case 'Pending Approval':
+        this.router.navigate(['/pending-approval-page']);
+        break;
+      // Add cases for other labels as needed
+      default:
+        // Navigate to a default page or handle differently
+        break;
+    }
+  }
