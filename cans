@@ -1,43 +1,48 @@
- chartClicked(event: MouseEvent, chart: Chart) {
-    try {
-      // Check if the event object and chart instance exist
-      if (event && chart) {
-        // Retrieve the active elements based on the event
-        const activeElements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
+ getBarchart() {
+   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
-        if (activeElements && activeElements.length > 0) {
-          // Ensure that chart data and labels are defined before accessing
-          if (chart.data && chart.data.labels) {
-            // Get the index of the clicked label
-            const labelIndex = activeElements[0].index;
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
 
-            // Check if labelIndex is valid
-            if (labelIndex !== undefined && labelIndex < chart.data.labels.length) {
-              // Get the label corresponding to the index
-              const label = chart.data.labels[labelIndex];
+   this.http.get(apiUrls).subscribe(
+     (response: any) => {
+       this.chartData = response;
+       this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+       this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+       this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
 
-              // Log the clicked label for debugging
-              console.log('Clicked label:', label);
+       this.updateBarChartLabels();
+       this.updateBarChartData();
 
-              // Navigate based on the label
-              switch (label) {
-                case 'Open':
-                  this.router.navigate(['/filterdashboard']);
-                  break;
-                case 'Completed':
-                  this.router.navigate(['/filterdashboard']);
-                  break;
-                default:
-                  console.log('No action defined for this label');
-              }
-            }
-          }
-        }
-      } else {
-        console.error('Event or chart is undefined.');
-      }
-    } catch (error) {
-      console.error('Error in chartClicked:', error);
-    }
-  }
-}
+     },
+     (error) => {
+       console.log("Post failed", error);
+     }
+   );
+ }
+
+ updateBarChartData() {
+   this.barChartData = [
+     { data: this.noncompleted, label: 'Open' },
+    { data: this.completed, label: 'Completed' }
+   ];  }
+
+ updateBarChartLabels() {
+   this.barChartLabels = this.month;
+ }
+
+ getMonthName(month: number): string {
+   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+   return monthNames[month - 1];
+ }
+
+
+
+
+ public barChartOptions: any = {
+   responsive: true,
+   
+ };
