@@ -1,16 +1,16 @@
-onChartClick(event: any): void {
-    // Extract the clicked dataset and index
-    const clickedDatasetIndex = event.active[0]._datasetIndex;
-    const clickedElementIndex = event.active[0]._index;
+chartClicked(event: any) {
+  if (event.active.length > 0) {
+    const chartData = event.active[0]._chart.data;
+    const selectedIndex = event.active[0]._index;
+    const selectedLabel = chartData.labels[selectedIndex];
+    const selectedValue = chartData.datasets[event.active[0]._datasetIndex].data[selectedIndex];
 
-    // Determine which bar was clicked and navigate accordingly
-    if (clickedDatasetIndex === 0) {
-        // Open bar was clicked
-        // Navigate to the report page for open tasks
-        this.router.navigate(['/open-tasks-report']);
-    } else if (clickedDatasetIndex === 1) {
-        // Completed bar was clicked
-        // Navigate to the report page for completed tasks
-        this.router.navigate(['/completed-tasks-report']);
+    // Check if open or completed is clicked
+    if (event.active[0]._datasetIndex === 0) {
+      // Navigate to details page for open items
+      this.router.navigate(['/bar-details'], { queryParams: { type: 'open', month: selectedLabel } });
+    } else if (event.active[0]._datasetIndex === 1) {
+      // Navigate to details page for completed items
+      this.router.navigate(['/bar-details'], { queryParams: { type: 'completed', month: selectedLabel } });
     }
-}
+  }
