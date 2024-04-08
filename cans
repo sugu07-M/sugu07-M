@@ -1,6 +1,7 @@
 onClick(event: any): void {
   const clickedIndex = event.active[0]._index;
   const clickedLabel = this.barChartLabels[clickedIndex];
+  console.log('Clicked Label:', clickedLabel); // Check clickedLabel value in console
 
   if (clickedLabel === 'Open') {
     this.router.navigate(['/open-tasks-report']); // Navigate to open tasks report
