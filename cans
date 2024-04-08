@@ -1,24 +1,38 @@
-public chartClicked(event: any): void {
-  console.log('Chart clicked:', event);
-  if (event.active && event.active.length > 0) {
-    const clickedLabel = this.doughnutChartLabels[event.active[0]._index];
-    console.log('Clicked label:', clickedLabel);
-    this.navigateToPage(clickedLabel);
+  public chartClicked(event: any): void {
+    if (event.active && event.active.length > 0) {
+      const clickedLabel = this.doughnutChartData.labels[event.active[0]._index];
+      this.navigateToPage(clickedLabel);
+    }
   }
-}
 
-private navigateToPage(label: string): void {
-  console.log('Navigating to:', label);
-  switch (label) {
-    case 'Draft':
-      this.router.navigate(['/draft']).then(() => console.log('Navigation successful')).catch(err => console.error('Navigation failed:', err));
-      break;
-    case 'Pending Approval':
-      this.router.navigate(['/pending-approval']).then(() => console.log('Navigation successful')).catch(err => console.error('Navigation failed:', err));
-      break;
-    // Add more cases for other labels as needed
-    default:
-      console.warn('Unhandled label:', label);
-      break;
+  private navigateToPage(label: string): void {
+    switch (label) {
+      case 'Draft':
+        this.router.navigate(['/draft']);
+        break;
+      case 'Pending Approval':
+        this.router.navigate(['/pending-approval']);
+        break;
+      case 'Approved':
+        this.router.navigate(['/approved']);
+        break;
+      case 'Rejected':
+        this.router.navigate(['/rejected']);
+        break;
+      case 'Implementation':
+        this.router.navigate(['/implementation']);
+        break;
+      case 'Pending':
+        this.router.navigate(['/pending']);
+        break;
+      case 'Release':
+        this.router.navigate(['/release']);
+        break;
+      case 'Closure':
+        this.router.navigate(['/closure']);
+        break;
+      default:
+        console.warn('Unhandled label:', label);
+        break;
+    }
   }
-}
