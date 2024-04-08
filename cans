@@ -1,8 +1,11 @@
-public chartClicked(event: ChartEvent): void {
-  // Check if a doughnut chart slice was clicked
+public chartClicked(event: any): void {
+  // Check if the event contains active elements
   if (event.active && event.active.length > 0) {
+    // Get the first active element (assuming it's a single selection)
+    const firstActiveElement = event.active[0];
+
     // Get the index of the clicked slice
-    const clickedIndex = event.active[0]._index;
+    const clickedIndex = firstActiveElement._index;
 
     // Determine the label of the clicked slice
     const clickedLabel = this.doughnutChartLabels[clickedIndex];
@@ -21,8 +24,3 @@ public chartClicked(event: ChartEvent): void {
     }
   }
 }
-(select)="chartClicked($event)"
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2339	(TS) Property 'length' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	167	Active
-Error	TS7053	(TS) Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'Event'.
-  Property '0' does not exist on type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	169	Active
