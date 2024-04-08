@@ -1,24 +1,10 @@
-onClick(event: any): void {
-  try {
-    console.log('Chart Clicked:', event); // Log the entire event object
+ onClick(event: any): void {
     const clickedIndex = event.active[0]._index;
     const clickedLabel = this.barChartLabels[clickedIndex];
-    console.log('Clicked Label:', clickedLabel); // Log the clicked label
 
-    // Navigate based on the clicked label
-    switch (clickedLabel) {
-      case 'Open':
-        this.router.navigate(['/open-report']);
-        break;
-      case 'Completed':
-        this.router.navigate(['/completed-report']);
-        break;
-      default:
-        // Handle unexpected labels or do nothing
-        console.error('Unknown label clicked:', clickedLabel);
-        break;
+    if (clickedLabel === 'Open') {
+      this.router.navigate(['/open-report']); // Navigate to open report page
+    } else if (clickedLabel === 'Completed') {
+      this.router.navigate(['/completed-report']); // Navigate to completed report page
     }
-  } catch (error) {
-    console.error('Error handling click event:', error);
   }
-}
