@@ -1,11 +1,15 @@
-onClick(event: any): void {
-  const clickedIndex = event.active[0]._index;
-  const clickedLabel = this.barChartLabels[clickedIndex];
-  
-  if (clickedLabel === 'Open') {
-    this.router.navigate(['/open-tasks']); // Navigate to open tasks page
-  } else if (clickedLabel === 'Completed') {
-    this.router.navigate(['/completed-tasks']); // Navigate to completed tasks page
-  } else {
-    console.error('Unknown label clicked:', clickedLabel);
+  onClick(event: any): void {
+    const clickedIndex = event.active[0]._index;
+    const clickedLabel = this.barChartLabels[clickedIndex];
+
+    // Check the value of clicked label and navigate accordingly
+    if (clickedLabel === 'Open') {
+      console.log('Navigating to open tasks page');
+      this.router.navigate(['/open-tasks']);
+    } else if (clickedLabel === 'Completed') {
+      console.log('Navigating to completed tasks page');
+      this.router.navigate(['/completed-tasks']);
+    } else {
+      console.error('Unknown label clicked:', clickedLabel);
+    }
   }
