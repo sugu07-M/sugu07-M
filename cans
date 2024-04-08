@@ -1,3 +1,7 @@
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS18047	(TS) 'label.textContent' is possibly 'null'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	47	Active
+
+
 ngOnInit(): void {
     document.addEventListener('DOMContentLoaded', () => {
       const labels = document.querySelectorAll('#doughnutChartLabels .label');
