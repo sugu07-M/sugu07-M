@@ -1,13 +1,33 @@
-NG5002: Parser Error: Missing expected ) at column 21 in [chartClicked($event as MouseEvent)]
-<div class="dount-chart">
-  <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-OverAll View</h6>
-  <canvas baseChart
-          [data]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          [type]="doughnutChartType"
-          (chartClicked)="chartClicked($event as MouseEvent)"
-          (chartHover)="chartHovered($event)"
-          
-         
-          style=" box-sizing: border-box;"></canvas>
-</div>
+ public chartClicked(event: MouseEvent): void {
+    const clickedIndex = this.getClickedIndex(event);
+    if (clickedIndex !== -1) {
+      const clickedLabel = this.doughnutChartLabels[clickedIndex];
+      switch (clickedLabel) {
+        case 'Draft':
+          this.router.navigate(['/draft-page']);
+          break;
+        case 'Pending Approval':
+          this.router.navigate(['/pending-approval-page']);
+          break;
+        case 'Approved':
+          this.router.navigate(['/approved-page']);
+          break;
+        // Add cases for other labels
+        default:
+          // Handle default case
+          break;
+      }
+    }
+  }
+
+  private getClickedIndex(event: MouseEvent): number {
+    const chartElement = event.target as HTMLCanvasElement;
+    const chart = Chart.getChart(chartElement);
+    if (chart) {
+      const activeElements = chart.getElementsAtEventForMode('point', event, { intersect: true }, true) || [];
+      if (activeElements.length > 0) {
+        return activeElements[0].index;
+      }
+    }
+    return -1;
+  }
