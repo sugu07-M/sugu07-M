@@ -1,22 +1,26 @@
- barChartLabels: string[] = ['Open', 'In Progress', 'Completed'];
-
  onClick(event: any): void {
     const clickedIndex = event.active[0]._index;
     const clickedLabel = this.barChartLabels[clickedIndex];
+    let route: string;
 
-    // Navigate to the detailed report based on the clicked label
+    // Determine route based on clicked label
     switch (clickedLabel) {
-      case 'Open':
-        this.router.navigate(['/detailed-report/open']); // Navigate to detailed report for 'Open' tasks
+      case 'January':
+        route = '/reports/january';
         break;
-      case 'In Progress':
-        this.router.navigate(['/detailed-report/in-progress']); // Navigate to detailed report for 'In Progress' tasks
+      case 'February':
+        route = '/reports/february';
         break;
-      case 'Completed':
-        this.router.navigate(['/detailed-report/completed']); // Navigate to detailed report for 'Completed' tasks
+      case 'March':
+        route = '/reports/march';
         break;
       default:
-        // Handle unexpected labels or do nothing
+        // Default behavior or error handling
         break;
+    }
+
+    if (route) {
+      // Navigate to the determined route
+      this.router.navigate([route]);
     }
   }
