@@ -3,11 +3,13 @@ Error	TS2532	(TS) Object is possibly 'undefined'.	D:\IT_Portal\IT-Portal\IT-Port
 
 
 public chartClicked(event: any): void {
-    if (event.active && event.active.length > 0) {
-      const clickedLabel = this.doughnutChartData.labels[event.active[0]._index];
+  if (event.active && event.active.length > 0 && this.doughnutChartData.labels) {
+    const clickedLabel = this.doughnutChartData.labels[event.active[0]._index];
+    if (clickedLabel) {
       this.navigateToPage(clickedLabel);
     }
   }
+}
 
   private navigateToPage(label: string): void {
     switch (label) {
