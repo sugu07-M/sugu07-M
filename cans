@@ -1,2 +1,29 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2345	(TS) Argument of type 'string' is not assignable to parameter of type 'Event'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	192	Active
+ public chartClicked(event: MouseEvent): void {
+    const chartElement = event.target as HTMLCanvasElement;
+    const chart = Chart.getChart(chartElement);
+
+    if (chart) {
+      const activeElements = chart.getElementsAtEventForMode('point', event, { intersect: true }, true) || [];
+
+      if (activeElements.length > 0) {
+        const clickedIndex = activeElements[0]._index;
+        const clickedLabel = this.doughnutChartLabels[clickedIndex];
+
+        switch (clickedLabel) {
+          case 'Draft':
+            this.router.navigate(['/draft-page']);
+            break;
+          case 'Pending Approval':
+            this.router.navigate(['/pending-approval-page']);
+            break;
+          case 'Approved':
+            this.router.navigate(['/approved-page']);
+            break;
+          // Add cases for other labels
+          default:
+            // Handle default case
+            break;
+        }
+      }
+    }
+  }
