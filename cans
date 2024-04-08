@@ -1,36 +1,22 @@
- ngOnInit(): void {
-    this.attachLabelClickEventListeners();
+
+public chartClicked(event: any): void {
+    if (event.active && event.active.length > 0) {
+      const clickedLabel = this.doughnutChartData.labels[event.active[0]._index];
+      this.navigateToPage(clickedLabel);
+    }
   }
 
-  private attachLabelClickEventListeners(): void {
-    document.addEventListener('DOMContentLoaded', () => {
-      const labels = document.querySelectorAll('#doughnutChartLabels .label');
-      
-      labels.forEach(label => {
-        label.addEventListener('click', (event) => {
-          const labelText = (event.target as HTMLElement).textContent?.trim();
-          if (labelText) {
-            this.navigateToPage(labelText);
-          }
-        });
-      });
-    });
-  }
-
-  private navigateToPage(labelText: string): void {
-    switch (labelText) {
-      case 'Draft':
-        window.location.href = '/draft';
+  private navigateToPage(label: string): void {
+    switch (label) {
+      case 'Category 1':
+        this.router.navigate(['/categories', '1']); // Example: Navigate to category 1
         break;
-      case 'Pending Approval':
-        window.location.href = '/pending-approval';
-        break;
-      case 'Approved':
-        window.location.href = '/approved';
+      case 'Category 2':
+        this.router.navigate(['/categories', '2']); // Example: Navigate to category 2
         break;
       // Add more cases for other labels as needed
       default:
-        console.warn('Unhandled label:', labelText);
+        console.warn('Unhandled label:', label);
         break;
     }
   }
