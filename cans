@@ -1,9 +1,10 @@
- onClick(event: any): void {
-   if (this.barChartLabels = 'open') {
-     this.router.navigate(['/filterdashboard'])
-   } else if (this.barChartLabels ='completed'){
-     this.router.navigate(['/filterdashboard'])
-   }
-  
- }
-Type 'string' is not assignable to type 'string[]'.
+onClick(event: any): void {
+  const clickedIndex = event.active[0]._index;
+  const clickedLabel = this.barChartLabels[clickedIndex];
+
+  if (clickedLabel === 'open') {
+    this.router.navigate(['/filterdashboard']);
+  } else if (clickedLabel === 'completed') {
+    this.router.navigate(['/filterdashboard']);
+  }
+}
