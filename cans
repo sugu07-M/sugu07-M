@@ -1,68 +1,16 @@
- getBarchart() {
-   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+onChartClick(event: any): void {
+    // Extract the clicked dataset and index
+    const clickedDatasetIndex = event.active[0]._datasetIndex;
+    const clickedElementIndex = event.active[0]._index;
 
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
-
-   this.http.get(apiUrls).subscribe(
-     (response: any) => {
-       this.chartData = response;
-       this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-       this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-       this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
-
-       this.updateBarChartLabels();
-       this.updateBarChartData();
-
-     },
-     (error) => {
-       console.log("Post failed", error);
-     }
-   );
- }
-
- updateBarChartData() {
-   this.barChartData = [
-     { data: this.noncompleted, label: 'Open' },
-    { data: this.completed, label: 'Completed' }
-   ];  }
-
- updateBarChartLabels() {
-   this.barChartLabels = this.month;
- }
-
- getMonthName(month: number): string {
-   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-   return monthNames[month - 1];
- }
-
-
- onChartClick(event: any) {
-   const labelClicked = this.barChartLabels[event.active[0]._index];
-   if (labelClicked === 'Open') {
-     this.router.navigate(['/filterdashboard']); 
-   } else if (labelClicked === 'Completed') {
-     this.router.navigate(['/filterdashboard']);
-   }
- }
-
- public barChartOptions: any = {
-   responsive: true,
-   
- };
-
-
-  <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          (chartClicked)="onChartClick($event)"
-          (chartHover)="chartHovered($event)"
-          [legend]="barChartLegend"
-         
-          style="display: block; box-sizing: border-box; height: 317px; width: 340px;">
-  </canvas>
- 
+    // Determine which bar was clicked
+    if (clickedDatasetIndex === 0) {
+        // Open bar was clicked
+        // Navigate to the report page for open tasks
+        this.router.navigate(['/open-tasks-report']);
+    } else if (clickedDatasetIndex === 1) {
+        // Completed bar was clicked
+        // Navigate to the report page for completed tasks
+        this.router.navigate(['/completed-tasks-report']);
+    }
+}
