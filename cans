@@ -1,48 +1,14 @@
- getBarchart() {
-   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+onChartClick(event: any) {
+    if (event.active.length > 0) {
+      const chartDataIndex = event.active[0]._index;
+      const clickedLabel = this.barChartData[event.active[0]._datasetIndex].label;
+      // Check which label was clicked and navigate accordingly
+      if (clickedLabel === 'Open') {
+        this.router.navigate(['/open-page']); // Change '/open-page' to the route you want to navigate to for 'Open' label
+      } else if (clickedLabel === 'Completed') {
+        this.router.navigate(['/completed-page']); // Change '/completed-page' to the route you want to navigate to for 'Completed' label
+      }
+    }
+  }
 
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
-
-   this.http.get(apiUrls).subscribe(
-     (response: any) => {
-       this.chartData = response;
-       this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
-       this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-       this.month = response.map((item: { crmonth: any }) => this.getMonthName(item.crmonth));
-
-       this.updateBarChartLabels();
-       this.updateBarChartData();
-
-     },
-     (error) => {
-       console.log("Post failed", error);
-     }
-   );
- }
-
- updateBarChartData() {
-   this.barChartData = [
-     { data: this.noncompleted, label: 'Open' },
-    { data: this.completed, label: 'Completed' }
-   ];  }
-
- updateBarChartLabels() {
-   this.barChartLabels = this.month;
- }
-
- getMonthName(month: number): string {
-   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-   return monthNames[month - 1];
- }
-
-
-
-
- public barChartOptions: any = {
-   responsive: true,
-   
- };
+(chartClicked)="onChartClick($event)"
