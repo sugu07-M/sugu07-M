@@ -1,19 +1,20 @@
-onClick(event: any): void {
-    // Get the index of the clicked label
-    const clickedIndex = event.active[0]._index;
+ barChartLabels: string[] = ['Open', 'In Progress', 'Completed'];
 
-    // Get the label text at the clicked index
+ onClick(event: any): void {
+    const clickedIndex = event.active[0]._index;
     const clickedLabel = this.barChartLabels[clickedIndex];
 
-    // Navigate based on the clicked label
+    // Navigate to the detailed report based on the clicked label
     switch (clickedLabel) {
       case 'Open':
-        this.router.navigate(['/open-reports']); // Navigate to open reports page
+        this.router.navigate(['/detailed-report/open']); // Navigate to detailed report for 'Open' tasks
+        break;
+      case 'In Progress':
+        this.router.navigate(['/detailed-report/in-progress']); // Navigate to detailed report for 'In Progress' tasks
         break;
       case 'Completed':
-        this.router.navigate(['/completed-reports']); // Navigate to completed reports page
+        this.router.navigate(['/detailed-report/completed']); // Navigate to detailed report for 'Completed' tasks
         break;
-      // Add more cases for other labels if needed
       default:
         // Handle unexpected labels or do nothing
         break;
