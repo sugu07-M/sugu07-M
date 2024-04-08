@@ -1,13 +1,14 @@
- this.attachLabelClickEventListeners();
+ ngOnInit(): void {
+    this.attachLabelClickEventListeners();
+  }
 
-private attachLabelClickEventListeners(): void {
-    // Wait for DOMContentLoaded event to ensure all elements are loaded
+  private attachLabelClickEventListeners(): void {
     document.addEventListener('DOMContentLoaded', () => {
       const labels = document.querySelectorAll('#doughnutChartLabels .label');
       
       labels.forEach(label => {
-        label.addEventListener('click', () => {
-          const labelText = label.textContent?.trim(); // Use optional chaining to handle possible null value
+        label.addEventListener('click', (event) => {
+          const labelText = (event.target as HTMLElement).textContent?.trim();
           if (labelText) {
             this.navigateToPage(labelText);
           }
