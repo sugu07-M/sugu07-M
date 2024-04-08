@@ -1,17 +1,25 @@
-onChartClick(event: any): void {
-  if (event.active.length > 0) {
-    const chartLabel = this.doughnutChartLabels[event.active[0]._index];
-    // Navigate based on the clicked label
-    switch (chartLabel) {
+onChartClicked(event: any): void {
+  // Retrieve the chart element from the event
+  const chartElement = event.active[0];
+  
+  // Ensure an element is clicked
+  if (chartElement) {
+    // Retrieve the label and data index
+    const label = this.doughnutChartLabels[chartElement._index];
+    const dataIndex = chartElement._datasetIndex;
+    
+    // Handle the click event based on the label and data index
+    console.log('Clicked on label:', label);
+    console.log('Data index:', dataIndex);
+    
+    // Example: navigate to a different page based on the clicked label
+    switch (label) {
       case 'Draft':
-        this.router.navigate(['/draft-page']);
+        // Navigate to the Draft page
         break;
       case 'Pending Approval':
-        this.router.navigate(['/pending-approval-page']);
+        // Navigate to the Pending Approval page
         break;
       // Add cases for other labels as needed
-      default:
-        // Navigate to a default page or handle differently
-        break;
     }
   }
