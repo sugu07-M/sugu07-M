@@ -1,28 +1,25 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS18047	(TS) 'label.textContent' is possibly 'null'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	47	Active
-
-
-ngOnInit(): void {
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
       const labels = document.querySelectorAll('#doughnutChartLabels .label');
 
       labels.forEach(label => {
         label.addEventListener('click', () => {
-          const labelText = label.textContent.trim();
-          switch (labelText) {
-            case 'Draft':
-              window.location.href = '/draft';
-              break;
-            case 'Pending Approval':
-              window.location.href = '/pending-approval';
-              break;
-            case 'Approved':
-              window.location.href = '/approved';
-              break;
-            // Add more cases for other labels as needed
-            default:
-              console.warn('Unhandled label:', labelText);
-              break;
+          const labelText = label.textContent?.trim(); // Use optional chaining to handle possible null value
+          if (labelText) {
+            switch (labelText) {
+              case 'Draft':
+                window.location.href = '/draft';
+                break;
+              case 'Pending Approval':
+                window.location.href = '/pending-approval';
+                break;
+              case 'Approved':
+                window.location.href = '/approved';
+                break;
+              // Add more cases for other labels as needed
+              default:
+                console.warn('Unhandled label:', labelText);
+                break;
+            }
           }
         });
       });
