@@ -1,12 +1,12 @@
- onChartClicked(event: any): void {
+  onChartClicked(event: any): void {
     if (event.active && event.active.length > 0) {
       const clickedDatasetIndex = event.active[0]._datasetIndex;
       if (clickedDatasetIndex === 0) {
         // Open bar was clicked, navigate to open-tasks-report
-        this.router.navigateByUrl('/open-tasks-report');
+        this.router.navigate(['/open-tasks-report']);
       } else if (clickedDatasetIndex === 1) {
         // Completed bar was clicked, navigate to completed-tasks-report
-        this.router.navigateByUrl('/completed-tasks-report');
+        this.router.navigate(['/completed-tasks-report']);
       }
     }
   }
