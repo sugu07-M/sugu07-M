@@ -1,10 +1,21 @@
- onClick(event: any): void {
+onClick(event: any): void {
+    // Get the index of the clicked label
     const clickedIndex = event.active[0]._index;
+
+    // Get the label text at the clicked index
     const clickedLabel = this.barChartLabels[clickedIndex];
 
-    if (clickedLabel === 'Open') {
-      this.router.navigate(['/open-reports']); // Navigate to open reports page
-    } else if (clickedLabel === 'Completed') {
-      this.router.navigate(['/completed-reports']); // Navigate to completed reports page
+    // Navigate based on the clicked label
+    switch (clickedLabel) {
+      case 'Open':
+        this.router.navigate(['/open-reports']); // Navigate to open reports page
+        break;
+      case 'Completed':
+        this.router.navigate(['/completed-reports']); // Navigate to completed reports page
+        break;
+      // Add more cases for other labels if needed
+      default:
+        // Handle unexpected labels or do nothing
+        break;
     }
   }
