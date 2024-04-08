@@ -1,25 +1,28 @@
-onChartClicked(event: any): void {
-  // Retrieve the chart element from the event
-  const chartElement = event.active[0];
-  
-  // Ensure an element is clicked
-  if (chartElement) {
-    // Retrieve the label and data index
-    const label = this.doughnutChartLabels[chartElement._index];
-    const dataIndex = chartElement._datasetIndex;
-    
-    // Handle the click event based on the label and data index
-    console.log('Clicked on label:', label);
-    console.log('Data index:', dataIndex);
-    
-    // Example: navigate to a different page based on the clicked label
-    switch (label) {
-      case 'Draft':
-        // Navigate to the Draft page
-        break;
-      case 'Pending Approval':
-        // Navigate to the Pending Approval page
-        break;
-      // Add cases for other labels as needed
+ onChartClicked(event: MouseEvent): void {
+    const chartElement = event.target as HTMLCanvasElement;
+    const activePoints = this.getChartClickedPoints(chartElement);
+
+    if (activePoints.length > 0) {
+      const clickedLabel = this.doughnutChartLabels[activePoints[0]._index];
+      switch (clickedLabel) {
+        case 'Draft':
+          this.router.navigate(['/draft-page']);
+          break;
+        case 'Pending Approval':
+          this.router.navigate(['/pending-approval-page']);
+          break;
+        case 'Approved':
+          this.router.navigate(['/approved-page']);
+          break;
+        // Add cases for other labels
+        default:
+          // Handle default case
+          break;
+      }
     }
+  }
+
+  private getChartClickedPoints(chartElement: HTMLCanvasElement): any[] {
+    const chart = Chart.getChart(chartElement);
+    return chart.getElementAtEvent(event);
   }
