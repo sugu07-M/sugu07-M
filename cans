@@ -3,7 +3,7 @@ onChartClick(event: any): void {
     const clickedDatasetIndex = event.active[0]._datasetIndex;
     const clickedElementIndex = event.active[0]._index;
 
-    // Determine which bar was clicked
+    // Determine which bar was clicked and navigate accordingly
     if (clickedDatasetIndex === 0) {
         // Open bar was clicked
         // Navigate to the report page for open tasks
