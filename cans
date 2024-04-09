@@ -1,28 +1,29 @@
  code: any[] = [];
 
-getsummaryreport() {
+ getsummaryreport() {
 
-  const apiUrls = this.apiurl + '/Plantid'
-  const requestBody = {
+   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest'
+   const requestBody = {
 
-  }
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
-  this.http.get(apiUrls, requestBody).subscribe(
-    (response: any) => {
-      console.log(response);
-      this.code = response.filter((item: any) => item.code)
-      console.log("Summaryreport", this.code)
-    },
-    (error) => {
-      console.error("Post failed", error)
-    }
-  )
-}
-   <th *ngFor="let codeItem of code">{{ codeItem }}</th>
+   }
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
+   this.http.get(apiUrls, requestBody).subscribe(
+     (response: any) => {
+       console.log(response);
+       this.code = response.trim((item: any) => item.plantId)
+       console.log("Summaryreport:", this.code)
+      
+     },
+     (error) => {
+       console.error("Post failed", error)
+     }
+   )
+ }
+
 
 style="overflow-x:auto;"
  <table class="fl-table">
