@@ -22,7 +22,7 @@ getsummaryreport() {
     }
   )
 }
-
+   <th *ngFor="let codeItem of code">{{ codeItem }}</th>
 
 style="overflow-x:auto;"
  <table class="fl-table">
