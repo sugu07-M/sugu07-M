@@ -14,10 +14,17 @@
    this.http.get(apiUrls, requestBody).subscribe(
      (response: any) => {
        console.log(response);
-       this.code = response.trim((item: any) => item.plantId)
-       console.log("Summaryreport:", this.code)
-      
-     },
+      if (Array.isArray(response) && response.length > 0) {
+        // Extracting unique 'plantId' property from the response
+        const uniquePlantIds = [...new Set(response.map((item: any) => item.plantId))];
+        console.log("Unique plantIds:", uniquePlantIds);
+
+        // Assigning unique plantIds to 'this.code' for use in table header
+        this.code = uniquePlantIds;
+      } else {
+        console.log("Response is not in the expected format or is empty.");
+      }
+    },
      (error) => {
        console.error("Post failed", error)
      }
