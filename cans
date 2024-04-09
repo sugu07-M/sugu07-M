@@ -31,7 +31,7 @@
    )
  }
 
-
+*ngFor="let plantId of code">{{ plantId }}
 style="overflow-x:auto;"
  <table class="fl-table">
    <thead class="table-head">
