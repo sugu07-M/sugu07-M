@@ -82,45 +82,7 @@ getchangerequest() {
     this.Closure = this.getClosedCount();
   }
 
-  getDraftCount(): number {
-    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Draft' && item.plantId === plantId).length);
-  }
-
-  getCompletedCount(): number {
-    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Completed' && item.plantId === plantId).length);
-  }
-
-  getPendingCount(): number {
-    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft' && item.plantId === plantId).length);
-  }
-
-  getApprovalCount(): number {
-    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Pending Approval' && item.plantId === plantId).length);
-  }
-
-  getApprovedCount(): number {
-    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Approved' && item.plantId === plantId).length);
-  }
-
-  getRejectedCount(): number {
-    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Rejected' && item.plantId === plantId).length);
-  }
-
-  getImplementedCount(): number {
-    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Implement' && item.plantId === plantId).length);
-  }
-
-  getPendingCount(): number {
-    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Pending' && item.plantId === plantId).length);
-  }
-
-  getReleaseCount(): number {
-    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Release' && item.plantId === plantId).length);
-  }
-
-  getClosedCount(): number {
-    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Closure' && item.plantId === plantId).length);
-  }
+ Property 'getTotalCount' does not exist on type 'ViewSummaryComponent'.
 
 
 
