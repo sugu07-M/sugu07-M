@@ -1,54 +1,133 @@
- code: any[] = [];
+code: any[] = [];
 
- getsummaryreport() {
+getsummaryreport() {
 
-   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest'
-   const requestBody = {
+  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest'
+  const requestBody = {
 
-   }
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
-   this.http.get(apiUrls, requestBody).subscribe(
-     (response: any) => {
-       console.log(response);
+  }
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
+  this.http.get(apiUrls, requestBody).subscribe(
+    (response: any) => {
+      console.log(response);
       if (Array.isArray(response) && response.length > 0) {
-        // Extracting unique 'plantId' property from the response
+        
         const uniquePlantIds = [...new Set(response.map((item: any) => item.plantId))];
         console.log("Unique plantIds:", uniquePlantIds);
 
-        // Assigning unique plantIds to 'this.code' for use in table header
+        
         this.code = uniquePlantIds;
       } else {
         console.log("Response is not in the expected format or is empty.");
       }
     },
-     (error) => {
-       console.error("Post failed", error)
-     }
-   )
- }
+    (error) => {
+      console.error("Post failed", error)
+    }
+  )
+}
 
-*ngFor="let plantId of code">{{ plantId }}
-style="overflow-x:auto;"
- <table class="fl-table">
-   <thead class="table-head">
-     <tr class="border-bottom">
-       <th>Priority ID</th>
-       <th>Priority Name</th>
-       <th>Is Active</th>
-       <th>Action</th>
-     </tr>
-   </thead>
-   <tbody>
-     <tr  class="tr-body">
-       <td></td>
-       <td></td>
-       <td></td>
 
-      
-     </tr>
-   </tbody>
- </table>
+
+
+changerequest: any[] = [];
+newCount: number = 0;
+completedCount: number = 0;
+pendingCount: number = 0;
+pendingApproval: number = 0;
+Approved: number = 0;
+Rejected: number = 0;
+Implemention: number = 0;
+pending: number = 0;
+release: number = 0;
+Closure: number = 0;
+
+getchangerequest() {
+
+  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+  const requestBody = {}
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
+
+  this.http.get(apiUrls, requestBody).subscribe(
+    (response: any) => {
+      this.changerequest = response;
+      this.countStatus();
+
+    },
+
+    (error) => {
+      console.error("Post failed", error);
+    }
+  );
+}
+countStatus() {
+  this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
+  this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
+  this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
+  this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+  this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
+  this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
+  this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
+  this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
+  this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
+}
+
+
+
+
+
+  <table class="fl-table">
+    <thead class="table-head">
+      <tr class="border-bottom">
+        <th>Status</th>
+        <th *ngFor="let plantId of code">{{ plantId }}</th>
+        <th>Total</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tr-body">
+        <td >Open</td>
+        <td></td>
+      </tr>
+      <tr class="tr-body">
+        <td>Completed</td>
+        <td></td>
+      </tr>
+      <tr class="tr-body">
+        <td>Draft</td>
+        <td></td>
+      </tr>
+      <tr class="tr-body">
+        <td>Approval</td>
+        <td></td>
+      </tr>
+      <tr class="tr-body">
+        <td>Implementated</td>
+        <td></td>
+      </tr>
+      <tr class="tr-body">
+        <td>Released</td>
+        <td></td>
+      </tr>
+      <tr class="tr-body">
+        <td>Closed</td>
+        <td></td>
+      </tr>
+      <tr class="tr-body">
+        <td>Rejected</td>
+        <td></td>
+      </tr>
+
+
+    </tbody>
+  </table>
