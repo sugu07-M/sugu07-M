@@ -1,19 +1,7 @@
- <tr class="tr-body">
-      <td>Open</td>
-      <td *ngFor="let plantId of code">{{ getOpenCount(plantId) }}</td>
-      <td>{{ getTotalCount('Open') }}</td>
-    </tr>
-
- getOpenCount(plantId: string): number {
-    return this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.plantId === plantId).length;
-  }
- getTotalOpenCount(): number {
-    return this.changerequest.filter(item => item.status.trim() !== 'Completed').length;
-  }
-  <td *ngFor="let plantId of code">{{ getOpenCount(plantId) }}</td>
-  <td>{{ getTotalOpenCount() }}</td>
-
-
+navigateToOtherComponent() {
+  this.router.navigate(['/other-component']); // Replace 'other-component' with the route of the component you want to navigate to
+}
+<tr class="tr-body" (click)="navigateToOtherComponent()">
 
 
 code: any[] = [];
