@@ -178,3 +178,33 @@ getchangerequest() {
     </tr>
   </tbody>
   </table>
+
+
+
+
+X [ERROR] TS2393: Duplicate function implementation. [plugin angular-compiler]
+
+    src/app/change-request/change-request-report/view-summary/view-summary.component.ts:142:2:
+      142 │   getPendingCount(): number {
+          ╵   ~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2322: Type 'number[]' is not assignable to type 'number'. [plugin angular-compiler]
+
+    src/app/change-request/change-request-report/view-summary/view-summary.component.ts:143:4:
+      143 │     return this.code.map(plantId => this.changerequest.filter(ite...
+          ╵     ~~~~~~
+
+
+X [ERROR] TS2322: Type 'number[]' is not assignable to type 'number'. [plugin angular-compiler]
+
+    src/app/change-request/change-request-report/view-summary/view-summary.component.ts:147:4:
+      147 │     return this.code.map(plantId => this.changerequest.filter(ite...
+          ╵     ~~~~~~
+
+
+X [ERROR] TS2322: Type 'number[]' is not assignable to type 'number'. [plugin angular-compiler]
+
+    src/app/change-request/change-request-report/view-summary/view-summary.component.ts:151:4:
+      151 │     return this.code.map(plantId => this.changerequest.filter(ite...
+          ╵     ~~~~~~
