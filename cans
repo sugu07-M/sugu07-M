@@ -82,7 +82,9 @@ getchangerequest() {
     this.Closure = this.getClosedCount();
   }
 
- Property 'getTotalCount' does not exist on type 'ViewSummaryComponent'.
+getTotalCount(status: string): number {
+    return this.statusCounts[status] || 0;
+  }
 
 
 
