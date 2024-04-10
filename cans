@@ -182,29 +182,25 @@ getchangerequest() {
 
 
 
-X [ERROR] TS2393: Duplicate function implementation. [plugin angular-compiler]
-
-    src/app/change-request/change-request-report/view-summary/view-summary.component.ts:142:2:
-      142 │   getPendingCount(): number {
-          ╵   ~~~~~~~~~~~~~~~
-
-
-X [ERROR] TS2322: Type 'number[]' is not assignable to type 'number'. [plugin angular-compiler]
-
-    src/app/change-request/change-request-report/view-summary/view-summary.component.ts:143:4:
-      143 │     return this.code.map(plantId => this.changerequest.filter(ite...
-          ╵     ~~~~~~
+ countStatus() {
+    const statuses = ['Draft', 'Completed', 'Pending Approval', 'Approved', 'Rejected', 'Implement', 'Pending', 'Release', 'Closure'];
+    for (const status of statuses) {
+      this.statusCounts[status] = this.changerequest.filter(item => item.status.trim() === status).length;
+    }
+  }
 
 
-X [ERROR] TS2322: Type 'number[]' is not assignable to type 'number'. [plugin angular-compiler]
 
-    src/app/change-request/change-request-report/view-summary/view-summary.component.ts:147:4:
-      147 │     return this.code.map(plantId => this.changerequest.filter(ite...
-          ╵     ~~~~~~
-
-
-X [ERROR] TS2322: Type 'number[]' is not assignable to type 'number'. [plugin angular-compiler]
-
-    src/app/change-request/change-request-report/view-summary/view-summary.component.ts:151:4:
-      151 │     return this.code.map(plantId => this.changerequest.filter(ite...
-          ╵     ~~~~~~
+<tbody>
+    <tr class="tr-body">
+      <td>Draft</td>
+      <td *ngFor="let plantId of code">{{ statusCounts['Draft'] || 0 }}</td>
+      <td>{{ getTotalCount('Draft') }}</td>
+    </tr>
+    <tr class="tr-body">
+      <td>Completed</td>
+      <td *ngFor="let plantId of code">{{ statusCounts['Completed'] || 0 }}</td>
+      <td>{{ getTotalCount('Completed') }}</td>
+    </tr>
+    <!-- Add more rows for other statuses as needed -->
+  </tbody>
