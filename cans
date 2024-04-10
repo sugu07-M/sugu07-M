@@ -1,220 +1,69 @@
-         <tbody>
-          <tr class="tr-body" (click)="navigateToOtherComponent()">
-  <td>Open</td>
-  <td></td>
-  <td></td>
-      </tr>
-          <tr class="tr-body">
-            <td>Completed</td>
-            <td>{{ completedCount }}</td>
-            <td></td>
-          </tr>
-<tr class="tr-body">
-  <td>Draft</td>
-  <td>{{ newCount }}</td>
-  <td></td>
-</tr>
-<tr class="tr-body">
-  <td>Pending</td>
-  <td>{{ pending }}</td>
-  <td></td>
-</tr>
-<tr class="tr-body">
-  <td>Approved</td>
-  <td>{{ approved }}</td>
-  <td></td>
-</tr>
-<tr class="tr-body">
-  <td>Implemented</td>
-  <td>{{ implementation }}</td>
-  <td></td>
-</tr>
-<tr class="tr-body">
-  <td>Released</td>
-  <td>{{ release }}</td>
-  <td></td>
-</tr>
-<tr class="tr-body">
-  <td>Closure</td>
-  <td>{{ closure }}</td>
-  <td></td>
-</tr>
-<tr class="tr-body">
-  <td>Rejected</td>
-  <td>{{ rejected }}</td>
-  <td></td>
-</tr>
-       
+<app-side-bar></app-side-bar>
+<app-headers></app-headers>
+<div class="container-implement">
+  <div class="container-field-line">
 
-       </tbody>
+    <!-- bootstrap-->
+    <h3>New System Landscape</h3>
+    <div class="border-rfc-heading">
+      <div class="row mt-2">
 
-code: any[] = [];
-  statusCounts: { [status: string]: number } = {};
-getsummaryreport() {
+        <div class="col">
+          <label>Module Name</label>
+          <!--<input type="text" placeholder="supportID" [(ngModel)]="supportsId" />-->
+          <select [(ngModel)]="supportsId">
+            <option value="">Select Module Name</option>
+            <option *ngFor="let cldata of support" value="{{cldata.supportId}}">{{cldata.supportName}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label>Category Name</label>
+          <!--<input type="text" placeholder="categoryId" [(ngModel)]="categoryId" />-->
+          <select [(ngModel)]="categoryId">
+            <option value="" >Select category Name</option>
+            <option *ngFor="let cldata of category" value="{{cldata.itcategoryId}}">{{cldata.categoryName}}</option>
+          </select>
+        </div>
 
-  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest'
-  const requestBody = {
+        <div class="col">
+          <label>Classification Name</label>
+          <!--<input type="text" placeholder="classificationId" [(ngModel)]="classificationId" />-->
+          <select [(ngModel)]="classificationId">
+            <option value="" >Select classification Name</option>
+            <option *ngFor="let cldata of classification" value="{{cldata.itclassificationId}}">{{cldata.classificationName}}</option>
+          </select>
+        </div>
+        <div class="row mt-2">
+          <div class="col">
+            <label>Priority Name</label>
+            <!--<input type="text" placeholder="priorityNumber" [(ngModel)]="priorityNumber" />-->
+            <select [(ngModel)]="priorityNumber">
+              <option value="" >Select Priority Name</option>
+              <option *ngFor="let cldata of priority" value="{{cldata.priorityId}}">{{cldata.priorityName}}</option>
+            </select>
+          </div>
 
-  }
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
-  this.http.get(apiUrls, requestBody).subscribe(
-    (response: any) => {
-      console.log(response);
-      if (Array.isArray(response) && response.length > 0) {
-        
-        const uniquePlantIds = [...new Set(response.map((item: any) => item.plantId))];
-        console.log("Unique plantIds:", uniquePlantIds);
+          <div class="col">
+            <label>System Landscape</label>
+            <input type="text" placeholder="system Landscape" [(ngModel)]="sysLandscape" />
+          </div>
 
-        
-        this.code = uniquePlantIds;
-      } else {
-        console.log("Response is not in the expected format or is empty.");
-      }
-    },
-    (error) => {
-      console.error("Post failed", error)
-    }
-  )
-}
+          <div class="col">
+            <label>Is Active</label>
 
+            <select [(ngModel)]="isactive">
+              <option [ngValue]="true">True</option>
+              <option [ngValue]="false">False</option>
+            </select>
+          </div>
 
+        </div>
+      </div>
 
+    </div>
 
- code: string[] = [];
-  changerequest: any[] = [];
-  newCount: number = 0;
-  completedCount: number = 0;
-  pendingCount: number = 0;
-  pendingApproval: number = 0;
-  Approved: number = 0;
-  Rejected: number = 0;
-  Implemention: number = 0;
-  pending: number = 0;
-  release: number = 0;
-  Closure: number = 0;
-getchangerequest() {
+  </div>
+  <button (click)="PostSystemLandscapeSp()" [routerLink]="'/systemlandscape'" class="btn btn-primary">Submit</button>
+  <button [routerLink]="'/systemlandscape'" style="margin-left: 2%;" class="btn btn-primary">Back</button>
 
-  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-  const requestBody = {}
-
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
-
-  this.http.get(apiUrls, requestBody).subscribe(
-    (response: any) => {
-      this.changerequest = response;
-      this.countStatus();
-
-    },
-
-    (error) => {
-      console.error("Post failed", error);
-    }
-  );
-}
- countStatus() {
-    this.newCount = this.getDraftCount();
-    this.completedCount = this.getCompletedCount();
-    this.pendingCount = this.getPendingCount();
-    this.pendingApproval = this.getApprovalCount();
-    this.Approved = this.getApprovedCount();
-    this.Rejected = this.getRejectedCount();
-    this.Implemention = this.getImplementedCount();
-    this.pending = this.getPendingCount();
-    this.release = this.getReleaseCount();
-    this.Closure = this.getClosedCount();
-  }
-
-getTotalCount(status: string): number {
-    return this.statusCounts[status] || 0;
-  }
-
-
-
-
-
-  <table class="fl-table">
-    <thead class="table-head">
-      <tr class="border-bottom">
-        <th>Status</th>
-        <th *ngFor="let plantId of code">{{ plantId }}</th>
-        <th>Total</th>
-
-      </tr>
-    </thead>
-   <tbody>
-    <tr class="tr-body">
-      <td>Open</td>
-      <td *ngFor="let plantId of code">{{ getOpenCount(plantId) }}</td>
-      <td>{{ getTotalCount('Open') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td>Completed</td>
-      <td *ngFor="let plantId of code">{{ getCompletedCount(plantId) }}</td>
-      <td>{{ getTotalCount('Completed') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td>Draft</td>
-      <td *ngFor="let plantId of code">{{ getDraftCount(plantId) }}</td>
-      <td>{{ getTotalCount('Draft') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td>Approval</td>
-      <td *ngFor="let plantId of code">{{ getApprovalCount(plantId) }}</td>
-      <td>{{ getTotalCount('Pending Approval') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td>Implemented</td>
-      <td *ngFor="let plantId of code">{{ getImplementedCount(plantId) }}</td>
-      <td>{{ getTotalCount('Implement') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td>Released</td>
-      <td *ngFor="let plantId of code">{{ getReleaseCount(plantId) }}</td>
-      <td>{{ getTotalCount('Release') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td>Closed</td>
-      <td *ngFor="let plantId of code">{{ getClosedCount(plantId) }}</td>
-      <td>{{ getTotalCount('Closure') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td>Rejected</td>
-      <td *ngFor="let plantId of code">{{ getRejectedCount(plantId) }}</td>
-      <td>{{ getTotalCount('Rejected') }}</td>
-    </tr>
-  </tbody>
-  </table>
-
-
-
-
- countStatus() {
-    const statuses = ['Draft', 'Completed', 'Pending Approval', 'Approved', 'Rejected', 'Implement', 'Pending', 'Release', 'Closure'];
-    for (const status of statuses) {
-      this.statusCounts[status] = this.changerequest.filter(item => item.status.trim() === status).length;
-    }
-  }
-
-
-
-<tbody>
-    <tr class="tr-body">
-      <td>Draft</td>
-      <td *ngFor="let plantId of code">{{ statusCounts['Draft'] || 0 }}</td>
-      <td>{{ getTotalCount('Draft') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td>Completed</td>
-      <td *ngFor="let plantId of code">{{ statusCounts['Completed'] || 0 }}</td>
-      <td>{{ getTotalCount('Completed') }}</td>
-    </tr>
-    <!-- Add more rows for other statuses as needed -->
-  </tbody>
+</div>
