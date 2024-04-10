@@ -1,3 +1,16 @@
+ <tr class="tr-body">
+      <td>Open</td>
+      <td *ngFor="let plantId of code">{{ getOpenCount(plantId) }}</td>
+      <td>{{ getTotalCount('Open') }}</td>
+    </tr>
+
+ getOpenCount(plantId: string): number {
+    return this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.plantId === plantId).length;
+  }
+
+
+
+
 code: any[] = [];
   statusCounts: { [status: string]: number } = {};
 getsummaryreport() {
