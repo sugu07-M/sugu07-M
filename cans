@@ -1,5 +1,5 @@
 code: any[] = [];
-
+  statusCounts: { [status: string]: number } = {};
 getsummaryreport() {
 
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest'
