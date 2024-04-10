@@ -34,18 +34,18 @@ getsummaryreport() {
 
 
 
-changerequest: any[] = [];
-newCount: number = 0;
-completedCount: number = 0;
-pendingCount: number = 0;
-pendingApproval: number = 0;
-Approved: number = 0;
-Rejected: number = 0;
-Implemention: number = 0;
-pending: number = 0;
-release: number = 0;
-Closure: number = 0;
-
+ code: string[] = [];
+  changerequest: any[] = [];
+  newCount: number = 0;
+  completedCount: number = 0;
+  pendingCount: number = 0;
+  pendingApproval: number = 0;
+  Approved: number = 0;
+  Rejected: number = 0;
+  Implemention: number = 0;
+  pending: number = 0;
+  release: number = 0;
+  Closure: number = 0;
 getchangerequest() {
 
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
@@ -69,17 +69,58 @@ getchangerequest() {
     }
   );
 }
-countStatus() {
-  this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
-  this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
-  this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
-  this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
-  this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
-  this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
-  this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
-  this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
-  this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
-}
+ countStatus() {
+    this.newCount = this.getDraftCount();
+    this.completedCount = this.getCompletedCount();
+    this.pendingCount = this.getPendingCount();
+    this.pendingApproval = this.getApprovalCount();
+    this.Approved = this.getApprovedCount();
+    this.Rejected = this.getRejectedCount();
+    this.Implemention = this.getImplementedCount();
+    this.pending = this.getPendingCount();
+    this.release = this.getReleaseCount();
+    this.Closure = this.getClosedCount();
+  }
+
+  getDraftCount(): number {
+    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Draft' && item.plantId === plantId).length);
+  }
+
+  getCompletedCount(): number {
+    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Completed' && item.plantId === plantId).length);
+  }
+
+  getPendingCount(): number {
+    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft' && item.plantId === plantId).length);
+  }
+
+  getApprovalCount(): number {
+    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Pending Approval' && item.plantId === plantId).length);
+  }
+
+  getApprovedCount(): number {
+    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Approved' && item.plantId === plantId).length);
+  }
+
+  getRejectedCount(): number {
+    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Rejected' && item.plantId === plantId).length);
+  }
+
+  getImplementedCount(): number {
+    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Implement' && item.plantId === plantId).length);
+  }
+
+  getPendingCount(): number {
+    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Pending' && item.plantId === plantId).length);
+  }
+
+  getReleaseCount(): number {
+    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Release' && item.plantId === plantId).length);
+  }
+
+  getClosedCount(): number {
+    return this.code.map(plantId => this.changerequest.filter(item => item.status.trim() === 'Closure' && item.plantId === plantId).length);
+  }
 
 
 
@@ -94,40 +135,46 @@ countStatus() {
 
       </tr>
     </thead>
-    <tbody>
-      <tr class="tr-body">
-        <td >Open</td>
-        <td></td>
-      </tr>
-      <tr class="tr-body">
-        <td>Completed</td>
-        <td></td>
-      </tr>
-      <tr class="tr-body">
-        <td>Draft</td>
-        <td></td>
-      </tr>
-      <tr class="tr-body">
-        <td>Approval</td>
-        <td></td>
-      </tr>
-      <tr class="tr-body">
-        <td>Implementated</td>
-        <td></td>
-      </tr>
-      <tr class="tr-body">
-        <td>Released</td>
-        <td></td>
-      </tr>
-      <tr class="tr-body">
-        <td>Closed</td>
-        <td></td>
-      </tr>
-      <tr class="tr-body">
-        <td>Rejected</td>
-        <td></td>
-      </tr>
-
-
-    </tbody>
+   <tbody>
+    <tr class="tr-body">
+      <td>Open</td>
+      <td *ngFor="let plantId of code">{{ getOpenCount(plantId) }}</td>
+      <td>{{ getTotalCount('Open') }}</td>
+    </tr>
+    <tr class="tr-body">
+      <td>Completed</td>
+      <td *ngFor="let plantId of code">{{ getCompletedCount(plantId) }}</td>
+      <td>{{ getTotalCount('Completed') }}</td>
+    </tr>
+    <tr class="tr-body">
+      <td>Draft</td>
+      <td *ngFor="let plantId of code">{{ getDraftCount(plantId) }}</td>
+      <td>{{ getTotalCount('Draft') }}</td>
+    </tr>
+    <tr class="tr-body">
+      <td>Approval</td>
+      <td *ngFor="let plantId of code">{{ getApprovalCount(plantId) }}</td>
+      <td>{{ getTotalCount('Pending Approval') }}</td>
+    </tr>
+    <tr class="tr-body">
+      <td>Implemented</td>
+      <td *ngFor="let plantId of code">{{ getImplementedCount(plantId) }}</td>
+      <td>{{ getTotalCount('Implement') }}</td>
+    </tr>
+    <tr class="tr-body">
+      <td>Released</td>
+      <td *ngFor="let plantId of code">{{ getReleaseCount(plantId) }}</td>
+      <td>{{ getTotalCount('Release') }}</td>
+    </tr>
+    <tr class="tr-body">
+      <td>Closed</td>
+      <td *ngFor="let plantId of code">{{ getClosedCount(plantId) }}</td>
+      <td>{{ getTotalCount('Closure') }}</td>
+    </tr>
+    <tr class="tr-body">
+      <td>Rejected</td>
+      <td *ngFor="let plantId of code">{{ getRejectedCount(plantId) }}</td>
+      <td>{{ getTotalCount('Rejected') }}</td>
+    </tr>
+  </tbody>
   </table>
