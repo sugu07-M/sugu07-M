@@ -1,7 +1,36 @@
-navigateToOtherComponent() {
-  this.router.navigate(['/other-component']); // Replace 'other-component' with the route of the component you want to navigate to
-}
-<tr class="tr-body" (click)="navigateToOtherComponent()">
+  newCount: number = 0;
+  completedCount: number = 0;
+  pendingCount: number = 0;
+  pendingApproval: number = 0;
+  approved: number = 0;
+  rejected: number = 0;
+  implementation: number = 0;
+  pending: number = 0;
+  release: number = 0;
+  closure: number = 0;
+
+
+<tr class="tr-body">
+      <td>Completed</td>
+      <td>{{ completedCount }}</td>
+    </tr>
+    <tr class="tr-body">
+      <td>Pending</td>
+      <td>{{ pendingCount }}</td>
+    </tr>
+
+countStatus() {
+    this.newCount = this.changerequest.filter(item => item.status.trim() === 'New').length;
+    this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
+    this.pendingCount = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
+    this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+    this.approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
+    this.rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
+    this.implementation = this.changerequest.filter(item => item.status.trim() === 'Implementation').length;
+    this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
+    this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
+    this.closure = this.changerequest.filter(item => item.status.trim() === 'Closure').length;
+  }
 
 
 code: any[] = [];
