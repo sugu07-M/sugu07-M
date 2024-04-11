@@ -1,4 +1,24 @@
- getchangerequest() {
+
+    src/app/dashboard/filter-dashboard/filter-approval/filter-approval.component.ts:61:28:
+      61 │         this.Release = this.changerequest.filter(item => item.stat...
+         ╵detected. Rebuilding...      ~~~~~~~~~~~~~
+
+
+X [ERROR] TS7006: Parameter 'item' implicitly has an 'any' type. [plugin angular-compiler]
+
+    src/app/dashboard/filter-dashboard/filter-approval/filter-approval.component.ts:61:49:
+      61 │         this.Release = this.changerequest.filter(item => item.stat...
+         ╵                             ~~~~~~~~~~~~~
+
+
+X [ERROR] TS7006: Parameter 'item' implicitly has an 'any' type. [plugin angular-compiler]
+
+    src/app/dashboard/filter-dashboard/filter-approval/filter-approval.component.ts:61:49:
+      61 │ ...e = this.changerequest.filter(item => item.status.trim() === 'A...
+         ╵                                  ~~~~
+
+
+getchangerequest() {
 
    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
    const requestBody = {}
