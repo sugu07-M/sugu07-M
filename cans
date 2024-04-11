@@ -1,105 +1,60 @@
- code: string[] = []; // Array to store Plant IDs
-  changerequest: any[] = []; // Array to store change request data
-  // Declare variables for status counts
-  OpenCount: { [key: string]: number } = {};
-  CompletedCount: { [key: string]: number } = {};
-  ApprovalCount: { [key: string]: number } = {};
-  DraftCount: { [key: string]: number } = {};
-  // Declare variables for status totals
-  OpenTotal: number = 0;
-  CompletedTotal: number = 0;
-  ApprovalTotal: number = 0;
-  DraftTotal: number = 0;
-  // API URL
-  apiUrl: string = 'your-api-url';
+    <table class="fl-table">
+          <thead class="table-head">
+            <tr class="border-bottom">
+              <th>Status</th>
+              <th *ngFor="let plantId of code">{{ plantId }}</th>
+              <th>Total </th>
 
-  constructor(private http: HttpClient) { }
+            </tr>
+          </thead>  
+          <tbody>
+            <tr class="tr-body" (click)="navigateToOtherComponent()">
+              <td style="color:Black;font-weight:500;">Open</td>
+              <td>{{ Open }}</td>
+              <td>{{ opentotal }}</td>
+            </tr>
+             <tr class="tr-body" (click)="navigatecompleted()">
+               <td  style="color:Black;font-weight:500;">Completed</td>
+               <td>{{ completedCount }}</td>
+               <td>{{ completedt }}</td>
+</tr>
+   <tr class="tr-body" (click)="navigatedraft()">
+     <td  style="color:Black;font-weight:500;">Draft</td>
+     <td>{{ newCount }}</td>
+     <td>{{newcounttotal}}</td>
+   </tr>
+           
+   <tr class="tr-body" (click)="navigatePending()" >
+     <td  style="color:Black;font-weight:500;">Pending</td>
+     <td>{{ pending }}</td>
+     <td>{{pendingtotal}}</td>
+   </tr>
+   <tr class="tr-body" (click)="navigateApproval()">
+     <td  style="color:Black;font-weight:500;">Approved</td>
+     <td>{{ approved }}</td>
+     <td>{{approvedtotal}}</td>
+   </tr>
+   <tr class="tr-body" (click)="navigateImplemented()">
+     <td  style="color:Black;font-weight:500;" >Implemented</td>
+     <td>{{ implementation }}</td>
+     <td>{{implementtotal}}</td>
+   </tr>
+   <tr class="tr-body" (click)="navigateClosure()">
+     <td  style="color:Black;font-weight:500;">Released</td>
+     <td>{{ release }}</td>
+     <td>{{releasetotal}}</td>
+   </tr>
+   <tr class="tr-body" (click)="navigateReleased()">
+     <td  style="color:Black;font-weight:500;">Closure</td>
+     <td>{{ closure }}</td>
+     <td>{{closuretotal}}</td>
+   </tr>
+   <tr class="tr-body" (click)="navigateRejected()">
+     <td  style="color:Black;font-weight:500;">Rejected</td>
+     <td >{{ rejected }}</td>
+     <td>{{rejectedtotal}}</td>
+   </tr>
+          
 
-  ngOnInit(): void {
-    this.getChangeRequest();
-  }
-
-  getChangeRequest() {
-    const apiUrl = this.apiUrl + '/ViewChangeRequest/ViewChangerequest';
-    const requestBody = {};
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
-
-    this.http.get(apiUrl, requestBody).subscribe(
-      (response: any) => {
-        this.changerequest = response;
-        this.extractPlantIds();
-        this.countStatus();
-      },
-      (error) => {
-        console.error("Post failed", error);
-      }
-    );
-  }
-
-  extractPlantIds() {
-    // Extract unique Plant IDs from the changerequest data
-    this.code = [...new Set(this.changerequest.map(item => item.plantId))];
-  }
-
-  countStatus() {
-    // Initialize counts for each status
-    this.OpenCount = {};
-    this.CompletedCount = {};
-    this.ApprovalCount = {};
-    this.DraftCount = {};
-
-    // Count occurrences of each status for each Plant ID
-    this.code.forEach(plantId => {
-      this.OpenCount[plantId] = this.changerequest.filter(item => item.status.trim() === 'Open' && item.plantId === plantId).length;
-      this.CompletedCount[plantId] = this.changerequest.filter(item => item.status.trim() === 'Completed' && item.plantId === plantId).length;
-      this.ApprovalCount[plantId] = this.changerequest.filter(item => item.status.trim() === 'Approval' && item.plantId === plantId).length;
-      this.DraftCount[plantId] = this.changerequest.filter(item => item.status.trim() === 'Draft' && item.plantId === plantId).length;
-    });
-
-    // Calculate totals for each status
-    this.calculateTotals();
-  }
-
-  calculateTotals() {
-    // Calculate the total count for each status
-    this.OpenTotal = this.calculateStatusTotal(this.OpenCount);
-    this.CompletedTotal = this.calculateStatusTotal(this.CompletedCount);
-    this.ApprovalTotal = this.calculateStatusTotal(this.ApprovalCount);
-    this.DraftTotal = this.calculateStatusTotal(this.DraftCount);
-  }
-
-  calculateStatusTotal(statusCount: { [key: string]: number }): number {
-    // Calculate the total count for a status across all Plant IDs
-    return Object.values(statusCount).reduce((total, count) => total + count, 0);
-  }
-
-
-
-
-<table class="fl-table">
-  <thead class="table-head">
-    <tr class="border-bottom">
-      <th>Status</th>
-      <!-- Dynamically generate table headers for Plant IDs -->
-      <th *ngFor="let plantId of code">{{ plantId }}</th>
-      <!-- Display a dynamic total count column -->
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Display counts for 'Open' status -->
-    <tr class="tr-body">
-      <td style="color:Black;font-weight:500;">Open</td>
-      <!-- Display counts for each Plant ID under 'Open' status -->
-      <td *ngFor="let plantId of code">{{ OpenCount[plantId] }}</td>
-      <!-- Display total count for 'Open' status -->
-      <td>{{ OpenTotal }}</td>
-    </tr>
-    <!-- Repeat the same structure for other status rows: 'Completed', 'Approval', 'Draft', etc. -->
-  </tbody>
-</table>
+          </tbody>
+        </table>
