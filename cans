@@ -1,11 +1,10 @@
-getStatusCount(status: string, plantId: string): number {
-  return this.changerequest.filter(item => item.status.trim() === status && item.plantId === plantId && item.status.trim() !== 'Completed').length;
+getStatusCount(plantId: string): number {
+  return this.changerequest.filter(item => item.plantId === plantId && item.status.trim() !== 'Completed').length;
 }
 
-getTotalCount(status: string): number {
-  return this.changerequest.filter(item => item.status.trim() === status && item.status.trim() !== 'Completed').length;
+getTotalCount(): number {
+  return this.changerequest.filter(item => item.status.trim() !== 'Completed').length;
 }
-
  <tr class="tr-body">
       <td style="color:Black;font-weight:500;">Open</td>
       <ng-container *ngFor="let plantId of code">
