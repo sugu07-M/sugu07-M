@@ -21,3 +21,5 @@
      }
    );
  }
+  this.release = this.changerequest.filter(item => item.status.trim() === 'Release')
+  this.closure = this.changerequest.filter(item => item.status.trim() === 'Closure')
