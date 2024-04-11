@@ -1,34 +1,21 @@
- getChangeRequests(): void {
-    const apiUrl = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-    this.http.get(apiUrl).subscribe(
-      (response: any) => {
-        this.changerequest = response;
-        this.code = [...new Set(response.map((item: any) => item.plantId))];
-      },
-      (error) => {
-        console.error("Request failed", error);
-      }
-    );
-  }
-
-  getStatusCount(status: string, plantId: string): number {
-    return this.changerequest.filter(item => item.status.trim() === status && item.plantId === plantId).length;
-  }
-
-  getTotalCount(status: string): number {
-    return this.changerequest.filter(item => item.status.trim() === status).length;
-  }
-
- code: string[] = [];
-  changerequest: any[] = [];
-  statusList: string[] = ['Open', 'Completed', 'Draft', 'Pending', 'Approved', 'Implemented', 'Released', 'Closure', 'Rejected'];
-
-
-
- <tr *ngFor="let status of statusList" class="tr-body">
-      <td style="color:Black;font-weight:500;">{{ status }}</td>
+<tr class="tr-body">
+      <td style="color:Black;font-weight:500;">Open</td>
       <ng-container *ngFor="let plantId of code">
-        <td>{{ getStatusCount(status, plantId) }}</td>
+        <td>{{ getStatusCount('Open', plantId) }}</td>
       </ng-container>
-      <td>{{ getTotalCount(status) }}</td>
+      <td>{{ getTotalCount('Open') }}</td>
+    </tr>
+    <tr class="tr-body">
+      <td style="color:Black;font-weight:500;">Completed</td>
+      <ng-container *ngFor="let plantId of code">
+        <td>{{ getStatusCount('Completed', plantId) }}</td>
+      </ng-container>
+      <td>{{ getTotalCount('Completed') }}</td>
+    </tr>
+    <tr class="tr-body">
+      <td style="color:Black;font-weight:500;">Draft</td>
+      <ng-container *ngFor="let plantId of code">
+        <td>{{ getStatusCount('Draft', plantId) }}</td>
+      </ng-container>
+      <td>{{ getTotalCount('Draft') }}</td>
     </tr>
