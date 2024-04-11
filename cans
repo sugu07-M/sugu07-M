@@ -1,50 +1,13 @@
- <table width="70%">
-   <thead>
-     <tr>
-       <th width="10%">Sl.no</th>
-       <th width="30%">Title</th>
-       <th width="50%">Description</th>
-       <th width="10%">Mandatory</th>
-     </tr>
-   </thead>
-   <tbody>
-     <tr *ngFor="let item of checklist; let i = index">
-       <td>{{ i + 1 }}</td>
-       <td>{{ item.checklistTitle }}</td>
-       <td>{{ item.checklistDesc }}</td>
-       <td>{{ item.mandatoryFlag ? 'True' : 'False' }}</td>
-     </tr>
-   </tbody>
- </table>
-
  checklist: any[] = [];
- supportID: number = 0; 
- categoryID: number = 0;
- plantID: number = 0;
- classificationID: number = 0;
- getCheckList() {
-   const apiUrls = this.apiurl + '/CheckList'
-   const requestBody = {
+  selectedCategory: number = 0; // Assuming you're populating these values somewhere else
+  plantId: number = 0; // Assuming you're populating these values somewhere else
+  classificationId: number = 0; // Assuming you're populating these values somewhere else
 
-   }
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
-   this.http.get(apiUrls, requestBody).subscribe(
-     (response: any) => {
-       // Filter checklist based on conditions
-       this.checklist = response.filter((item: { supportId: number; plantId: number; categoryId: number; classificationId: number; }) =>
-         item.supportId === 1 &&
-         item.categoryId === this.selectedCategory &&
-         item.plantId === this.plantId &&
-         item.classificationId === this.classificationId
-       );
-       console.log('CheckList:',this.checklist)
-     },
-     (error) => {
-       console.error("Post failed", error)
-     }
-   )
- }
+  this.checklist = response.filter((item: { supportId: number; plantId: number; categoryId: number; classificationId: number; }) =>
+          item.supportId === 1 &&
+          item.categoryId === this.selectedCategory &&
+          item.plantId === this.plantId &&
+          item.classificationId === this.classificationId
+        );
+        console.log('CheckList:', this.checklist);
+      },
