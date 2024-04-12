@@ -1,16 +1,19 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2339	(TS) Property 'filteredDraftData' does not exist on type 'FilterDraftComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\filter-dashboard\filter-draft\filter-draft.component.ts	64	Active
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
-    this.filteredDraftData = this.Draft.filter(item => item.plantId === this.plantId && item.status === 'Draft');
- ngOnInit() {
-    // Retrieve plantId from query parameters
-    this.route.queryParams.subscribe(params => {
-      this.plantId = params['plantId'];
-      // Filter Draft data based on the received plantId
-      this.filterDraftData();
-    });
-  }
+// Method to generate PDF
+generatePDF() {
+  const element = document.getElementById('table-container');
 
-navigatedraft(plantId: string) {
-  this.router.navigate(['/filterdraft'], { queryParams: { plantId: plantId } });
+  html2canvas(element).then((canvas) => {
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jspdf('p', 'mm', 'a4');
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save('draft_table.pdf');
+  });
 }
+
+<button (click)="generatePDF()">Download PDF</button>
