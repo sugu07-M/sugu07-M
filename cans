@@ -1,6 +1,8 @@
 Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2345	(TS) Argument of type 'HTMLElement' is not assignable to parameter of type 'ChartItem'.
-  Type 'HTMLElement' is missing the following properties from type 'HTMLCanvasElement': height, width, captureStream, getContext, and 3 more.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	336	Active
+Error	TS2322	(TS) Type '{ ticks: { beginAtZero: true; }; }[]' is not assignable to type '_DeepPartialObject<{ type: "linear"; } & CartesianScaleOptions & { beginAtZero: boolean; suggestedMin?: number | undefined; suggestedMax?: number | undefined; grace?: string | number | undefined; ticks: { ...; }; }> | ... 4 more ... | undefined'.
+  Type '{ ticks: { beginAtZero: true; }; }[]' is not assignable to type '_DeepPartialObject<{ type: "timeseries"; } & Omit<CartesianScaleOptions, "min" | "max"> & { min: string | number; max: string | number; suggestedMin: string | number; ... 5 more ...; ticks: TimeScaleTickOptions; }>'.
+    Types of property 'reverse' are incompatible.
+      Type '() => { ticks: { beginAtZero: true; }; }[]' is not assignable to type 'boolean | undefined'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	348	Active
 
 
 Gettablechart() {
