@@ -63,7 +63,7 @@ Gettablechart() {
 }
 
 renderChart() {
-  const ctx = document.getElementById('myChart');
+  const ctx = <HTMLCanvasElement>document.getElementById('myChart');
   if (ctx) {
     new Chart(ctx, {
       type: 'bar',
