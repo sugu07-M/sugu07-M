@@ -1,15 +1,3 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS7053	(TS) Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ Approval: number; Closure: number; Implementation: number; Initiated: number; Release: number; }'.
-  No index signature with a parameter of type 'string' was found on type '{ Approval: number; Closure: number; Implementation: number; Initiated: number; Release: number; }'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	308	Active
-Error	TS2345	(TS) Argument of type '(response: any[]) => void' is not assignable to parameter of type '(value: Object) => void'.
-  Types of parameters 'response' and 'value' are incompatible.
-    The 'Object' type is assignable to very few other types. Did you mean to use the 'any' type instead?
-      Type 'Object' is missing the following properties from type 'any[]': length, pop, push, concat, and 35 more.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	283	Active
-
-
-
-
-
 Gettablechart() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
 
@@ -20,7 +8,7 @@ Gettablechart() {
   };
 
   this.http.get(apiUrls).subscribe(
-    (response: any[]) => {
+    (response: any[]) => { // Ensure response is typed as an array of any
       this.chartdata = response;
 
       // Initialize multi array
@@ -32,9 +20,9 @@ Gettablechart() {
       // Process data for each plant
       uniquePlants.forEach(plantId => {
         const plantData = response.filter(item => item.plantId === plantId);
-        
+
         // Count occurrences for each stage for the current plant
-        const stagesCount = {
+        const stagesCount: { [key: string]: number } = { // Define index signature
           Approval: plantData.filter(item => item.stage.trim() === 'Approval').length,
           Closure: plantData.filter(item => item.stage.trim() === 'Closure').length,
           Implementation: plantData.filter(item => item.stage.trim() === 'Implementation').length,
