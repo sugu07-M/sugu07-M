@@ -7,8 +7,11 @@ Gettablechart() {
     })
   };
 
+  // Define the stages you want to count
+  const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+
   this.http.get(apiUrls).subscribe(
-    (response: any[]) => { // Ensure response is typed as an array of any
+    (response: any[]) => {
       this.chartdata = response;
 
       // Initialize multi array
@@ -22,18 +25,15 @@ Gettablechart() {
         const plantData = response.filter(item => item.plantId === plantId);
 
         // Count occurrences for each stage for the current plant
-        const stagesCount: { [key: string]: number } = { // Define index signature
-          Approval: plantData.filter(item => item.stage.trim() === 'Approval').length,
-          Closure: plantData.filter(item => item.stage.trim() === 'Closure').length,
-          Implementation: plantData.filter(item => item.stage.trim() === 'Implementation').length,
-          Initiated: plantData.filter(item => item.stage.trim() === 'Initiated').length,
-          Release: plantData.filter(item => item.stage.trim() === 'Release').length
-        };
+        const stagesCount: { [key: string]: number } = {};
+        stagesToCount.forEach(stage => {
+          stagesCount[stage] = plantData.filter(item => item.stage.trim() === stage).length;
+        });
 
         // Create entry for the plant in multi array
         this.multi.push({
           name: plantId,
-          series: Object.keys(stagesCount).map(stage => ({ name: stage, value: stagesCount[stage] }))
+          series: stagesToCount.map(stage => ({ name: stage, value: stagesCount[stage] }))
         });
       });
 
