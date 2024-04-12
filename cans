@@ -79,11 +79,12 @@ renderChart() {
       },
       options: {
         scales: {
-          yAxes: [{
+          y: {
+            type: 'linear', // Specify scale type as linear
             ticks: {
               beginAtZero: true
             }
-          }]
+          }
         }
       }
     });
