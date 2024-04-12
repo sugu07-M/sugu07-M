@@ -1,3 +1,5 @@
+import { Chart } from 'chart.js';
+
 Gettablechart() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
 
@@ -44,6 +46,9 @@ Gettablechart() {
           name: plantId,
           series: stagesToCount.map(stage => ({ name: stage, value: stagesCount[stage], color: stageColors[stage] }))
         });
+
+        // Render chart
+        this.renderChart();
       });
 
       console.log('multi:', this.multi);
@@ -52,4 +57,30 @@ Gettablechart() {
       console.log("API request failed", error);
     }
   );
+}
+
+renderChart() {
+  const ctx = document.getElementById('myChart');
+  if (ctx) {
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: this.multi.map(item => item.name),
+        datasets: this.multi[0].series.map(series => ({
+          label: series.name,
+          data: this.multi.map(item => item.series.find(s => s.name === series.name).value),
+          backgroundColor: this.multi.map(item => item.series.find(s => s.name === series.name).color)
+        }))
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  }
 }
