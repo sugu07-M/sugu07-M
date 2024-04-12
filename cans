@@ -1,3 +1,9 @@
+
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS7053	(TS) Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ Approval: string; Closure: string; Implementation: string; Initiated: string; Release: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ Approval: string; Closure: string; Implementation: string; Initiated: string; Release: string; }'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	317	Active
+
+
 Gettablechart() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
 
