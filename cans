@@ -10,7 +10,7 @@ Error	TS2339	(TS) Property 'filteredDraftData' does not exist on type 'FilterDra
     this.filteredDraftData = this.Draft.filter(item => item.status.trim() === status && item.plantId === plantId);
   }
 
-
- navigatedraft() {
-   this.router.navigate(['/filterdraft'])
- }
+(click)="navigatedraft('Draft', plantId)"
+navigatedraft(status: string, plantId: string) {
+  this.router.navigate(['/filterdraft'], { queryParams: { status: status, plantId: plantId } });
+}
