@@ -1,16 +1,19 @@
 Severity	Code	Description	Project	File	Line	Suppression State
 Error	TS2339	(TS) Property 'filteredDraftData' does not exist on type 'FilterDraftComponent'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\filter-dashboard\filter-draft\filter-draft.component.ts	64	Active
 
-  filterChangeRequest() {
-    this.Draft = this.Draft.filter(item => item.status.trim() === 'Draft');
+   filterDraftData() {
+    // Filter Draft data based on the received plantId
+    this.filteredDraftData = this.Draft.filter(item => item.plantId === this.plantId);
+  }
+ ngOnInit() {
+    // Retrieve plantId from query parameters
+    this.route.queryParams.subscribe(params => {
+      this.plantId = params['plantId'];
+      // Filter Draft data based on the received plantId
+      this.filterDraftData();
+    });
   }
 
-  // Function to filter data based on status and plant ID
-  filterDraftView(status: string, plantId: string) {
-    this.filteredDraftData = this.Draft.filter(item => item.status.trim() === status && item.plantId === plantId);
-  }
-
-(click)="navigatedraft('Draft', plantId)"
-navigatedraft(status: string, plantId: string) {
-  this.router.navigate(['/filterdraft'], { queryParams: { status: status, plantId: plantId } });
+navigatedraft(plantId: string) {
+  this.router.navigate(['/filterdraft'], { queryParams: { plantId: plantId } });
 }
