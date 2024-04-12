@@ -1,53 +1,52 @@
-  checklist: any[] = [];
-  supportID: number = 0; 
-  categoryID: number = 0;
-  plantID: number = 0;
-  classificationID: number = 0;
-  getCheckList() {
-    const apiUrls = this.apiurl + '/CheckList'
-    const requestBody = {
+Gettablechart() {
+  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json' // Corrected header name
+    })
+  };
+
+  this.http.get(apiUrls).subscribe(
+    (response: any[]) => {
+      this.chartdata = response;
+
+      // Initialize multi array
+      this.multi = [];
+
+      // Process data for each plant
+      response.forEach((item: any) => {
+        const plantId = item.plantId;
+        const stage = item.stage.trim();
+
+        // Find or create entry for the plant in multi array
+        let plantEntry = this.multi.find(entry => entry.name === plantId);
+        if (!plantEntry) {
+          plantEntry = {
+            name: plantId,
+            series: []
+          };
+          this.multi.push(plantEntry);
+        }
+
+        // Find or create series entry for the stage
+        let stageEntry = plantEntry.series.find(series => series.name === stage);
+        if (!stageEntry) {
+          stageEntry = {
+            name: stage,
+            value: 0
+          };
+          plantEntry.series.push(stageEntry);
+        }
+
+        // Increment count for the stage
+        stageEntry.value++;
+      });
+
+      console.log('multi:', this.multi);
+    },
+    (error) => {
+      console.log("API request failed", error);
     }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
-    this.http.get(apiUrls, requestBody).subscribe(
-      (response: any) => {
-        // Filter checklist based on conditions
-        this.checklist = response.filter((item: { supportId: number; plantID: number; categoryID: number; classificationID: number; }) =>
-          item.supportId === this.supportID &&
-          item.categoryID === this.categoryID &&
-          item.plantID === this.plantID &&
-          item.classificationID === this.classificationID
-        );
-      },
-      (error) => {
-        console.error("Post failed", error)
-      }
-    )
-  }
-
-
- <div class="container-field-line">
-   <!--<div class="container">-->
-   <table width="80%">
-     <thead>
-       <tr>
-         <th width="10%">Sl.no</th>
-         <th width="30%">Title</th>
-         <th width="50%">Description</th>
-         <th width="10%">Mandatory</th>
-       </tr>
-     </thead>
-     <tbody>
-       <tr *ngFor="let item of checklist; let i = index">
-         <td>{{ i + 1 }}</td>
-         <td>{{ item.checklistTitle }}</td>
-         <td>{{ item.checklistDesc }}</td>
-         <td>{{ item.mandatoryFlag ? 'True' : 'False' }}</td>
-       </tr>
-     </tbody>
-   </table>
-        
+  );
+}
