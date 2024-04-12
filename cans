@@ -1,4 +1,7 @@
-import { Chart } from 'chart.js';
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2345	(TS) Argument of type 'HTMLElement' is not assignable to parameter of type 'ChartItem'.
+  Type 'HTMLElement' is missing the following properties from type 'HTMLCanvasElement': height, width, captureStream, getContext, and 3 more.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	336	Active
+
 
 Gettablechart() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
