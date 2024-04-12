@@ -1,11 +1,23 @@
- downloadExcel(): void {
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(document.getElementById('excel-table'));
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+downloadExcel(): void {
+  const table = document.getElementById('excel-table');
+  const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(table);
 
-    /* save to file */
-    XLSX.writeFile(wb, 'excel_table.xlsx');
-  }
+  // Modify date columns to ensure proper Excel formatting
+  const dateColumns = ['C']; // Assuming 'Date' is in the third column
+  dateColumns.forEach((column) => {
+    for (const key in ws) {
+      if (ws.hasOwnProperty(key)) {
+        const cell = ws[key];
+        if (key.includes(column) && !isNaN(Date.parse(cell.v))) {
+          cell.t = 'n';
+          cell.z = XLSX.SSF._table[14]; // Date format code
+        }
+      }
+    }
+  });
 
-import * as XLSX from 'xlsx';
-npm install xlsx
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  /* save to file */
+  XLSX.writeFile(wb, 'excel_table.xlsx');
