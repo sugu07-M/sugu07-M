@@ -1,24 +1,15 @@
-import * as jspdf from 'jspdf';
-import html2canvas from 'html2canvas';
-
-// Method to generate PDF
 generatePDF() {
-  const element = document.getElementById('table-container');
+  const element = document.getElementById('table-container') as HTMLElement;
 
-  html2canvas(element).then((canvas) => {
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jspdf('p', 'mm', 'a4');
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    pdf.save('draft_table.pdf');
-  });
+  if (element) {
+    html2canvas(element).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('draft_table.pdf');
+    });
+  }
 }
-
-<button (click)="generatePDF()">Download PDF</button>
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2351	(TS) This expression is not constructable.
-  Type 'typeof import("jspdf")' has no construct signatures.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\filter-dashboard\filter-dashboard.component.ts	42	Active
-Error	TS2345	(TS) Argument of type 'HTMLElement | null' is not assignable to parameter of type 'HTMLElement'.
-  Type 'null' is not assignable to type 'HTMLElement'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\filter-dashboard\filter-dashboard.component.ts	40	Active
