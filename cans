@@ -1,105 +1,22 @@
- <table class="fl-table">
-   <thead class="table-head">
-     <tr class="border-bottom">
-       <th>Status</th>
-       <th *ngFor="let plantId of code">{{ plantId }}</th>
-       <th>Total</th>
-
-     </tr>
-   </thead>
-   <tbody>
-
-     <tr class="tr-body">
-       <td style="color:Black;font-weight:500;">Open</td>
-       <ng-container *ngFor="let plantId of code">
-         <td (click)="navigateToOtherComponent()" class="cursor">{{ getopenCount('Open', plantId) }}</td>
-       </ng-container>
-       <td>{{ getTotalopen('Open') }}</td>
-     </tr>
-     <tr class="tr-body">
-       <td style="color:Black;font-weight:500;">Completed</td>
-       <ng-container *ngFor="let plantId of code">
-         <td (click)="navigatecompleted()" class="cursor">{{ getStatusCount('Completed', plantId) }}</td>
-       </ng-container>
-       <td>{{ getTotalCount('Completed') }}</td>
-     </tr>
-     <tr class="tr-body">
-       <td style="color:Black;font-weight:500;">Draft</td>
-       <ng-container *ngFor="let plantId of code">
-         <td (click)="navigatedraft()" class="cursor">{{ getStatusCount('Draft', plantId) }}</td>
-       </ng-container>
-       <td>{{ getTotalCount('Draft') }}</td>
-     </tr>
-     <tr class="tr-body">
-       <td style="color:Black;font-weight:500;">Pending</td>
-       <ng-container *ngFor="let plantId of code">
-         <td (click)="navigatePending()" class="cursor">{{ getStatusCount('Pending', plantId) }}</td>
-       </ng-container>
-       <td>{{ getTotalCount('Pending') }}</td>
-     </tr>
-     <tr class="tr-body">
-       <td style="color:Black;font-weight:500;">Approved</td>
-       <ng-container *ngFor="let plantId of code">
-         <td (click)="navigateApproval()" class="cursor">{{ getStatusCount('Approved', plantId) }}</td>
-       </ng-container>
-       <td>{{ getTotalCount('Approved') }}</td>
-     </tr>
-     <tr class="tr-body">
-       <td style="color:Black;font-weight:500;">Implemented</td>
-       <ng-container *ngFor="let plantId of code">
-         <td (click)="navigateImplemented()" class="cursor">{{ getStatusCount('Implemented', plantId) }}</td>
-       </ng-container>
-       <td>{{ getTotalCount('Implemented') }}</td>
-     </tr>
-     <tr class="tr-body">
-       <td style="color:Black;font-weight:500;">Released</td>
-       <ng-container *ngFor="let plantId of code">
-         <td (click)="navigateReleased()"class="cursor">{{ getStatusCount('Released', plantId) }}</td>
-       </ng-container>
-       <td>{{ getTotalCount('Released') }}</td>
-     </tr>
-     <tr class="tr-body">
-       <td style="color:Black;font-weight:500;">Rejected</td>
-       <ng-container *ngFor="let plantId of code">
-         <td (click)="navigateRejected()"class="cursor">{{ getStatusCount('Rejected', plantId) }}</td>
-       </ng-container>
-       <td>{{ getTotalCount('Rejected') }}</td>
-     </tr>
-     <tr class="tr-body">
-       <td style="color:Black;font-weight:500;">Closure</td>
-       <ng-container *ngFor="let plantId of code">
-         <td (click)="navigateClosure()"class="cursor">{{ getStatusCount('Closure', plantId) }}</td>
-       </ng-container>
-       <td>{{ getTotalCount('Closure') }}</td>
-     </tr>
-
-   </tbody>
- </table>
+ Draft: any[] = [];
+ getChangeRequest() {
+   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+   this.http.get<any[]>(apiUrls).subscribe(
+     (response) => {
+       this.Draft = response;
+       this.filterChangeRequest();
+     },
+     (error) => {
+       console.error("GET request failed", error);
+     }
+   );
+ }
+ filterChangeRequest() {
+   
+   this.Draft = this.Draft.filter(item => item.status.trim() === 'Draft');
+ }
 
 
-
-
-
-  <tbody>
-    <tr class="tr-body" *ngFor="let CRreport of Draft">
-      <td>{{CRreport.crcode}}</td>
-      <td>{{CRreport.changeDesc}}</td>
-      <td>{{CRreport.crdate|date:'dd-MM-yyyy'}}</td>
-      <td>{{CRreport.crowner}}</td>
-      <td>{{CRreport.initiatedFor}}</td>
-      <td>{{CRreport.classificationName}}</td>
-      <td>{{CRreport.categoryName}}</td>
-      <td>{{CRreport.categoryType}}</td>
-      <td>{{CRreport.natureofChange}}</td>
-      <td>
-        <span *ngIf="CRreport.priorityType === 1">Very High</span>
-        <span *ngIf="CRreport.priorityType === 2">High</span>
-        <span *ngIf="CRreport.priorityType === 3">Medium</span>
-        <span *ngIf="CRreport.priorityType === 4">Low</span>
-        <span *ngIf="CRreport.priorityType === 5">Very Low</span>
-      </td>
-      <td>{{CRreport.stage}}</td>
-      <td>{{CRreport.status}}</td>
-    </tr>
-
-  </tbody>
+ navigatedraft() {
+   this.router.navigate(['/filterdraft'])
+ }
