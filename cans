@@ -10,6 +10,15 @@ Gettablechart() {
   // Define the stages you want to count
   const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
 
+  // Define colors for each stage
+  const stageColors = {
+    'Approval': '#1f77b4',
+    'Closure': '#ff7f0e',
+    'Implementation': '#2ca02c',
+    'Initiated': '#d62728',
+    'Release': '#9467bd'
+  };
+
   this.http.get(apiUrls).subscribe(
     (response: any[]) => {
       this.chartdata = response;
@@ -33,7 +42,7 @@ Gettablechart() {
         // Create entry for the plant in multi array
         this.multi.push({
           name: plantId,
-          series: stagesToCount.map(stage => ({ name: stage, value: stagesCount[stage] }))
+          series: stagesToCount.map(stage => ({ name: stage, value: stagesCount[stage], color: stageColors[stage] }))
         });
       });
 
