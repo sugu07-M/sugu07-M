@@ -1,20 +1,12 @@
- Draft: any[] = [];
- getChangeRequest() {
-   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-   this.http.get<any[]>(apiUrls).subscribe(
-     (response) => {
-       this.Draft = response;
-       this.filterChangeRequest();
-     },
-     (error) => {
-       console.error("GET request failed", error);
-     }
-   );
- }
- filterChangeRequest() {
-   
-   this.Draft = this.Draft.filter(item => item.status.trim() === 'Draft');
- }
+
+  filterChangeRequest() {
+    this.Draft = this.Draft.filter(item => item.status.trim() === 'Draft');
+  }
+
+  // Function to filter data based on status and plant ID
+  filterDraftView(status: string, plantId: string) {
+    this.filteredDraftData = this.Draft.filter(item => item.status.trim() === status && item.plantId === plantId);
+  }
 
 
  navigatedraft() {
