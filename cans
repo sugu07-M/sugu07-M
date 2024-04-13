@@ -1,4 +1,8 @@
-.profile-content:focus-within + .logout-button {
-  display: block;
-}
- top: calc(100% + 5px); 
+@HostListener('document:click', ['$event'])
+  onClick(event: Event) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.showLogout = false;
+    }
+  }
+
+ ElementRef, HostListener 
