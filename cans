@@ -1,12 +1,10 @@
-<c-avatar src="assets/img/avatars/1.jpg"></c-avatar>
-
 .profile-details {
   position: relative;
 }
 
 .profile-content {
-  width: 40px; /* Adjust as needed */
-  height: 40px; /* Adjust as needed */
+  width: 50px; /* Adjust the width and height as needed */
+  height: 50px; /* Adjust the width and height as needed */
 }
 
 .profile-img {
