@@ -1,3 +1,5 @@
+<c-avatar src="assets/img/avatars/1.jpg"></c-avatar>
+
 .profile-details {
   position: relative;
 }
