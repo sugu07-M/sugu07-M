@@ -1,13 +1,4 @@
- <div class="profile-details">
-   <div class="profile-content" (click)="toggleLogout()">
-     <img src="assets/image/profile.png" alt="profileImg" style=" width: 53px; height: 50px; border-radius: 50%;">
-   </div>
-   <div class="name-job">
-     <div class="profile_name"> </div>
-     <div class="job"></div>
-   </div>
-   <a class="logout-button" *ngIf="showLogout" href="http://192.168.1.134:82/#/login">
-     <i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i>
-     <span>Logout</span>
-   </a>
- </div>
+toggleLogout(event: Event) {
+  event.stopPropagation(); // Prevents the event from propagating to parent elements
+  this.showLogout = !this.showLogout;
+}
