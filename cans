@@ -1,12 +1,19 @@
  <a class="logout-link" *ngIf="showLogout" href="http://192.168.1.134:82/#/login">
     <i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i> Logout
   </a>
-.logout-link {
+.logout-button {
   display: inline-block;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 8px 16px; /* Adjust padding as needed */
+  border: 2px solid #007bff; /* Border width and color */
+  border-radius: 20px; /* Adjust border radius to make it more rounded */
   background-color: #007bff;
   color: white;
   text-decoration: none; /* Remove underline from anchor tag */
+  transition: background-color 0.3s, color 0.3s; /* Add transition effect for hover */
+}
+
+.logout-button:hover {
+  background-color: #0056b3; /* Darker background color on hover */
+  border-color: #0056b3; /* Darker border color on hover */
+  color: white; /* Change text color on hover */
 }
