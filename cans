@@ -1,8 +1,4 @@
-  <button class="logout-button" *ngIf="showLogout" [routerLink]="'/logout'">Logout</button>
-
-showLogout: boolean = false;
-
-  toggleLogout() {
-    this.showLogout = !this.showLogout;
-  }
-(click)="toggleLogout()"
+.profile-content:focus-within + .logout-button {
+  display: block;
+}
+ top: calc(100% + 5px); 
