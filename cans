@@ -5,11 +5,4 @@
     }
   }
 
- ElementRef, HostListener 
-- Changes detected. Rebuilding...
-X [ERROR] TS2339: Property 'ElementRef' does not exist on type 'HeadersComponent'. [plugin angular-compiler]
-
-    src/app/headers/headers.component.ts:21:14:
-      21 │     if (!this.ElementRef.nativeElement.contains(event.target)) {
-         ╵               ~~~~~~~~~~
-
+http://192.168.1.134:82/#/login
