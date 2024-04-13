@@ -1,24 +1,13 @@
- <a class="logout-link" *ngIf="showLogout" href="http://192.168.1.134:82/#/login">
-    <i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i> Logout
-  </a>
-.logout-button {
-  display: inline-flex; /* Display as flex container */
-  align-items: center; /* Align items vertically in the center */
-  padding: 8px 16px; /* Adjust padding as needed */
-  border: 2px solid #007bff; /* Border width and color */
-  border-radius: 20px; /* Adjust border radius to make it more rounded */
-  background-color: #007bff;
-  color: white;
-  text-decoration: none; /* Remove underline from anchor tag */
-  transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Add transition effect for hover */
-}
-
-.logout-button i {
-  margin-right: 8px; /* Add space between icon and text */
-}
-
-.logout-button:hover {
-  background-color: #0056b3; /* Darker background color on hover */
-  border-color: #0056b3; /* Darker border color on hover */
-  color: white; /* Change text color on hover */
-}
+ <div class="profile-details">
+   <div class="profile-content" (click)="toggleLogout()">
+     <img src="assets/image/profile.png" alt="profileImg" style=" width: 53px; height: 50px; border-radius: 50%;">
+   </div>
+   <div class="name-job">
+     <div class="profile_name"> </div>
+     <div class="job"></div>
+   </div>
+   <a class="logout-button" *ngIf="showLogout" href="http://192.168.1.134:82/#/login">
+     <i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i>
+     <span>Logout</span>
+   </a>
+ </div>
