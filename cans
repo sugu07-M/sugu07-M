@@ -1,3 +1,12 @@
  <a class="logout-link" *ngIf="showLogout" href="http://192.168.1.134:82/#/login">
     <i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i> Logout
   </a>
+.logout-link {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none; /* Remove underline from anchor tag */
+}
