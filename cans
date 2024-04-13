@@ -1,28 +1,8 @@
-.profile-details {
-  position: relative;
-}
+  <button class="logout-button" *ngIf="showLogout" [routerLink]="'/logout'">Logout</button>
 
-.profile-content {
-  width: 50px; /* Adjust the width and height as needed */
-  height: 50px; /* Adjust the width and height as needed */
-}
+showLogout: boolean = false;
 
-.profile-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%; /* To make it circular, adjust as needed */
-}
-
-.profile-details:hover .logout-button {
-  display: block;
-}
-
-.logout-button {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 5px;
-  background-color: #ccc; /* Adjust as needed */
-  cursor: pointer;
-}
+  toggleLogout() {
+    this.showLogout = !this.showLogout;
+  }
+(click)="toggleLogout()"
