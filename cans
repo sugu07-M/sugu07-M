@@ -1,4 +1,11 @@
-  <tbody>
+showTotalOpen() {
+    const totalOpenCount = this.getTotalopen('Open');
+    console.log('Total Open Count:', totalOpenCount); // Display the total count of open change requests
+    // Alternatively, you can display it using an alert or update a UI element
+  }
+
+
+<tbody>
 
     <tr class="tr-body">
       <td style="color:Black;font-weight:500;">Open</td>
