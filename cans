@@ -1,8 +1,13 @@
-showTotalOpen() {
-    const totalOpenCount = this.getTotalopen('Open');
-    console.log('Total Open Count:', totalOpenCount); // Display the total count of open change requests
-    // Alternatively, you can display it using an alert or update a UI element
+navigatecompleted(plantId: string) {
+  if (plantId === 'All') {
+    // If 'All' is selected, navigate to a page where all completed change requests are displayed
+    this.router.navigate(['/allcompleted']);
+  } else {
+    // If a specific plantId is selected, navigate to a page where completed change requests for that plant are displayed
+    this.router.navigate(['/filtercompleted'], { queryParams: { plantId: plantId } });
   }
+}
+(click)="navigateToOtherComponent('All')"
 
 
 <tbody>
