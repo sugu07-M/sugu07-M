@@ -1,147 +1,17 @@
-navigatecompleted(plantId: string) {
-  if (plantId === 'All') {
-    // If 'All' is selected, navigate to a page where all completed change requests are displayed
-    this.router.navigate(['/allcompleted']);
-  } else {
-    // If a specific plantId is selected, navigate to a page where completed change requests for that plant are displayed
-    this.router.navigate(['/filtercompleted'], { queryParams: { plantId: plantId } });
-  }
-}
-(click)="navigateToOtherComponent('All')"
+ showRiskQ: boolean = false;
 
+downTimeFromDate: string = ''; // Initialize downTimeFromDate
+  downTimeToDate: string = '';
 
-<tbody>
-
-    <tr class="tr-body">
-      <td style="color:Black;font-weight:500;">Open</td>
-      <ng-container *ngFor="let plantId of code">
-        <td (click)="navigateToOtherComponent(plantId)" class="cursor">{{ getopenCount('Open', plantId) }}</td>
-      </ng-container>
-      <td >{{ getTotalopen('Open') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td style="color:Black;font-weight:500;">Completed</td>
-      <ng-container *ngFor="let plantId of code">
-        <td (click)="navigatecompleted(plantId)" class="cursor">{{ getStatusCount('Completed', plantId) }}</td>
-      </ng-container>
-      <td>{{ getTotalCount('Completed') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td style="color:Black;font-weight:500;">Draft</td>
-      <ng-container *ngFor="let plantId of code">
-        <td (click)="navigatedraft(plantId)" class="cursor">{{ getStatusCount('Draft', plantId) }}</td>
-      </ng-container>
-      <td>{{ getTotalCount('Draft') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td style="color:Black;font-weight:500;">Pending</td>
-      <ng-container *ngFor="let plantId of code">
-        <td (click)="navigatePending(plantId)" class="cursor">{{ getStatusCount('Pending', plantId) }}</td>
-      </ng-container>
-      <td>{{ getTotalCount('Pending') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td style="color:Black;font-weight:500;">Approved</td>
-      <ng-container *ngFor="let plantId of code">
-        <td (click)="navigateApproval(plantId)" class="cursor">{{ getStatusCount('Approved', plantId) }}</td>
-      </ng-container>
-      <td>{{ getTotalCount('Approved') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td style="color:Black;font-weight:500;">Implemented</td>
-      <ng-container *ngFor="let plantId of code">
-        <td (click)="navigateImplemented(plantId)" class="cursor">{{ getStatusCount('Implemented', plantId) }}</td>
-      </ng-container>
-      <td>{{ getTotalCount('Implemented') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td style="color:Black;font-weight:500;">Released</td>
-      <ng-container *ngFor="let plantId of code">
-        <td (click)="navigateReleased(plantId)"class="cursor">{{ getStatusCount('Released', plantId) }}</td>
-      </ng-container>
-      <td>{{ getTotalCount('Released') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td style="color:Black;font-weight:500;">Rejected</td>
-      <ng-container *ngFor="let plantId of code">
-        <td (click)="navigateRejected(plantId)"class="cursor">{{ getStatusCount('Rejected', plantId) }}</td>
-      </ng-container>
-      <td>{{ getTotalCount('Rejected') }}</td>
-    </tr>
-    <tr class="tr-body">
-      <td style="color:Black;font-weight:500;">Closure</td>
-      <ng-container *ngFor="let plantId of code">
-        <td (click)="navigateClosure(plantId)"class="cursor">{{ getStatusCount('Closure', plantId) }}</td>
-      </ng-container>
-      <td>{{ getTotalCount('Closure') }}</td>
-    </tr>
-
-  </tbody>
-
-
-
- code: any[] = [];
- changerequest: any[] = [];
- statusList: string[] = ['Open', 'Completed', 'Draft', 'Pending', 'Approved', 'Implemented', 'Released', 'Closure', 'Rejected'];
- getChangeRequests(): void {
-   const apiUrl = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-   this.http.get(apiUrl).subscribe(
-     (response: any) => {
-       this.changerequest = response;
-       this.code = [...new Set(response.map((item: any) => item.plantId))];
-     },
-     (error) => {
-       console.error("Request failed", error);
-     }
-   );
- }
-
- getStatusCount(status: string, plantId: string): number {
-   return this.changerequest.filter(item => item.status.trim() === status && item.plantId === plantId).length;
- }
-
- getTotalCount(status: string): number {
-   return this.changerequest.filter(item => item.status.trim() === status).length;
- }
-
- getopenCount(_status: string, plantId: string): number {
-   return this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.plantId === plantId).length;
- }
-
- getTotalopen(_status: string): number {
-   return this.changerequest.filter(item => item.status.trim() !== 'Completed').length;
+ datetimefunction() {
+   
+   this.showRiskQ = true;
+   this.updateEndDateMin();
  }
 
 
-
-
- navigateToOtherComponent(plantId: string) {
-
-   this.router.navigate(['/filterdashboard'], { queryParams: { plantId: plantId } });
+updateEndDateMin() {
+   const fromDate = new Date(this.downTimeFromDate);
+   fromDate.setDate(fromDate.getDate() + 1);
+   this.minEndDate = fromDate.toISOString().slice(0, 16); // Adjust as per your date format
  }
-
- navigatecompleted(plantId: string) {
-   this.router.navigate(['/filtercompleted'], { queryParams: { plantId: plantId } });
- }
- navigatedraft(plantId: string) {
-   this.router.navigate(['/filterdraft'], { queryParams: { plantId: plantId } });
- }
- navigatePending(plantId: string) {
-   this.router.navigate(['/filterpending'], { queryParams: { plantId: plantId } });
- }
- navigateApproval(plantId: string) {
-   this.router.navigate(['/filterapproval'], { queryParams: { plantId: plantId } });
- }
- navigateImplemented(plantId: string) {
-   this.router.navigate(['/filterimplemented'], { queryParams: { plantId: plantId } });
- }
- navigateClosure(plantId: string) {
-   this.router.navigate(['/filterclosure'], { queryParams: { plantId: plantId } });
- }
- navigateReleased(plantId: string) {
-   this.router.navigate(['/filterrelease'], { queryParams: { plantId: plantId } });
- }
- navigateRejected(plantId: string) {
-   this.router.navigate(['/filterrejected'], { queryParams: { plantId: plantId } });
- }
-
