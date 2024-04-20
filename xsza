@@ -1,4 +1,6 @@
- <div class="box-color" style="margin-top:8%;">
+ style="transform: scale(1.2); transform-origin: top left; text-align: center; font-size: 12px; margin-top: 0;"
+
+<div class="box-color" style="margin-top:8%;">
    <div class="row" style="margin-left:0%">
      <div class="col"><div class="box-color1"></div></div>
      <div class="col"><p style="margin-left:-35%;font-size:12px;">Approval</p></div>
