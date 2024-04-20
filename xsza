@@ -1,52 +1,16 @@
-Gettablechart() {
-  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json' // Corrected header name
-    })
-  };
-
-  this.http.get(apiUrls).subscribe(
-    (response: any[]) => {
-      this.chartdata = response;
-
-      // Initialize multi array
-      this.multi = [];
-
-      // Process data for each plant
-      response.forEach((item: any) => {
-        const plantId = item.plantId;
-        const stage = item.stage.trim();
-
-        // Find or create entry for the plant in multi array
-        let plantEntry = this.multi.find(entry => entry.name === plantId);
-        if (!plantEntry) {
-          plantEntry = {
-            name: plantId,
-            series: []
-          };
-          this.multi.push(plantEntry);
-        }
-
-        // Find or create series entry for the stage
-        let stageEntry = plantEntry.series.find(series => series.name === stage);
-        if (!stageEntry) {
-          stageEntry = {
-            name: stage,
-            value: 0
-          };
-          plantEntry.series.push(stageEntry);
-        }
-
-        // Increment count for the stage
-        stageEntry.value++;
-      });
-
-      console.log('multi:', this.multi);
-    },
-    (error) => {
-      console.log("API request failed", error);
-    }
-  );
-}
+ <div class="box-color" style="margin-top:8%;">
+   <div class="row" style="margin-left:0%">
+     <div class="col"><div class="box-color1"></div></div>
+     <div class="col"><p style="margin-left:-35%;font-size:12px;">Approval</p></div>
+     <div class="col"><div class="box-color2"></div></div>
+     <div class="col"><p style=" margin-left: -151%; font-size: 12px;">Closure</p></div>
+     <div class="col"><div class="box-color3"></div></div>
+     <div class="col"><p style=" margin-left:70%;margin-top:-9%; display: block;font-size: 12px;">Implementation</p></div>
+   </div>
+   <div class="row" style="margin-inline:16%;margin-top:-3%">
+     <div class="col"><div class="box-color4"></div></div>
+     <div class="col"><p style="margin-left: -6%; font-size: 12px;">Initiated</p></div>
+     <div class="col"><div class="box-color5"></div></div>
+     <div class="col"><p style="margin-left: -47%; font-size: 12px;">Release</p></div>
+   </div>
+ </div>
