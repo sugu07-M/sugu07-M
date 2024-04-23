@@ -1,1 +1,25 @@
 TS2322: Type '{ item_id: number; item_text: string; }' is not assignable to type 'never'.
+
+
+
+dropdownList!: { item_id: number; item_text: string; }[];
+dropdownSettings: IDropdownSettings = {};
+ this.dropdownList = [
+   { item_id: 1, item_text: 'Item1' },
+   { item_id: 2, item_text: 'Item2' },
+   { item_id: 3, item_text: 'Item3' },
+   { item_id: 4, item_text: 'Item4' },
+   { item_id: 5, item_text: 'Item5' }
+ ];
+ this.dropdownSettings = {
+   idField: 'item_id',
+   textField: 'item_text',
+ };
+
+ <div class="col" *ngIf="showRiskQ" style="width:50%">
+   <label>Impacted Location</label>
+
+   <ng-multiselect-dropdown [settings]="dropdownSettings"
+                            [data]="dropdownList"
+                            [(ngModel)]="impactedLocation">
+   </ng-multiselect-dropdown>
