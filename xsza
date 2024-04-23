@@ -1,18 +1,1 @@
- style="transform: scale(1.2); transform-origin: top left; text-align: center; font-size: 12px; margin-top: 0;"
-
-<div class="box-color" style="margin-top:8%;">
-   <div class="row" style="margin-left:0%">
-     <div class="col"><div class="box-color1"></div></div>
-     <div class="col"><p style="margin-left:-35%;font-size:12px;">Approval</p></div>
-     <div class="col"><div class="box-color2"></div></div>
-     <div class="col"><p style=" margin-left: -151%; font-size: 12px;">Closure</p></div>
-     <div class="col"><div class="box-color3"></div></div>
-     <div class="col"><p style=" margin-left:70%;margin-top:-9%; display: block;font-size: 12px;">Implementation</p></div>
-   </div>
-   <div class="row" style="margin-inline:16%;margin-top:-3%">
-     <div class="col"><div class="box-color4"></div></div>
-     <div class="col"><p style="margin-left: -6%; font-size: 12px;">Initiated</p></div>
-     <div class="col"><div class="box-color5"></div></div>
-     <div class="col"><p style="margin-left: -47%; font-size: 12px;">Release</p></div>
-   </div>
- </div>
+TS2322: Type '{ item_id: number; item_text: string; }' is not assignable to type 'never'.
