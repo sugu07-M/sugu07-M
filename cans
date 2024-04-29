@@ -1,3 +1,12 @@
+
+X [ERROR] Could not resolve "@angular/cdk/portal"
+
+    node_modules/@swimlane/ngx-charts/fesm2020/swimlane-ngx-charts.mjs:6:49:
+      6 │ ...rt { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
+        ╵                                                 ~~~~~~~~~~~~~~~~~~~~~
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2307	(TS) Cannot find module '@canvasjs/angular-charts' or its corresponding type declarations.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	11	Active
+
 <div>
     <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>    
 </div>     
