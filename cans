@@ -1,102 +1,93 @@
-import { Chart, Utils } from 'chart.js';
+import am5index from "@amcharts/amcharts5/index";
+import am5xy from "@amcharts/amcharts5/xy";
+import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
-// Define the interface for the action object
-interface Action {
-  name: string;
-  handler: (chart: Chart) => void;
-}
+/* Chart code */
 
-// Define the data configuration interface
-interface NumberConfig {
-  count: number;
-  min: number;
-  max: number;
-}
-
-// Define the data interface
-interface Dataset {
-  label: string;
-  data: number[];
-  backgroundColor: string;
-}
-
-// Define the data and config objects
-const DATA_COUNT: number = 7;
-const NUMBER_CFG: NumberConfig = { count: DATA_COUNT, min: -100, max: 100 };
-
-const labels: string[] = Utils.months({ count: 7 });
-const data: { labels: string[]; datasets: Dataset[] } = {
-  labels: labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: Utils.numbers(NUMBER_CFG),
-      backgroundColor: Utils.CHART_COLORS.red,
-    },
-    {
-      label: 'Dataset 2',
-      data: Utils.numbers(NUMBER_CFG),
-      backgroundColor: Utils.CHART_COLORS.blue,
-    },
-    {
-      label: 'Dataset 3',
-      data: Utils.numbers(NUMBER_CFG),
-      backgroundColor: Utils.CHART_COLORS.green,
-    },
-  ],
-};
-
-const config: Chart.ChartConfiguration = {
-  type: 'bar',
-  data: data,
-  options: {
-    plugins: {
-      title: {
-        display: true,
-        text: 'Chart.js Bar Chart - Stacked',
-      },
-    },
-    responsive: true,
-    scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true,
-      },
-    },
-  },
-};
-
-// Define the actions array
-const actions: Action[] = [
-  {
-    name: 'Randomize',
-    handler: (chart: Chart) => {
-      chart.data.datasets.forEach((dataset) => {
-        dataset.data = Utils.numbers({ count: chart.data.labels.length, min: -100, max: 100 });
-      });
-      chart.update();
-    },
-  },
-];
-
-export { actions, config };
-
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2304	(TS) Cannot find name 'actions'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	428	Active
-Error	TS1068	(TS) Unexpected token. A constructor, method, accessor, or property was expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	428	Active
-Error	TS2305	(TS) Module '"chart.js"' has no exported member 'Utils'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	10	Active
-Error	TS1128	(TS) Declaration or statement expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	432	Active
-Error	TS2663	(TS) Cannot find name 'NUMBER_CFG'. Did you mean the instance member 'this.NUMBER_CFG'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	377	Active
-Error	TS2663	(TS) Cannot find name 'NUMBER_CFG'. Did you mean the instance member 'this.NUMBER_CFG'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	382	Active
-Error	TS2663	(TS) Cannot find name 'NUMBER_CFG'. Did you mean the instance member 'this.NUMBER_CFG'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	387	Active
-Error	TS2663	(TS) Cannot find name 'labels'. Did you mean the instance member 'this.labels'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	373	Active
-Error	TS2663	(TS) Cannot find name 'DATA_COUNT'. Did you mean the instance member 'this.DATA_COUNT'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	369	Active
-Error	TS2663	(TS) Cannot find name 'data'. Did you mean the instance member 'this.data'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	395	Active
-Error	TS2304	(TS) Cannot find name 'config'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	428	Active
-Error	TS2552	(TS) Cannot find name 'actions'. Did you mean 'Action'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	428	Active
-Error	TS18048	(TS) 'chart.data.labels' is possibly 'undefined'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	421	Active
-Error	TS2702	(TS) 'Chart' only refers to a type, but is being used as a namespace here.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	393	Active
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+let root = am5.Root.new("chartdiv");
 
 
+let myTheme = am5.Theme.new(root);
+
+myTheme.rule("Grid", ["base"]).setAll({
+  strokeOpacity: 0.1
+});
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root),
+  myTheme
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+let chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panY",
+  wheelY: "zoomY",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarY", am5.Scrollbar.new(root, {
+  orientation: "vertical"
+}));
+
+let data = [{
+  "year": "2021",
+  "europe": 2.5,
+  "namerica": 2.5,
+  "asia": 2.1,
+  "lamerica": 1,
+  "meast": 0.8,
+  "africa": 0.4
+}, {
+  "year": "2022",
+  "europe": 2.6,
+  "namerica": 2.7,
+  "asia": 2.2,
+  "lamerica": 0.5,
+  "meast": 0.4,
+  "africa": 0.3
+}, {
+  "year": "2023",
+  "europe": 2.8,
+  "namerica": 2.9,
+  "asia": 2.4,
+  "lamerica": 0.3,
+  "meast": 0.9,
+  "africa": 0.5
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+let yRenderer = am5xy.AxisRendererY.new(root, {});
+let yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: yRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+yRenderer.grid.template.setAll({
+  location: 1
+})
+
+yAxis.data.setAll(data);
+
+let xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+  min: 0,
+  maxPrecision: 0,
+  renderer: am5xy.AxisRendererX.new(root, {
+    minGridDistance: 40,
+    strokeOpacity: 0.1
+  })
+}));
