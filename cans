@@ -1,34 +1,15 @@
-  [view]="view"
-    [scheme]="colorScheme"
-    [results]="multi"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    [animations]="true"
-    (select)="onSelect($event)"
-    (legendLabelClick)="onLegendHover($event)"
-    (legendLabelActivate)="onLegendHover($event)"
-    (legendLabelDeactivate)="onLegendHover($event)"
+<ngx-charts-bar-horizontal-stacked [view]="view"
+                                   [results]="multi"
+                                   [gradient]="gradient"
+                                   [xAxis]="showXAxis"
+                                   [yAxis]="showYAxis"
+                                   [legend]="showLegend"
+                                   [showXAxisLabel]="showXAxisLabel"
+                                   [showYAxisLabel]="showYAxisLabel"
+                                   [xAxisLabel]="xAxisLabel"
+                                   [yAxisLabel]="yAxisLabel"
+                                   [showDataLabel]="showDataLabel"
+                                   [showGridLines]="false"
+                                   (select)="onSelect($event)" style="margin-left:2px">
 
- onLegendHover(dataPoint: any) {
-    console.log(dataPoint); // You can access the hovered data point here
-  }
-
-import { Color } from 'ng2-charts';
-
-// Define your color scheme
-const colorScheme: Color[] = [
-  { name: 'Green', selectable: true, group: 'Green', value: '#14A44D' },
-  { name: 'Gray', selectable: true, group: 'Gray', value: '#808080ff' },
-  { name: 'Blue', selectable: true, group: 'Blue', value: '#54B4D3' },
-  { name: 'Red', selectable: true, group: 'Red', value: '#DC4C64' },
-  { name: 'Yellow', selectable: true, group: 'Yellow', value: '#b5eb49' }
-];
-
-// Assign the color scheme to your component's property
-colorScheme: Color[] = colorScheme;
+</ngx-charts-bar-horizontal-stacked>
