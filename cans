@@ -20,3 +20,13 @@ barChartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'
       borderWidth: 1
     }
   ];
+<div style="display: block">
+  <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [colors]="barChartColors"
+          [legend]="barChartLegend"
+          [chartType]="'horizontalBar'">
+  </canvas>
+</div>
