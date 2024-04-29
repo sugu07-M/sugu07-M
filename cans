@@ -25,3 +25,5 @@ HostListener
     // Adjust chart dimensions on window resize
     this.view = [event.target.innerWidth / 1.5, this.chartContainer.nativeElement.offsetHeight];
   }
+NG2: Type '{ domain: string[]; }' is not assignable to type 'string | Color'.
+  Type '{ domain: string[]; }' is missing the following properties from type 'Color': name, selectable, group
