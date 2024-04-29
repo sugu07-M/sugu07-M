@@ -1,7 +1,4 @@
-// Import Chart.js and Utils if necessary
-// import { Chart, Utils } from 'chart.js';
-
-// Assuming Utils is already defined somewhere or imported
+import { Chart, Utils } from 'chart.js';
 
 // Define the interface for the action object
 interface Action {
