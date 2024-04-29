@@ -4,7 +4,7 @@ Error	TS2304	(TS) Cannot find name 'am5'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\ts
 Error	TS2304	(TS) Cannot find name 'am5'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	364	Active
 Error	TS2304	(TS) Cannot find name 'am5'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	427	Active
 
-
+npm install --save-dev @types/amcharts__amcharts5
 import am5index from "@amcharts/amcharts5/index";
 import am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
