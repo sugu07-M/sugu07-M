@@ -30,3 +30,4 @@ barChartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'
           [chartType]="'horizontalBar'">
   </canvas>
 </div>
+NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'.
