@@ -1,5 +1,9 @@
-npm install --save @amcharts/amcharts5
-yarn add @amcharts/amcharts5
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS1068	(TS) Unexpected token. A constructor, method, accessor, or property was expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	361	Active
+Error	TS2304	(TS) Cannot find name 'am5'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	361	Active
+Error	TS2304	(TS) Cannot find name 'am5'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	364	Active
+Error	TS2304	(TS) Cannot find name 'am5'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	427	Active
+
 
 import am5index from "@amcharts/amcharts5/index";
 import am5xy from "@amcharts/amcharts5/xy";
