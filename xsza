@@ -59,9 +59,13 @@ Gettablechart() {
      }
    );
  }
+ label: `${stage}: ${stagesCount[stage]}`, // Label for each bar segment
+              color: this.getColor(index) // Custom color for each stage
 
-
-
+ getColor(index: number): string {
+    const colors = ['#2196F3', '#4CAF50', '#FFC107', '#FF5722', '#9C27B0']; // Add more colors if needed
+    return colors[index % colors.length];
+  }
 
 
  multi: any[]=[];
