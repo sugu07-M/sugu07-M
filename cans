@@ -1,19 +1,27 @@
-.ngx-charts-legend {
-  display: flex;
-  justify-content: center; /* Align items horizontally */
-  align-items: flex-end; /* Align items to the bottom of the container */
-}
-.ngx-charts-legend {
-  display: flex;
-  justify-content: center; /* Align items horizontally */
-}
-.chart-container {
-  position: relative;
-}
+ public barChartOptions: ChartOptions = {
+    responsive: true
+  };
+  public barChartType: ChartType = 'horizontalBar';
+  public barChartLegend = true;
 
-.ngx-charts-legend {
-  position: absolute;
-  right: 20px; /* Adjust this value to position the legend horizontally */
-  top: 20px; /* Adjust this value to position the legend vertically */
-}
- class="chart-container"
+  public barChartData: ChartDataSets[] = [
+    { data: [1, 2, 3], label: 'Approved', stack: 'a' },
+    { data: [1, 2, 3], label: 'Accepted', stack: 'a' },
+    { data: [1, 2, 3], label: 'Open', stack: 'a' },
+    { data: [1, 2, 3], label: 'In Progress', stack: 'a' },
+  ];
+  public barChartLabels: string[] = ['P', 'R', 'B'];
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  // events
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
