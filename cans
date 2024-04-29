@@ -2,6 +2,8 @@
     <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>    
 </div>     
 
+npm install @canvasjs/angular-charts
+yarn add @canvasjs/angular-charts
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
   chartOptions = {
     animationEnabled: true,
