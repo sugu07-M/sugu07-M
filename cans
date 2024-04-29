@@ -1,3 +1,6 @@
+npm install --save @amcharts/amcharts5
+yarn add @amcharts/amcharts5
+
 import am5index from "@amcharts/amcharts5/index";
 import am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
