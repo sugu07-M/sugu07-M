@@ -1,14 +1,27 @@
- multi: any[] = [];
-  view: [number, number] = [350, 270];
-  showXAxis: boolean = true;
-  showYAxis: boolean = true;
-  gradient: boolean = false;
-  showLegend: boolean = false;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Total Changes';
-  showYAxisLabel: boolean = true;
-  yAxisLabel: string = 'Plants';
-  showDataLabel = false;
-  colorScheme = {
-    domain: ['#14A44D', '#808080ff', '#54B4D3', '#DC4C64', '#b5eb49']
-  };
+  [view]="view"
+    [scheme]="colorScheme"
+    [results]="multi"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [legend]="showLegend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [animations]="true"
+    (select)="onSelect($event)"
+    (legendLabelClick)="onLegendHover($event)"
+    (legendLabelActivate)="onLegendHover($event)"
+    (legendLabelDeactivate)="onLegendHover($event)"
+
+ onLegendHover(dataPoint: any) {
+    console.log(dataPoint); // You can access the hovered data point here
+  }
+
+HostListener 
+ @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    // Adjust chart dimensions on window resize
+    this.view = [event.target.innerWidth / 1.5, this.chartContainer.nativeElement.offsetHeight];
+  }
