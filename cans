@@ -1,100 +1,19 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS1068	(TS) Unexpected token. A constructor, method, accessor, or property was expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	361	Active
-Error	TS2304	(TS) Cannot find name 'am5'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	361	Active
-Error	TS2304	(TS) Cannot find name 'am5'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	364	Active
-Error	TS2304	(TS) Cannot find name 'am5'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	427	Active
+.ngx-charts-legend {
+  display: flex;
+  justify-content: center; /* Align items horizontally */
+  align-items: flex-end; /* Align items to the bottom of the container */
+}
+.ngx-charts-legend {
+  display: flex;
+  justify-content: center; /* Align items horizontally */
+}
+.chart-container {
+  position: relative;
+}
 
-npm install --save-dev @types/amcharts__amcharts5
-import am5index from "@amcharts/amcharts5/index";
-import am5xy from "@amcharts/amcharts5/xy";
-import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-
-/* Chart code */
-
-// Create root element
-// https://www.amcharts.com/docs/v5/getting-started/#Root_element
-let root = am5.Root.new("chartdiv");
-
-
-let myTheme = am5.Theme.new(root);
-
-myTheme.rule("Grid", ["base"]).setAll({
-  strokeOpacity: 0.1
-});
-
-
-// Set themes
-// https://www.amcharts.com/docs/v5/concepts/themes/
-root.setThemes([
-  am5themes_Animated.new(root),
-  myTheme
-]);
-
-
-// Create chart
-// https://www.amcharts.com/docs/v5/charts/xy-chart/
-let chart = root.container.children.push(am5xy.XYChart.new(root, {
-  panX: false,
-  panY: false,
-  wheelX: "panY",
-  wheelY: "zoomY",
-  paddingLeft: 0,
-  layout: root.verticalLayout
-}));
-
-// Add scrollbar
-// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
-chart.set("scrollbarY", am5.Scrollbar.new(root, {
-  orientation: "vertical"
-}));
-
-let data = [{
-  "year": "2021",
-  "europe": 2.5,
-  "namerica": 2.5,
-  "asia": 2.1,
-  "lamerica": 1,
-  "meast": 0.8,
-  "africa": 0.4
-}, {
-  "year": "2022",
-  "europe": 2.6,
-  "namerica": 2.7,
-  "asia": 2.2,
-  "lamerica": 0.5,
-  "meast": 0.4,
-  "africa": 0.3
-}, {
-  "year": "2023",
-  "europe": 2.8,
-  "namerica": 2.9,
-  "asia": 2.4,
-  "lamerica": 0.3,
-  "meast": 0.9,
-  "africa": 0.5
-}]
-
-
-// Create axes
-// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-let yRenderer = am5xy.AxisRendererY.new(root, {});
-let yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
-  categoryField: "year",
-  renderer: yRenderer,
-  tooltip: am5.Tooltip.new(root, {})
-}));
-
-yRenderer.grid.template.setAll({
-  location: 1
-})
-
-yAxis.data.setAll(data);
-
-let xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
-  min: 0,
-  maxPrecision: 0,
-  renderer: am5xy.AxisRendererX.new(root, {
-    minGridDistance: 40,
-    strokeOpacity: 0.1
-  })
-}));
+.ngx-charts-legend {
+  position: absolute;
+  right: 20px; /* Adjust this value to position the legend horizontally */
+  top: 20px; /* Adjust this value to position the legend vertically */
+}
+ class="chart-container"
