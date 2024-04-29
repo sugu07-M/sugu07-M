@@ -1,23 +1,34 @@
-// <block:actions:2>
-const actions = [
-  {
-    name: 'Randomize',
-    handler(chart) {
-      chart.data.datasets.forEach(dataset => {
-        dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100});
-      });
-      chart.update();
-    }
-  },
-];
-// </block:actions>
+// Import Chart.js and Utils if necessary
+// import { Chart, Utils } from 'chart.js';
 
-// <block:setup:1>
-const DATA_COUNT = 7;
-const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
+// Assuming Utils is already defined somewhere or imported
 
-const labels = Utils.months({count: 7});
-const data = {
+// Define the interface for the action object
+interface Action {
+  name: string;
+  handler: (chart: Chart) => void;
+}
+
+// Define the data configuration interface
+interface NumberConfig {
+  count: number;
+  min: number;
+  max: number;
+}
+
+// Define the data interface
+interface Dataset {
+  label: string;
+  data: number[];
+  backgroundColor: string;
+}
+
+// Define the data and config objects
+const DATA_COUNT: number = 7;
+const NUMBER_CFG: NumberConfig = { count: DATA_COUNT, min: -100, max: 100 };
+
+const labels: string[] = Utils.months({ count: 7 });
+const data: { labels: string[]; datasets: Dataset[] } = {
   labels: labels,
   datasets: [
     {
@@ -35,19 +46,17 @@ const data = {
       data: Utils.numbers(NUMBER_CFG),
       backgroundColor: Utils.CHART_COLORS.green,
     },
-  ]
+  ],
 };
-// </block:setup>
 
-// <block:config:0>
-const config = {
+const config: Chart.ChartConfiguration = {
   type: 'bar',
   data: data,
   options: {
     plugins: {
       title: {
         display: true,
-        text: 'Chart.js Bar Chart - Stacked'
+        text: 'Chart.js Bar Chart - Stacked',
       },
     },
     responsive: true,
@@ -56,14 +65,23 @@ const config = {
         stacked: true,
       },
       y: {
-        stacked: true
-      }
-    }
-  }
+        stacked: true,
+      },
+    },
+  },
 };
-// </block:config>
 
-module.exports = {
-  actions: actions,
-  config: config,
-};
+// Define the actions array
+const actions: Action[] = [
+  {
+    name: 'Randomize',
+    handler: (chart: Chart) => {
+      chart.data.datasets.forEach((dataset) => {
+        dataset.data = Utils.numbers({ count: chart.data.labels.length, min: -100, max: 100 });
+      });
+      chart.update();
+    },
+  },
+];
+
+export { actions, config };
