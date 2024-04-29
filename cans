@@ -13,3 +13,11 @@
                                    (select)="onSelect($event)" style="margin-left:2px">
 
 </ngx-charts-bar-horizontal-stacked>
+::ng-deep .ngx-charts-legend {
+  display: flex;
+  flex-direction: column;
+}
+/deep/ .ngx-charts-legend {
+  display: flex;
+  flex-direction: column;
+}
