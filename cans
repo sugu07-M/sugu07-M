@@ -1,4 +1,12 @@
-barChartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+barChartOptions = {
+    responsive: true,
+    scales: {
+      xAxes: [{ stacked: true }],
+      yAxes: [{ stacked: true }]
+    }
+  };
+
+  barChartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   
   barChartType = 'horizontalBar';
   barChartLegend = true;
@@ -10,24 +18,22 @@ barChartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'
 
   barChartColors: any[] = [
     {
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderColor: 'rgba(255, 99, 132, 1)',
-      borderWidth: 1
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
     {
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 1)',
-      borderWidth: 1
+      backgroundColor: 'rgba(54, 162, 235, 0.5)',
     }
   ];
 <div style="display: block">
   <canvas baseChart
+         <canvas baseChart
           [datasets]="barChartData"
           [labels]="barChartLabels"
           [options]="barChartOptions"
           [colors]="barChartColors"
           [legend]="barChartLegend"
-          [chartType]="'horizontalBar'">
+          [type]="'horizontalBar'">
+  </canvas>>
   </canvas>
 </div>
 NG8002: Can't bind to 'chartType' since it isn't a known property of 'canvas'.
