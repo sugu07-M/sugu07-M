@@ -1,37 +1,68 @@
- public barChartOptions: ChartOptions = {
+  chartData: any[] = [];
+  multi: any[] = [];
+  barChartOptions: ChartOptions = {
     responsive: true
   };
-  public barChartType: ChartType = 'horizontalBar';
-  public barChartLegend = true;
+  barChartType: ChartType = 'horizontalBar';
+  barChartLegend = true;
+  barChartData: ChartDataSets[] = [];
+  barChartLabels: Label[] = [];
 
-  public barChartData: ChartDataSets[] = [
-    { data: [1, 2, 3], label: 'Approved', stack: 'a' },
-    { data: [1, 2, 3], label: 'Accepted', stack: 'a' },
-    { data: [1, 2, 3], label: 'Open', stack: 'a' },
-    { data: [1, 2, 3], label: 'In Progress', stack: 'a' },
-  ];
-  public barChartLabels: string[] = ['P', 'R', 'B'];
-
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.getChartData();
   }
 
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  getChartData() {
+    const apiUrl = this.apiUrl + '/ViewChangeRequest/ViewChangerequest';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+
+    this.http.get(apiUrl).subscribe(
+      (response: any) => {
+        this.chartData = response;
+        this.multi = [];
+        const uniquePlants = [...new Set(response.map(item => item.plantId))];
+        uniquePlants.forEach(plantId => {
+          const plantData = response.filter(item => item.plantId === plantId);
+          const stagesCount: { [key: string]: number } = {};
+          stagesToCount.forEach(stage => {
+            stagesCount[stage] = plantData.filter(item => item.stage.trim() === stage).length;
+          });
+          this.multi.push({
+            name: plantId,
+            series: stagesToCount.map(stage => ({ name: stage, value: stagesCount[stage] }))
+          });
+        });
+        this.prepareChartData();
+      },
+      error => {
+        console.error('Error fetching data:', error);
+        // Handle error
+      }
+    );
+  }
+
+  prepareChartData() {
+    // Prepare chart data from this.multi
+    // For example:
+    this.barChartLabels = this.multi.map(item => item.name);
+    this.barChartData = this.multi.map(item => ({
+      data: stagesToCount.map(stage => item.series.find(s => s.name === stage).value),
+      label: item.name
+    }));
+  }
+
+  // Optional: Handle chart click and hover events
+  chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }
 
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }
-<div class="row">
-  <div class="col-md-12">
-    <div style="display: block">
-      <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-        [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)"></canvas>
-    </div>
-    <button mat-button (click)="randomize()">Update</button>
-  </div>
-</div>
