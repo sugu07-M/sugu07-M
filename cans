@@ -27,14 +27,26 @@
       backgroundColor: 'rgba(75, 192, 192, 0.5)',
     }
   ];
-<div style="display: block">
-  <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [legend]="barChartLegend"
-          [chartType]="barChartType">
-  </canvas>
- 
+<div *ngIf="multi && multi.length > 0">
+  <div *ngFor="let item of multi">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ item.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div style="height: 300px;">
+          <ngx-charts-bar-vertical-stacked
+            [results]="item.series"
+            [xAxis]="true"
+            [yAxis]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            xAxisLabel="Stages"
+            yAxisLabel="Count"
+          >
+          </ngx-charts-bar-vertical-stacked>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
-NG8002: Can't bind to 'Charttype' since it isn't a known property of 'canvas'.
