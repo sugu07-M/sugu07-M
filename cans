@@ -84,15 +84,19 @@ const actions: Action[] = [
 export { actions, config };
 
 Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2300	(TS) Duplicate identifier 'Chart'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	10	Active
-Error	TS1434	(TS) Unexpected keyword or identifier.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	10	Active
-Error	TS1313	(TS) The body of an 'if' statement cannot be the empty statement.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	10	Active
-Error	TS2305	(TS) Module '"chart.js"' has no exported member 'Utils'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	11	Active
-Error	TS2300	(TS) Duplicate identifier 'Chart'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	11	Active
-Error	TS2304	(TS) Cannot find name 'necessary'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	10	Active
-Error	TS2304	(TS) Cannot find name 'and'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	10	Active
-Error	TS1005	(TS) '=' expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	10	Active
-Error	TS1005	(TS) ';' expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	10	Active
-Error	TS1005	(TS) ')' expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	10	Active
-Error	TS1005	(TS) '(' expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	10	Active
+Error	TS2304	(TS) Cannot find name 'actions'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	428	Active
+Error	TS1068	(TS) Unexpected token. A constructor, method, accessor, or property was expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	428	Active
+Error	TS2305	(TS) Module '"chart.js"' has no exported member 'Utils'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	10	Active
+Error	TS1128	(TS) Declaration or statement expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	432	Active
+Error	TS2663	(TS) Cannot find name 'NUMBER_CFG'. Did you mean the instance member 'this.NUMBER_CFG'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	377	Active
+Error	TS2663	(TS) Cannot find name 'NUMBER_CFG'. Did you mean the instance member 'this.NUMBER_CFG'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	382	Active
+Error	TS2663	(TS) Cannot find name 'NUMBER_CFG'. Did you mean the instance member 'this.NUMBER_CFG'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	387	Active
+Error	TS2663	(TS) Cannot find name 'labels'. Did you mean the instance member 'this.labels'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	373	Active
+Error	TS2663	(TS) Cannot find name 'DATA_COUNT'. Did you mean the instance member 'this.DATA_COUNT'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	369	Active
+Error	TS2663	(TS) Cannot find name 'data'. Did you mean the instance member 'this.data'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	395	Active
+Error	TS2304	(TS) Cannot find name 'config'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	428	Active
+Error	TS2552	(TS) Cannot find name 'actions'. Did you mean 'Action'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	428	Active
+Error	TS18048	(TS) 'chart.data.labels' is possibly 'undefined'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	421	Active
+Error	TS2702	(TS) 'Chart' only refers to a type, but is being used as a namespace here.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	393	Active
+
 
