@@ -1,79 +1,62 @@
-<div class="chart-container">
-  <apx-chart
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [xaxis]="chartOptions.xaxis"
-    [plotOptions]="chartOptions.plotOptions"
-    [title]="chartOptions.title"
-    [yaxis]="chartOptions.yaxis"
-    [tooltip]="chartOptions.tooltip"
-    [fill]="chartOptions.fill"
-    [legend]="chartOptions.legend"
-  ></apx-chart>
-</div>
+ getChartData() {
+   const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'Content-Type': 'application/json'
+     })
+   };
 
-public chartOptions: Partial<ChartOptions> = {};
-   getChartData() {
-    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+   // Define the stages you want to count
+   const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
 
-    this.http.get(apiUrls, httpOptions).subscribe(
-      (response: any) => {
-        console.log('API response:', response);
+   this.http.get(apiUrls).subscribe(
+     (response: any) => {
+       this.chartdata = response;
+       this.multi = [];
 
-        if (!Array.isArray(response)) {
-          console.error('Invalid API response: Data is not an array');
-          return;
-        }
+       const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
 
-        if (response.length === 0) {
-          console.warn('API response is empty');
-          return;
-        }
+       uniquePlants.forEach(plantId => {
+         const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId);
 
-        this.processChartData(response);
-      },
-      error => {
-        console.error("API request failed", error);
-      }
-    );
-  }
+         const stagesCount: { [key: string]: number } = {};
+         stagesToCount.forEach(stage => {
+           stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
+         });
 
-  processChartData(response: any[]): void {
-    // Implement your data processing logic here
-    // Example:
-    // const processedData = ...
+         this.multi.push({
+           name: plantId,
+           series: stagesToCount.map(stage => ({ name: stage, value: stagesCount[stage] }))
+         });
+       });
 
-    // Once data processing is done, update chartOptions
-    this.chartOptions = {
-      // Assign processed data to chart options
-      // For example:
-      // series: processedData.series,
-      // chart: processedData.chart,
-      // xaxis: processedData.xaxis,
-      // plotOptions: processedData.plotOptions,
-      // title: processedData.title,
-      // yaxis: processedData.yaxis,
-      // tooltip: processedData.tooltip,
-      // fill: processedData.fill,
-      // legend: processedData.legend
-    };
-  }
-}
+       this.chartOptions = {
+         animationEnabled: true,
+         exportEnabled: true,
+         title: {
+           text: "Change Request - Plant-wise Report",
+           fontFamily: "Calibri, Arial, sans-serif"
+         },
+         axisX: {
+           title: "Total Changes",
+           reversed: true
+         },
+         axisY: {
+           title: "Plant ID",
+           prefix: "$",
+           suffix: "k",
+           includeZero: true
+         },
+         toolTip: {
+           shared: true
+         },
+         data: this.multi
+       };
 
-interface ChartOptions {
-  series: any[]; // Update this with the correct data structure for series
-  chart: any; // Update this with the correct data structure for chart options
-  xaxis: any; // Update this with the correct data structure for x-axis options
-  plotOptions: any; // Update this with the correct data structure for plot options
-  title: any; // Update this with the correct data structure for title options
-  yaxis: any; // Update this with the correct data structure for y-axis options
-  tooltip: any; // Update this with the correct data structure for tooltip options
-  fill: any; // Update this with the correct data structure for fill options
-  legend: any; // Update this with the correct data structure for legend options
-}
-
+       this.showChart = true; 
+     },
+     (error: any) => {
+       console.error('Error fetching chart data:', error);
+     }
+   );
+ }
