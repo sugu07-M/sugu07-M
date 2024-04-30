@@ -1,3 +1,78 @@
+<div class="chart-container">
+  <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    <!-- Add other inputs as needed -->
+  ></apx-chart>
+</div>
+interface ChartOptions {
+  series: any[];
+  chart: any;
+  xaxis: any;
+  // Define other chart options here
+}
+ getChartData() {
+    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+    const multi: any[] = [];
+
+    this.http.get(apiUrls, httpOptions).subscribe(
+      (response: any) => {
+        const chartData: any[] = response;
+
+        const uniquePlants = [...new Set(chartData.map(item => item.plantId))];
+
+        uniquePlants.forEach(plantId => {
+          const plantData = chartData.filter(item => item.plantId === plantId);
+
+          const stagesCount: { [key: string]: number } = {};
+          stagesToCount.forEach(stage => {
+            stagesCount[stage] = plantData.filter(item => item.stage.trim() === stage).length;
+          });
+
+          const seriesData = stagesToCount.map(stage => stagesCount[stage]);
+          multi.push({
+            name: plantId,
+            data: seriesData
+          });
+        });
+
+        // Update chartOptions with processed data
+        this.chartOptions = {
+          series: multi,
+          chart: {
+            type: 'bar',
+            height: 350,
+            stacked: true
+          },
+          xaxis: {
+            categories: stagesToCount,
+            labels: {
+              formatter: val => val + 'K'
+            }
+          },
+          title: {
+            text: 'Fiction Books Sales'
+          },
+          // Add other chart options as needed
+        };
+
+        console.log('Chart options:', this.chartOptions);
+      },
+      error => {
+        console.error("API request failed", error);
+      }
+    );
+  }
+}
+
 getChartData() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
   const httpOptions = {
