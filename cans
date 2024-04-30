@@ -1,3 +1,185 @@
+ src/app/dashboard/dashboard.component.html:304:36:
+      304 │   <apx-chart [series]="chartOptions.series"
+          ╵                                     ~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            ; data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:305:35:
+      305 │              [chart]="chartOptions.chart"
+          ╵                                    ~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            ..; }; data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:306:40:
+      306 │              [dataLabels]="chartOptions.dataLabels"
+          ╵                                         ~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            ...; }; data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:307:41:
+      307 │              [plotOptions]="chartOptions.plotOptions"
+          ╵                                          ~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            ; data: { ...; }[]; }'. Did you mean 'axisX'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:308:35:
+      308 │              [xaxis]="chartOptions.xaxis"
+          ╵                                    ~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            }; data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:309:36:
+      309 │              [stroke]="chartOptions.stroke"
+          ╵                                     ~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                             data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:310:34:
+      310 │              [fill]="chartOptions.fill"
+          ╵                                   ~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            ; data: { ...; }[]; }'. Did you mean 'axisX'? [plugin angular-compiler]boolean; }; toolTip: { ...; };
+
+    src/app/dashboard/dashboard.component.html:311:35:
+      311 │              [yaxis]="chartOptions.yaxis"
+          ╵                                    ~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                             }; data: { ...; }[]; }'. Did you mean 'toolTip'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:313:37:
+      313 │              [tooltip]="chartOptions.tooltip"
+          ╵                                      ~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            }; data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:314:36:
+      314 │              [legend]="chartOptions.legend"></apx-chart>
+          ╵                                     ~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',
+X [ERROR] NG9: Property 'series' does not exist on type '{ animationEnabled: boolean; exportEnabled}; data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:304:36:
+      304 │   <apx-chart [series]="chartOptions.series"
+          ╵                                     ~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            ; data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:305:35:
+      305 │              [chart]="chartOptions.chart"
+          ╵                                    ~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            ..; }; data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:306:40:
+      306 │              [dataLabels]="chartOptions.dataLabels"
+          ╵                                         ~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            ...; }; data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:307:41:
+      307 │              [plotOptions]="chartOptions.plotOptions"
+          ╵                                          ~~~~~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            ; data: { ...; }[]; }'. Did you mean 'axisX'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:308:35:
+      308 │              [xaxis]="chartOptions.xaxis"
+          ╵                                    ~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            }; data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:309:36:
+      309 │              [stroke]="chartOptions.stroke"
+          ╵                                     ~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                             data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:310:34:
+      310 │              [fill]="chartOptions.fill"
+          ╵                                   ~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            ; data: { ...; }[]; }'. Did you mean 'axisX'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:311:35:
+      311 │              [yaxis]="chartOptions.yaxis"
+          ╵                                    ~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                             }; data: { ...; }[]; }'. Did you mean 'toolTip'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:313:37:
+      313 │              [tooltip]="chartOptions.tooltip"
+          ╵                                      ~~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',                                            }; data: { ...; }[]; }'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.html:314:36:
+      314 │              [legend]="chartOptions.legend"></apx-chart>
+          ╵                                     ~~~~~~
+
+  Error occurs in the template of component DashboardComponent.
+
+    src/app/dashboard/dashboard.component.ts:43:15:
+      43 │   templateUrl: './dashboard.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 <div id="chart">
   <apx-chart
     [series]="chartOptions.series"
