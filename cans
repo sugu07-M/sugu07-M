@@ -1,3 +1,11 @@
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS1068	(TS) Unexpected token. A constructor, method, accessor, or property was expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	385	Active
+Error	TS2564	(TS) Property 'chartOptions' has no initializer and is not definitely assigned in the constructor.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	382	Active
+Error	TS7006	(TS) Parameter 'val' implicitly has an 'any' type.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	428	Active
+Error	TS7006	(TS) Parameter 'val' implicitly has an 'any' type.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	440	Active
+Error	TS2532	(TS) Object is possibly 'undefined'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	385	Active
+Error	TS1128	(TS) Declaration or statement expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	457	Active
+Error	TS2552	(TS) Cannot find name 'ViewChild'. Did you mean 'viewChild'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	381	Active
 
 <div id="chart">
   <apx-chart
