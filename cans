@@ -1,4 +1,11 @@
- public chartOptions: Partial<ChartOptions> = {}; // Define chartOptions
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2322	(TS) Type '{ name: any; data: any; }[]' is not assignable to type 'ApexAxisChartSeries[]'.
+  Type '{ name: any; data: any; }' is missing the following properties from type '{ name?: string | undefined; type?: string | undefined; color?: string | undefined; group?: string | undefined; zIndex?: number | undefined; data: (number | null)[] | { x: any; y: any; fill?: ApexFill | undefined; ... 5 more ...; columnWidthOffset?: number | undefined; }[] | [...][] | [...][] | number[][]; }[]': length, pop, push, concat, and 35 more.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	415	Active
+
+
+
+
+public chartOptions: Partial<ChartOptions> = {}; // Define chartOptions
 
   constructor(private http: HttpClient) {
     this.Gettablechart();
