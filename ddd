@@ -1,3 +1,5 @@
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2304	(TS) Cannot find name 'chartOptions'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	393	Active
   getChartData() {
     const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
     const httpOptions = {
