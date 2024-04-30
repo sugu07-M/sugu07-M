@@ -1,4 +1,56 @@
-Unexpected "_DashboardComponent" found in the "declarations" array of the "AppModule2" NgModule, "_DashboardComponent" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the "imports" array)?
+ const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.chartdata = response;
+        this.multi = [];
+
+        const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
+
+        uniquePlants.forEach(plantId => {
+          const plantData = response.filter((item: { plantId: unknown; }) => item.plantId === plantId);
+
+          const stagesCount: { [key: string]: number } = {};
+          stagesToCount.forEach(stage => {
+            stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
+          });
+
+          this.multi.push({
+            name: plantId,
+            series: stagesToCount.map(stage => ({ name: stage, value: stagesCount[stage] }))
+          });
+        });
+
+        this.showChart = true; // Set to true when chart data is ready
+      },
+      (error: any) => {
+        console.error('Error fetching chart data:', error);
+      }
+    );
+  }
+
+  chartOptions = {
+    animationEnabled: true,
+    exportEnabled: true,
+    title: {
+      text: "Quarterly Sales",
+      fontFamily: "Calibri, Arial, sans-serif"
+    },
+    axisX: {
+      title: "Quarter",
+      reversed: true
+    },
+    axisY: {
+      title: "Sales",
+      prefix: "$",
+      suffix: "k",
+      includeZero: true
+    },
+    toolTip: {
+      shared: true
+    },
+    data: this.multi // Assign the multi array here after fetching data
+  };u intend to import it instead (by adding it to the "imports" array)?
 
 
 chartOptions = {
