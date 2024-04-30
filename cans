@@ -1,3 +1,13 @@
+<div *ngIf="showChart">
+  <canvas baseChart 
+          [datasets]="chartOptions.data.datasets"
+          [labels]="chartOptions.data.labels"
+          [options]="chartOptions.options"
+          [legend]="chartOptions.legend"
+          [chartType]="chartOptions.chartType">
+  </canvas>
+</div>
+
 getChartData() {
   const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
   const httpOptions = {
