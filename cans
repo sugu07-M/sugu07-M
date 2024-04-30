@@ -32,6 +32,16 @@ getChartData() {
         });
       });
 
+      // Log the structured data
+      console.log('Structured Data:', {
+        labels: stagesToCount,
+        datasets: this.multi.map((data, index) => ({
+          label: data.label,
+          backgroundColor: this.getRandomColor(), // You can define this method to generate random colors
+          data: data.data
+        }))
+      });
+
       this.chartOptions = {
         animationEnabled: true,
         exportEnabled: true,
@@ -80,14 +90,4 @@ getChartData() {
       console.error('Error fetching chart data:', error);
     }
   );
-}
-
-// Helper function to generate random color
-getRandomColor() {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
 }
