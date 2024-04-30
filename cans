@@ -3,87 +3,86 @@ Error	TS2304	(TS) Cannot find name 'stagesToCount'.	D:\IT_Portal\IT-Portal\IT-Po
 Error	TS2304	(TS) Cannot find name 'multi'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	409	Active
 
 public chartOptions: Partial<ChartOptions> = {};
- getChartData(): void {
+  getChartData() {
     const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
-    this.http.get(apiUrls).subscribe(
+    const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+    const multi: any[] = []; // Initialize the multi array here
+
+    this.http.get(apiUrls, httpOptions).subscribe(
       (response: any) => {
-        if (!Array.isArray(response)) {
-          console.error('Invalid API response: Data is not an array');
-          return;
-        }
+        const chartData: any[] = response;
 
-        if (response.length === 0) {
-          console.warn('API response is empty');
-          return;
-        }
+        const uniquePlants = [...new Set(chartData.map(item => item.plantId))];
 
-        this.processChartData(response);
+        uniquePlants.forEach(plantId => {
+          const plantData = chartData.filter(item => item.plantId === plantId);
+
+          const stagesCount: { [key: string]: number } = {};
+          stagesToCount.forEach(stage => {
+            stagesCount[stage] = plantData.filter(item => item.stage.trim() === stage).length;
+          });
+
+          const seriesData = stagesToCount.map(stage => stagesCount[stage]);
+          multi.push({
+            name: plantId,
+            data: seriesData
+          });
+        });
+
+        this.chartOptions = {
+          series: multi,
+          chart: {
+            type: 'bar',
+            height: 350,
+            stacked: true
+          },
+          plotOptions: {
+            bar: {
+              horizontal: true
+            }
+          },
+          xaxis: {
+            categories: stagesToCount,
+            labels: {
+              formatter: val => val + 'K'
+            }
+          },
+          title: {
+            text: 'Fiction Books Sales'
+          },
+          yaxis: {
+            title: {
+              text: undefined
+            }
+          },
+          tooltip: {
+            y: {
+              formatter: val => val + 'K'
+            }
+          },
+          fill: {
+            opacity: 1
+          },
+          legend: {
+            position: 'top',
+            horizontalAlign: 'left',
+            offsetX: 40
+          }
+        };
+
+        console.log('Chart options:', this.chartOptions);
       },
       error => {
         console.error("API request failed", error);
       }
     );
   }
-
-  processChartData(response: any[]): void {
-    // Implement your data processing logic here
-    // Example:
-    // const processedData = ...
-
-    // Once data processing is done, update chartOptions
-    this.chartOptions = {
-      // Assign processed data to chart options
-    };
-  }
-
-      this.chartOptions = {
-        series: multi,
-        chart: {
-          type: 'bar',
-          height: 350,
-          stacked: true
-        },
-        plotOptions: {
-          bar: {
-            horizontal: true
-          }
-        },
-        xaxis: {
-          categories: stagesToCount,
-          labels: {
-            formatter: val => val + 'K'
-          }
-        },
-        title: {
-          text: 'Fiction Books Sales'
-        },
-        yaxis: {
-          title: {
-            text: undefined
-          }
-        },
-        tooltip: {
-          y: {
-            formatter: val => val + 'K'
-          }
-        },
-        fill: {
-          opacity: 1
-        },
-        legend: {
-          position: 'top',
-          horizontalAlign: 'left',
-          offsetX: 40
-        }
-      };
-
-      console.log('Chart options:', this.chartOptions); // Log the chart options
-    },
-    error => {
-      console.log("API request failed", error);
-    }
-  );
 
 interface ChartOptions {
   series: ApexAxisChartSeries[];
