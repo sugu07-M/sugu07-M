@@ -1,4 +1,18 @@
-NG5002: Parser Error: Bindings cannot contain assignments at column 45 in [chartOptions.data[0]?.dataPoints.map(point => point.label)] in D:/IT_Portal/IT-Portal/IT-Portal.UI/src/app/dashboard/dashboard.component.html@306:22
+
+  getLabels(): string[] {
+    return this.chartOptions.data[0]?.dataPoints.map(point => point.label) ?? [];
+  }
+<div style="display: block">
+  <canvas baseChart
+          [datasets]="chartOptions.data"
+          [labels]="getLabels()"
+          [options]="chartOptions"
+          [legend]="true"
+          [chartType]="'bar'">
+  </canvas>
+</div>
+
+
 getChartData() {
   const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
   const httpOptions = {
