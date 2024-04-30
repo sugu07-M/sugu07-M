@@ -1,58 +1,5 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS1068	(TS) Unexpected token. A constructor, method, accessor, or property was expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	385	Active
-Error	TS2564	(TS) Property 'chartOptions' has no initializer and is not definitely assigned in the constructor.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	382	Active
-Error	TS7006	(TS) Parameter 'val' implicitly has an 'any' type.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	428	Active
-Error	TS7006	(TS) Parameter 'val' implicitly has an 'any' type.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	440	Active
-Error	TS2532	(TS) Object is possibly 'undefined'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	385	Active
-Error	TS1128	(TS) Declaration or statement expected.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	457	Active
-Error	TS2552	(TS) Cannot find name 'ViewChild'. Did you mean 'viewChild'?	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	381	Active
-
-<div id="chart">
-  <apx-chart
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [dataLabels]="chartOptions.dataLabels"
-    [plotOptions]="chartOptions.plotOptions"
-    [xaxis]="chartOptions.xaxis"
-    [stroke]="chartOptions.stroke"
-    [fill]="chartOptions.fill"
-    [yaxis]="chartOptions.yaxis"
-    [title]="chartOptions.title"
-    [tooltip]="chartOptions.tooltip"
-    [legend]="chartOptions.legend"
-  ></apx-chart>
-</div>
-
-import {
-  ApexAxisChartSeries,
-  ApexChart,
-  ChartComponent,
-  ApexDataLabels,
-  ApexXAxis,
-  ApexPlotOptions,
-  ApexStroke,
-  ApexTitleSubtitle,
-  ApexYAxis,
-  ApexTooltip,
-  ApexFill,
-  ApexLegend
-} from "ng-apexcharts";
-
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  plotOptions: ApexPlotOptions;
-  xaxis: ApexXAxis;
-  yaxis: ApexYAxis;
-  stroke: ApexStroke;
-  title: ApexTitleSubtitle;
-  tooltip: ApexTooltip;
-  fill: ApexFill;
-  legend: ApexLegend;
-};
  @ViewChild("chart") chart: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  public chartOptions!: Partial<ChartOptions>; // Add '!' to indicate it will be initialized later
 
   constructor() {
     this.chartOptions = {
@@ -98,7 +45,7 @@ export type ChartOptions = {
       xaxis: {
         categories: [2008, 2009, 2010, 2011, 2012, 2013, 2014],
         labels: {
-          formatter: function(val) {
+          formatter: (val: any) => { // Specify type for val
             return val + "K";
           }
         }
@@ -110,7 +57,7 @@ export type ChartOptions = {
       },
       tooltip: {
         y: {
-          formatter: function(val) {
+          formatter: (val: any) => { // Specify type for val
             return val + "K";
           }
         }
@@ -125,7 +72,17 @@ export type ChartOptions = {
       }
     };
   }
-#chart {
-  max-width: 650px;
-  margin: 35px auto;
+
+interface ChartOptions {
+  series: ApexAxisChartSeries[];
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
+  stroke: ApexStroke;
+  title: ApexTitleSubtitle;
+  tooltip: ApexTooltip;
+  fill: ApexFill;
+  legend: ApexLegend;
 }
