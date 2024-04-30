@@ -1,6 +1,4 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS7015	(TS) Element implicitly has an 'any' type because index expression is not of type 'number'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	433	Active
-
+NG5002: Parser Error: Bindings cannot contain assignments at column 45 in [chartOptions.data[0]?.dataPoints.map(point => point.label)] in D:/IT_Portal/IT-Portal/IT-Portal.UI/src/app/dashboard/dashboard.component.html@306:22
 getChartData() {
   const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
   const httpOptions = {
