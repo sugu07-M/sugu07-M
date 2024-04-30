@@ -1,175 +1,41 @@
-v<div class="table-wrapper">
-   <table class="fl-table">
-     <thead class="table-head">
-       <tr class="border-bottom">
-         <th>Select</th>
-         <th>CR Code</th>
-         <th>Requestor</th>
-         <th>Description</th>
-         <th>Stage</th>
-         <th>Status</th>
-         <th>Type</th>
-         <th>Classifications</th>
-         <th>RFC Date</th>
-         <!--<th>Attachments</th>-->
-         <th>Update</th>
-         <th>Delete</th>
-       </tr>
-     </thead>
-     <tbody *ngIf="ischangeanalyst">
-       <tr class="tr-body" *ngFor="let pltdata of filtersdata">
-         <td><input type="radio" (change)="onRadioSelect(pltdata)" name="one" id="one" /></td>
-         <td>{{pltdata.crcode}}</td>
-         <td>{{pltdata.crowner}}</td>
-         <td>{{pltdata.changeDesc}}</td>
-         <td>{{pltdata.stage}}</td>
-         <td [ngSwitch]="pltdata.status.trim()">
-           <span *ngSwitchCase="'Draft'"> <span style="color: #3c8dbc;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Pending Approval'"> <span style="color: #808080ff; ">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Submitted'"> <span style="color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Approved'"> <span style="color: green;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Approved level1'"> <span style="color: green;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Approved level2'"> <span style="color: green;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Completed'"> <span style="color: green;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Rejected'"> <span style="color: red;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Seek Clarification'"> <span style="color:cornflowerblue;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Implement'"> <span class=" text-info">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Implemented'"> <span class=" text-info">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Pending'"> <span style="color: rgba(var(--bs-warning-rgb), var(--bs-text-opacity)) !important;">{{ pltdata.status }}</span></span>
-           <span *ngSwitchCase="'Released'"> <span style="color: rgb(154, 235, 73);">{{ pltdata.status }}</span></span>
-         </td>
+getChartData() {
+  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
 
-        <td>{{pltdata.categoryName}}</td>
-         <td>{{pltdata.classificationName}}</td>
-         <td>{{pltdata.crdate | date:'dd-MM-yyyy' }}</td>
-         <!--<td><i class="fa fa-download" aria-hidden="true"></i></td>-->
-         <td>
-           <a href="" (click)="updatepage()" routerLink="/executive/{{pltdata.itcrid}}/edit">
-             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-           </a>
-         </td>
-         <td>
-           <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
-         </td>
-       </tr>
+  const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+  const multi: any[] = []; // Initialize the multi array here
 
-     </tbody>
+  this.http.get(apiUrls, httpOptions).subscribe(
+    (response: any) => {
+      const chartData: any[] = response;
 
-<div class="card change_request_card_filter">
-  <div class="card-body card_body_filter">
-    <div class="row filter_cr">
-      <div class="col">
-        <label>Plant</label><br />
-        <select [(ngModel)]="plantscode" class="input-change">
-          <option selected>Select-plant</option>
-          <option *ngFor="let plantid of plantcode" [value]="plantid.id">{{plantid.code}}</option>
-        </select>
-      </div>
-      <div class="col">
-        <label>Category</label><br />
-        <select [(ngModel)]="categoryids" class="input-change">
-          <option selected>Select-category</option>
-          <option *ngFor="let catid of categorydata" [value]="catid.itcategoryId">{{catid.categoryName}}</option>
-        </select>
-      </div>
-      <div class="col">
-        <label>Classifications</label><br />
-        <select [(ngModel)]="classificationid" class="input-change">
-          <option selected>Select-classification</option>
-          <option *ngFor="let classf of classifications" [value]="classf.itclassificationId">{{classf.classificationName}}</option>
-        </select>
-      </div>
-      <div class="col">
-        <label>Priority</label><br />
-        <select [(ngModel)]="prioritytypeid" class="input-change">
-          <option selected>Select-priority</option>
-          <option *ngFor="let prio of prioritydata" [value]="prio.priorityId">{{prio.priorityName}}</option>
-        </select>
-      </div>
-      <div class="col">
-        <label>Start Date:</label><br />
-        <input [(ngModel)]="fromDt" class="input-change cr_date" type="date" id="fromDate" name="fromDate" required />
-      </div>
-      <div class="col">
-        <label>End Date:</label><br />
-        <input [(ngModel)]="endDt" class="input-change cr_date" type="date" id="toDate" name="toDate" required />
-      </div>
-      <div class="col">
-        <label>Status</label><br />
-        <select class="input-change" [(ngModel)]="statusfilter">
-          <option disabled selected>Select Status</option>
-          <option value="All">All</option>
-          <option *ngIf="ischangeanalyst" class="input-change">Draft</option>
-          <option value="Pending Approval">Pending Approval</option>
-          <option value="Approved level1">Approved level1</option>
-          <option value="Approved level2">Approved level2</option>
-          <option value="Approved level3">Approved level3</option>
-          <option value="Approved">Approved</option>
-          <option value="Implementation">Implementation</option>
-          <option value="Released">Released</option>
-          <option value="Closure">Closure</option>
-        </select>
-      </div>
-    </div>
-    <div class="access-checkbox">
-      <button *ngIf="isapprover" (click)="isassignbutton()" class="btn btn-rounded filter_button">Assigned To Me</button>&nbsp;&nbsp;&nbsp;
-      <button class="btn btn-rounded filter_button" (click)="filterdropdown()">Filter</button>
-    </div>
-  </div>
-</div>
+      const uniquePlants = [...new Set(chartData.map(item => item.plantId))];
 
+      uniquePlants.forEach(plantId => {
+        const plantData = chartData.filter(item => item.plantId === plantId);
 
- filterdropdown() {
-    // Reset filterflag and filtersdata
-    this.filterflag = false;
-    this.filtersdata = [];
+        const stagesCount: { [key: string]: number } = {};
+        stagesToCount.forEach(stage => {
+          stagesCount[stage] = plantData.filter(item => item.stage.trim() === stage).length;
+        });
 
-    // If crfilter is empty, return
-    if (this.crfilter.length === 0) {
-      console.log("No data to filter");
-      return;
+        const seriesData = stagesToCount.map(stage => stagesCount[stage]);
+        multi.push({
+          name: plantId,
+          data: seriesData
+        });
+      });
+
+     
+
+      console.log('Chart options:', this.chartOptions);
+    },
+    error => {
+      console.error("API request failed", error);
     }
-
-    // Apply filters based on selected criteria
-    this.filtersdata = this.crfilter.filter((item: any) => {
-      let match = true; // Assume the item matches initially
-
-      // Check if each filter criteria is not empty and if the item matches
-      if (this.plantscode !== '' && item.plantcode !== parseInt(this.plantscode)) {
-        match = false;
-      }
-
-      // Add more filter criteria checks here...
-
-      // Update filterflag if any filter criteria is applied
-      if (!match) {
-        this.filterflag = true;
-      }
-
-      return match; // Return whether the item matches all filter criteria
-    });
-
-    // If no filters were applied, retain original data from crfilter
-    if (!this.filterflag) {
-      this.filtersdata = this.crfilter;
-    }
-
-    console.log("Filtered Data:", this.filtersdata);
-  }
-
- 
-
- ischangeanalyst: boolean = true; // Assuming this variable is defined
-
-  crfilter: any[] = []; // Initialize with your data
-  filtersdata: any[] = [];
-
-  plantscode: any = '';
-  categoryids: any = '';
-  classificationid: any = '';
-  prioritytypeid: any = '';
-  fromDt: any = '';
-  endDt: any = '';
-  statusfilter: any = '';
-  filterflag: boolean = false;
- // This array will hold the filtered data
+  );
+}
