@@ -1,9 +1,9 @@
-  data: this.multi.map((plantSeries, index) => ({
+ data: this.stagesToCount.map((stage, index) => ({
       type: "stackedBar",
-      name: this.stagesToCount[index % this.stagesToCount.length], // Use stagesToCount dynamically for legend label
+      name: stage, // Use stage from stagesToCount dynamically for legend label
       showInLegend: true,
       color: this.getRandomColor(index),
-      dataPoints: plantSeries.data.map((count, i) => ({ y: count, label: plantSeries.label })) // Use plant ID for dataPoints label
+      dataPoints: this.multi.map(plantSeries => ({ y: plantSeries.data[index], label: plantSeries.label })) // Use plant ID for dataPoints label
     }))
   };
 stagesToCount: string[] = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
