@@ -1,12 +1,44 @@
-<div *ngIf="showChart">
-  <canvas baseChart 
-          [datasets]="chartOptions.data.datasets"
-          [labels]="chartOptions.data.labels"
-          [options]="chartOptions.options"
-          [legend]="chartOptions.legend"
-          [chartType]="chartOptions.chartType">
-  </canvas>
-</div>
+this.chartOptions = {
+  animationEnabled: true,
+  exportEnabled: true,
+  title: {
+    text: "Change Request - Plant-wise Report",
+    fontFamily: "Calibri, Arial, sans-serif"
+  },
+  scales: {
+    xAxes: [{
+      stacked: true,
+      scaleLabel: {
+        display: true,
+        labelString: 'Total Changes'
+      }
+    }],
+    yAxes: [{
+      stacked: true,
+      scaleLabel: {
+        display: true,
+        labelString: 'Plant ID'
+      }
+    }]
+  },
+  tooltips: {
+    mode: 'label',
+    intersect: false,
+    displayColors: false
+  },
+  legend: {
+    display: true
+  },
+  data: {
+    labels: stagesToCount,
+    datasets: this.multi.map((data, index) => ({
+      label: data.label,
+      backgroundColor: this.getRandomColor(),
+      data: data.data
+    }))
+  },
+  chartType: 'bar' // specify the chart type as 'bar' for stacked bar chart
+};
 
 getChartData() {
   const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
