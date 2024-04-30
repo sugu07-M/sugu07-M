@@ -1,4 +1,86 @@
- stagesToCount: string[] = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+stagesToCount: string[] = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+
+getChartData() {
+  const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  // Define the stages you want to count
+
+  this.http.get(apiUrls).subscribe(
+    (response: any) => {
+      this.chartdata = response;
+      this.multi = [];
+
+      const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
+
+      uniquePlants.forEach(plantId => {
+        const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId);
+
+        const stagesCount: { [key: string]: number } = {};
+        this.stagesToCount.forEach(stage => {
+          stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
+        });
+
+        const plantSeries = {
+          label: plantId,
+          data: this.stagesToCount.map(stage => stagesCount[stage])
+        };
+
+        this.multi.push(plantSeries);
+      });
+
+      // Now that multi is constructed, update chartOptions
+      this.updateChartOptions();
+      this.showChart = true;
+    },
+    (error: any) => {
+      console.error('Error fetching chart data:', error);
+    }
+  );
+}
+
+updateChartOptions() {
+  this.chartOptions = {
+    animationEnabled: true,
+    exportEnabled: true,
+    title: {
+      text: "Stages Count by Plant", // Adjust title to reflect the data
+      fontFamily: "Calibri, Arial, sans-serif"
+    },
+    axisX: {
+      title: "Stages",
+      reversed: false // Assuming you want stages in their natural order
+    },
+    axisY: {
+      title: "Count", // Adjusted y-axis title
+      includeZero: true
+    },
+    toolTip: {
+      shared: true
+    },
+    data: this.multi.map((plantSeries, index) => ({
+      type: "stackedBar",
+      name: plantSeries.label,
+      showInLegend: true,
+      color: this.getRandomColor(index),
+      dataPoints: this.stagesToCount.map((stage, i) => ({ y: plantSeries.data[i], label: stage }))
+    }))
+  };
+}
+
+
+
+
+
+
+
+
+
+stagesToCount: string[] = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
  getChartData() {
    const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
    const httpOptions = {
