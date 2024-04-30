@@ -1,109 +1,95 @@
-<div *ngIf="showChart">
-  <canvas baseChart 
-          [datasets]="chartOptions.data.datasets"
-          [labels]="chartOptions.data.labels"
+getChartData() {
+  const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  // Define the stages you want to count
+  const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+
+  this.http.get(apiUrls).subscribe(
+    (response: any) => {
+      this.chartdata = response;
+      this.multi = [];
+
+      const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
+
+      uniquePlants.forEach(plantId => {
+        const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId);
+
+        const stagesCount: { [key: string]: number } = {};
+        stagesToCount.forEach(stage => {
+          stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
+        });
+
+        const plantSeries = {
+          label: plantId,
+          data: stagesToCount.map(stage => stagesCount[stage])
+        };
+
+        this.multi.push(plantSeries);
+      });
+
+      // Now that multi is constructed, update chartOptions
+      this.updateChartOptions();
+    },
+    (error: any) => {
+      console.error('Error fetching chart data:', error);
+    }
+  );
+}
+
+updateChartOptions() {
+  this.chartOptions = {
+    animationEnabled: true,
+    exportEnabled: true,
+    title: {
+      text: "Quarterly Sales",
+      fontFamily: "Calibri, Arial, sans-serif"
+    },
+    axisX: {
+      title: "Quarter",
+      reversed: true
+    },
+    axisY: {
+      title: "Sales",
+      prefix: "$",
+      suffix: "k",
+      includeZero: true
+    },
+    toolTip: {
+      shared: true
+    },
+    data: this.multi.map((plantSeries, index) => ({
+      type: "stackedBar",
+      name: plantSeries.label,
+      showInLegend: true,
+      yValueFormatString: "#,###k",
+      color: this.getRandomColor(index), // You can define this method to generate random colors
+      dataPoints: plantSeries.data.map((value, i) => ({ y: value, label: stagesToCount[i] }))
+    }))
+  };
+}
+
+// Helper function to generate random color
+getRandomColor(index: number) {
+  const colors = ['#edae49', '#df7c52', '#d1495b', '#9d5568']; // You can add more colors if needed
+  return colors[index % colors.length];
+}
+<div style="display: block">
+  <canvas baseChart
+          [datasets]="chartOptions.data"
+          [labels]="chartOptions.data[0]?.dataPoints.map(point => point.label)"
           [options]="chartOptions"
-          [legend]="chartOptions.legend.display"
+          [legend]="true"
           [chartType]="'bar'">
   </canvas>
 </div>
-getChartData() {
-    const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-    // Define the stages you want to count
-    const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
-
-    this.http.get(apiUrls).subscribe(
-      (response: any) => {
-        this.chartdata = response;
-        this.multi = [];
-
-        const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
-
-        uniquePlants.forEach(plantId => {
-          const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId);
-
-          const stagesCount: { [key: string]: number } = {};
-          stagesToCount.forEach(stage => {
-            stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
-          });
-
-          const plantSeries = stagesToCount.map(stage => stagesCount[stage]);
-
-          this.multi.push({
-            label: plantId,
-            data: plantSeries
-          });
-        });
-
-        this.chartOptions = {
-          animationEnabled: true,
-          exportEnabled: true,
-          title: {
-            text: "Change Request - Plant-wise Report",
-            fontFamily: "Calibri, Arial, sans-serif"
-          },
-          scales: {
-            xAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'Total Changes'
-              },
-              ticks: {
-                beginAtZero: true
-              }
-            }],
-            yAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'Plant ID'
-              }
-            }]
-          },
-          tooltips: {
-            mode: 'label',
-            intersect: false,
-            displayColors: false
-          },
-          legend: {
-            display: true
-          },
-          data: {
-            labels: stagesToCount,
-            datasets: this.multi.map((data, index) => ({
-              label: data.label,
-              backgroundColor: this.getRandomColor(index),
-              data: data.data
-            }))
-          }
-        };
-
-        this.showChart = true; 
-      },
-      (error: any) => {
-        console.error('Error fetching chart data:', error);
-      }
-    );
-  }
-
-  // Helper function to generate random color
-  getRandomColor(index: number) {
-    const colors = ['#FF5733', '#33FF57', '#5733FF', '#FF33D1', '#33D1FF']; // Add more colors if needed
-    return colors[index % colors.length];
-  }
-}
 
 
-  // Example function to assign colors dynamically
-  getChartColor(index: number): string {
-    const colors = ["#5570b2", "#f6d788", "#8D5531", "#c13c3c"]; // Example colors
-    return colors[index % colors.length];
-  }
+
 getChartData() {
   const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
   const httpOptions = {
