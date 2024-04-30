@@ -1,7 +1,10 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2304	(TS) Cannot find name 'chartOptions'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	393	Active
-  getChartData() {
-    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+
+ chartdata: any;
+  multi: any[] = [];
+  showChart: boolean = false;
+  chartOptions: any = {};
+getChartData() {
+    const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -19,7 +22,7 @@ Error	TS2304	(TS) Cannot find name 'chartOptions'.	D:\IT_Portal\IT-Portal\IT-Por
         const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
 
         uniquePlants.forEach(plantId => {
-          const plantData = response.filter((item: { plantId: unknown; }) => item.plantId === plantId);
+          const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId);
 
           const stagesCount: { [key: string]: number } = {};
           stagesToCount.forEach(stage => {
