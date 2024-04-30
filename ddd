@@ -30,6 +30,29 @@
           });
         });
 
+        this.chartOptions = {
+          animationEnabled: true,
+          exportEnabled: true,
+          title: {
+            text: "Quarterly Sales",
+            fontFamily: "Calibri, Arial, sans-serif"
+          },
+          axisX: {
+            title: "Quarter",
+            reversed: true
+          },
+          axisY: {
+            title: "Sales",
+            prefix: "$",
+            suffix: "k",
+            includeZero: true
+          },
+          toolTip: {
+            shared: true
+          },
+          data: this.multi
+        };
+
         this.showChart = true; // Set to true when chart data is ready
       },
       (error: any) => {
@@ -37,30 +60,6 @@
       }
     );
   }
-
-  chartOptions = {
-    animationEnabled: true,
-    exportEnabled: true,
-    title: {
-      text: "Quarterly Sales",
-      fontFamily: "Calibri, Arial, sans-serif"
-    },
-    axisX: {
-      title: "Quarter",
-      reversed: true
-    },
-    axisY: {
-      title: "Sales",
-      prefix: "$",
-      suffix: "k",
-      includeZero: true
-    },
-    toolTip: {
-      shared: true
-    },
-    data: this.multi // Assign the multi array here after fetching data
-  };
-
 
 chartOptions = {
   animationEnabled: true,
