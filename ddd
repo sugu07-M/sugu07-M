@@ -1,4 +1,13 @@
- const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+  getChartData() {
+    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    // Define the stages you want to count
+    const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
 
     this.http.get(apiUrls).subscribe(
       (response: any) => {
@@ -50,7 +59,7 @@
       shared: true
     },
     data: this.multi // Assign the multi array here after fetching data
-  };u intend to import it instead (by adding it to the "imports" array)?
+  };
 
 
 chartOptions = {
