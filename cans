@@ -1,3 +1,6 @@
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2304	(TS) Cannot find name 'stagesToCount'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	421	Active
+Error	TS2304	(TS) Cannot find name 'multi'.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	409	Active
 
 public chartOptions: Partial<ChartOptions> = {};
  getChartData(): void {
