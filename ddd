@@ -1,4 +1,10 @@
-
+<div *ngIf="showChart">
+  <canvas baseChart 
+          [datasets]="chartOptions.data"
+          [options]="chartOptions"
+          [legend]="true"
+          [chartType]="'bar'">
+  </canvas>
  chartdata: any;
   multi: any[] = [];
   showChart: boolean = false;
