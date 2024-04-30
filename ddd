@@ -1,41 +1,40 @@
-getChartData() {
-  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-
-  const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
-  const multi: any[] = []; // Initialize the multi array here
-
-  this.http.get(apiUrls, httpOptions).subscribe(
-    (response: any) => {
-      const chartData: any[] = response;
-
-      const uniquePlants = [...new Set(chartData.map(item => item.plantId))];
-
-      uniquePlants.forEach(plantId => {
-        const plantData = chartData.filter(item => item.plantId === plantId);
-
-        const stagesCount: { [key: string]: number } = {};
-        stagesToCount.forEach(stage => {
-          stagesCount[stage] = plantData.filter(item => item.stage.trim() === stage).length;
-        });
-
-        const seriesData = stagesToCount.map(stage => stagesCount[stage]);
-        multi.push({
-          name: plantId,
-          data: seriesData
-        });
-      });
-
-     
-
-      console.log('Chart options:', this.chartOptions);
-    },
-    error => {
-      console.error("API request failed", error);
-    }
-  );
-}
+this.chartOptions = {
+          series: multi,
+          chart: {
+            type: 'bar',
+            height: 350,
+            stacked: true
+          },
+          plotOptions: {
+            bar: {
+              horizontal: true
+            }
+          },
+          xaxis: {
+            categories: stagesToCount,
+            labels: {
+              formatter: val => val + 'K'
+            }
+          },
+          title: {
+            text: 'Fiction Books Sales'
+          },
+          yaxis: {
+            title: {
+              text: undefined
+            }
+          },
+          tooltip: {
+            y: {
+              formatter: val => val + 'K'
+            }
+          },
+          fill: {
+            opacity: 1
+          },
+          legend: {
+            position: 'top',
+            horizontalAlign: 'left',
+            offsetX: 40
+          }
+        };
