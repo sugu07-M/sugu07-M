@@ -1,17 +1,6 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	TS2322	(TS) Type '{ name: any; data: any; }[]' is not assignable to type 'ApexAxisChartSeries[]'.
-  Type '{ name: any; data: any; }' is missing the following properties from type '{ name?: string | undefined; type?: string | undefined; color?: string | undefined; group?: string | undefined; zIndex?: number | undefined; data: (number | null)[] | { x: any; y: any; fill?: ApexFill | undefined; ... 5 more ...; columnWidthOffset?: number | undefined; }[] | [...][] | [...][] | number[][]; }[]': length, pop, push, concat, and 35 more.	D:\IT_Portal\IT-Portal\IT-Portal.UI\tsconfig.json	D:\IT_Portal\IT-Portal\IT-Portal.UI\src\app\dashboard\dashboard.component.ts	415	Active
 
-
-
-
-public chartOptions: Partial<ChartOptions> = {}; // Define chartOptions
-
-  constructor(private http: HttpClient) {
-    this.Gettablechart();
-  }
-
-  Gettablechart() {
+public chartOptions: Partial<ChartOptions> = {};
+Gettablechart() {
     const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
     const httpOptions = {
       headers: new HttpHeaders({
@@ -37,14 +26,15 @@ public chartOptions: Partial<ChartOptions> = {}; // Define chartOptions
             stagesCount[stage] = plantData.filter(item => item.stage.trim() === stage).length;
           });
 
+          const seriesData = stagesToCount.map(stage => stagesCount[stage]);
           multi.push({
             name: plantId,
-            series: stagesToCount.map(stage => ({ name: stage, value: stagesCount[stage] }))
+            data: seriesData
           });
         });
 
         this.chartOptions = {
-          series: multi.map(item => ({ name: item.name, data: item.series })),
+          series: multi,
           chart: {
             type: 'bar',
             height: 350,
@@ -91,15 +81,12 @@ public chartOptions: Partial<ChartOptions> = {}; // Define chartOptions
       }
     );
   }
-}
 
 interface ChartOptions {
   series: ApexAxisChartSeries[];
   chart: ApexChart;
-  dataLabels?: ApexDataLabels;
   xaxis: ApexXAxis;
   plotOptions: ApexPlotOptions;
-  stroke?: ApexStroke;
   title: ApexTitleSubtitle;
   yaxis: ApexYAxis;
   tooltip: ApexTooltip;
