@@ -1,62 +1,93 @@
- getChartData() {
-   const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'Content-Type': 'application/json'
-     })
-   };
+getChartData() {
+  const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
 
-   // Define the stages you want to count
-   const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+  // Define the stages you want to count
+  const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
 
-   this.http.get(apiUrls).subscribe(
-     (response: any) => {
-       this.chartdata = response;
-       this.multi = [];
+  this.http.get(apiUrls).subscribe(
+    (response: any) => {
+      this.chartdata = response;
+      this.multi = [];
 
-       const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
+      const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
 
-       uniquePlants.forEach(plantId => {
-         const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId);
+      uniquePlants.forEach(plantId => {
+        const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId);
 
-         const stagesCount: { [key: string]: number } = {};
-         stagesToCount.forEach(stage => {
-           stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
-         });
+        const stagesCount: { [key: string]: number } = {};
+        stagesToCount.forEach(stage => {
+          stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
+        });
 
-         this.multi.push({
-           name: plantId,
-           series: stagesToCount.map(stage => ({ name: stage, value: stagesCount[stage] }))
-         });
-       });
+        const plantSeries = stagesToCount.map(stage => stagesCount[stage]);
 
-       this.chartOptions = {
-         animationEnabled: true,
-         exportEnabled: true,
-         title: {
-           text: "Change Request - Plant-wise Report",
-           fontFamily: "Calibri, Arial, sans-serif"
-         },
-         axisX: {
-           title: "Total Changes",
-           reversed: true
-         },
-         axisY: {
-           title: "Plant ID",
-           prefix: "$",
-           suffix: "k",
-           includeZero: true
-         },
-         toolTip: {
-           shared: true
-         },
-         data: this.multi
-       };
+        this.multi.push({
+          label: plantId,
+          data: plantSeries
+        });
+      });
 
-       this.showChart = true; 
-     },
-     (error: any) => {
-       console.error('Error fetching chart data:', error);
-     }
-   );
- }
+      this.chartOptions = {
+        animationEnabled: true,
+        exportEnabled: true,
+        title: {
+          text: "Change Request - Plant-wise Report",
+          fontFamily: "Calibri, Arial, sans-serif"
+        },
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Total Changes'
+            },
+            ticks: {
+              beginAtZero: true
+            }
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Plant ID'
+            }
+          }]
+        },
+        tooltips: {
+          mode: 'label',
+          intersect: false,
+          displayColors: false
+        },
+        legend: {
+          display: true
+        },
+        data: {
+          labels: stagesToCount,
+          datasets: this.multi.map((data, index) => ({
+            label: data.label,
+            backgroundColor: this.getRandomColor(), // You can define this method to generate random colors
+            data: data.data
+          }))
+        }
+      };
+
+      this.showChart = true; 
+    },
+    (error: any) => {
+      console.error('Error fetching chart data:', error);
+    }
+  );
+}
+
+// Helper function to generate random color
+getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
