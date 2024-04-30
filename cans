@@ -1,45 +1,63 @@
-this.chartOptions = {
-  animationEnabled: true,
-  exportEnabled: true,
-  title: {
-    text: "Change Request - Plant-wise Report",
-    fontFamily: "Calibri, Arial, sans-serif"
-  },
-  scales: {
-    xAxes: [{
-      stacked: true,
-      scaleLabel: {
-        display: true,
-        labelString: 'Total Changes'
-      }
-    }],
-    yAxes: [{
-      stacked: true,
-      scaleLabel: {
-        display: true,
-        labelString: 'Plant ID'
-      }
-    }]
-  },
-  tooltips: {
-    mode: 'label',
-    intersect: false,
-    displayColors: false
-  },
-  legend: {
-    display: true
-  },
-  data: {
-    labels: stagesToCount,
-    datasets: this.multi.map((data, index) => ({
-      label: data.label,
-      backgroundColor: this.getRandomColor(),
-      data: data.data
-    }))
-  },
-  chartType: 'bar' // specify the chart type as 'bar' for stacked bar chart
-};
+ const apiUrls = 'your_api_url_here';
+    const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
 
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.multi = [];
+
+        const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
+
+        uniquePlants.forEach(plantId => {
+          const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId);
+
+          const stagesCount: { [key: string]: number } = {};
+          stagesToCount.forEach(stage => {
+            stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
+          });
+
+          const plantSeries = stagesToCount.map(stage => stagesCount[stage]);
+
+          this.multi.push({
+            name: plantId,
+            series: plantSeries
+          });
+        });
+
+        // Update chartOptions with the fetched data
+        this.chartOptions = {
+          animationEnabled: true,
+          exportEnabled: true,
+          title: {
+            text: "🍨ICE CREAM SALES🍨",
+            fontFamily: "Calibri, Arial, sans-serif"
+          },
+          axisX: {
+            title: "Quarter",
+            reversed: true
+          },
+          axisY: {
+            suffix: "%"
+          },
+          toolTip: {
+            shared: true
+          },
+          data: this.multi.map((plantData, index) => ({
+            type: "stackedBar100",
+            name: plantData.name,
+            showInLegend: true,
+            yValueFormatString: "#,###'%'",
+            dataPoints: plantData.series.map((value, i) => ({ y: value, label: `Q${i + 1}` })),
+            color: this.getChartColor(index) // You may define a function to assign colors dynamically
+          }))
+        };
+      });
+  }
+
+  // Example function to assign colors dynamically
+  getChartColor(index: number): string {
+    const colors = ["#5570b2", "#f6d788", "#8D5531", "#c13c3c"]; // Example colors
+    return colors[index % colors.length];
+  }
 getChartData() {
   const apiUrls = `${this.apiurl}/ViewChangeRequest/ViewChangerequest`;
   const httpOptions = {
