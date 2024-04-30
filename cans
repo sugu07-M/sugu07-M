@@ -1,87 +1,100 @@
- @ViewChild("chart") chart: ChartComponent;
-  public chartOptions!: Partial<ChartOptions>; // Add '!' to indicate it will be initialized later
+ public chartOptions: Partial<ChartOptions> = {}; // Define chartOptions
 
-  constructor() {
-    this.chartOptions = {
-      series: [
-        {
-          name: "Marine Sprite",
-          data: [44, 55, 41, 37, 22, 43, 21]
-        },
-        {
-          name: "Striking Calf",
-          data: [53, 32, 33, 52, 13, 43, 32]
-        },
-        {
-          name: "Tank Picture",
-          data: [12, 17, 11, 9, 15, 11, 20]
-        },
-        {
-          name: "Bucket Slope",
-          data: [9, 7, 5, 8, 6, 9, 4]
-        },
-        {
-          name: "Reborn Kid",
-          data: [25, 12, 19, 32, 25, 24, 10]
-        }
-      ],
-      chart: {
-        type: "bar",
-        height: 350,
-        stacked: true
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true
-        }
-      },
-      stroke: {
-        width: 1,
-        colors: ["#fff"]
-      },
-      title: {
-        text: "Fiction Books Sales"
-      },
-      xaxis: {
-        categories: [2008, 2009, 2010, 2011, 2012, 2013, 2014],
-        labels: {
-          formatter: (val: any) => { // Specify type for val
-            return val + "K";
-          }
-        }
-      },
-      yaxis: {
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        y: {
-          formatter: (val: any) => { // Specify type for val
-            return val + "K";
-          }
-        }
-      },
-      fill: {
-        opacity: 1
-      },
-      legend: {
-        position: "top",
-        horizontalAlign: "left",
-        offsetX: 40
-      }
-    };
+  constructor(private http: HttpClient) {
+    this.Gettablechart();
   }
+
+  Gettablechart() {
+    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        const chartData: any[] = response;
+
+        const multi: any[] = [];
+
+        const uniquePlants = [...new Set(chartData.map(item => item.plantId))];
+
+        uniquePlants.forEach(plantId => {
+          const plantData = chartData.filter(item => item.plantId === plantId);
+
+          const stagesCount: { [key: string]: number } = {};
+          stagesToCount.forEach(stage => {
+            stagesCount[stage] = plantData.filter(item => item.stage.trim() === stage).length;
+          });
+
+          multi.push({
+            name: plantId,
+            series: stagesToCount.map(stage => ({ name: stage, value: stagesCount[stage] }))
+          });
+        });
+
+        this.chartOptions = {
+          series: multi.map(item => ({ name: item.name, data: item.series })),
+          chart: {
+            type: 'bar',
+            height: 350,
+            stacked: true
+          },
+          plotOptions: {
+            bar: {
+              horizontal: true
+            }
+          },
+          xaxis: {
+            categories: stagesToCount,
+            labels: {
+              formatter: val => val + 'K'
+            }
+          },
+          title: {
+            text: 'Fiction Books Sales'
+          },
+          yaxis: {
+            title: {
+              text: undefined
+            }
+          },
+          tooltip: {
+            y: {
+              formatter: val => val + 'K'
+            }
+          },
+          fill: {
+            opacity: 1
+          },
+          legend: {
+            position: 'top',
+            horizontalAlign: 'left',
+            offsetX: 40
+          }
+        };
+
+        console.log('chartOptions:', this.chartOptions);
+      },
+      error => {
+        console.log("API request failed", error);
+      }
+    );
+  }
+}
 
 interface ChartOptions {
   series: ApexAxisChartSeries[];
   chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  plotOptions: ApexPlotOptions;
+  dataLabels?: ApexDataLabels;
   xaxis: ApexXAxis;
-  yaxis: ApexYAxis;
-  stroke: ApexStroke;
+  plotOptions: ApexPlotOptions;
+  stroke?: ApexStroke;
   title: ApexTitleSubtitle;
+  yaxis: ApexYAxis;
   tooltip: ApexTooltip;
   fill: ApexFill;
   legend: ApexLegend;
