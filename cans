@@ -4,18 +4,16 @@
     [chart]="chartOptions.chart"
     [xaxis]="chartOptions.xaxis"
     [plotOptions]="chartOptions.plotOptions"
-    [stroke]="chartOptions.stroke"
     [title]="chartOptions.title"
-    [dataLabels]="chartOptions.dataLabels"
-    [fill]="chartOptions.fill"
     [yaxis]="chartOptions.yaxis"
     [tooltip]="chartOptions.tooltip"
+    [fill]="chartOptions.fill"
     [legend]="chartOptions.legend"
   ></apx-chart>
 </div>
 
 public chartOptions: Partial<ChartOptions> = {};
-  getChartData() {
+   getChartData() {
     const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
     const httpOptions = {
       headers: new HttpHeaders({
@@ -23,72 +21,21 @@ public chartOptions: Partial<ChartOptions> = {};
       })
     };
 
-    const stagesToCount = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
-    const multi: any[] = []; // Initialize the multi array here
-
     this.http.get(apiUrls, httpOptions).subscribe(
       (response: any) => {
-        const chartData: any[] = response;
+        console.log('API response:', response);
 
-        const uniquePlants = [...new Set(chartData.map(item => item.plantId))];
+        if (!Array.isArray(response)) {
+          console.error('Invalid API response: Data is not an array');
+          return;
+        }
 
-        uniquePlants.forEach(plantId => {
-          const plantData = chartData.filter(item => item.plantId === plantId);
+        if (response.length === 0) {
+          console.warn('API response is empty');
+          return;
+        }
 
-          const stagesCount: { [key: string]: number } = {};
-          stagesToCount.forEach(stage => {
-            stagesCount[stage] = plantData.filter(item => item.stage.trim() === stage).length;
-          });
-
-          const seriesData = stagesToCount.map(stage => stagesCount[stage]);
-          multi.push({
-            name: plantId,
-            data: seriesData
-          });
-        });
-
-        this.chartOptions = {
-          series: multi,
-          chart: {
-            type: 'bar',
-            height: 350,
-            stacked: true
-          },
-          plotOptions: {
-            bar: {
-              horizontal: true
-            }
-          },
-          xaxis: {
-            categories: stagesToCount,
-            labels: {
-              formatter: val => val + 'K'
-            }
-          },
-          title: {
-            text: 'Fiction Books Sales'
-          },
-          yaxis: {
-            title: {
-              text: undefined
-            }
-          },
-          tooltip: {
-            y: {
-              formatter: val => val + 'K'
-            }
-          },
-          fill: {
-            opacity: 1
-          },
-          legend: {
-            position: 'top',
-            horizontalAlign: 'left',
-            offsetX: 40
-          }
-        };
-
-        console.log('Chart options:', this.chartOptions);
+        this.processChartData(response);
       },
       error => {
         console.error("API request failed", error);
@@ -96,14 +43,37 @@ public chartOptions: Partial<ChartOptions> = {};
     );
   }
 
-interface ChartOptions {
-  series: ApexAxisChartSeries[];
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  plotOptions: ApexPlotOptions;
-  title: ApexTitleSubtitle;
-  yaxis: ApexYAxis;
-  tooltip: ApexTooltip;
-  fill: ApexFill;
-  legend: ApexLegend;
+  processChartData(response: any[]): void {
+    // Implement your data processing logic here
+    // Example:
+    // const processedData = ...
+
+    // Once data processing is done, update chartOptions
+    this.chartOptions = {
+      // Assign processed data to chart options
+      // For example:
+      // series: processedData.series,
+      // chart: processedData.chart,
+      // xaxis: processedData.xaxis,
+      // plotOptions: processedData.plotOptions,
+      // title: processedData.title,
+      // yaxis: processedData.yaxis,
+      // tooltip: processedData.tooltip,
+      // fill: processedData.fill,
+      // legend: processedData.legend
+    };
+  }
 }
+
+interface ChartOptions {
+  series: any[]; // Update this with the correct data structure for series
+  chart: any; // Update this with the correct data structure for chart options
+  xaxis: any; // Update this with the correct data structure for x-axis options
+  plotOptions: any; // Update this with the correct data structure for plot options
+  title: any; // Update this with the correct data structure for title options
+  yaxis: any; // Update this with the correct data structure for y-axis options
+  tooltip: any; // Update this with the correct data structure for tooltip options
+  fill: any; // Update this with the correct data structure for fill options
+  legend: any; // Update this with the correct data structure for legend options
+}
+
