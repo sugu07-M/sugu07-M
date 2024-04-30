@@ -1,16 +1,4 @@
-interface ChartOptions {
-  series: any[]; // Adjust the type according to your data structure
-  chart: any; // Adjust the type according to your chart configuration
-  dataLabels: any; // Adjust the type according to your dataLabels configuration
-  plotOptions: any; // Adjust the type according to your plotOptions configuration
-  xaxis: any; // Adjust the type according to your xaxis configuration
-  stroke: any; // Adjust the type according to your stroke configuration
-  fill: any; // Adjust the type according to your fill configuration
-  yaxis: any; // Adjust the type according to your yaxis configuration
-  title: any; // Adjust the type according to your title configuration
-  tooltip: any; // Adjust the type according to your tooltip configuration
-  legend: any; // Adjust the type according to your legend configuration
-}
+
 <div id="chart">
   <apx-chart
     [series]="chartOptions.series"
