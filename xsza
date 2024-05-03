@@ -1,4 +1,4 @@
-
+npm install @angular/material
 X [ERROR] Could not resolve "@angular/material/dialog"
 
     src/app/app.module.ts:62:32:                                                                    will remove this error and leave the unresolved path in the bundle.
