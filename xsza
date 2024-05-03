@@ -1,5 +1,1 @@
-X [ERROR] Could not resolve "@angular/material/dialog"
-
-    src/app/helpdesk/report-issue/issue-new-issue/issue-assignto/issue-assignto.component.ts:5:32:
-      5 │ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-        ╵                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+npm install @angular/material @angular/cdk
