@@ -1,4 +1,8 @@
- labelAngle: -90,
-  gridThickness: 0,
-  lineThickness: 0,
-  labelPlacement: "outside"
+ title: {
+    text: "Plant ID",
+    fontFamily: "Arial",
+    fontColor: "blue",
+    fontSize: 14,
+    fontWeight: "bold",
+    margin: 20 // Adjust the margin to move the title
+  },
