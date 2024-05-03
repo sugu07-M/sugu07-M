@@ -1,1 +1,4 @@
-npm install @angular/material @angular/cdk
+ labelAngle: -90,
+  gridThickness: 0,
+  lineThickness: 0,
+  labelPlacement: "outside"
