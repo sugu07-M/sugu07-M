@@ -1,6 +1,5 @@
-npm install @angular/material
 X [ERROR] Could not resolve "@angular/material/dialog"
 
-    src/app/app.module.ts:62:32:                                                                    will remove this error and leave the unresolved path in the bundle.
-         ╵                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~                               will remove this error and leave the unresolved path in the bundle.
-        ╵ Could not resolve "@angular/mate~~~~~~~~~~~~~~~~~~~~~~~~~~
+    src/app/helpdesk/report-issue/issue-new-issue/issue-assignto/issue-assignto.component.ts:5:32:
+      5 │ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+        ╵                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
