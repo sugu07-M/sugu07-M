@@ -1,24 +1,36 @@
- title: {
-    text: "Plant ID",
-    fontFamily: "Arial",
-    fontColor: "blue",
-    fontSize: 14,
-    fontWeight: "bold",
-    margin: 20 // Adjust the margin to move the title
-  },
- titleWrap: true, // Enable title wrap to move the entire x-axis
-#chartContainer .canvasjs-xaxis-title {
-  /* Apply your desired styles here */
-  margin-top: 20px; /* Adjust the margin to move the title */
-  font-family: Arial;
-  font-size: 14px;
-  font-weight: bold;
-  color: blue;
-}
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <canvasjs-chart [options]="chartOptions" [styles]="chartStyles"></canvasjs-chart>
-    </div>
+<div class="chart-graph">
+  <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request Monthly Views</h6>
+  &nbsp;
+  <canvas baseChart [datasets]="barChartData"
+          [labels]="barChartLabels" [options]="barChartOptions"
+          [legend]="barChartLegend"
+          (chartClick)="chartClicked($event)"
+          style="display: block;
+    box-sizing: border-box;
+    height: 317px;
+    width: 340px;
+">
+  </canvas>
+
+</div>
+
+<!--donut-->
+<div class="dount-chart" style="display: block;">
+  <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-OverAll View</h6>
+  <canvas baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [type]="doughnutChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"
+          style=" box-sizing: border-box;"></canvas>
+</div>
+
+<br />
+<div class="table">
+  <h6 style="text-align: center; margin-bottom: -2%; color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-Plant Wise View</h6>
+
+  <div>
+    <canvasjs-chart [options]="chartOptions" [styles]="{width: '85%', height:'330px',margin:'6%'}"></canvasjs-chart>
   </div>
 </div>
