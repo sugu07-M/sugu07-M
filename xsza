@@ -6,3 +6,12 @@
     fontWeight: "bold",
     margin: 20 // Adjust the margin to move the title
   },
+ titleWrap: true, // Enable title wrap to move the entire x-axis
+#chartContainer .canvasjs-xaxis-title {
+  /* Apply your desired styles here */
+  margin-top: 20px; /* Adjust the margin to move the title */
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: bold;
+  color: blue;
+}
