@@ -15,6 +15,10 @@
   font-weight: bold;
   color: blue;
 }
-<div>
-  <canvasjs-chart [options]="chartOptions" [styles]="{width: '85%', height:'337px',margin:'6%'}"></canvasjs-chart>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <canvasjs-chart [options]="chartOptions" [styles]="chartStyles"></canvasjs-chart>
+    </div>
+  </div>
 </div>
