@@ -1,21 +1,22 @@
-<header>
-  <div class="row">
-    <div class="col-6">
-      <img class="microlab_symbol" src="assets/image/microlabs.png">
-      <img class="unnati_symbol" src="assets/image/unnati.png" alt="">
-      <h1 class="itportal_symbol">| IT Portal</h1>
-    </div>
-    <div class="col-6 text-right">
-      <div class="leftside-content">
-        <p><b>{{supportpersonname}}</b></p>
-        <p><b>{{designation}}</b></p>
-      </div>
-      <div class="profile-content">
-        <img src="assets/image/profile.png" alt="profileImg" style="width: 53px; height: 50px; border-radius: 50%;">
-      </div>
-      <ul class="dropdown-menu" *ngIf="showLogout">
-        <li><a class="logout-button" href="http://192.168.1.134:82/#/login"><i class="fas fa-sign-out-alt" style="font-size:15px; color:white;"></i> Logout</a></li>
-      </ul>
+<header class="d-flex justify-content-between align-items-center">
+  <div>
+    <img class="microlab_symbol" src="assets/image/microlabs.png">
+    <img class="unnati_symbol" src="assets/image/unnati.png" alt="">
+    <h1 class="itportal_symbol">| IT Portal</h1>
+    <div class="leftside-content">
+      <p><b>{{ supportpersonname }}</b></p>
+      <p><b>{{ designation }}</b></p>
     </div>
   </div>
+  <div class="profile-content position-relative" (click)="toggleLogout()">
+    <img src="assets/image/profile.png" alt="profileImg" style="width: 53px; height: 50px; border-radius: 50%; cursor: pointer;">
+    <ul class="dropdown-menu" *ngIf="showLogout">
+      <li><a class="logout-button" href="http://192.168.1.134:82/#/login"><i class="fas fa-sign-out-alt" style="font-size:15px; color:black;"></i> Logout</a></li>
+    </ul>
+  </div>
 </header>
+  showLogout = false;
+
+  toggleLogout() {
+    this.showLogout = !this.showLogout;
+  }
