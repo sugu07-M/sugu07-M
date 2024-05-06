@@ -1,3 +1,14 @@
+  showLogout: boolean = false;
+
+  toggleLogout(): void {
+    this.showLogout = !this.showLogout;
+  }
+
+  logout(): void {
+    // Perform logout action here
+    console.log("Logout clicked");
+  }
+
 <header class="d-flex justify-content-between align-items-center">
   <div>
     <img class="microlab_symbol" src="assets/image/microlabs.png">
