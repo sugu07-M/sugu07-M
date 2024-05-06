@@ -1,6 +1,6 @@
 <nav>
   <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col">
         <img class="microlab_symbol" src="assets/image/microlabs.png">
       </div>
@@ -11,14 +11,14 @@
         <h1 class="itportal_symbol">| IT Portal</h1>
       </div>
     </div>
-    <div class="user-profile">
+    <div class="user-profile text-right">
       <p><b>{{supportpersonname}}</b></p>
       <p><b>{{designation}}</b></p>
     </div>
 
     <div class="profile-details">
-      <div class="row">
-        <div class="col">
+      <div class="row justify-content-center">
+        <div class="col-auto">
           <div class="profile-content dropdown">
             <img src="assets/image/profile.png" alt="profileImg" style="width: 53px; height: 50px; border-radius: 50%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="dropdown-menu">
