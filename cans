@@ -17,18 +17,22 @@
     </div>
 
     <div class="profile-details">
-      <div class="profile-content" (click)="toggleLogout($event)">
-        <img src="assets/image/profile.png" alt="profileImg" style=" width: 53px; height: 50px; border-radius: 50%;">
+      <div class="row">
+        <div class="col">
+          <div class="profile-content dropdown">
+            <img src="assets/image/profile.png" alt="profileImg" style="width: 53px; height: 50px; border-radius: 50%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown-menu">
+              <ul *ngIf="showLogout">
+                <li>
+                  <a class="logout-button" href="http://192.168.1.134:82/#/login">
+                    <i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i>Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-      <ul *ngIf="showLogout">
-
-        <li><a class="logout-button" href="http://192.168.1.134:82/#/login"><i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i>Logout</a></li>
-
-      </ul>
-
     </div>
   </div>
 </nav>
-
-
-
