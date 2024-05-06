@@ -8,16 +8,10 @@
       <p><b>{{ designation }}</b></p>
     </div>
   </div>
-  <div class="profile-content position-relative" (click)="toggleLogout()">
-    <img src="assets/image/profile.png" alt="profileImg" style="width: 53px; height: 50px; border-radius: 50%; cursor: pointer;">
-    <ul class="dropdown-menu" *ngIf="showLogout">
-      <li><a class="logout-button" href="http://192.168.1.134:82/#/login"><i class="fas fa-sign-out-alt" style="font-size:15px; color:black;"></i> Logout</a></li>
+  <div class="profile-content position-relative">
+    <img src="assets/image/profile.png" alt="profileImg" style="width: 53px; height: 50px; border-radius: 50%; cursor: pointer;" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="showLogout">
+      <li><a class="dropdown-item" href="http://192.168.1.134:82/#/login"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     </ul>
   </div>
 </header>
-
-
-  showLogout: boolean = false;
-   toggleLogout(): void {
-    this.showLogout = !this.showLogout;
-  }
