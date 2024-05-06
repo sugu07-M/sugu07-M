@@ -15,8 +15,9 @@
     </ul>
   </div>
 </header>
-  showLogout = false;
 
-  toggleLogout() {
+
+  showLogout: boolean = false;
+   toggleLogout(): void {
     this.showLogout = !this.showLogout;
   }
