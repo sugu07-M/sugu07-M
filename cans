@@ -1,14 +1,21 @@
-  <img class="microlab_symbol" src="assets/image/microlabs.png">
-  <img class="unnati_symbol" src="assets/image/unnati.png" alt="">
- <h1 class="itportal_symbol">| IT Portal</h1>
-
-  <p><b>{{supportpersonname}}</b></p>
-  <p><b>{{designation}}</b></p>
- <div class="profile-content" (click)="toggleLogout($event)">
-   <img src="assets/image/profile.png" alt="profileImg" style=" width: 53px; height: 50px; border-radius: 50%;">
- </div>
- <ul *ngIf="showLogout">
-
-   <li><a class="logout-button" href="http://192.168.1.134:82/#/login"><i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i>Logout</a></li>
-
- </ul>
+<header>
+  <div class="row">
+    <div class="col-6">
+      <img class="microlab_symbol" src="assets/image/microlabs.png">
+      <img class="unnati_symbol" src="assets/image/unnati.png" alt="">
+      <h1 class="itportal_symbol">| IT Portal</h1>
+    </div>
+    <div class="col-6 text-right">
+      <div class="leftside-content">
+        <p><b>{{supportpersonname}}</b></p>
+        <p><b>{{designation}}</b></p>
+      </div>
+      <div class="profile-content">
+        <img src="assets/image/profile.png" alt="profileImg" style="width: 53px; height: 50px; border-radius: 50%;">
+      </div>
+      <ul class="dropdown-menu" *ngIf="showLogout">
+        <li><a class="logout-button" href="http://192.168.1.134:82/#/login"><i class="fas fa-sign-out-alt" style="font-size:15px; color:white;"></i> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
