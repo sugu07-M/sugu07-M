@@ -1,14 +1,14 @@
 <div mdbDropdown class="dropdown">
-  <a
+  <button
     class="btn btn-primary dropdown-toggle"
-    role="button"
-    id="dropdownMenuLink"
-    mdbDropdownToggle
+    type="button"
+    id="dropdownMenuButton"
     aria-expanded="false"
+    mdbDropdownToggle
   >
-    Dropdown link
-  </a>
-  <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    Dropdown button
+  </button>
+  <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <li><a class="dropdown-item" href="#">Action</a></li>
     <li><a class="dropdown-item" href="#">Another action</a></li>
     <li><a class="dropdown-item" href="#">Something else here</a></li>
