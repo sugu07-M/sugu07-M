@@ -1,37 +1,28 @@
-<nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col">
-        <img class="microlab_symbol" src="assets/image/microlabs.png">
+    <a class="navbar-brand" href="#">
+      <img src="assets/image/microlabs.png" class="microlab_symbol" alt="Microlabs Logo">
+    </a>
+    <a class="navbar-brand" href="#">
+      <img src="assets/image/unnati.png" class="unnati_symbol" alt="Unnati Logo">
+    </a>
+    <h1 class="navbar-brand itportal_symbol">| IT Portal</h1>
+    <div class="navbar-text">
+      <div class="user-profile">
+        <p><b>{{supportpersonname}}</b></p>
+        <p><b>{{designation}}</b></p>
       </div>
-      <div class="col">
-        <img class="unnati_symbol" src="assets/image/unnati.png" alt="">
-      </div>
-      <div class="col">
-        <h1 class="itportal_symbol">| IT Portal</h1>
-      </div>
-    </div>
-    <div class="user-profile text-right">
-      <p><b>{{supportpersonname}}</b></p>
-      <p><b>{{designation}}</b></p>
-    </div>
-
-    <div class="profile-details">
-      <div class="row justify-content-center">
-        <div class="col-auto">
-          <div class="profile-content dropdown">
-            <img src="assets/image/profile.png" alt="profileImg" style="width: 53px; height: 50px; border-radius: 50%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <div class="dropdown-menu">
-              <ul *ngIf="showLogout">
-                <li>
-                  <a class="logout-button" href="http://192.168.1.134:82/#/login">
-                    <i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i>Logout
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+      <div class="profile-details">
+        <div class="profile-content">
+          <img src="assets/image/profile.png" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%;">
         </div>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link logout-button" href="http://192.168.1.134:82/#/login">
+              <i class="fas fa-sign-out-alt" style="font-size: 15px; color: white;"></i> Logout
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
