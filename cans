@@ -1,31 +1,34 @@
- <header class="header py-3">
-    <div class="container d-flex align-items-center">
-      <!-- Left Logo -->
-      <div class="logo">
-        <img src="path/to/your/logo.png" alt="Logo" width="100">
+<nav>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <img class="microlab_symbol" src="assets/image/microlabs.png">
       </div>
-      <!-- Right Profile Dropdown -->
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-          Your Name
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Logout</a></li>
-        </ul>
+      <div class="col">
+        <img class="unnati_symbol" src="assets/image/unnati.png" alt="">
+      </div>
+      <div class="col">
+        <h1 class="itportal_symbol">| IT Portal</h1>
       </div>
     </div>
-  </header>
+    <div class="user-profile">
+      <p><b>{{supportpersonname}}</b></p>
+      <p><b>{{designation}}</b></p>
+    </div>
 
-.header {
-      background-color: #333;
-      color: #fff;
-    }
-    .logo {
-      margin-right: auto;
-    }
-    .profile-dropdown-menu {
-      right: 0;
-    }
+    <div class="profile-details">
+      <div class="profile-content" (click)="toggleLogout($event)">
+        <img src="assets/image/profile.png" alt="profileImg" style=" width: 53px; height: 50px; border-radius: 50%;">
+      </div>
+      <ul *ngIf="showLogout">
+
+        <li><a class="logout-button" href="http://192.168.1.134:82/#/login"><i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i>Logout</a></li>
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+
