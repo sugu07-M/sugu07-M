@@ -9,3 +9,11 @@
           </ul>
         </li>
       </ul>
+ toggleLogout(): void {
+    this.showLogout = !this.showLogout;
+  }
+
+  logout(): void {
+    // Your logout logic here
+    console.log('Logout clicked');
+  }
