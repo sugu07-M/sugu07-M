@@ -1,12 +1,12 @@
- <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="assets/image/profile.png" alt="Profile" class="profile-img">
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-          </ul>
-        </li>
+ <div class="navbar-text">
+      <p><b>{{ supportpersonname }}</b></p>
+      <p><b>{{ designation }}</b></p>
+    </div>
+    <div class="dropdown">
+      <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="assets/image/profile.png" alt="Profile" class="profile-img">
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+        <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
       </ul>
     </div>
