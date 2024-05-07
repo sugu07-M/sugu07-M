@@ -1,15 +1,14 @@
 <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="assets/image/profile.png" alt="Profile" class="profile-img" (click)="toggleLogout()">
           </a>
-          <ul class="dropdown-menu dropdown-menu-end" *ngIf="showLogout" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li *ngIf="showLogout"><a class="dropdown-item" href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
           </ul>
         </li>
       </ul>
-
 toggleLogout(): void {
     this.showLogout = !this.showLogout;
   }
