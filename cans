@@ -9,3 +9,28 @@
     </ul>
 
   </div>
+/* CSS to change the background color of the dropdown menu */
+.dropdown ul {
+    background-color: #f0f0f0; /* Change this to the desired background color */
+}
+
+/* CSS to change the background color of the logout button */
+.dropdown .btn {
+    background-color: transparent; /* Change this to the desired background color */
+    border: none; /* Optional: Remove the border */
+}
+
+/* CSS to change the color of the logout button's icon */
+.dropdown .btn img {
+    filter: invert(0.5); /* Change this to the desired color */
+}
+
+/* CSS to change the background color of the dropdown items */
+.dropdown ul li {
+    background-color: #f0f0f0; /* Change this to the desired background color */
+}
+
+/* CSS to change the color of the text in the dropdown items */
+.dropdown ul li a {
+    color: black; /* Change this to the desired text color */
+}
