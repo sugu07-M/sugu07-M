@@ -1,28 +1,12 @@
-  <div class="dropdown">
-    <button class="btn" type="button" id="dropdownMenuButton" (click)="toggleLogout($event)" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="assets/image/profile.png" alt="Profile" class="profile-img">
-    </button>
-    <ul *ngIf="showLogout">
-
-      <li><a href="http://192.168.1.134:82/#/login"><i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i>Logout</a></li>
-
-    </ul>
-
-  </div>
-.btn {
-  position: relative;
-}
-
-.profile-img {
-  width: 30px; /* Adjust according to your image size */
-  height: 30px; /* Adjust according to your image size */
-}
-
-/* Position the image */
-.profile-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none; /* Ensure the image doesn't interfere with button click */
-}
+   <ul>
+     
+      <a href="#" class="display-picture"><img src="https://i.pravatar.cc/85" alt=""></a><!--Profile Image-->
+      </ul>
+      <div class="card hidden"><!--ADD TOGGLE HIDDEN CLASS ATTRIBUTE HERE-->
+        <ul><!--MENU-->
+          <li><a href="#">Profile</li></a>
+          <li><a href="#">Account</li></a>
+          <li><a href="#">Settings</li></a>
+          <li><a href="#">Log Out</li></a>
+        </ul>
+      </div>
