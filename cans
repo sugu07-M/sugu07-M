@@ -1,18 +1,11 @@
-<div class="dropdown">
-  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-    <img src="assets/image/profile.png" alt="Profile" class="profile-img">
-  </button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-    <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
-  </ul>
-</div>
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown button
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</div>
+  <div class="dropdown">
+    <button class="btn" type="button" id="dropdownMenuButton" (click)="toggleLogout($event)" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="assets/image/profile.png" alt="Profile" class="profile-img">
+    </button>
+    <ul *ngIf="showLogout">
+
+      <li><a href="http://192.168.1.134:82/#/login"><i class='fas fa-sign-out-alt' style='font-size:15px; color:white;'></i>Logout</a></li>
+
+    </ul>
+
+  </div>
