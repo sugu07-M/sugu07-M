@@ -9,3 +9,4 @@
  public pieChartLabels:string[] = ['Red', 'Blue', 'Yellow', 'Green', 'Purple'];
   public pieChartData:number[] = [300, 500, 100, 400, 200];
   public pieChartType:string = 'pie';
+NG2: Type 'number[]' is not assignable to type 'ChartData<any, any[], string>'.
