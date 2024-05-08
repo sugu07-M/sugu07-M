@@ -1,5 +1,11 @@
- <div class="user-profile">
-   <p><b>{{supportpersonname}}</b></p><br />
-   <p><b>ID : {{employeeid}}</b></p><br />
-   <p><b>{{designation}}</b></p>
- </div>
+   <div class="dropdown">
+
+     <div class="profile-content">
+       <img src="assets/image/profile.png" alt="Profile" class="profile-img">
+     </div>
+   
+     <div class="dropdown-content">
+       <a href="http://192.168.1.134:82/#/login"><i class='fas fa-sign-out-alt' style='font-size:17px; color:white;'>Logout</i></a>
+
+     </div>
+   </div>
