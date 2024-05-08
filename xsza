@@ -1,22 +1,19 @@
-<div style="display: block">
-  <canvas baseChart
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
-          [chartType]="pieChartType"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
-</div>
+public pieChartData: ChartData = {
+  labels: ['Download Sales', 'In-Store Sales', 'Mail Sales'],
+  datasets: [{
+    data: [300, 500, 100],
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.5)',
+      'rgba(54, 162, 235, 0.5)',
+      'rgba(255, 206, 86, 0.5)',
+    ],
+    hoverBackgroundColor: [
+      'rgba(255, 99, 132, 0.8)',
+      'rgba(54, 162, 235, 0.8)',
+      'rgba(255, 206, 86, 0.8)',
+    ],
+  }]
+};
 
-public pieChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
-  public pieChartData:number[] = [300, 500, 100];
-  public pieChartType:string = 'pie';
- 
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
- 
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
-Type 'number[]' is not assignable to type 'ChartData<any, any[], string>'.
+// Set the chart type
+public pieChartType: string = 'pie';
