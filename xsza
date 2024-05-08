@@ -1,5 +1,3 @@
- [vite] Internal server error: window is not defined
-      at node_modules/apexcharts/dist/apexcharts.common.js (d:/IT_Portal/IT-Portal/IT-Portal.UI/node_modules/apexcharts/dist/apexcharts.common.js:6:390756)
-      at __require2 (D:/IT_Portal/IT-Portal/IT-Portal.UI/.angular/vite-root/IT_Portal/chunk-P3VG54SN.mjs:51:50)
-      at eval (d:/IT_Portal/IT-Portal/IT-Portal.UI/node_modules/ng-apexcharts/fesm2020/ng-apexcharts.mjs:4:24)
-      at async instantiateModule (file:///D:/IT_Portal/IT-Portal/IT-Portal.UI/node_modules/vite/dist/node/chunks/dep-9A4-l-43.js:50861:9)
+NG8001: 'router-outlet' is not a known element:
+1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
+2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
