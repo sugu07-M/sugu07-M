@@ -1,4 +1,4 @@
 NG8001: 'router-outlet' is not a known element:
 1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
 2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
-import { ChartModule } from 'primeng/chart';
+npm install primeng --save
