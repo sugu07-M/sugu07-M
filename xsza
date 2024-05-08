@@ -1,19 +1,33 @@
-public pieChartData: ChartData = {
-  labels: ['Download Sales', 'In-Store Sales', 'Mail Sales'],
-  datasets: [{
-    data: [300, 500, 100],
-    backgroundColor: [
-      'rgba(255, 99, 132, 0.5)',
-      'rgba(54, 162, 235, 0.5)',
-      'rgba(255, 206, 86, 0.5)',
-    ],
-    hoverBackgroundColor: [
-      'rgba(255, 99, 132, 0.8)',
-      'rgba(54, 162, 235, 0.8)',
-      'rgba(255, 206, 86, 0.8)',
-    ],
-  }]
-};
+<div style="display: block">
+  <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
+ public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
+  public pieChartData: number[] = [300, 500, 100];
+  public pieChartType: string = 'pie';
 
-// Set the chart type
-public pieChartType: string = 'pie';
+  // Optional: You can also define chart options
+  public pieChartOptions: any = {
+    responsive: true,
+    legend: {
+      position: 'top',
+    },
+    animation: {
+      animateScale: true,
+      animateRotate: true
+    }
+  };
+
+  // Event handlers (optional)
+  public chartClicked(event: any): void {
+    console.log(event);
+  }
+
+  public chartHovered(event: any): void {
+    console.log(event);
+  }
