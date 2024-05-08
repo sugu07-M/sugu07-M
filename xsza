@@ -1,28 +1,11 @@
-public pieChartOptions: ChartOptions = {
-    responsive: true,
-  };
-
-  public pieChartLabels: Label[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
-  public pieChartData: ChartDataSets[] = [
-    { data: [300, 500, 100], label: 'Sales' }
-  ];
-  public pieChartType: string = 'pie';
-
-  // Optional: You can define event handlers if needed
-  public chartClicked(event: any): void {
-    console.log(event);
-  }
-
-  public chartHovered(event: any): void {
-    console.log(event);
-  }
-
-<div style="display: block">
+<div style="display: block;">
   <canvas baseChart
           [data]="pieChartData"
           [labels]="pieChartLabels"
-          [chartType]="pieChartType"
-          [options]="pieChartOptions"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
+          [chartType]="pieChartType">
+  </canvas>
 </div>
+
+ public pieChartLabels:string[] = ['Red', 'Blue', 'Yellow', 'Green', 'Purple'];
+  public pieChartData:number[] = [300, 500, 100, 400, 200];
+  public pieChartType:string = 'pie';
