@@ -9,3 +9,8 @@
 
      </div>
    </div>
+
+.dropdown-content:hover .dropdown-content {
+
+  display: block;
+}
