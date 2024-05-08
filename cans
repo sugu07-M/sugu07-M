@@ -1,3 +1,6 @@
+npm install apexcharts ng-apexcharts --save 
+
+
 import { Component, ViewChild } from "@angular/core";
 
 import {
