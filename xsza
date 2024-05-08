@@ -19,3 +19,4 @@ public pieChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail Sale
   public chartHovered(e:any):void {
     console.log(e);
   }
+Type 'number[]' is not assignable to type 'ChartData<any, any[], string>'.
