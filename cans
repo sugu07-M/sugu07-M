@@ -1,12 +1,18 @@
-<div class="dropdown">
-    <div class="profile-content">
-        <img src="assets/image/profile.png" alt="Profile" class="profile-img">
-    </div>
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-    <div class="dropdown-content">
-        <a href="http://192.168.1.134:82/#/login"><i class='fas fa-sign-out-alt' style='font-size:17px; color:white;'>Logout</i></a>
-    </div>
-</div>
+.profile-content {
+    display: inline-block;
+}
+
+.profile-img {
+    width: 40px; /* Adjust as needed */
+    height: 40px; /* Adjust as needed */
+    border-radius: 50%;
+}
+
 .dropdown-content {
     display: none; /* Initially hide the dropdown content */
     position: absolute;
@@ -22,3 +28,23 @@
     text-decoration: none;
     display: block;
 }
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.show {
+    display: block; /* Show the dropdown content when 'show' class is applied */
+}
+
+<div class="dropdown" (click)="toggleDropdown()">
+    <div class="profile-content">
+        <img src="assets/image/profile.png" alt="Profile" class="profile-img">
+    </div>
+
+    <div class="dropdown-content" [ngClass]="{'show': showDropdown}">
+        <a href="http://192.168.1.134:82/#/login">
+            <i class='fas fa-sign-out-alt' style='font-size:17px; color:white;'>Logout</i>
+        </a>
+    </div>
+</div>
