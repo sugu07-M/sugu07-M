@@ -1,3 +1,9 @@
+showDropdown: boolean = false;
+
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
+
 .dropdown {
     position: relative;
     display: inline-block;
