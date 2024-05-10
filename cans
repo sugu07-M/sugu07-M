@@ -1,3 +1,5 @@
+NG9: Property 'toggleVisibility' does not exist on type 'DashboardComponent'.
+
 <div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
   <div class="card-body dashboard_body_filter">
     <div class="row">
