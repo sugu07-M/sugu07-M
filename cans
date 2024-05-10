@@ -26,6 +26,12 @@
    textField: 'item_text',
  };
 
+ const queryParams = {
+   crdate: this.startDate,
+   crdate: this.endDate,
+   plantId: this.selectedPlantIds.join(',') 
+ };
+
  onSelectedItemsChange() {
    
  }
