@@ -1,30 +1,27 @@
- plantcode: any[] = [];
- getplant() {
+selectedPlants: any[] = [];
 
-   const apiUrls = this.apiurl + '/Plantid'
-   const requestBody = {
+getplant() {
+  const apiUrls = this.apiurl + '/Plantid';
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
 
-   }
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     })
-   };
-   this.http.get(apiUrls, requestBody).subscribe(
-     (response: any) => {
-       console.log(response);
-       this.plantcode = response;
-       console.log(this.plantcode)
-     },
-     (error) => {
-       console.error("Post failed", error)
-     }
-   ) 
- }
+  this.http.get(apiUrls, httpOptions).subscribe(
+    (response: any) => {
+      console.log(response);
+      this.plantcode = response;
+      console.log(this.plantcode);
+    },
+    (error) => {
+      console.error('Post failed', error);
+    }
+  );
+}
 
-  <div class="col card_plant_filter">
-    <select [(ngModel)]="dplantcode" class="input-change">
-      <option selected>Select-plant</option>
-      <option *ngFor="let plantid of plantcode" value="{{plantid.id}}">{{plantid.code}}</option>
-    </select>
-  </div>
+ <div class="col card_plant_filter">
+  <ng-select [multiple]="true" [(ngModel)]="selectedPlants" [ngModelOptions]="{standalone: true}" class="input-change">
+    <ng-option *ngFor="let plant of plantcode" [value]="plant.id">{{ plant.code }}</ng-option>
+  </ng-select>
+</div>
