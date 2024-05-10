@@ -1,107 +1,61 @@
- <div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
-   <div class="card-body dashboard_body_filter">
-     <div class="row">
-       <div class="col card_plant_filter">
-         <div class="multi">
-           <ng-multiselect-dropdown [settings]="dropdownSettings"
-                                    [data]="dropdownList"
-                                    [(ngModel)]="dplantcode"
-                                    (ngModelChange)="onSelectedItemsChange()">
-           </ng-multiselect-dropdown>
-         </div>
-       </div>
-       <div class="col card_plant_filter">
-         <input class="input-change" type="text" required placeholder="Start-Date" onfocus="(this.type='date')">
-       </div>
-       <div class="col card_plant_filter">
-         <input class="input-change" type="text" required placeholder="End-Date" onfocus="(this.type='date')">
-       </div>
-       <div class="col card_plant_filter">
-         <button class="button-overlay">Filter</button>
-       </div>
-     </div>
-   </div>
- </div>
+<div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
+  <div class="card-body dashboard_body_filter">
+    <div class="row">
+      <div class="col card_plant_filter">
+        <div class="multi">
+          <ng-multiselect-dropdown [settings]="dropdownSettings"
+                                   [data]="dropdownList"
+                                   [(ngModel)]="selectedPlantIds"
+                                   (ngModelChange)="onFilterChange()">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+      <div class="col card_plant_filter">
+        <input class="input-change" type="date" required placeholder="Start Date" [(ngModel)]="startDate" (change)="onFilterChange()">
+      </div>
+      <div class="col card_plant_filter">
+        <input class="input-change" type="date" required placeholder="End Date" [(ngModel)]="endDate" (change)="onFilterChange()">
+      </div>
+      <div class="col card_plant_filter">
+        <button class="button-overlay" (click)="onFilterChange()">Filter</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-  getchangerequest() {
+ startDate: string;
+  endDate: string;
+  selectedPlantIds: any[] = [];
 
+  // Define variables to store fetched data and chart data
+  changerequest: any[] = [];
+  doughnutChartData: any;
+ getChangeRequest(): void {
     const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-    const requestBody = {}
+    const queryParams = {
+      startDate: this.startDate,
+      endDate: this.endDate,
+      plantIds: this.selectedPlantIds.join(',') // Convert array to comma-separated string
+    };
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
+        'Content-Type': 'application/json'
+      }),
+      params: queryParams // Pass query parameters
     };
 
-    this.http.get(apiUrls, requestBody).subscribe(
+    this.http.get(apiUrls, httpOptions).subscribe(
       (response: any) => {
         this.changerequest = response;
         this.countStatus();
-
       },
-
       (error) => {
-        console.error("Post failed", error);
+        console.error("Data fetch failed", error);
       }
     );
   }
-  public doughnutChartData: ChartData<any, any[], string> = {
-    labels: [],
-    datasets: [
-      {
-        data: [],
-        label: 'Status Counts',
-        backgroundColor: []
-      }
-    ]
-  };
-  countStatus() {
-    this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
-    this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
-    this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
-    this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
-    this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
-    this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
-    this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
-    this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
-    this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
-
-    this.doughnutChartData = {
-      labels: ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'],
-      datasets: [
-        {
-          data: [
-            this.newCount,
-            this.pendingApproval,
-            this.Approved,
-            this.Rejected,
-            this.Implemention,
-            this.pending,
-            this.release,
-            this.completedCount
-          ],
-          label: 'Status Counts',
-          backgroundColor: ['#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff']
-        }
-      ]
-    };
-
-
-
-  };
-
-
-  public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
-
-  public doughnutChartType: ChartType = 'doughnut';
-
-  public chartHovered(e: any): void {
-    // console.log(e);
-  }
-
-  getdata() {
-    alert(this.pendingCount)
-    /*console.log("getting data", this.changerequest)*/
+ onFilterChange(): void {
+    this.getChangeRequest(); // Fetch data when filters change
   }
