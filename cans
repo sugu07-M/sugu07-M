@@ -1,4 +1,13 @@
-
+ this.doughnutChartData.datasets[0].data = [
+    this.newCount,
+    this.pendingApproval,
+    this.Approved,
+    this.Rejected,
+    this.Implemention,
+    this.pending,
+    this.release,
+    this.completedCount
+  ];
 NG9: Property 'length' does not exist on type 'ChartData<any, any[], string>'.*ngIf="doughnutChartData.length > 0"
 <div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
   <div class="card-body dashboard_body_filter">
