@@ -1,1 +1,39 @@
 https://www.htmlelements.com/angular/demos/chart/pie-series/
+
+
+<div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
+  <div class="card-body dashboard_body_filter">
+    <div class="row">
+      <div class="col card_plant_filter">
+        <div class="multi">
+          <ng-multiselect-dropdown
+            [placeholder]="'Select Plants'"
+            [data]="dropdownList"
+            [(ngModel)]="selectedPlantIds"
+            [settings]="dropdownSettings"
+            (onSelect)="onFilterChange()"
+            (onDeSelect)="onFilterChange()"
+            (onSelectAll)="onFilterChange()"
+            (onDeSelectAll)="onFilterChange()">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+      <div class="col card_plant_filter">
+        <input class="input-change" type="date" placeholder="Start Date" [(ngModel)]="startDate">
+      </div>
+      <div class="col card_plant_filter">
+        <input class="input-change" type="date" placeholder="End Date" [(ngModel)]="endDate">
+      </div>
+      <div class="col card_plant_filter">
+        <button class="button-overlay" (click)="onFilterChange()">Filter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<canvas *ngIf="doughnutChartData.length > 0"
+        baseChart
+        [data]="doughnutChartData"
+        [labels]="doughnutChartLabels"
+        [type]="'doughnut'">
+</canvas>
