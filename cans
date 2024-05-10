@@ -1,4 +1,35 @@
-NG9: Property 'toggleVisibility' does not exist on type 'DashboardComponent'.
+ getplant() {
+   const apiUrls = this.apiurl + '/Plantid';
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'Content-Type': 'application/json'
+     })
+   };
+
+   this.http.get(apiUrls, httpOptions).subscribe(
+     (response: any) => {
+       console.log(response);
+       this.dropdownList = response.map((item: { id: any; code: any; }) => ({
+         item_id: item.id,
+         item_text: item.code
+       }));
+       console.log(this.dropdownList);
+     },
+     (error) => {
+       console.error('Get plant failed', error);
+     }
+   );
+ }
+
+ dropdownSettings = {
+   idField: 'item_id',
+   textField: 'item_text',
+ };
+
+ onSelectedItemsChange() {
+   
+ }
+
 
 <div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
   <div class="card-body dashboard_body_filter">
@@ -19,49 +50,40 @@ NG9: Property 'toggleVisibility' does not exist on type 'DashboardComponent'.
         <input class="input-change" type="date" required placeholder="End Date" [(ngModel)]="endDate" (change)="onFilterChange()">
       </div>
       <div class="col card_plant_filter">
-        <button class="button-overlay" (click)="onFilterChange()">Filter</button>
+        <button class="button-overlay" (click)="getchangerequest()">Filter</button>
       </div>
     </div>
   </div>
 </div>
 
+ getchangerequest() {
 
-isVisible: boolean = true; // Assuming you have a variable to control visibility of the filter section
-  dropdownSettings: any; // Assuming you have settings for the dropdown
-  dropdownList: any[] = []; // Assuming you have a list of items for the dropdown
+   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+   const queryParams = {
+     startDate: this.startDate,
+     endDate: this.endDate,
+     plantIds: this.selectedPlantIds.join(',') 
+   };
 
-  selectedPlantIds: any[] = [];
-  startDate: string;
-  endDate: string;
-
-  // Define variables to store fetched data and chart data
-  changerequest: any[] = [];
-  doughnutChartData: any;
- getChangeRequest(): void {
-    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-    const queryParams = {
-      startDate: this.startDate,
-      endDate: this.endDate,
-      plantIds: this.selectedPlantIds.join(',') // Convert array to comma-separated string
-    };
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     }),
       params: queryParams // Pass query parameters
-    };
+   };
 
-    this.http.get(apiUrls, httpOptions).subscribe(
-      (response: any) => {
-        this.changerequest = response;
-        this.countStatus();
-      },
-      (error) => {
-        console.error("Data fetch failed", error);
-      }
-    );
-  }
+   this.http.get(apiUrls, httpOptions).subscribe(
+     (response: any) => {
+       this.changerequest = response;
+       this.countStatus();
+
+     },
+
+     (error) => {
+       console.error("Post failed", error);
+     }
+   );
+ }
  onFilterChange(): void {
-    this.getChangeRequest(); // Fetch data when filters change
-  }
+   this.getchangerequest(); 
+ }
