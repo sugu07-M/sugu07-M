@@ -1,4 +1,5 @@
-selectedPlants: any[] = [];
+dropdownList: any[] = []; // Make sure to populate this with data
+dplantcode: any; // Make sure this is initialized correctly
 
 getplant() {
   const apiUrls = this.apiurl + '/Plantid';
@@ -12,7 +13,11 @@ getplant() {
     (response: any) => {
       console.log(response);
       this.plantcode = response;
-      console.log(this.plantcode);
+      this.dropdownList = this.plantcode.map(item => ({
+        item_id: item.id, // Assuming 'id' is the ID field in your API response
+        item_text: item.name // Assuming 'name' is the text field in your API response
+      }));
+      console.log(this.dropdownList);
     },
     (error) => {
       console.error('Post failed', error);
@@ -20,13 +25,17 @@ getplant() {
   );
 }
 
- <ng-multiselect-dropdown [settings]="dropdownSettings"
-                          [data]="dropdownList"
-                          [(ngModel)]="dplantcode"
-                          (ngModelChange)="onSelectedItemsChange()">
- </ng-multiselect-dropdown>
+dropdownSettings = {
+  idField: 'item_id',
+  textField: 'item_text',
+};
 
-  dropdownSettings = {
-    idField: 'item_id',
-    textField: 'item_text',
-  };
+onSelectedItemsChange() {
+  // Handle selected items change if needed
+}
+
+<ng-multiselect-dropdown [settings]="dropdownSettings"
+                         [data]="dropdownList"
+                         [(ngModel)]="dplantcode"
+                         (ngModelChange)="onSelectedItemsChange()">
+</ng-multiselect-dropdown>
