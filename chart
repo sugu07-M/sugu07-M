@@ -1,4 +1,13 @@
-    <div class=" chart-graph">
+let queryParams: any = {};
+
+    if (this.selectedPlantIds.length > 0) {
+      queryParams['plantId'] = this.selectedPlantIds.join(',');
+    }
+
+    if (this.startDate && this.endDate) {
+      queryParams['crdate'] = this.startDate + '-' + this.endDate;
+    }
+<div class=" chart-graph">
       <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request Monthly Views</h6>
       &nbsp;
       <canvas baseChart [datasets]="barChartData"
