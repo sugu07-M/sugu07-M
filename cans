@@ -20,8 +20,13 @@ getplant() {
   );
 }
 
- <div class="col card_plant_filter">
-  <ng-select [multiple]="true" [(ngModel)]="selectedPlants" [ngModelOptions]="{standalone: true}" class="input-change">
-    <ng-option *ngFor="let plant of plantcode" [value]="plant.id">{{ plant.code }}</ng-option>
-  </ng-select>
-</div>
+ <ng-multiselect-dropdown [settings]="dropdownSettings"
+                          [data]="dropdownList"
+                          [(ngModel)]="dplantcode"
+                          (ngModelChange)="onSelectedItemsChange()">
+ </ng-multiselect-dropdown>
+
+  dropdownSettings = {
+    idField: 'item_id',
+    textField: 'item_text',
+  };
