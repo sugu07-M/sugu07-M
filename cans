@@ -24,9 +24,13 @@
 </div>
 
 
- startDate: string;
-  endDate: string;
+isVisible: boolean = true; // Assuming you have a variable to control visibility of the filter section
+  dropdownSettings: any; // Assuming you have settings for the dropdown
+  dropdownList: any[] = []; // Assuming you have a list of items for the dropdown
+
   selectedPlantIds: any[] = [];
+  startDate: string;
+  endDate: string;
 
   // Define variables to store fetched data and chart data
   changerequest: any[] = [];
