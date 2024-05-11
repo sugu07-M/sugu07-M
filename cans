@@ -1,3 +1,57 @@
+
+    src/app/dashboard/dashboard.component.ts:166:13:
+      166 │         this.UpdateDoughnutChartData();
+          ╵              ~~~~~~~~~~~~~~~~~~~~~~~
+
+  'doughnutChartData' is declared here.
+
+    src/app/dashboard/dashboard.component.ts:174:9:
+      174 │   public doughnutChartData: ChartData<any, any[], string> = {
+          ╵          ~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2304: Cannot find name 'UpdateDoughnutChartData'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:196:4:
+      196 │     UpdateDoughnutChartData() {
+          ╵     ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS1005: ';' expected. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:196:30:
+      196 │     UpdateDoughnutChartData() {
+          ╵                               ^
+
+
+\ Changes detected. Rebuilding...
+X [ERROR] TS2551: Property 'UpdateDoughnutChartData' does not exist on type 'DashboardComponent'. Did you mean 'doughnutChartData'? [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:166:13:
+      166 │         this.UpdateDoughnutChartData();
+          ╵              ~~~~~~~~~~~~~~~~~~~~~~~
+
+  'doughnutChartData' is declared here.
+
+    src/app/dashboard/dashboard.component.ts:174:9:
+      174 │   public doughnutChartData: ChartData<any, any[], string> = {
+          ╵          ~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2304: Cannot find name 'UpdateDoughnutChartData'. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:196:4:
+      196 │     UpdateDoughnutChartData() {
+          ╵     ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS1005: ';' expected. [plugin angular-compiler]
+
+    src/app/dashboard/dashboard.component.ts:196:30:
+      196 │     UpdateDoughnutChartData() {
+          ╵                               ^
+
+
 <div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
   <div class="card-body dashboard_body_filter">
     <div class="row">
