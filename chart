@@ -1,3 +1,9 @@
+  onFilterChange() {
+    this.getChangeRequest();
+  }
+
+
+
 getChangeRequest() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
   let queryParams = new HttpParams();
