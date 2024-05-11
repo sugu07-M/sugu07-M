@@ -1,4 +1,6 @@
- getBarchart() {
+ const totalNonCompleted = this.noncompleted.reduce((acc, val) => acc + val, 0);
+
+getBarchart() {
    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
    const httpOptions = {
