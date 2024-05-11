@@ -1,16 +1,26 @@
- onFilterChange() {
-    if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
-      this.getChangeRequest();
-    } else {
-      console.error('Please select plant IDs and specify start and end dates.');
-    }
+ isDateWithinRange(crdate: string): boolean {
+    // Extract the start and end dates
+    const [start, end] = this.startDate.split('-').concat(this.endDate.split('-'));
+    const [startYear, startMonth, startDay] = start.split('-').map(Number);
+    const [endYear, endMonth, endDay] = end.split('-').map(Number);
+    // Extract the crdate
+    const [crYear, crMonth, crDay] = crdate.split('-').map(Number);
+    // Create Date objects for comparison
+    const startDateObj = new Date(startYear, startMonth - 1, startDay); // Month is 0-indexed
+    const endDateObj = new Date(endYear, endMonth - 1, endDay);
+    const crDateObj = new Date(crYear, crMonth - 1, crDay);
+    // Check if crDate is within the range
+    return crDateObj >= startDateObj && crDateObj <= endDateObj;
   }
 
-if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
-      queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
-      queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
-    }
-
+ this.filter = this.changerequest.filter((item: any) => {
+          // Check if the item's plantId is in the selectedPlantIds array
+          const isPlantIdMatch = this.selectedPlantIds.includes(item.plantId);
+          // Check if the item's date is within the specified range
+          const isDateInRange = this.isDateWithinRange(item.crdate);
+          // Return true if both conditions are met
+          return isPlantIdMatch && isDateInRange;
+        });
 getChangeRequest() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
   let queryParams = new HttpParams();
