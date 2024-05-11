@@ -1,10 +1,8 @@
-TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ Draft: number; 'Pending Approval': number; Approved: number; Rejected: number; Implement: number; Pending: number; Release: number; Closure: number; }'. onSelectedItemsChange(): void {
-    this.filterData(); // Filter data when plant selection changes
-  }
+type StatusCounts = {
+  [key: string]: number;
+};
 
-  onFilterChange(): void {
-    this.getchangerequest(); // Fetch data when date filters change
-  }
+
 filterData() {
     // Filter the data based on selected plants, start date, and end date
     this.filter = this.changerequest.filter((item: any) =>
@@ -26,7 +24,7 @@ filterData() {
   }
 
   updateChartData() {
-    const counts = {
+    const counts: StatusCounts = {
       'Draft': 0,
       'Pending Approval': 0,
       'Approved': 0,
@@ -37,9 +35,12 @@ filterData() {
       'Closure': 0
     };
 
-    // Count status occurrences within the filtered data
+    // Update counts based on status in the filtered data
     this.filter.forEach(item => {
-      counts[item.status.trim()]++;
+      const status = item.status.trim();
+      if (status in counts) {
+        counts[status]++;
+      }
     });
 
     // Update doughnut chart data with the counts
