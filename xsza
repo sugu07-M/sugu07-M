@@ -1,39 +1,443 @@
-https://www.htmlelements.com/angular/demos/chart/pie-series/
 
+<div class=" chart-graph">
+      <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request Monthly Views</h6>
+      &nbsp;
+      <canvas baseChart [datasets]="barChartData"
+              [labels]="barChartLabels" [options]="barChartOptions"
+              [legend]="barChartLegend"
+              (chartClick)="chartClicked($event)"
+              style="display: block;
+    box-sizing: border-box;
+    height: 317px;
+    width: 340px;
+">
+      </canvas>
 
-<div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
-  <div class="card-body dashboard_body_filter">
-    <div class="row">
-      <div class="col card_plant_filter">
-        <div class="multi">
-          <ng-multiselect-dropdown
-            [placeholder]="'Select Plants'"
-            [data]="dropdownList"
-            [(ngModel)]="selectedPlantIds"
-            [settings]="dropdownSettings"
-            (onSelect)="onFilterChange()"
-            (onDeSelect)="onFilterChange()"
-            (onSelectAll)="onFilterChange()"
-            (onDeSelectAll)="onFilterChange()">
-          </ng-multiselect-dropdown>
-        </div>
-      </div>
-      <div class="col card_plant_filter">
-        <input class="input-change" type="date" placeholder="Start Date" [(ngModel)]="startDate">
-      </div>
-      <div class="col card_plant_filter">
-        <input class="input-change" type="date" placeholder="End Date" [(ngModel)]="endDate">
-      </div>
-      <div class="col card_plant_filter">
-        <button class="button-overlay" (click)="onFilterChange()">Filter</button>
+    </div>
+
+    <!--donut-->
+    <div class=" col-xs-4 col-sm-4 col-lg-4 text-center dount-chart" style="display: block;">
+      <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-OverAll View</h6>
+      <canvas baseChart
+              [data]="doughnutChartData"
+              [labels]="doughnutChartLabels"
+              [type]="doughnutChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"
+              style=" box-sizing: border-box;"></canvas>
+    </div>
+
+    <!--Plant Bar-->
+    <div class="table">
+      <h6 style="text-align: center; margin-bottom: -2%; color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-Plant Wise View</h6>
+
+      <div>
+        <canvasjs-chart [options]="chartOptions" [styles]="{width: '85%', height:'368px',margin:'6%'}"></canvasjs-chart>
       </div>
     </div>
-  </div>
-</div>
+ 
 
-<canvas *ngIf="doughnutChartData.length > 0"
-        baseChart
-        [data]="doughnutChartData"
-        [labels]="doughnutChartLabels"
-        [type]="'doughnut'">
-</canvas>
+
+
+typescript
+  -------
+ import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit, ViewChild, viewChild } from '@angular/core';
+import { environment } from '/IT_Portal/IT-Portal/IT-Portal.UI/src/environments/environment';
+
+import { Color } from '@swimlane/ngx-charts';
+import { ChartData, ChartDataset, ChartType, Plugin } from 'chart.js';
+import { PasscrdataService } from '../change-request/passcrdata.service';
+import { ActivatedRoute } from '@angular/router';
+import { Chart } from 'chart.js';
+
+
+
+
+@Component({
+  selector: 'app-dashboard',
+ 
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css',
+})
+
+export class DashboardComponent implements OnInit {
+
+ 
+  multi: any[] = [];
+  showChart: boolean = false;
+  chartOptions: any = {};
+
+  
+
+  constructor(private http: HttpClient, private routeservice: PasscrdataService, private route: ActivatedRoute) {
+   
+}
+
+  private apiurl = environment.apiurls
+
+  single: any;
+  dplantcode: any = '';
+  startDt: any = '';
+  endDt: any = '';
+  colorScheme: any;
+
+ 
+ // if(this.startDt == '') { this.startdt = new Date(); }
+
+  ngOnInit(): void {
+   
+    this.getchangerequest();
+    this.getBarchart();
+    this.getChartData();
+    /*this.Gettablechart();*/
+    this.getplant();
+    this.colorScheme = {
+      domain: ['#14A44D', '#808080ff', '#54B4D3', '#DC4C64', '#b5eb49']
+    };
+
+
+  }
+
+  plantcode: any[] = [];
+  getplant() {
+
+    const apiUrls = this.apiurl + '/Plantid'
+    const requestBody = {
+
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+    this.http.get(apiUrls, requestBody).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.plantcode = response;
+        console.log(this.plantcode)
+      },
+      (error) => {
+        console.error("Post failed", error)
+      }
+    ) 
+  }
+
+  openNav() {
+    const mySidenav = document.getElementById('mySidenav');
+    if (mySidenav) {
+      mySidenav.style.width = '250px';
+    }
+  }
+
+  closeNav() {
+    const mySidenav = document.getElementById('mySidenav');
+    if (mySidenav) {
+      mySidenav.style.width = '0';
+    }
+  }
+  // Filter
+  isVisible = false;
+
+  toggleVisibility() {
+    this.isVisible = !this.isVisible;
+  }
+
+  // DoughnutChart
+----------------------
+  //API Call for change request
+  changerequest: any[] = [];
+  newCount: number = 0;
+  completedCount: number = 0;
+  pendingCount: number = 0;
+  pendingApproval: number = 0;
+  Approved: number = 0;
+  Rejected: number = 0;
+  Implemention: number = 0;
+  pending: number = 0;
+  release: number = 0;
+  Closure: number = 0;
+
+  getchangerequest() {
+
+    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+    const requestBody = {}
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+
+    this.http.get(apiUrls, requestBody).subscribe(
+      (response: any) => {
+        this.changerequest = response;
+        this.countStatus();
+
+      },
+
+      (error) => {
+        console.error("Post failed", error);
+      }
+    );
+  }
+  public doughnutChartData: ChartData<any, any[], string> = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        label: 'Status Counts',
+        backgroundColor: []
+      }
+    ]
+  };
+  countStatus() {
+    this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
+    this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
+    this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
+    this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+    this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
+    this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
+    this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
+    this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
+    this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
+
+    this.doughnutChartData = {
+      labels: ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'],
+      datasets: [
+        {
+          data: [
+            this.newCount,
+            this.pendingApproval,
+            this.Approved,
+            this.Rejected,
+            this.Implemention,
+            this.pending,
+            this.release,
+            this.completedCount
+          ],
+          label: 'Status Counts',
+          backgroundColor: ['#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff']
+        }
+      ]
+    };
+
+
+  };
+
+  public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
+
+  public doughnutChartType: ChartType = 'doughnut';
+
+  public chartHovered(e: any): void {
+    // console.log(e);
+  }
+
+  getdata() {
+    alert(this.pendingCount)
+    /*console.log("getting data", this.changerequest)*/
+  }
+
+  /*Barchart*/
+----------------
+  chartdata: any;
+  completed: any[] = [];
+  noncompleted: any[] = [];
+  month: any[] = [];
+  barChartData: any[] = [];
+  barChartLabels: string[] = [];
+  
+  barChartLegend = true;
+  
+
+  getBarchart() {
+    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.chartdata = response;
+
+        // Extracting data
+        this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+        this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+        const month = response.map((item: { crmonth: any }) => item.crmonth);
+
+        // Update chart data and labels
+        this.updateBarChartLabels(month);
+        this.updateBarChartData();
+
+      },
+      (error) => {
+        console.log("Post failed", error);
+      }
+    );
+  }
+
+  updateBarChartData() {
+    this.barChartData = [
+      { data: this.noncompleted, label: 'Open' },
+     { data: this.completed, label: 'Completed' }
+    ];  }
+
+  updateBarChartLabels(month: number[]) {
+
+    this.barChartLabels = month.map(month => this.getMonthName(month));
+  }
+
+  getMonthName(month: number): string {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return monthNames[month - 1];
+  }
+
+  onBarClick(event: any) {
+    if (event.active.length > 0) {
+      const clickedIndex = event.active[0]._index;
+      const selectedMonth = this.barChartLabels[clickedIndex];
+      
+    }
+  }
+
+  public barChartOptions: any = {
+
+    responsive: true
+  };
+
+  // events
+  public chartClicked(e: any): void {
+    // console.log(e);
+  }
+
+
+  //plant bar
+-----------------
+  stagesToCount: string[] = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+  getChartData() {
+    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    // Define the stages you want to count
+  
+
+    this.http.get(apiUrls).subscribe(
+      (response: any) => {
+        this.chartdata = response;
+        this.multi = [];
+
+        const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
+
+        uniquePlants.forEach(plantId => {
+          const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId);
+
+          const stagesCount: { [key: string]: number } = {};
+          this.stagesToCount.forEach(stage => {
+            stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
+          });
+
+          const plantSeries = {
+            label:plantId,
+            data: this.stagesToCount.map(stage => stagesCount[stage])
+          };
+
+          this.multi.push(plantSeries);
+        });
+
+        // Now that multi is constructed, update chartOptions
+        this.updateChartOptions();
+        this.showChart= true;
+      },
+      (error: any) => {
+        console.error('Error fetching chart data:', error);
+      }
+    );
+  }
+
+  updateChartOptions() {
+    this.chartOptions = {
+      animationEnabled: true,
+      exportEnabled: false,
+      data: this.stagesToCount.map((stage, index) => ({
+        dataPoints: this.multi.map(plantSeries => ({ y: plantSeries.data[index], label: plantSeries.label })),
+        type: "stackedBar",
+        name: stage,
+        showInLegend: true,
+        color: this.getRandomColor(index)
+
+      })),
+
+      axisX: {
+        title: "Plant ID",
+        reversed: true
+       
+      },
+     
+      axisY: {
+        title: "Total Changes",
+        gridThickness:0,
+        includeZero: true
+      },
+      toolTip: {
+        shared: true
+      },
+      legend: {
+        dockInsidePlotArea: false,
+        horizontalAlign: "center",
+        verticalAlign:"top"
+      }
+     
+    };
+
+  }
+
+  getRandomColor(index: number) {
+    const colors = ['#3B71CA', '#808080ff', '#54B4D3', '#009596','#b5eb49']; 
+    return colors[index % colors.length];
+  }
+ 
+  }
+
+
+
+//   css  //
+-----------
+
+.table {
+  background-color: white;
+  box-shadow: 0px 7px 28px rgba(0, 0, 0, 0.4);
+  padding: 2%;
+  display: block;
+  width: 30%;
+  margin-left: 68%;
+  margin-top: -29.7%;
+  position:relative;
+}
+  
+.dount-chart {
+  background-color: white;
+  box-shadow: 0px 7px 28px rgba(0,0,0,0.4);
+  width: 28%;
+  padding: 2%;
+  margin-left: 37.8%;
+  margin-top: -30%;
+  position: relative;
+}
+
+.chart-graph {
+  
+  margin-left: 7%;
+  width: 28%;
+  height: 5%;
+  padding: 3%;
+  background-color:white;
+  box-shadow:0px 7px 28px rgba(0,0,0,0.4);
+
+}
