@@ -87,3 +87,14 @@
   onSelectedItemsChange() {
     this.getChangeRequest();
   }
+
+ public doughnutChartData: ChartData<any, any[], string> = {
+    labels: ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'],
+    datasets: [
+      {
+        data: [0, 0, 0, 0, 0, 0, 0, 0], // Initialize counts to zero
+        label: 'Status Counts',
+        backgroundColor: ['#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff']
+      }
+    ]
+  };
