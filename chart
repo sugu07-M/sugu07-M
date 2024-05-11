@@ -1,7 +1,7 @@
  <label for="startDate">Start Date:</label>
   <label for="plantId">Select Plant ID:</label>
   <label for="endDate">End Date:</label>
-
+ allowSearchFilter: true
   this.http.get(apiUrls, httpOptions).subscribe(
     (response: any) => {
       this.changerequest = response;
