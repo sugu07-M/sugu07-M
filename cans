@@ -1,48 +1,28 @@
-type StatusCounts = {
-  [key: string]: number;
-};
+ getBarchart() {
+   const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'content-Type': 'application/json'
+     })
+   };
 
-filterData() {
-    // Filter the data based on selected plants, start date, and end date
-    this.filter = this.changerequest.filter((item: any) =>
-      this.selectedPlantIds.includes(item.plantId) && this.isWithinDateRange(item.crdate));
+   this.http.get(apiUrls).subscribe(
+     (response: any) => {
+       this.chartdata = response;
 
-    this.updateChartData(); // Update chart data
-  }
+       // Extracting data
+       this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
+       this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
+       const month = response.map((item: { crmonth: any }) => item.crmonth);
 
-  isWithinDateRange(crdate: string): boolean {
-    if (!this.startDate || !this.endDate) {
-      return true; // If start or end date is not set, return true
-    }
+       // Update chart data and labels
+       this.updateBarChartLabels(month);
+       this.updateBarChartData();
 
-    const crDateObj = new Date(crdate);
-    const startDateObj = new Date(this.startDate);
-    const endDateObj = new Date(this.endDate);
-
-    return crDateObj >= startDateObj && crDateObj <= endDateObj;
-  }
-
-  updateChartData() {
-    const counts: StatusCounts = {
-      'Draft': 0,
-      'Pending Approval': 0,
-      'Approved': 0,
-      'Rejected': 0,
-      'Implement': 0,
-      'Pending': 0,
-      'Release': 0,
-      'Closure': 0
-    };
-
-    // Update counts based on status in the filtered data
-    this.filter.forEach(item => {
-      const status = item.status.trim();
-      if (status in counts) {
-        counts[status]++;
-      }
-    });
-
-    // Update doughnut chart data with the counts
-    this.doughnutChartData.datasets[0].data = Object.values(counts);
-  }
+     },
+     (error) => {
+       console.log("Post failed", error);
+     }
+   );
+ }
