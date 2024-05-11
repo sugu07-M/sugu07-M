@@ -1,10 +1,6 @@
-getAllChangeRequest() {
-  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'content-Type': 'application/json'
-    })
-  };
+ <label for="startDate">Start Date:</label>
+  <label for="plantId">Select Plant ID:</label>
+  <label for="endDate">End Date:</label>
 
   this.http.get(apiUrls, httpOptions).subscribe(
     (response: any) => {
