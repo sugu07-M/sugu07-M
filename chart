@@ -1,11 +1,6 @@
-this.filter = this.changerequest.filter((item: any) => {
-  console.log("Selected Plant IDs:", this.selectedPlantIds);
-  console.log("Item Plant ID:", item.plantId);
-  const isIncluded = this.selectedPlantIds.includes(item.plantId.toString());
-  console.log("Is Included:", isIncluded);
-  return isIncluded;
-});
-console.log('Filtered data based on plant:', this.filter);
+Selected Plant IDs: [{…}]0: {item_id: 5, item_text: 'ML00'}length: 1[[Prototype]]: Array(0)
+dashboard.component.ts:170 Item Plant ID: ML24
+dashboard.component.ts:172 Is Included: false
 <div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
   <div class="card-body dashboard_body_filter">
     <div class="row">
