@@ -2,7 +2,10 @@
     this.getChangeRequest();
   }
 
-
+if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
+      queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
+      queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
+    }
 
 getChangeRequest() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
