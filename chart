@@ -1,4 +1,8 @@
-Filtered data based on plant: []
+this.filter = this.changerequest.filter((item: any) => this.selectedPlantIds.includes(item.plantId));
+      console.log('Filtered data based on plant:', this.filter);
+console.log("API URL:", apiUrls);
+  console.log("Query Params:", queryParams.toString());
+
 
 this.filter.forEach(item => {
   const statusKey = item.status.trim() as keyof typeof statusCounts;
