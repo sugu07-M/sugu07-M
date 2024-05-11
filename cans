@@ -1,3 +1,10 @@
+ onSelectedItemsChange(): void {
+    this.filterData(); // Filter data when plant selection changes
+  }
+
+  onFilterChange(): void {
+    this.getchangerequest(); // Fetch data when date filters change
+  }
 filterData() {
     // Filter the data based on selected plants, start date, and end date
     this.filter = this.changerequest.filter((item: any) =>
@@ -6,7 +13,7 @@ filterData() {
     this.updateChartData(); // Update chart data
   }
 
- isWithinDateRange(crdate: string): boolean {
+  isWithinDateRange(crdate: string): boolean {
     if (!this.startDate || !this.endDate) {
       return true; // If start or end date is not set, return true
     }
@@ -37,8 +44,4 @@ filterData() {
 
     // Update doughnut chart data with the counts
     this.doughnutChartData.datasets[0].data = Object.values(counts);
-  }
-
-  onSelectedItemsChange(): void {
-    this.getchangerequest(); // Fetch data when plant selection changes
   }
