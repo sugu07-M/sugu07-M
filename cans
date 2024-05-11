@@ -1,14 +1,3 @@
- this.doughnutChartData.datasets[0].data = [
-    this.newCount,
-    this.pendingApproval,
-    this.Approved,
-    this.Rejected,
-    this.Implemention,
-    this.pending,
-    this.release,
-    this.completedCount
-  ];
-NG9: Property 'length' does not exist on type 'ChartData<any, any[], string>'.*ngIf="doughnutChartData.length > 0"
 <div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
   <div class="card-body dashboard_body_filter">
     <div class="row">
@@ -28,116 +17,148 @@ NG9: Property 'length' does not exist on type 'ChartData<any, any[], string>'.*n
         <input class="input-change" type="date" required placeholder="End Date" [(ngModel)]="endDate" (change)="onFilterChange()">
       </div>
       <div class="col card_plant_filter">
-        <button class="button-overlay" (click)="getchangerequest()">Filter</button>
+        <button class="button-overlay" (click)="onFilterChange()">Filter</button>
       </div>
     </div>
   </div>
 </div>
 
+getplant() {
+  const apiUrls = this.apiurl + '/Plantid';
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
 
- getplant() {
-   const apiUrls = this.apiurl + '/Plantid';
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'Content-Type': 'application/json'
-     })
-   };
+  this.http.get(apiUrls, httpOptions).subscribe(
+    (response: any) => {
+      console.log(response);
+      this.dropdownList = response.map((item:  any) => ({
+        item_id: item.id,
+        item_text: item.code
+      }));
+      console.log(this.dropdownList);
+    },
+    (error) => {
+      console.error('Get plant failed', error);
+    }
+  );
+}
 
-   this.http.get(apiUrls, httpOptions).subscribe(
-     (response: any) => {
-       console.log(response);
-       this.dropdownList = response.map((item: { id: any; code: any; }) => ({
-         item_id: item.id,
-         item_text: item.code
-       }));
-       console.log(this.dropdownList);
-     },
-     (error) => {
-       console.error('Get plant failed', error);
-     }
-   );
- }
+dropdownSettings = {
+  idField: 'item_id',
+  textField: 'item_text',
+};
 
- dropdownSettings = {
-   idField: 'item_id',
-   textField: 'item_text',
- };
+onSelectedItemsChange() {
+  
+}
+
+onFilterChange(): void {
+  console.log('filter:', this.selectedPlantIds, this.startDate, this.endDate)
+  this.getchangerequest(); 
+}
+//API Call for change request
+changerequest: any[] = [];
+newCount: number = 0;
+completedCount: number = 0;
+pendingCount: number = 0;
+pendingApproval: number = 0;
+Approved: number = 0;
+Rejected: number = 0;
+Implemention: number = 0;
+pending: number = 0;
+release: number = 0;
+Closure: number = 0;
+
+getchangerequest() {
+
+  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+  let queryParams: any = {};
+
+  if (this.selectedPlantIds.length > 0) {
+    queryParams['plantId'] = this.selectedPlantIds.join(',');
+  }
+
+  if (this.startDate && this.endDate) {
+    queryParams['crdate'] = this.startDate + '-' + this.endDate;
+  }
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    }),
+     params: queryParams // Pass query parameters
+  };
+
+  this.http.get(apiUrls, httpOptions).subscribe(
+    (response: any) => {
+      this.changerequest = response;
+      this.countStatus();
+
+    },
+
+    (error) => {
+      console.error("Post failed", error);
+    }
+  );
+}
+public doughnutChartData: ChartData<any, any[], string> = {
+  labels: [],
+  datasets: [
+    {
+      data: [],
+      label: 'Status Counts',
+      backgroundColor: []
+    }
+  ]
+};
+countStatus() {
+  this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
+  this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
+  this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
+  this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+  this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
+  this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
+  this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
+  this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
+  this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
+
+  this.doughnutChartData = {
+    labels: ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'],
+    datasets: [
+      {
+        data: [
+          this.newCount,
+          this.pendingApproval,
+          this.Approved,
+          this.Rejected,
+          this.Implemention,
+          this.pending,
+          this.release,
+          this.completedCount
+        ],
+        label: 'Status Counts',
+        backgroundColor: ['#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff']
+      }
+    ]
+  };
 
 
 
- getchangerequest() {
-
-   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-   const queryParams = {
-     crdate: this.startDate + '-' + this.endDate,
-     
-     plantId: this.selectedPlantIds.join(',') 
-   };
-
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     }),
-      params: queryParams // Pass query parameters
-   };
-
-   this.http.get(apiUrls, httpOptions).subscribe(
-     (response: any) => {
-       this.changerequest = response;
-       this.countStatus();
-
-     },
-
-     (error) => {
-       console.error("Post failed", error);
-     }
-   );
- }
- public doughnutChartData: ChartData<any, any[], string> = {
-   labels: [],
-   datasets: [
-     {
-       data: [],
-       label: 'Status Counts',
-       backgroundColor: []
-     }
-   ]
- };
- countStatus() {
-   this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
-   this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
-   this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
-   this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
-   this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
-   this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
-   this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
-   this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
-   this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
-
-   this.doughnutChartData = {
-     labels: ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'],
-     datasets: [
-       {
-         data: [
-           this.newCount,
-           this.pendingApproval,
-           this.Approved,
-           this.Rejected,
-           this.Implemention,
-           this.pending,
-           this.release,
-           this.completedCount
-         ],
-         label: 'Status Counts',
-         backgroundColor: ['#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff']
-       }
-     ]
-   };
+};
 
 
+public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
 
- };
+public doughnutChartType: ChartType = 'doughnut';
 
- onFilterChange(): void {
-   this.getchangerequest(); 
- }
+public chartHovered(e: any): void {
+  // console.log(e);
+}
+
+getdata() {
+  alert(this.pendingCount)
+  
+}
