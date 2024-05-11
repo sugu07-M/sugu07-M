@@ -1,5 +1,9 @@
-  onFilterChange() {
-    this.getChangeRequest();
+ onFilterChange() {
+    if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
+      this.getChangeRequest();
+    } else {
+      console.error('Please select plant IDs and specify start and end dates.');
+    }
   }
 
 if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
