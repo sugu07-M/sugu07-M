@@ -1,10 +1,9 @@
 this.filter.forEach(item => {
-  if (statusCounts.hasOwnProperty(item.status.trim() as keyof typeof statusCounts)) {
-    statusCounts[item.status.trim()]++;
+  const statusKey = item.status.trim() as keyof typeof statusCounts;
+  if (statusCounts.hasOwnProperty(statusKey)) {
+    statusCounts[statusKey]++;
   }
 });
-
-
 
 <div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
   <div class="card-body dashboard_body_filter">
