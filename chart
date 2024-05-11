@@ -10,3 +10,4 @@ this.filter = this.changerequest.filter((item: any) => {
    // Return true if both conditions are met
    return selectedPlantIds && startDate && endDate ;
  });
+TS2339: Property 'map' does not exist on type 'string'.
