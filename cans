@@ -1,9 +1,17 @@
+<div *ngIf="doughnutChartData">
+  <canvas baseChart
+          [data]="doughnutChartData.datasets[0].data"
+          [labels]="doughnutChartData.labels"
+          [chartType]="'doughnut'"
+          [colors]="doughnutChartData.datasets[0].backgroundColor">
+  </canvas>
+</div>
+
 <div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
   <div class="card-body dashboard_body_filter">
     <div class="row">
       <div class="col card_plant_filter">
         <div class="multi">
-          <!-- Ensure correct binding of dropdownList, selectedPlantIds, and onSelectedItemsChange() -->
           <ng-multiselect-dropdown [settings]="dropdownSettings"
                                    [data]="dropdownList"
                                    [(ngModel)]="selectedPlantIds"
@@ -12,30 +20,14 @@
         </div>
       </div>
       <div class="col card_plant_filter">
-        <input class="input-change" type="date" required placeholder="Start Date" [(ngModel)]="startDate" (change)="onFilterChange()">
+        <input class="input-change" type="date" required placeholder="Start Date" [(ngModel)]="startDate">
       </div>
       <div class="col card_plant_filter">
-        <input class="input-change" type="date" required placeholder="End Date" [(ngModel)]="endDate" (change)="onFilterChange()">
+        <input class="input-change" type="date" required placeholder="End Date" [(ngModel)]="endDate">
       </div>
       <div class="col card_plant_filter">
-        <button class="button-overlay" (click)="onFilterChange()">Filter</button>
+        <button class="button-overlay" (click)="getchangerequest()">Filter</button>
       </div>
     </div>
   </div>
 </div>
-
-
- this.filter = this.changerequest.filter((item: any) => this.selectedPlantIds.includes(item.plantId));
-            this.countStatus();
-            console.log('filtered data:', this.filter);
-        },
-
-let queryParams: any = {};
-
-    if (this.selectedPlantIds.length > 0) {
-        queryParams['plantId'] = this.selectedPlantIds.join(',');
-    }
-
-    if (this.startDate && this.endDate) {
-        queryParams['crdate'] = this.startDate + '-' + this.endDate;
-    }
