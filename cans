@@ -1,53 +1,44 @@
- filterData() {
+filterData() {
     // Filter the data based on selected plants, start date, and end date
-    let filteredByPlantDate = this.changerequest.filter((item: any) =>
-      this.selectedPlantIds.includes(item.plantId) &&
-      this.isWithinDateRange(item.crdate));
+    this.filter = this.changerequest.filter((item: any) =>
+      this.selectedPlantIds.includes(item.plantId) && this.isWithinDateRange(item.crdate));
 
-    // Further filter by status
-    this.filter = filteredByPlantDate.filter((item: any) => this.shouldIncludeByStatus(item));
-    console.log('Final filtered data:', this.filter); // Check final filtered data
     this.updateChartData(); // Update chart data
   }
 
-  isWithinDateRange(crdate: string): boolean {
-    // Convert crdate to Date object
+ isWithinDateRange(crdate: string): boolean {
+    if (!this.startDate || !this.endDate) {
+      return true; // If start or end date is not set, return true
+    }
+
     const crDateObj = new Date(crdate);
-    // Convert startDate and endDate to Date objects
     const startDateObj = new Date(this.startDate);
     const endDateObj = new Date(this.endDate);
 
-    // Check if crdate falls within the date range
     return crDateObj >= startDateObj && crDateObj <= endDateObj;
   }
 
   updateChartData() {
-    // Update doughnut chart data with filtered data
-    this.doughnutChartData.datasets[0].data = [
-      this.countStatusByFilter('Draft'),
-      this.countStatusByFilter('Pending Approval'),
-      this.countStatusByFilter('Approved'),
-      this.countStatusByFilter('Rejected'),
-      this.countStatusByFilter('Implement'),
-      this.countStatusByFilter('Pending'),
-      this.countStatusByFilter('Release'),
-      this.countStatusByFilter('Closure')
-    ];
-  }
+    const counts = {
+      'Draft': 0,
+      'Pending Approval': 0,
+      'Approved': 0,
+      'Rejected': 0,
+      'Implement': 0,
+      'Pending': 0,
+      'Release': 0,
+      'Closure': 0
+    };
 
-  countStatusByFilter(status: string): number {
-    return this.filter.filter(item => item.status.trim() === status).length;
-  }
+    // Count status occurrences within the filtered data
+    this.filter.forEach(item => {
+      counts[item.status.trim()]++;
+    });
 
-  shouldIncludeByStatus(item: any): boolean {
-    // Define the statuses you want to include
-    const includedStatuses = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implement', 'Pending', 'Release'];
-
-    // Return true if the item's status is included in the defined statuses
-    return includedStatuses.includes(item.status.trim());
+    // Update doughnut chart data with the counts
+    this.doughnutChartData.datasets[0].data = Object.values(counts);
   }
 
   onSelectedItemsChange(): void {
-    console.log("Selected plant IDs:", this.selectedPlantIds);
     this.getchangerequest(); // Fetch data when plant selection changes
   }
