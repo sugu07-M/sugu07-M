@@ -1,78 +1,19 @@
-/* countStatus() {
-   this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
-   this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
-   this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
-   this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
-   this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
-   this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
-   this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
-   this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
-   this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
+getAllChangeRequest() {
+  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+  };
 
-   this.doughnutChartData = {
-     labels: ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'],
-     datasets: [
-       {
-         data: [
-           this.newCount,
-           this.pendingApproval,
-           this.Approved,
-           this.Rejected,
-           this.Implemention,
-           this.pending,
-           this.release,
-           this.completedCount
-         ],
-         label: 'Status Counts',
-         backgroundColor: ['#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff']
-       }
-     ]
-   };
-
-
-
- };*/
-
- getChangeRequest() {
-   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-   let queryParams = new HttpParams();
-
-   if (this.selectedPlantIds.length > 0) {
-     queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
-   }
-
-   if (this.startDate && this.endDate) {
-     queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
-   }
-
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'content-Type': 'application/json'
-     }),
-     params: queryParams
-   };
-   
-   console.log("Query Params:", queryParams.toString());
-
-   this.http.get(apiUrls, httpOptions).subscribe(
-     (response: any) => {
-       this.changerequest = response;
-       
-       this.filter = this.changerequest.filter((item: any) => {
-         
-         const selectedPlantIds = this.selectedPlantIds.map(plant => plant.item_text);
-         console.log("Selected Plant IDs:", selectedPlantIds);
-         console.log("Item Plant ID:", item.plantId);
-         const isIncluded = selectedPlantIds.includes(item.plantId);
-         console.log("Is Included:", isIncluded);
-         return isIncluded;
-       });
-       console.log('Filtered data based on plant:', this.filter);
-       this.countStatus(); // Update doughnut chart data
-      
-     },
-     (error) => {
-       console.error('Fetching change request data failed', error);
-     }
-   );
- }
+  this.http.get(apiUrls, httpOptions).subscribe(
+    (response: any) => {
+      this.changerequest = response;
+      // Update doughnut chart with all data
+      this.countStatus();
+    },
+    (error) => {
+      console.error('Fetching all change request data failed', error);
+    }
+  );
+}
