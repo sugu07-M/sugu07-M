@@ -1,13 +1,20 @@
 
  onFilterChange(): void {
-    console.log('filter:', this.selectedPlantIds, this.startDate, this.endDate);
-    if (this.selectedPlantIds.length > 0) {
+  if (this.selectedPlantIds.length > 0) {
       this.getchangerequest(); // Call API to fetch data based on plant IDs
     } else {
-      this.updateDoughnutChartData(); // Update doughnut chart data directly
+      this.doughnutChartData = {}; // Reset doughnut chart data
     }
   }
+ let queryParams: any = {};
 
+    if (this.selectedPlantIds.length > 0) {
+      queryParams['plantId'] = this.selectedPlantIds.join(',');
+    }
+
+    if (this.startDate && this.endDate) {
+      queryParams['crdate'] = this.startDate + '-' + this.endDate;
+    }
   public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
 
   public doughnutChartType: ChartType = 'doughnut';
