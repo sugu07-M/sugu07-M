@@ -1,55 +1,49 @@
 
-    src/app/dashboard/dashboard.component.ts:166:13:
-      166 │         this.UpdateDoughnutChartData();
-          ╵              ~~~~~~~~~~~~~~~~~~~~~~~
+ countStatus() {
+    this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
+    this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
+    this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
+    this.pendingApproval = this.changerequest.filter(item => item.status.trim() === 'Pending Approval').length;
+    this.Approved = this.changerequest.filter(item => item.status.trim() === 'Approved').length;
+    this.Rejected = this.changerequest.filter(item => item.status.trim() === 'Rejected').length;
+    this.Implemention = this.changerequest.filter(item => item.status.trim() === 'Implement').length;
+    this.pending = this.changerequest.filter(item => item.status.trim() === 'Pending').length;
+    this.release = this.changerequest.filter(item => item.status.trim() === 'Release').length;
+  }
 
-  'doughnutChartData' is declared here.
+  updateDoughnutChartData() {
+    this.doughnutChartData = {
+      labels: ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'],
+      datasets: [
+        {
+          data: [
+            this.newCount,
+            this.pendingApproval,
+            this.Approved,
+            this.Rejected,
+            this.Implemention,
+            this.pending,
+            this.release,
+            this.completedCount
+          ],
+          label: 'Status Counts',
+          backgroundColor: ['#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff']
+        }
+      ]
+    };
+  }
 
-    src/app/dashboard/dashboard.component.ts:174:9:
-      174 │   public doughnutChartData: ChartData<any, any[], string> = {
-          ╵          ~~~~~~~~~~~~~~~~~
+  public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
 
+  public doughnutChartType: ChartType = 'doughnut';
 
-X [ERROR] TS2304: Cannot find name 'UpdateDoughnutChartData'. [plugin angular-compiler]
+  public chartHovered(e: any): void {
+    // console.log(e);
+  }
 
-    src/app/dashboard/dashboard.component.ts:196:4:
-      196 │     UpdateDoughnutChartData() {
-          ╵     ~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] TS1005: ';' expected. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:196:30:
-      196 │     UpdateDoughnutChartData() {
-          ╵                               ^
-
-
-\ Changes detected. Rebuilding...
-X [ERROR] TS2551: Property 'UpdateDoughnutChartData' does not exist on type 'DashboardComponent'. Did you mean 'doughnutChartData'? [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:166:13:
-      166 │         this.UpdateDoughnutChartData();
-          ╵              ~~~~~~~~~~~~~~~~~~~~~~~
-
-  'doughnutChartData' is declared here.
-
-    src/app/dashboard/dashboard.component.ts:174:9:
-      174 │   public doughnutChartData: ChartData<any, any[], string> = {
-          ╵          ~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] TS2304: Cannot find name 'UpdateDoughnutChartData'. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:196:4:
-      196 │     UpdateDoughnutChartData() {
-          ╵     ~~~~~~~~~~~~~~~~~~~~~~~
-
-
-X [ERROR] TS1005: ';' expected. [plugin angular-compiler]
-
-    src/app/dashboard/dashboard.component.ts:196:30:
-      196 │     UpdateDoughnutChartData() {
-          ╵                               ^
+  getdata() {
+    alert(this.pendingCount);
+  }
 
 
 <div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
