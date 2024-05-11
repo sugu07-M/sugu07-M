@@ -1,4 +1,4 @@
- onSelectedItemsChange(): void {
+TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ Draft: number; 'Pending Approval': number; Approved: number; Rejected: number; Implement: number; Pending: number; Release: number; Closure: number; }'. onSelectedItemsChange(): void {
     this.filterData(); // Filter data when plant selection changes
   }
 
