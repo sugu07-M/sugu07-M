@@ -1,15 +1,5 @@
-this.filter = this.changerequest.filter((item: any) => this.selectedPlantIds.includes(item.plantId));
-      console.log('Filtered data based on plant:', this.filter);
-console.log("API URL:", apiUrls);
-  console.log("Query Params:", queryParams.toString());
-
-
-this.filter.forEach(item => {
-  const statusKey = item.status.trim() as keyof typeof statusCounts;
-  if (statusCounts.hasOwnProperty(statusKey)) {
-    statusCounts[statusKey]++;
-  }
-});
+Query Params: _HttpParams {updates: Array(2), cloneFrom: _HttpParams, encoder: HttpUrlEncodingCodec, map: null}
+dashboard.component.ts:169 Filtered data based on plant: []
 
 <div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
   <div class="card-body dashboard_body_filter">
