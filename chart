@@ -11,3 +11,13 @@ this.filter = this.changerequest.filter((item: any) => {
    return selectedPlantIds && startDate && endDate ;
  });
 TS2339: Property 'map' does not exist on type 'string'.
+
+
+ <div class="col card_plant_filter">
+   <label for="startDate">Start Date:</label>
+   <input class="input-change" type="date" required placeholder="Start Date" [(ngModel)]="startDate">
+ </div>
+ <div class="col card_plant_filter">
+   <label for="endDate">End Date:</label>
+   <input class="input-change" type="date" required placeholder="End Date" [(ngModel)]="endDate">
+ </div>
