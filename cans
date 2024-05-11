@@ -1,33 +1,53 @@
-<div *ngIf="doughnutChartData">
-  <canvas baseChart
-          [data]="doughnutChartData.datasets[0].data"
-          [labels]="doughnutChartData.labels"
-          [chartType]="'doughnut'"
-          [colors]="doughnutChartData.datasets[0].backgroundColor">
-  </canvas>
-</div>
+ filterData() {
+    // Filter the data based on selected plants, start date, and end date
+    let filteredByPlantDate = this.changerequest.filter((item: any) =>
+      this.selectedPlantIds.includes(item.plantId) &&
+      this.isWithinDateRange(item.crdate));
 
-<div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
-  <div class="card-body dashboard_body_filter">
-    <div class="row">
-      <div class="col card_plant_filter">
-        <div class="multi">
-          <ng-multiselect-dropdown [settings]="dropdownSettings"
-                                   [data]="dropdownList"
-                                   [(ngModel)]="selectedPlantIds"
-                                   (ngModelChange)="onSelectedItemsChange()">
-          </ng-multiselect-dropdown>
-        </div>
-      </div>
-      <div class="col card_plant_filter">
-        <input class="input-change" type="date" required placeholder="Start Date" [(ngModel)]="startDate">
-      </div>
-      <div class="col card_plant_filter">
-        <input class="input-change" type="date" required placeholder="End Date" [(ngModel)]="endDate">
-      </div>
-      <div class="col card_plant_filter">
-        <button class="button-overlay" (click)="getchangerequest()">Filter</button>
-      </div>
-    </div>
-  </div>
-</div>
+    // Further filter by status
+    this.filter = filteredByPlantDate.filter((item: any) => this.shouldIncludeByStatus(item));
+    console.log('Final filtered data:', this.filter); // Check final filtered data
+    this.updateChartData(); // Update chart data
+  }
+
+  isWithinDateRange(crdate: string): boolean {
+    // Convert crdate to Date object
+    const crDateObj = new Date(crdate);
+    // Convert startDate and endDate to Date objects
+    const startDateObj = new Date(this.startDate);
+    const endDateObj = new Date(this.endDate);
+
+    // Check if crdate falls within the date range
+    return crDateObj >= startDateObj && crDateObj <= endDateObj;
+  }
+
+  updateChartData() {
+    // Update doughnut chart data with filtered data
+    this.doughnutChartData.datasets[0].data = [
+      this.countStatusByFilter('Draft'),
+      this.countStatusByFilter('Pending Approval'),
+      this.countStatusByFilter('Approved'),
+      this.countStatusByFilter('Rejected'),
+      this.countStatusByFilter('Implement'),
+      this.countStatusByFilter('Pending'),
+      this.countStatusByFilter('Release'),
+      this.countStatusByFilter('Closure')
+    ];
+  }
+
+  countStatusByFilter(status: string): number {
+    return this.filter.filter(item => item.status.trim() === status).length;
+  }
+
+  shouldIncludeByStatus(item: any): boolean {
+    // Define the statuses you want to include
+    const includedStatuses = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implement', 'Pending', 'Release'];
+
+    // Return true if the item's status is included in the defined statuses
+    return includedStatuses.includes(item.status.trim());
+  }
+
+  onSelectedItemsChange(): void {
+    console.log("Selected plant IDs:", this.selectedPlantIds);
+    this.getchangerequest(); // Fetch data when plant selection changes
+  }
