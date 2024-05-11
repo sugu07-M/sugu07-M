@@ -1,16 +1,25 @@
- <label for="startDate">Start Date:</label>
-  <label for="plantId">Select Plant ID:</label>
-  <label for="endDate">End Date:</label>
- allowSearchFilter: true
-`${this.startDate}-${this.endDate}`
-  this.http.get(apiUrls, httpOptions).subscribe(
-    (response: any) => {
-      this.changerequest = response;
-      // Update doughnut chart with all data
-      this.countStatus();
-    },
-    (error) => {
-      console.error('Fetching all change request data failed', error);
-    }
-  );
-}
+ updateDoughnutChart() {
+    // Calculate status counts based on fetched data
+    this.countStatus();
+
+    // Update doughnut chart data
+    this.doughnutChartData = {
+      labels: ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'],
+      datasets: [
+        {
+          data: [
+            this.newCount,
+            this.pendingApproval,
+            this.Approved,
+            this.Rejected,
+            this.Implemention,
+            this.pending,
+            this.release,
+            this.completedCount
+          ],
+          label: 'Status Counts',
+          backgroundColor: ['#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff']
+        }
+      ]
+    };
+  }
