@@ -16,22 +16,17 @@ getplanttable() {
 
   this.http.get(apiUrls, httpOptions).subscribe(
     (response: any) => {
-      console.log('Response:', response);
+      console.log('Response:', response); // Log the response data
       this.chartdata = response;
       this.multi = [];
 
       // Filter the response data for the selected plantIds
       const filteredResponse = response.filter((item: { plantId: string }) => this.selectedPlantIds.includes(item.plantId));
-      console.log('Filtered Response:', filteredResponse);
-
-      if (filteredResponse.length === 0) {
-        console.log('No data available for selected plant IDs.');
-        return; // Exit early if there's no data
-      }
+      console.log('Filtered Response:', filteredResponse); // Log the filtered response data
 
       this.selectedPlantIds.forEach(selectedPlantId => {
         const plantData = filteredResponse.filter((item: { plantId: any; }) => item.plantId === selectedPlantId);
-        console.log('Plant Data for', selectedPlantId, ':', plantData);
+        console.log('Plant Data for', selectedPlantId, ':', plantData); // Log the plant data for each selected plant ID
 
         const stagesCount: { [key: string]: number } = {};
         this.stagesToCount.forEach(stage => {
@@ -39,22 +34,22 @@ getplanttable() {
           stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
         });
 
-        console.log('Stages Count for', selectedPlantId, ':', stagesCount);
+        console.log('Stages Count for', selectedPlantId, ':', stagesCount); // Log the stages count for each selected plant ID
 
         const plantSeries = {
           label: selectedPlantId,
           data: this.stagesToCount.map(stage => stagesCount[stage])
         };
 
-        console.log('Plant Series for', selectedPlantId, ':', plantSeries);
+        console.log('Plant Series for', selectedPlantId, ':', plantSeries); // Log the plant series for each selected plant ID
 
         this.multi.push(plantSeries);
       });
 
-      console.log('Multi:', this.multi);
+      console.log('Multi:', this.multi); // Log the multi array
 
-      this.updateOptions();
-      this.showChart = true;
+      this.updateOptions(); // Update chart options after processing data
+      this.showChart = true; // Set showChart to true to display the chart
     },
     (error: any) => {
       console.error('Error fetching chart data:', error);
@@ -72,7 +67,7 @@ updateOptions() {
       showInLegend: true,
       color: this.getRandomColor(index),
       dataPoints: this.stagesToCount.map((stage, stageIndex) => ({
-        y: plantSeries.data[stageIndex] || 0,
+        y: plantSeries.data[stageIndex] || 0, // Access count for the stage or default to 0 if undefined
         label: stage
       }))
     })),
@@ -94,5 +89,5 @@ updateOptions() {
     }
   };
 
-  console.log('Chart Options:', this.chartOptions);
+  console.log('Chart Options:', this.chartOptions); // Log the chart options
 }
