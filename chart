@@ -14,26 +14,20 @@ getChartData(selectedPlantIds: string[]) {
     params: queryParams
   };
 
-  console.log('Requesting data with parameters:', queryParams.toString()); // Log the request parameters
-
   this.http.get(apiUrls, httpOptions).subscribe(
     (response: any) => {
-      console.log('Received response:', response); // Log the response data
-
       this.chartdata = response;
       this.multi = [];
 
       const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
 
-      console.log('Unique Plants:', uniquePlants); // Log the unique plant IDs found in the response
-
       uniquePlants.forEach(plantId => {
-        const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId);
-
-        console.log('Data for plantId:', plantId, plantData); // Log the data for each plantId
+        // Filter data for the current plantId and selected plantIds
+        const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId && selectedPlantIds.includes(item.plantId));
 
         const stagesCount: { [key: string]: number } = {};
         this.stagesToCount.forEach(stage => {
+          // Count only the stages for the current plantId
           stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
         });
 
@@ -41,8 +35,6 @@ getChartData(selectedPlantIds: string[]) {
           label: plantId,
           data: this.stagesToCount.map(stage => stagesCount[stage])
         };
-
-        console.log('Series for plantId:', plantId, plantSeries); // Log the series data for each plantId
 
         this.multi.push(plantSeries);
       });
