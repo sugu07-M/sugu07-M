@@ -7,9 +7,9 @@ updateChartOptions() {
       name: plantSeries.label,
       showInLegend: true,
       color: this.getRandomColor(index),
-      dataPoints: plantSeries.data.map((count, stageIndex) => ({
-        y: count,
-        label: this.stagesToCount[stageIndex]
+      dataPoints: this.stagesToCount.map((stage, stageIndex) => ({
+        y: plantSeries.data[stageIndex],
+        label: stage
       }))
     })),
     axisX: {
