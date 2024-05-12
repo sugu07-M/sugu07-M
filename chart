@@ -1,7 +1,15 @@
 getplanttable() {
+  // Check if no plant IDs are selected
+  if (this.selectedPlantIds.length === 0) {
+    console.log('No plant IDs selected.');
+    // You can display a message to the user or handle this case as needed
+    return;
+  }
+
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
   let queryParams = new HttpParams();
 
+  // Proceed with API call only if plant IDs are selected
   if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
     queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
     queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
@@ -55,39 +63,4 @@ getplanttable() {
       console.error('Error fetching chart data:', error);
     }
   );
-}
-
-updateOptions() {
-  this.chartOptions = {
-    animationEnabled: true,
-    exportEnabled: false,
-    data: this.multi.map((plantSeries, index) => ({
-      type: "stackedBar",
-      name: plantSeries.label,
-      showInLegend: true,
-      color: this.getRandomColor(index),
-      dataPoints: this.stagesToCount.map((stage, stageIndex) => ({
-        y: plantSeries.data[stageIndex] || 0, // Access count for the stage or default to 0 if undefined
-        label: stage
-      }))
-    })),
-    axisX: {
-      title: "Stages"
-    },
-    axisY: {
-      title: "Total Changes",
-      gridThickness: 0,
-      includeZero: true
-    },
-    toolTip: {
-      shared: true
-    },
-    legend: {
-      dockInsidePlotArea: false,
-      horizontalAlign: "center",
-      verticalAlign: "top"
-    }
-  };
-
-  console.log('Chart Options:', this.chartOptions); // Log the chart options
 }
