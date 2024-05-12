@@ -1,4 +1,6 @@
- getplanttable(selectedPlantIds: string[]) {
+
+selectedPlantIds: any[] = [];
+getplanttable(selectedPlantIds: string[]) {
    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
    let queryParams = new HttpParams();
 
