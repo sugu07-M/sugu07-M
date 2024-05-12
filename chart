@@ -14,8 +14,12 @@ getChartData() {
     params: queryParams
   };
 
+  console.log('Selected plant IDs:', this.selectedPlantIds); // Debug logging for selectedPlantIds
+
   this.http.get(apiUrls, httpOptions).subscribe(
     (response: any) => {
+      console.log('Response data:', response); // Debug logging for response data
+      
       this.chartdata = response;
       this.multi = [];
 
@@ -23,6 +27,8 @@ getChartData() {
       const filteredData = response.filter((item: any) => {
         return this.selectedPlantIds.includes(item.plantId);
       });
+
+      console.log('Filtered data:', filteredData); // Debug logging for filtered data
 
       const uniquePlants = [...new Set(filteredData.map((item: { plantId: any; }) => item.plantId))];
 
