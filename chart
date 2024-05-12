@@ -26,14 +26,22 @@ getplanttable() {
       // Ensure response is an array
       const responseData = Array.isArray(response) ? response : [response];
 
+      // Log responseData to ensure its structure
+      console.log('Response Data:', responseData);
+
       // Filter the response data for the selected plantIds
       const filteredResponse = responseData.filter(item => this.selectedPlantIds.includes(item.plantId));
+
+      // Log the selected plant IDs and the filtered response
+      console.log('Selected Plant IDs:', this.selectedPlantIds);
       console.log('Filtered Response:', filteredResponse);
 
       if (filteredResponse.length === 0) {
         console.log('No data found for selected plant IDs.');
         return;
       }
+
+      // Continue with processing filtered data...
 
       this.multi = [];
 
