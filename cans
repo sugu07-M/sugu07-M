@@ -1,4 +1,48 @@
-TS2345: Argument of type '(response: any[]) => void' is not assignable to parameter of type '(value: Object) => void'.
-  Types of parameters 'response' and 'value' are incompatible.
-    The 'Object' type is assignable to very few other types. Did you mean to use the 'any' type instead?
-      Type 'Object' is missing the following properties from type 'any[]': length, pop, push, concat, and 35 more.
+getBarchart() {
+    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+
+    this.http.get<any[]>(apiUrls).subscribe(
+      (response) => {
+        // Filtering out duplicate months
+        const uniqueMonths = Array.from(new Set(response.map(item => item.crmonth)));
+
+        // Extracting data
+        this.completed = response.map(item => item.completedIdnum);
+        this.noncompleted = response.map(item => item.nonCompletedIdnum);
+
+        // Calculating totals
+        this.noncompletedtotal = this.noncompleted.reduce((total, num) => total + num, 0);
+        this.completedtotal = this.completed.reduce((total, num) => total + num, 0);
+
+        // Update chart data and labels
+        this.updateBarChartLabels(uniqueMonths);
+        this.updateBarChartData();
+
+      },
+      (error: any) => {
+        console.log("Post failed", error);
+      }
+    );
+  }
+
+  updateBarChartData() {
+    this.barChartData = [
+      { data: [this.noncompletedtotal], label: 'Open' },
+      { data: [this.completedtotal], label: 'Completed' }
+    ];
+  }
+
+  updateBarChartLabels(months: number[]) {
+    this.barChartLabels = months.map(month => this.getMonthName(month));
+  }
+
+  getMonthName(month: number): string {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return monthNames[month - 1];
+  }
