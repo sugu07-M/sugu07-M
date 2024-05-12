@@ -21,27 +21,29 @@ getChartData() {
       this.chartdata = response;
       this.multi = [];
 
-      this.selectedPlantIds.forEach(plantId => {
-        const plantData = response.filter((item: any) => item.plantId === plantId);
+     this.selectedPlantIds.forEach(plantId => {
+  const plantData = response.filter((item: any) => item.plantId === plantId);
 
-        console.log(`Plant ID: ${plantId}, Plant Data:`, plantData); // Debug logging for plant data
+  console.log(`Plant ID: ${plantId}, Plant Data:`, plantData); // Debug logging for plant data
 
-        const stagesCount: { [key: string]: number } = {};
-        this.stagesToCount.forEach(stage => {
-          stagesCount[stage] = plantData.filter((item: any) => item.stage.trim() === stage).length;
-        });
+  const stagesCount: { [key: string]: number } = {};
+  this.stagesToCount.forEach(stage => {
+    const stageCount = plantData.filter((item: any) => item.stage.trim() === stage).length;
+    console.log(`Plant ID: ${plantId}, Stage: ${stage}, Count: ${stageCount}`);
+    stagesCount[stage] = stageCount;
+  });
 
-        console.log(`Plant ID: ${plantId}, Stages Count:`, stagesCount); // Debug logging for stages count
+  console.log(`Plant ID: ${plantId}, Stages Count:`, stagesCount); // Debug logging for stages count
 
-        const plantSeries = {
-          label: plantId,
-          data: this.stagesToCount.map(stage => stagesCount[stage])
-        };
+  const plantSeries = {
+    label: plantId,
+    data: this.stagesToCount.map(stage => stagesCount[stage])
+  };
 
-        console.log(`Plant ID: ${plantId}, Plant Series:`, plantSeries); // Debug logging for plant series
+  console.log(`Plant ID: ${plantId}, Plant Series:`, plantSeries); // Debug logging for plant series
 
-        this.multi.push(plantSeries);
-      });
+  this.multi.push(plantSeries);
+});
 
       console.log('Multi:', this.multi); // Debug logging for multi array
 
