@@ -1,4 +1,8 @@
-  chartdata: any;
+  const monthSet = new Set(response.map((item: { crmonth: any }) => Number(item.crmonth)));
+      const uniqueMonths: number[] = Array.from(monthSet);
+
+
+chartdata: any;
   completed: any[] = [];
   noncompleted: any[] = [];
   month: any[] = [];
