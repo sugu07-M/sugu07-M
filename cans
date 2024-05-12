@@ -1,8 +1,44 @@
- [ERROR] TS2345: Argument of type '(response: any[]) => void' is not assignable to parameter of type '(value: Object) => void'.
-  Types of parameters 'response' and 'value' are incompatible.
-    The 'Object' type is assignable to very few other types. Did you mean to use the 'any' type instead?
-      Type 'Object' is missing the following properties from type 'any[]': length, pop, push, concat, and 35 more. [plugin angular-compiler]
+getBarchart() {
+    const apiUrls = this.apiurl + '/Barchart/Getbarchart';
 
-    src/app/dashboard/dashboard.component.ts:338:6:
-      338 │       (response: any[]) => {
-          ╵       ~~~~~~~~~~~~~~~~~~~~~~
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+
+    this.http.get(apiUrls).subscribe(
+      (response: any[]) => {
+        this.chartdata = response;
+
+        // Initialize arrays to store data for each month
+        const monthlyData = Array(12).fill({ completed: 0, nonCompleted: 0 });
+
+        // Extracting data for each month
+        response.forEach((item: { crmonth: number, completedIdnum: number, nonCompletedIdnum: number }) => {
+          const monthIndex = item.crmonth - 1; // Months are 1-based, array index is 0-based
+          monthlyData[monthIndex].completed += item.completedIdnum;
+          monthlyData[monthIndex].nonCompleted += item.nonCompletedIdnum;
+        });
+
+        // Update chart data and labels
+        this.updateBarChartLabels();
+        this.updateBarChartData(monthlyData);
+      },
+      (error: any) => {
+        console.log("Post failed", error);
+      }
+    );
+  }
+
+  updateBarChartData(monthlyData: { completed: number, nonCompleted: number }[]) {
+    this.barChartData = [
+      { data: monthlyData.map(data => data.nonCompleted), label: 'Open' },
+      { data: monthlyData.map(data => data.completed), label: 'Completed' }
+    ];
+  }
+
+  updateBarChartLabels() {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    this.barChartLabels = monthNames;
+  }
