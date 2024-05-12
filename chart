@@ -7,11 +7,10 @@ updateChartOptions() {
       name: plantSeries.label,
       showInLegend: true,
       color: this.getRandomColor(index),
-      dataPoints: this.stagesToCount.map(stage => {
-        const count = plantSeries.data[this.stagesToCount.indexOf(stage)];
-        console.log('Stage:', stage, 'Count:', count); // Log the stage and count
-        return { y: count, label: stage };
-      })
+      dataPoints: this.stagesToCount.map(stage => ({
+        y: plantSeries.data[stage] || 0, // Access count for the stage or default to 0 if undefined
+        label: stage
+      }))
     })),
     axisX: {
       title: "Stages"
