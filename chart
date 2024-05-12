@@ -1,15 +1,12 @@
 getplanttable() {
-  // Check if no plant IDs are selected
   if (this.selectedPlantIds.length === 0) {
     console.log('No plant IDs selected.');
-    // You can display a message to the user or handle this case as needed
     return;
   }
 
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
   let queryParams = new HttpParams();
 
-  // Proceed with API call only if plant IDs are selected
   if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
     queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
     queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
@@ -24,40 +21,38 @@ getplanttable() {
 
   this.http.get(apiUrls, httpOptions).subscribe(
     (response: any) => {
-      console.log('Response:', response); // Log the response data
+      console.log('Response:', response);
       this.chartdata = response;
       this.multi = [];
 
-      // Filter the response data for the selected plantIds
       const filteredResponse = response.filter((item: { plantId: string }) => this.selectedPlantIds.includes(item.plantId));
-      console.log('Filtered Response:', filteredResponse); // Log the filtered response data
+      console.log('Filtered Response:', filteredResponse);
 
       this.selectedPlantIds.forEach(selectedPlantId => {
         const plantData = filteredResponse.filter((item: { plantId: any; }) => item.plantId === selectedPlantId);
-        console.log('Plant Data for', selectedPlantId, ':', plantData); // Log the plant data for each selected plant ID
+        console.log('Plant Data for', selectedPlantId, ':', plantData);
 
         const stagesCount: { [key: string]: number } = {};
         this.stagesToCount.forEach(stage => {
-          // Count the occurrences of the stage for the current plantId
           stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
         });
 
-        console.log('Stages Count for', selectedPlantId, ':', stagesCount); // Log the stages count for each selected plant ID
+        console.log('Stages Count for', selectedPlantId, ':', stagesCount);
 
         const plantSeries = {
           label: selectedPlantId,
-          data: this.stagesToCount.map(stage => stagesCount[stage])
+          data: this.stagesToCount.map(stage => stagesCount[stage] || 0) // Ensure data is defined for each stage
         };
 
-        console.log('Plant Series for', selectedPlantId, ':', plantSeries); // Log the plant series for each selected plant ID
+        console.log('Plant Series for', selectedPlantId, ':', plantSeries);
 
         this.multi.push(plantSeries);
       });
 
-      console.log('Multi:', this.multi); // Log the multi array
+      console.log('Multi:', this.multi);
 
-      this.updateOptions(); // Update chart options after processing data
-      this.showChart = true; // Set showChart to true to display the chart
+      this.updateOptions();
+      this.showChart = true;
     },
     (error: any) => {
       console.error('Error fetching chart data:', error);
@@ -65,3 +60,37 @@ getplanttable() {
   );
 }
 
+updateOptions() {
+  this.chartOptions = {
+    animationEnabled: true,
+    exportEnabled: false,
+    data: this.multi.map((plantSeries, index) => ({
+      type: "stackedBar",
+      name: plantSeries.label,
+      showInLegend: true,
+      color: this.getRandomColor(index),
+      dataPoints: this.stagesToCount.map((stage, stageIndex) => ({
+        y: plantSeries.data[stageIndex] || 0,
+        label: stage
+      }))
+    })),
+    axisX: {
+      title: "Stages"
+    },
+    axisY: {
+      title: "Total Changes",
+      gridThickness: 0,
+      includeZero: true
+    },
+    toolTip: {
+      shared: true
+    },
+    legend: {
+      dockInsidePlotArea: false,
+      horizontalAlign: "center",
+      verticalAlign: "top"
+    }
+  };
+
+  console.log('Chart Options:', this.chartOptions);
+}
