@@ -6,6 +6,7 @@ getChartData() {
     queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
     queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
   }
+  
   const httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -13,7 +14,7 @@ getChartData() {
     params: queryParams
   };
 
-  this.http.get(apiUrls).subscribe(
+  this.http.get(apiUrls, httpOptions).subscribe(
     (response: any) => {
       this.chartdata = response;
       this.multi = [];
