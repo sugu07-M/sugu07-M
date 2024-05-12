@@ -1,3 +1,54 @@
+Filtered Response: 
+Array(0)
+dashboard.component.ts:245 Plant Data for 
+Object
+ : 
+Array(0)
+length
+: 
+0
+[[Prototype]]
+: 
+Array(0)
+dashboard.component.ts:253 Stages Count for 
+Object
+ : 
+Object
+Approval
+: 
+0
+Closure
+: 
+0
+Implementation
+: 
+0
+Initiated
+: 
+0
+Release
+: 
+0
+[[Prototype]]
+: 
+Object
+dashboard.component.ts:260 Plant Series for 
+Object
+ : 
+Object
+data
+: 
+(5) [0, 0, 0, 0, 0]
+label
+: 
+{item_id: 1, item_text: 'ML24'}
+[[Prototype]]
+: 
+Object
+
+
+
+
 getplanttable() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
   let queryParams = new HttpParams();
