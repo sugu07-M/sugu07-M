@@ -1,2 +1,1 @@
-TS2322: Type 'unknown[]' is not assignable to type 'number[]'.
-  Type 'unknown' is not assignable to type 'number'.
+const months = response.map((item: { crmonth: any }) => Number(item.crmonth));
