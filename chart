@@ -21,12 +21,19 @@ getplanttable() {
 
   this.http.get(apiUrls, httpOptions).subscribe(
     (response: any) => {
-      const responseData: any[] = Array.isArray(response) ? response : [response]; // Cast response to array if it's not already one
-      console.log('Response:', responseData);
+      console.log('Response:', response);
+
+      // Ensure response is an array
+      const responseData = Array.isArray(response) ? response : [response];
 
       // Filter the response data for the selected plantIds
       const filteredResponse = responseData.filter(item => this.selectedPlantIds.includes(item.plantId));
       console.log('Filtered Response:', filteredResponse);
+
+      if (filteredResponse.length === 0) {
+        console.log('No data found for selected plant IDs.');
+        return;
+      }
 
       this.multi = [];
 
