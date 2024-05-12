@@ -1,8 +1,63 @@
- [ERROR] TS2345: Argument of type '(response: any[]) => void' is not assignable to parameter of type '(value: Object) => void'.
-  Types of parameters 'response' and 'value' are incompatible.
-    The 'Object' type is assignable to very few other types. Did you mean to use the 'any' type instead?
-      Type 'Object' is missing the following properties from type 'any[]': length, pop, push, concat, and 35 more. [plugin angular-compiler]
+getplanttable() {
+  if (this.selectedPlantIds.length === 0) {
+    console.log('No plant IDs selected.');
+    return;
+  }
 
-    src/app/dashboard/dashboard.component.ts:238:6:
-      238 │       (response: any[]) => {
-          ╵       ~~~~~~~~~~~~~~~~~~~~~~
+  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+  let queryParams = new HttpParams();
+
+  if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
+    queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
+    queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
+  }
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    }),
+    params: queryParams
+  };
+
+  this.http.get(apiUrls, httpOptions).subscribe(
+    (response: any) => {
+      const responseData: any[] = Array.isArray(response) ? response : [response]; // Cast response to array if it's not already one
+      console.log('Response:', responseData);
+
+      // Filter the response data for the selected plantIds
+      const filteredResponse = responseData.filter(item => this.selectedPlantIds.includes(item.plantId));
+      console.log('Filtered Response:', filteredResponse);
+
+      this.multi = [];
+
+      this.selectedPlantIds.forEach(selectedPlantId => {
+        const plantData = filteredResponse.filter(item => item.plantId === selectedPlantId);
+        console.log('Plant Data for', selectedPlantId, ':', plantData);
+
+        const stagesCount: { [key: string]: number } = {};
+        this.stagesToCount.forEach(stage => {
+          stagesCount[stage] = plantData.filter(item => item.stage.trim() === stage).length;
+        });
+
+        console.log('Stages Count for', selectedPlantId, ':', stagesCount);
+
+        const plantSeries = {
+          label: selectedPlantId,
+          data: this.stagesToCount.map(stage => stagesCount[stage] || 0) // Ensure data is defined for each stage
+        };
+
+        console.log('Plant Series for', selectedPlantId, ':', plantSeries);
+
+        this.multi.push(plantSeries);
+      });
+
+      console.log('Multi:', this.multi);
+
+      this.updateOptions();
+      this.showChart = true;
+    },
+    (error: any) => {
+      console.error('Error fetching chart data:', error);
+    }
+  );
+}
