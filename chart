@@ -1,78 +1,11 @@
-getplanttable() {
-  if (this.selectedPlantIds.length === 0) {
-    console.log('No plant IDs selected.');
-    return;
-  }
-
-  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-  let queryParams = new HttpParams();
-
-  if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
-    queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
-    queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
-  }
-
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    }),
-    params: queryParams
-  };
-
-  this.http.get(apiUrls, httpOptions).subscribe(
-    (response: any) => {
-      console.log('Response:', response);
-
-      // Ensure response is an array
-      const responseData = Array.isArray(response) ? response : [response];
-
-      // Log responseData to ensure its structure
-      console.log('Response Data:', responseData);
-
-      // Filter the response data for the selected plantIds
-      const filteredResponse = responseData.filter(item => this.selectedPlantIds.includes(item.plantId));
-
-      // Log the selected plant IDs and the filtered response
-      console.log('Selected Plant IDs:', this.selectedPlantIds);
-      console.log('Filtered Response:', filteredResponse);
-
-      if (filteredResponse.length === 0) {
-        console.log('No data found for selected plant IDs.');
-        return;
-      }
-
-      // Continue with processing filtered data...
-
-      this.multi = [];
-
-      this.selectedPlantIds.forEach(selectedPlantId => {
-        const plantData = filteredResponse.filter(item => item.plantId === selectedPlantId);
-        console.log('Plant Data for', selectedPlantId, ':', plantData);
-
-        const stagesCount: { [key: string]: number } = {};
-        this.stagesToCount.forEach(stage => {
-          stagesCount[stage] = plantData.filter(item => item.stage.trim() === stage).length;
-        });
-
-        console.log('Stages Count for', selectedPlantId, ':', stagesCount);
-
-        const plantSeries = {
-          label: selectedPlantId,
-          data: this.stagesToCount.map(stage => stagesCount[stage] || 0) // Ensure data is defined for each stage
-        };
-
-        console.log('Plant Series for', selectedPlantId, ':', plantSeries);
-
-        this.multi.push(plantSeries);
-      });
-
-      console.log('Multi:', this.multi);
-
-      this.updateOptions();
-      this.showChart = true;
-    },
-    (error: any) => {
-      console.error('Error fetching chart data:', error);
-    }
-  );
-}
+dashboard.component.ts:238 ERROR TypeError: string "ML24" is not a function
+    at Array.filter (<anonymous>)
+    at dashboard.component.ts:249:84
+    at Array.filter (<anonymous>)
+    at Object.next (dashboard.component.ts:249:47)
+    at ConsumerObserver2.next (Subscriber.js:96:33)
+    at Subscriber2._next (Subscriber.js:63:26)
+    at Subscriber2.next (Subscriber.js:34:18)
+    at map.js:7:24
+    at OperatorSubscriber2._this._next (OperatorSubscriber.js:15:21)
+    at Subscriber2.next (Subscriber.js:34:18)
