@@ -23,6 +23,9 @@ getChartData() {
       this.chartdata = response;
       this.multi = [];
 
+      // Log the type of each plantId in response data
+      response.forEach(item => console.log(typeof item.plantId, item.plantId));
+
       // Filter data based on selected plant IDs
       const filteredData = response.filter((item: any) => {
         return this.selectedPlantIds.includes(item.plantId);
