@@ -1,96 +1,18 @@
-getplanttable() {
-  if (this.selectedPlantIds.length === 0) {
-    console.log('No plant IDs selected.');
-    return;
-  }
-
-  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-  let queryParams = new HttpParams();
-
-  if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
-    queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
-    queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
-  }
-
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    }),
-    params: queryParams
-  };
-
-  this.http.get(apiUrls, httpOptions).subscribe(
-    (response: any) => {
-      console.log('Response:', response);
-      this.chartdata = response;
-      this.multi = [];
-
-      const filteredResponse = response.filter((item: { plantId: string }) => this.selectedPlantIds.includes(item.plantId));
-      console.log('Filtered Response:', filteredResponse);
-
-      this.selectedPlantIds.forEach(selectedPlantId => {
-        const plantData = filteredResponse.filter((item: { plantId: any; }) => item.plantId === selectedPlantId);
-        console.log('Plant Data for', selectedPlantId, ':', plantData);
-
-        const stagesCount: { [key: string]: number } = {};
-        this.stagesToCount.forEach(stage => {
-          stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
-        });
-
-        console.log('Stages Count for', selectedPlantId, ':', stagesCount);
-
-        const plantSeries = {
-          label: selectedPlantId,
-          data: this.stagesToCount.map(stage => stagesCount[stage] || 0) // Ensure data is defined for each stage
-        };
-
-        console.log('Plant Series for', selectedPlantId, ':', plantSeries);
-
-        this.multi.push(plantSeries);
-      });
-
-      console.log('Multi:', this.multi);
-
-      this.updateOptions();
-      this.showChart = true;
-    },
-    (error: any) => {
-      console.error('Error fetching chart data:', error);
-    }
-  );
-}
-
-updateOptions() {
-  this.chartOptions = {
-    animationEnabled: true,
-    exportEnabled: false,
-    data: this.multi.map((plantSeries, index) => ({
-      type: "stackedBar",
-      name: plantSeries.label,
-      showInLegend: true,
-      color: this.getRandomColor(index),
-      dataPoints: this.stagesToCount.map((stage, stageIndex) => ({
-        y: plantSeries.data[stageIndex] || 0,
-        label: stage
-      }))
-    })),
-    axisX: {
-      title: "Stages"
-    },
-    axisY: {
-      title: "Total Changes",
-      gridThickness: 0,
-      includeZero: true
-    },
-    toolTip: {
-      shared: true
-    },
-    legend: {
-      dockInsidePlotArea: false,
-      horizontalAlign: "center",
-      verticalAlign: "top"
-    }
-  };
-
-  console.log('Chart Options:', this.chartOptions);
-}
+Response: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
+dashboard.component.ts:247 Filtered Response: []
+dashboard.component.ts:251 Plant Data for {item_id: 1, item_text: 'ML24'} : []
+dashboard.component.ts:258 Stages Count for {item_id: 1, item_text: 'ML24'} : {Approval: 0, Closure: 0, Implementation: 0, Initiated: 0, Release: 0}
+dashboard.component.ts:265 Plant Series for {item_id: 1, item_text: 'ML24'} : {label: {…}, data: Array(5)}
+dashboard.component.ts:270 Multi: [{…}]
+dashboard.component.ts:313 Chart Options: {animationEnabled: true, exportEnabled: false, data: Array(1), axisX: {…}, axisY: {…}, …}
+dashboard.component.ts:240 ERROR TypeError: a.indexOf is not a function
+    at l.replaceKeywordsWithValue (canvasjs.min.js:554:474)
+    at S2.setLayout (canvasjs.min.js:562:477)
+    at l.setLayout (canvasjs.min.js:203:138)
+    at l.render (canvasjs.min.js:214:452)
+    at _CanvasJSChart.ngOnChanges (canvasjs-angular-charts.js:56:18)
+    at _CanvasJSChart.rememberChangeHistoryAndInvokeOnChangesHook (core.mjs:5871:14)
+    at callHookInternal (core.mjs:6117:14)
+    at callHook (core.mjs:6148:9)
+    at callHooks (core.mjs:6099:17)
+    at executeCheckHooks (core.mjs:6030:5)
