@@ -1,55 +1,320 @@
 
-<div class=" chart-graph">
-      <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request Monthly Views</h6>
-      &nbsp;
-      <canvas baseChart [datasets]="barChartData"
-              [labels]="barChartLabels" [options]="barChartOptions"
-              [legend]="barChartLegend"
-              (chartClick)="chartClicked($event)"
-              style="display: block;
-    box-sizing: border-box;
-    height: 317px;
-    width: 340px;
-">
-      </canvas>
 
-    </div>
+<app-side-bar></app-side-bar>
+<app-headers></app-headers>
 
-    <!--donut-->
-    <div class=" col-xs-4 col-sm-4 col-lg-4 text-center dount-chart" style="display: block;">
-      <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-OverAll View</h6>
-      <canvas baseChart
-              [data]="doughnutChartData"
-              [labels]="doughnutChartLabels"
-              [type]="doughnutChartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"
-              style=" box-sizing: border-box;"></canvas>
-    </div>
+<div class="container">
+  <div class="row row-cols-2 row-cols-lg-5 gx-lg-5  gy-lg-3 " style="margin-top:-6%;margin-left:1%">
+    <div class="col g-4">
 
-    <!--Plant Bar-->
-    <div class="table">
-      <h6 style="text-align: center; margin-bottom: -2%; color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-Plant Wise View</h6>
-
-      <div>
-        <canvasjs-chart [options]="chartOptions" [styles]="{width: '85%', height:'368px',margin:'6%'}"></canvasjs-chart>
+      <div id="carouselExampleAutoplaying1" class="carousel slide carousel_slide" data-bs-ride="carousel"
+           data-bs-interval="2000" style="margin-left: -11%; border-radius: 3px;">
+        <h4 class="carousel_header">Change-Request</h4>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <h4 class="carousel_new">New</h4>
+            <h3 class="d-block w-100 carousel_no_1">{{newCount}}</h3>
+          </div>
+          <div class="carousel-item">
+            <h4 class="carousel_pending">Pending</h4>
+            <h3 class="d-block w-100 carousel_no_2">{{pendingCount}}</h3>
+          </div>
+          <div class="carousel-item">
+            <h4 class="carousel_complete">Completed</h4>
+            <h3 class="d-block w-100 carousel_no_3">{{ completedCount }}</h3>
+          </div>
+        </div>
+        <div>
+          <h2 class="carousel_icon">
+            <i class="fa fa-exchange" aria-hidden="true"></i>
+          </h2>
+        </div>
+        <button class="carousel-control-prev carousel_control_1" href="#carouselExampleAutoplaying1" role="button"
+                data-bs-slide="prev" data-bs-slide-to="0">
+          <span class="carousel_button_1"><i class="fas fa-circle"></i></span>
+        </button>
+        <button class="carousel-control-prev carousel_control_2" href="#carouselExampleAutoplaying1" role="button"
+                data-bs-slide="prev" data-bs-slide-to="1">
+          <span class="carousel_button_2"><i class="fas fa-circle"></i></span>
+        </button>
+        <button class="carousel-control-prev carousel_control_3" href="#carouselExampleAutoplaying1" role="button"
+                data-bs-slide="prev" data-bs-slide-to="2">
+          <span class="carousel_button_3"><i class="fas fa-circle"></i></span>
+        </button>
       </div>
     </div>
- 
+    <div class="col g-4">
+      <div id="carouselExampleAutoplaying2" class="carousel slide carousel_slide" data-bs-ride="carousel"
+           data-bs-interval="2000" style="margin-left: -2%; border-radius:3px;">
+        <h4 class="carousel_header">Issues/Incident</h4>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <h4 class="carousel_new">New</h4>
+            <h3 class="d-block w-100 carousel_no_1">0</h3>
+          </div>
+          <div class="carousel-item">
+            <h4 class="carousel_pending">Pending</h4>
+            <h3 class="d-block w-100 carousel_no_2">0</h3>
+          </div>
+          <div class="carousel-item">
+            <h4 class="carousel_complete">Completed</h4>
+            <h3 class="d-block w-100 carousel_no_3">0</h3>
+          </div>
+        </div>
+        <div>
+          <h2 class="carousel_icon">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          </h2>
+        </div>
+        <button class="carousel-control-prev carousel_control_1" href="#carouselExampleAutoplaying2" role="button"
+                data-bs-slide="prev" data-bs-slide-to="0">
+          <span class="carousel_button_1"><i class="fas fa-circle"></i></span>
+        </button>
+        <button class="carousel-control-prev carousel_control_2" href="#carouselExampleAutoplaying2" role="button"
+                data-bs-slide="prev" data-bs-slide-to="1">
+          <span class="carousel_button_2"><i class="fas fa-circle"></i></span>
+        </button>
+        <button class="carousel-control-prev carousel_control_3" href="#carouselExampleAutoplaying2" role="button"
+                data-bs-slide="prev" data-bs-slide-to="2">
+          <span class="carousel_button_3"><i class="fas fa-circle"></i></span>
+        </button>
+      </div>
+    </div>
+    <div class="col g-4">
+      <div id="carouselExampleAutoplaying3" class="carousel slide carousel_slide" data-bs-ride="carousel"
+           data-bs-interval="1000" style="margin-left: 5%; border-radius: 3px;">
+        <h4 class="carousel_header">Service Request</h4>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <h4 class="carousel_new">New</h4>
+            <h3 class="d-block w-100 carousel_no_1">0</h3>
+          </div>
+          <div class="carousel-item">
+            <h4 class="carousel_pending">Pending</h4>
+            <h3 class="d-block w-100 carousel_no_2">0</h3>
+          </div>
+          <div class="carousel-item">
+            <h4 class="carousel_complete">Completed</h4>
+            <h3 class="d-block w-100 carousel_no_3">0</h3>
+          </div>
+        </div>
+        <div>
+          <h2 class="carousel_icon">
+            <i class="fa fa-wrench" aria-hidden="true"></i>
+          </h2>
+        </div>
+        <button class="carousel-control-prev carousel_control_1" href="#carouselExampleAutoplaying3" role="button"
+                data-bs-slide="prev" data-bs-slide-to="0">
+          <span class="carousel_button_1"><i class="fas fa-circle"></i></span>
+        </button>
+        <button class="carousel-control-prev carousel_control_2" href="#carouselExampleAutoplaying3" role="button"
+                data-bs-slide="prev" data-bs-slide-to="1">
+          <span class="carousel_button_2"><i class="fas fa-circle"></i></span>
+        </button>
+        <button class="carousel-control-prev carousel_control_3" href="#carouselExampleAutoplaying3" role="button"
+                data-bs-slide="prev" data-bs-slide-to="2">
+          <span class="carousel_button_3"><i class="fas fa-circle"></i></span>
+        </button>
+      </div>
+    </div>
+    <div class="col g-4">
+      <div id="carouselExampleAutoplaying4" class="carousel slide carousel_slide" data-bs-ride="carousel"
+           data-bs-interval="2000" style="margin-left: 14%; border-radius: 3px;">
+        <h4 class="carousel_header">Assets/Spare</h4>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <h4 class="carousel_new">New</h4>
+            <h3 class="d-block w-100 carousel_no_1">0</h3>
+          </div>
+          <div class="carousel-item">
+            <h4 class="carousel_pending">Pending</h4>
+            <h3 class="d-block w-100 carousel_no_2">0</h3>
+          </div>
+          <div class="carousel-item">
+            <h4 class="carousel_complete">Completed</h4>
+            <h3 class="d-block w-100 carousel_no_3">0</h3>
+          </div>
+        </div>
+        <div>
+          <h2 class="carousel_icon">
+            <i class="fa fa-plus-square" aria-hidden="true"></i>
+          </h2>
+        </div>
+        <button class="carousel-control-prev carousel_control_1" href="#carouselExampleAutoplaying4" role="button"
+                data-bs-slide="prev" data-bs-slide-to="0">
+          <span class="carousel_button_1"><i class="fas fa-circle"></i></span>
+        </button>
+        <button class="carousel-control-prev carousel_control_2" href="#carouselExampleAutoplaying4" role="button"
+                data-bs-slide="prev" data-bs-slide-to="1">
+          <span class="carousel_button_2"><i class="fas fa-circle"></i></span>
+        </button>
+        <button class="carousel-control-prev carousel_control_3" href="#carouselExampleAutoplaying4" role="button"
+                data-bs-slide="prev" data-bs-slide-to="2">
+          <span class="carousel_button_3"><i class="fas fa-circle"></i></span>
+        </button>
+      </div>
+    </div>
+    <div class="col g-4">
+      <div id="carouselExampleAutoplaying5" class="carousel slide carousel_slide" data-bs-ride="carousel"
+           data-bs-interval="2000" style="margin-left: 23%; border-radius: 3px;">
+        <h4 class="carousel_header">Project</h4>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <h4 class="carousel_new">New</h4>
+            <h3 class="d-block w-100 carousel_no_1">0</h3>
+          </div>
+          <div class="carousel-item">
+            <h4 class="carousel_pending">Pending</h4>
+            <h3 class="d-block w-100 carousel_no_2">0</h3>
+          </div>
+          <div class="carousel-item">
+            <h4 class="carousel_complete">Completed</h4>
+            <h3 class="d-block w-100 carousel_no_3">0</h3>
+          </div>
+        </div>
+        <div>
+          <h2 class="carousel_icon">
+            <i class='fas fa-project-diagram'></i>
+          </h2>
+        </div>
+        <button class="carousel-control-prev carousel_control_1" href="#carouselExampleAutoplaying5" role="button"
+                data-bs-slide="prev" data-bs-slide-to="0">
+          <span class="carousel_button_1"><i class="fas fa-circle"></i></span>
+        </button>
+        <button class="carousel-control-prev carousel_control_2" href="#carouselExampleAutoplaying5" role="button"
+                data-bs-slide="prev" data-bs-slide-to="1">
+          <span class="carousel_button_2"><i class="fas fa-circle"></i></span>
+        </button>
+        <button class="carousel-control-prev carousel_control_3" href="#carouselExampleAutoplaying5" role="button"
+                data-bs-slide="prev" data-bs-slide-to="2">
+          <span class="carousel_button_3"><i class="fas fa-circle"></i></span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Filter -->
+<div class="actions">
+  <div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted">
+    <!-- <strong class="d-block h6 my-2 pb-2 border-bottom">Filter</strong> -->
+    <nav id="TableOfContents">
+      <div class="filter">
+        <span (click)="toggleVisibility()"><i class="fa fa-filter" aria-hidden="true"></i></span>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="card dashboard_filter" *ngIf="isVisible" style="margin-top: 2%;">
+  <div class="card-body dashboard_body_filter">
+    <div class="row">
+      <div class="col card_plant_filter">
+        <label for="plantId">Select Plant ID:</label>
+        <div class="multi">
+
+          <ng-multiselect-dropdown [settings]="dropdownSettings"
+                                   [data]="dropdownList"
+                                   [(ngModel)]="selectedPlantIds"
+                                  >
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+      <div class="col card_plant_filter">
+        <label for="startDate">Start Date:</label>
+        <input class="input-change" type="date" required placeholder="Start Date" [(ngModel)]="startDate">
+      </div>
+      <div class="col card_plant_filter">
+        <label for="endDate">End Date:</label>
+        <input class="input-change" type="date" required placeholder="End Date" [(ngModel)]="endDate">
+      </div>
+      <div class="col card_plant_filter">
+        <button class="button-overlay" (click)="onFilterChange()">Filter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<div class="container">
+  <div class="row custom-container">
+    <div class="col-md-4 custom-item">
+
+      <div class="card-body">
+        <div class=" chart-graph">
+          <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request Monthly Views</h6>
+          &nbsp;
+          <canvas baseChart [datasets]="barChartData"
+                  [labels]="barChartLabels" [options]="barChartOptions"
+                  [legend]="barChartLegend"
+                  (chartClick)="chartClicked($event)"
+                  style="display: block;
+ box-sizing: border-box;
+ height: 317px;
+ width: 340px;">
+          </canvas>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-4 custom-item">
+
+      <div class="card-body">
+        <div class="dount-chart" style="display: block; ">
+          <h6 style="text-align: center;  color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-OverAll View</h6>
+          <canvas baseChart
+                  [data]="doughnutChartData"
+                  [labels]="doughnutChartLabels"
+                  [type]="doughnutChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"
+                  style=" box-sizing: border-box;"></canvas>
+        </div>
+       
+      </div>
+
+    </div>
+    <div class="col-md-4 custom-item">
+
+      <div class="card-body">
+        <div class="table">
+          <h6 style="text-align: center; margin-bottom: -2%; color: #6c757D; font-size: 19px; font-family: poppins sens-serif;">Change Request-Plant Wise View</h6>
+
+          <div>
+            <canvasjs-chart [options]="chartOptions" [styles]="{width: '85%', height:'309px',margin:'6%'}"></canvasjs-chart>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
 
 
 
 typescript
   -------
- import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient,HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit, ViewChild, viewChild } from '@angular/core';
 import { environment } from '/IT_Portal/IT-Portal/IT-Portal.UI/src/environments/environment';
 
 import { Color } from '@swimlane/ngx-charts';
-import { ChartData, ChartDataset, ChartType, Plugin } from 'chart.js';
+import { ChartData, ChartDataset, ChartOptions, ChartType, Plugin } from 'chart.js';
 import { PasscrdataService } from '../change-request/passcrdata.service';
 import { ActivatedRoute } from '@angular/router';
 import { Chart } from 'chart.js';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+
+
 
 
 
@@ -71,26 +336,31 @@ export class DashboardComponent implements OnInit {
   
 
   constructor(private http: HttpClient, private routeservice: PasscrdataService, private route: ActivatedRoute) {
-   
+    
 }
 
   private apiurl = environment.apiurls
 
   single: any;
-  dplantcode: any = '';
-  startDt: any = '';
-  endDt: any = '';
+  
+  dropdownList: any[] = [];
+  dplantcode: any = null; 
+  selectedPlantIds: any[] = [];
+  startDate: any[]=[];
+  endDate: any[]=[];
   colorScheme: any;
 
- 
- // if(this.startDt == '') { this.startdt = new Date(); }
+  data: any;
+
+  options: any;
+  Plant: any = '';
 
   ngOnInit(): void {
+
    
-    this.getchangerequest();
     this.getBarchart();
     this.getChartData();
-    /*this.Gettablechart();*/
+    this.getdefaultdough();
     this.getplant();
     this.colorScheme = {
       domain: ['#14A44D', '#808080ff', '#54B4D3', '#DC4C64', '#b5eb49']
@@ -99,30 +369,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  plantcode: any[] = [];
-  getplant() {
-
-    const apiUrls = this.apiurl + '/Plantid'
-    const requestBody = {
-
-    }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-Type': 'application/json'
-      })
-    };
-    this.http.get(apiUrls, requestBody).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.plantcode = response;
-        console.log(this.plantcode)
-      },
-      (error) => {
-        console.error("Post failed", error)
-      }
-    ) 
-  }
-
+  // sidebar
   openNav() {
     const mySidenav = document.getElementById('mySidenav');
     if (mySidenav) {
@@ -136,16 +383,145 @@ export class DashboardComponent implements OnInit {
       mySidenav.style.width = '0';
     }
   }
-  // Filter
-  isVisible = false;
+ 
+ 
 
-  toggleVisibility() {
-    this.isVisible = !this.isVisible;
+
+  // multi select
+
+  dropdownSettings = {
+    idField: 'item_id',
+    textField: 'item_text',
+    allowSearchFilter: true
+  };
+ /* onSelectedItemsChange() {
+    this.getChangeRequest();
+  }*/
+ 
+
+
+  // Filter
+
+  isVisible: boolean = false;
+  toggleVisibility(): void {
+    this.isVisible = !this.isVisible
   }
 
-  // DoughnutChart
-----------------------
-  //API Call for change request
+  onFilterChange() {
+    
+      this.getChangeRequest();
+   
+  }
+
+ 
+
+
+  getplant() {
+    const apiUrls = this.apiurl + '/Plantid';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    this.http.get(apiUrls, httpOptions).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.dropdownList = response.map((item: any) => ({
+          item_id: item.id,
+          item_text: item.code
+        }));
+        console.log(this.dropdownList);
+      },
+      (error: any) => {
+        console.error('Get plant failed', error);
+      }
+    );
+  }
+  
+ 
+
+  //filter Doughnutchart
+
+  getChangeRequest() {
+    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+    let queryParams = new HttpParams();
+
+    if(this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
+      queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
+      queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
+    }
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      }),
+      params: queryParams
+    };
+
+    this.http.get(apiUrls, httpOptions).subscribe(
+      (response: any) => {
+        this.changerequest = response;
+
+        this.filter = this.changerequest.filter((item: any) => {
+
+          const selectedPlantIds = this.selectedPlantIds.map(plant => plant.item_text);
+
+          const isIncluded = selectedPlantIds.includes(item.plantId);
+
+          return isIncluded;
+        });
+   
+
+        this.countStatus();
+
+      },
+      (error: any) => {
+        console.error('Fetching change request data failed', error);
+      }
+    );
+  }
+  countStatus() {
+    this.newCount = this.filter.filter(item => item.status.trim() === 'Draft').length;
+    this.completedCount = this.filter.filter(item => item.status.trim() === 'Completed').length;
+    this.pendingCount = this.filter.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
+    this.pendingApproval = this.filter.filter(item => item.status.trim() === 'Pending Approval').length;
+    this.Approved = this.filter.filter(item => item.status.trim() === 'Approved').length;
+    this.Rejected = this.filter.filter(item => item.status.trim() === 'Rejected').length;
+    this.Implemention = this.filter.filter(item => item.status.trim() === 'Implement').length;
+    this.pending = this.filter.filter(item => item.status.trim() === 'Pending').length;
+    this.release = this.filter.filter(item => item.status.trim() === 'Release').length;
+
+    this.doughnutChartData = {
+      labels: ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'],
+      datasets: [
+        {
+          data: [
+            this.newCount,
+            this.pendingApproval,
+            this.Approved,
+            this.Rejected,
+            this.Implemention,
+            this.pending,
+            this.release,
+            this.completedCount
+          ],
+          label: 'Status Counts',
+          backgroundColor: ['#3B71CA', '#808080ff', '#14A44D', '#DC4C64', '#54B4D3', '#E4A11B', '#b5eb49', '#808080ff']
+        }
+      ]
+    };
+
+  };
+ 
+ 
+
+  
+
+
+  //  DoughnutChart
+
+  
   changerequest: any[] = [];
   newCount: number = 0;
   completedCount: number = 0;
@@ -157,8 +533,9 @@ export class DashboardComponent implements OnInit {
   pending: number = 0;
   release: number = 0;
   Closure: number = 0;
+  filter: any[] = [];
 
-  getchangerequest() {
+  getdefaultdough() {
 
     const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
     const requestBody = {}
@@ -172,26 +549,17 @@ export class DashboardComponent implements OnInit {
     this.http.get(apiUrls, requestBody).subscribe(
       (response: any) => {
         this.changerequest = response;
-        this.countStatus();
+        this.Status();
 
       },
 
-      (error) => {
+      (error: any) => {
         console.error("Post failed", error);
       }
     );
   }
-  public doughnutChartData: ChartData<any, any[], string> = {
-    labels: [],
-    datasets: [
-      {
-        data: [],
-        label: 'Status Counts',
-        backgroundColor: []
-      }
-    ]
-  };
-  countStatus() {
+ 
+ Status() {
     this.newCount = this.changerequest.filter(item => item.status.trim() === 'Draft').length;
     this.completedCount = this.changerequest.filter(item => item.status.trim() === 'Completed').length;
     this.pendingCount = this.changerequest.filter(item => item.status.trim() !== 'Completed' && item.status.trim() !== 'Draft').length;
@@ -225,6 +593,19 @@ export class DashboardComponent implements OnInit {
 
   };
 
+
+  public doughnutChartData: ChartData<any, any[], string> = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        label: 'Status Counts',
+        backgroundColor: []
+      }
+    ]
+  };
+
+  
   public doughnutChartLabels: string[] = ['Draft', 'Pending Approval', 'Approved', 'Rejected', 'Implementation', 'Pending', 'Release', 'Closure'];
 
   public doughnutChartType: ChartType = 'doughnut';
@@ -233,22 +614,21 @@ export class DashboardComponent implements OnInit {
     // console.log(e);
   }
 
-  getdata() {
-    alert(this.pendingCount)
-    /*console.log("getting data", this.changerequest)*/
-  }
+
+
 
   /*Barchart*/
-----------------
+
   chartdata: any;
   completed: any[] = [];
   noncompleted: any[] = [];
   month: any[] = [];
   barChartData: any[] = [];
   barChartLabels: string[] = [];
-  
+  noncompletedlength: number = 0;
   barChartLegend = true;
-  
+  noncompletedtotal: number = 0;
+  completedtotal: number = 0;
 
   getBarchart() {
     const apiUrls = this.apiurl + '/Barchart/Getbarchart';
@@ -266,14 +646,21 @@ export class DashboardComponent implements OnInit {
         // Extracting data
         this.completed = response.map((item: { completedIdnum: any; }) => item.completedIdnum);
         this.noncompleted = response.map((item: { nonCompletedIdnum: any; }) => item.nonCompletedIdnum);
-        const month = response.map((item: { crmonth: any }) => item.crmonth);
+
+        const month = response.map((item: { crmonth: any }) =>item.crmonth);
+       
+    
+       
+        this.noncompletedtotal = this.noncompleted.reduce((total: number, num: number) => total + num, 0);
+        this.completedtotal = this.completed.reduce((total: number, num: number) => total + num, 0);
+        console.log('total:', this.noncompletedtotal)
 
         // Update chart data and labels
         this.updateBarChartLabels(month);
         this.updateBarChartData();
 
       },
-      (error) => {
+      (error: any) => {
         console.log("Post failed", error);
       }
     );
@@ -281,9 +668,10 @@ export class DashboardComponent implements OnInit {
 
   updateBarChartData() {
     this.barChartData = [
-      { data: this.noncompleted, label: 'Open' },
-     { data: this.completed, label: 'Completed' }
-    ];  }
+      { data: [this.noncompletedtotal], label: 'Open' },
+      { data: [this.completedtotal], label: 'Completed' }
+    ]; console.log(this.barChartData)
+  }
 
   updateBarChartLabels(month: number[]) {
 
@@ -294,6 +682,7 @@ export class DashboardComponent implements OnInit {
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     return monthNames[month - 1];
   }
+
 
   onBarClick(event: any) {
     if (event.active.length > 0) {
@@ -314,19 +703,20 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  //plant bar
------------------
+
+
+  //new bar
+
   stagesToCount: string[] = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
   getChartData() {
     const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+    const requestBody = {}
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    // Define the stages you want to count
-  
 
     this.http.get(apiUrls).subscribe(
       (response: any) => {
@@ -403,7 +793,15 @@ export class DashboardComponent implements OnInit {
     return colors[index % colors.length];
   }
  
+
+    
+
+ 
+
   }
+
+  
+
 
 
 
