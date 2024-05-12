@@ -1,3 +1,10 @@
+const filteredData = response.filter((item: any) => {
+  const included = this.selectedPlantIds.includes(item.plantId);
+  console.log(`PlantId ${item.plantId} included: ${included}`);
+  return included;
+});
+
+
 getChartData() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
   let queryParams = new HttpParams();
