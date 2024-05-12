@@ -19,15 +19,16 @@ getChartData(selectedPlantIds: string[]) {
       this.chartdata = response;
       this.multi = [];
 
+      // Filter the response data for the selected plantIds
+      const filteredResponse = response.filter((item: { plantId: string }) => selectedPlantIds.includes(item.plantId));
+
       selectedPlantIds.forEach(selectedPlantId => {
-        const plantData = response.filter((item: { plantId: any; }) => item.plantId === selectedPlantId);
+        const plantData = filteredResponse.filter((item: { plantId: any; }) => item.plantId === selectedPlantId);
 
         const stagesCount: { [key: string]: number } = {};
         this.stagesToCount.forEach(stage => {
-          // Filter the plantData for the current stage
-          const stageData = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage);
-          // Count the occurrences of the stage
-          stagesCount[stage] = stageData.length;
+          // Count the occurrences of the stage for the current plantId
+          stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
         });
 
         const plantSeries = {
