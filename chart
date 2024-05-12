@@ -1,12 +1,33 @@
-core.mjs:7473 ERROR TypeError: a.indexOf is not a function
-    at l.replaceKeywordsWithValue (canvasjs.min.js:554:474)
-    at S2.setLayout (canvasjs.min.js:562:477)
-    at l.setLayout (canvasjs.min.js:203:138)
-    at l.render (canvasjs.min.js:214:452)
-    at canvasjs.min.js:140:333
-    at _ZoneDelegate.invokeTask (zone.js:403:31)
-    at core.mjs:15290:55
-    at AsyncStackTaggingZoneSpec.onInvokeTask (core.mjs:15290:36)
-    at _ZoneDelegate.invokeTask (zone.js:402:36)
-    at Object.onInvokeTask (core.mjs:15603:33)
-Show 1 more frame
+updateChartOptions() {
+  this.chartOptions = {
+    animationEnabled: true,
+    exportEnabled: false,
+    data: this.multi.map((plantSeries, index) => ({
+      type: "stackedBar",
+      name: plantSeries.label,
+      showInLegend: true,
+      color: this.getRandomColor(index),
+      dataPoints: this.stagesToCount.map((stage, stageIndex) => {
+        const count = plantSeries.data[stageIndex];
+        console.log('Stage:', stage, 'Count:', count); // Log the stage and count
+        return { y: count, label: stage };
+      })
+    })),
+    axisX: {
+      title: "Stages"
+    },
+    axisY: {
+      title: "Total Changes",
+      gridThickness: 0,
+      includeZero: true
+    },
+    toolTip: {
+      shared: true
+    },
+    legend: {
+      dockInsidePlotArea: false,
+      horizontalAlign: "center",
+      verticalAlign: "top"
+    }
+  };
+}
