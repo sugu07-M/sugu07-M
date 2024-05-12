@@ -1,49 +1,50 @@
-selectedPlantIds: string[] = []; // Assuming this will hold the selected plant IDs from UI.
+ getplanttable(selectedPlantIds: string[]) {
+   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+   let queryParams = new HttpParams();
 
-getChartData(selectedPlantIds: string[]) {
-  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
-  const requestBody = {};
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+   if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
+     queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
+     queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
+   }
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'Content-Type': 'application/json'
+     }),
+     params: queryParams
+   };
 
-  this.http.get(apiUrls).subscribe(
-    (response: any) => {
-      this.chartdata = response;
-      this.multi = [];
+   this.http.get(apiUrls).subscribe(
+     (response: any) => {
+       this.chartdata = response;
+       
+       this.multi = [];
 
-      const filteredData = response.filter((item: { plantId: any; }) => selectedPlantIds.includes(item.plantId));
+       const filteredData = response.filter((item: { plantId: any; }) => selectedPlantIds.includes(item.plantId));
 
-      const uniquePlants = [...new Set(filteredData.map((item: { plantId: any; }) => item.plantId))];
+       const uniquePlants = [...new Set(filteredData.map((item: { plantId: any; }) => item.plantId))];
 
-      uniquePlants.forEach(plantId => {
-        const plantData = filteredData.filter((item: { plantId: any; }) => item.plantId === plantId);
+       uniquePlants.forEach(plantId => {
+         const plantData = filteredData.filter((item: { plantId: any; }) => item.plantId === plantId);
 
-        const stagesCount: { [key: string]: number } = {};
-        this.stagesToCount.forEach(stage => {
-          stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
-        });
+         const stagesCount: { [key: string]: number } = {};
+         this.stagesToCount.forEach(stage => {
+           stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
+         });
 
-        const plantSeries = {
-          label: plantId,
-          data: this.stagesToCount.map(stage => stagesCount[stage])
-        };
+         const plantSeries = {
+           label: plantId,
+           data: this.stagesToCount.map(stage => stagesCount[stage]) 
+         };
 
-        this.multi.push(plantSeries);
-      });
+         this.multi.push(plantSeries);
+       });
 
-      // Now that multi is constructed, update chartOptions
-      this.updateChartOptions();
-      this.showChart = true;
-    },
-    (error: any) => {
-      console.error('Error fetching chart data:', error);
-    }
-  );
-
-
-filterChartData() {
-  this.getChartData(this.selectedPlantIds);
-}
+       // Now that multi is constructed, update chartOptions
+       this.updateChartOptions();
+       this.showChart = true;
+     },
+     (error: any) => {
+       console.error('Error fetching chart data:', error);
+     }
+   );
+ }
