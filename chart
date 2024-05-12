@@ -1,11 +1,9 @@
-
-selectedPlantIds: any[] = [];
 getplanttable(selectedPlantIds: string[]) {
    const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
    let queryParams = new HttpParams();
 
-   if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
-     queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
+   if (selectedPlantIds.length > 0 && this.startDate && this.endDate) { // Fixing this.selectedPlantIds to selectedPlantIds
+     queryParams = queryParams.set('plantId', selectedPlantIds.join(','));
      queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
    }
    const httpOptions = {
@@ -49,4 +47,3 @@ getplanttable(selectedPlantIds: string[]) {
        console.error('Error fetching chart data:', error);
      }
    );
- }
