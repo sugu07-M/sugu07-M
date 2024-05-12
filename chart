@@ -1,10 +1,3 @@
-const filteredData = response.filter((item: any) => {
-  const included = this.selectedPlantIds.includes(item.plantId);
-  console.log(`PlantId ${item.plantId} included: ${included}`);
-  return included;
-});
-
-
 getChartData() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
   let queryParams = new HttpParams();
@@ -13,7 +6,7 @@ getChartData() {
     queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
     queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
   }
-  
+
   const httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -21,33 +14,19 @@ getChartData() {
     params: queryParams
   };
 
-  console.log('Selected plant IDs:', this.selectedPlantIds); // Debug logging for selectedPlantIds
-
   this.http.get(apiUrls, httpOptions).subscribe(
     (response: any) => {
       console.log('Response data:', response); // Debug logging for response data
-      
+
       this.chartdata = response;
       this.multi = [];
 
-      // Log the type of each plantId in response data
-      response.forEach(item => console.log(typeof item.plantId, item.plantId));
-
-      // Filter data based on selected plant IDs
-      const filteredData = response.filter((item: any) => {
-        return this.selectedPlantIds.includes(item.plantId);
-      });
-
-      console.log('Filtered data:', filteredData); // Debug logging for filtered data
-
-      const uniquePlants = [...new Set(filteredData.map((item: { plantId: any; }) => item.plantId))];
-
-      uniquePlants.forEach(plantId => {
-        const plantData = filteredData.filter((item: { plantId: any; }) => item.plantId === plantId);
+      this.selectedPlantIds.forEach(plantId => {
+        const plantData = response.filter((item: any) => item.plantId === plantId);
 
         const stagesCount: { [key: string]: number } = {};
         this.stagesToCount.forEach(stage => {
-          stagesCount[stage] = plantData.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
+          stagesCount[stage] = plantData.filter((item: any) => item.stage.trim() === stage).length;
         });
 
         const plantSeries = {
