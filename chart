@@ -4,7 +4,7 @@
 
 
 
-  getChartData() {
+getChartData() {
     const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
     let queryParams = new HttpParams();
 
@@ -27,29 +27,28 @@
         this.chartdata = response;
         this.multi = [];
 
-        this.selectedPlantIds.forEach(plantId => {
-          const plantData = response.filter((item: any) => item.plantId === plantId);
+        const plantId = this.selectedPlantIds[0]; // Get the first selected plant ID
+        const plantData = response.filter((item: any) => item.plantId === plantId);
 
-          console.log(`Plant ID: ${plantId}, Plant Data:`, plantData); // Debug logging for plant data
+        console.log(`Plant ID: ${plantId}, Plant Data:`, plantData); // Debug logging for plant data
 
-          const stagesCount: { [key: string]: number } = {};
-          this.stagesToCount.forEach(stage => {
-            const stageCount = plantData.filter((item: any) => item.stage.trim() === stage).length;
-            console.log(`Plant ID: ${plantId}, Stage: ${stage}, Count: ${stageCount}`);
-            stagesCount[stage] = stageCount;
-          });
-
-          console.log(`Plant ID: ${plantId}, Stages Count:`, stagesCount); // Debug logging for stages count
-
-          const plantSeries = {
-            label: plantId,
-            data: this.stagesToCount.map(stage => stagesCount[stage])
-          };
-
-          console.log(`Plant ID: ${plantId}, Plant Series:`, plantSeries); // Debug logging for plant series
-
-          this.multi.push(plantSeries);
+        const stagesCount: { [key: string]: number } = {};
+        this.stagesToCount.forEach(stage => {
+          const stageCount = plantData.filter((item: any) => item.stage.trim() === stage).length;
+          console.log(`Plant ID: ${plantId}, Stage: ${stage}, Count: ${stageCount}`);
+          stagesCount[stage] = stageCount;
         });
+
+        console.log(`Plant ID: ${plantId}, Stages Count:`, stagesCount); // Debug logging for stages count
+
+        const plantSeries = {
+          label: plantId,
+          data: this.stagesToCount.map(stage => stagesCount[stage])
+        };
+
+        console.log(`Plant ID: ${plantId}, Plant Series:`, plantSeries); // Debug logging for plant series
+
+        this.multi.push(plantSeries);
 
         console.log('Multi:', this.multi); // Debug logging for multi array
 
@@ -63,10 +62,6 @@
     );
   }
 
-
-
-
-
   updateChartOptions() {
     this.chartOptions = {
       animationEnabled: true,
@@ -77,18 +72,14 @@
         name: stage,
         showInLegend: true,
         color: this.getRandomColor(index)
-
       })),
-
       axisX: {
         title: "Plant ID",
         reversed: true
-       
       },
-     
       axisY: {
         title: "Total Changes",
-        gridThickness:0,
+        gridThickness: 0,
         includeZero: true
       },
       toolTip: {
@@ -97,11 +88,14 @@
       legend: {
         dockInsidePlotArea: false,
         horizontalAlign: "center",
-        verticalAlign:"top"
+        verticalAlign: "top"
       }
-     
     };
+  }
 
+  getRandomColor(index: number) {
+    const colors = ['#3B71CA', '#808080ff', '#54B4D3', '#009596','#b5eb49'];
+    return colors[index % colors.length];
   }
 
   getRandomColor(index: number) {
