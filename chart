@@ -45,6 +45,11 @@ getChartData() {
 
         console.log(`Filtered Data for Plant ID: ${plant.id}:`, filteredData); // Debug logging for filtered data
 
+        if (!filteredData || filteredData.length === 0) {
+          console.error(`No data found for stages in Plant ID: ${plant.id}`);
+          return;
+        }
+
         const stagesCount: { [key: string]: number } = {};
         this.stagesToCount.forEach(stage => {
           const stageCount = filteredData.filter((item: any) => item.stage.trim() === stage).length;
