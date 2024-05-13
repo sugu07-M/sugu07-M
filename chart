@@ -40,8 +40,8 @@ getChartData() {
         console.log(`Plant ID: ${plant.id}, Stages Count:`, stagesCount); // Debug logging for stages count
 
         const plantSeries = {
-          label: plant.id.toString(), // Ensure plant ID is a string
-          data: this.stagesToCount.map(stage => stagesCount[stage])
+          label: plant.id ? plant.id.toString() : '', // Ensure plant ID is a string
+          data: this.stagesToCount.map(stage => stagesCount[stage] || 0) // Ensure data is defined or default to 0
         };
 
         console.log(`Plant ID: ${plant.id}, Plant Series:`, plantSeries); // Debug logging for plant series
@@ -59,40 +59,4 @@ getChartData() {
       console.error('Error fetching chart data:', error);
     }
   );
-}
-
-updateChartOptions() {
-  this.chartOptions = {
-    animationEnabled: true,
-    exportEnabled: false,
-    data: this.stagesToCount.map((stage, index) => ({
-      dataPoints: this.multi.map(plantSeries => ({ y: plantSeries.data[index], label: plantSeries.label })),
-      type: "stackedBar",
-      name: stage, // Display the stage name
-      showInLegend: true,
-      color: this.getRandomColor(index)
-    })),
-    axisX: {
-      title: "Plant ID",
-      reversed: true
-    },
-    axisY: {
-      title: "Total Changes",
-      gridThickness: 0,
-      includeZero: true
-    },
-    toolTip: {
-      shared: true
-    },
-    legend: {
-      dockInsidePlotArea: false,
-      horizontalAlign: "center",
-      verticalAlign: "top"
-    }
-  };
-}
-
-getRandomColor(index: number) {
-  const colors = ['#3B71CA', '#808080ff', '#54B4D3', '#009596', '#b5eb49'];
-  return colors[index % colors.length];
 }
