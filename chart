@@ -28,29 +28,33 @@
 
         console.log('Selected Plant IDs:', this.selectedPlantIds); 
 
-        this.selectedPlantIds.forEach(plantId => {
-          console.log('Processing data for Plant ID:', plantId); 
+       this.selectedPlantIds.forEach(plantId => {
+    console.log('Processing data for Plant ID:', plantId); 
 
-         const plantData = response.filter((item: any) => item.plantId === plantId);
+    // Filter the response data by the current plantId
+    const plantData = response.filter((item: any) => item.plantId === plantId);
 
-console.log(`Plant ID: ${plantId}, Plant Data:`, plantData); 
+    console.log(`Plant ID: ${plantId}, Plant Data:`, plantData); 
 
-const stagesCount: { [key: string]: number } = {};
-this.stagesToCount.forEach(stage => {
-    const stageCount = plantData.filter((item: any) => item.stage.trim() === stage).length;
-    console.log('Count:', stageCount);
-    stagesCount[stage] = stageCount;
-});
+    // Initialize stages count for the current plantId
+    const stagesCount: { [key: string]: number } = {};
 
-console.log(`Plant ID: ${plantId}, Stages Count:`, stagesCount);
+    // Loop through each stage and count occurrences in plantData
+    this.stagesToCount.forEach(stage => {
+        // Filter plantData for the current stage
+        const stageCount = plantData.filter((item: any) => item.stage.trim() === stage).length;
+        console.log(`Count for stage ${stage} for Plant ID ${plantId}:`, stageCount);
+        // Store the count for the current stage
+        stagesCount[stage] = stageCount;
+    });
 
-          console.log(`Plant ID: ${plantId.item_text}, Stages Count:`, stagesCount);
+    console.log(`Plant ID: ${plantId}, Stages Count:`, stagesCount);
 
-          const plantSeries = {
-            label: plantId,
-            data: this.stagesToCount.map(stage => stagesCount[stage])
-
-          };
+    // Create plantSeries object with label as plantId and data as stage counts
+    const plantSeries = {
+        label: plantId,
+        data: this.stagesToCount.map(stage => stagesCount[stage])
+    };
        
         
 
