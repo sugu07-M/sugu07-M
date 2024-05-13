@@ -2,7 +2,7 @@
         const endDateObj = new Date(this.endDate);
 
         // Filter by crdate within the date range
-        this.filter = this.filter.filter((item: any) => {
+        this.filteredChangeRequests = this.filteredChangeRequests.filter((item: any) => {
           const crdate = new Date(item.crdate);
           return crdate >= startDateObj && crdate <= endDateObj;
         });
