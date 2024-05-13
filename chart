@@ -2,13 +2,12 @@ getChartData() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
   let queryParams = new HttpParams();
 
-  // Check if all necessary parameters are present
   if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
     queryParams = queryParams.set('plantId', this.selectedPlantIds.map(plant => plant.id).join(','));
     queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
   } else {
     console.error('Missing parameters for fetching chart data');
-    return; // Exit function if parameters are missing
+    return;
   }
 
   const httpOptions = {
@@ -30,28 +29,38 @@ getChartData() {
       this.chartdata = response;
       this.multi = [];
 
-      // Iterate over selected plant IDs
+      console.log('Selected Plant IDs:', this.selectedPlantIds); // Debug logging for selected plant IDs
+
       this.selectedPlantIds.forEach(plant => {
         console.log('Processing data for Plant ID:', plant.id); // Debug logging for current plant ID
 
-        // Filter response data for the current plant ID
         const plantData = response.filter((item: any) => item.plantId === plant.id);
 
         console.log(`Plant ID: ${plant.id}, Plant Data:`, plantData); // Debug logging for plant data
 
-        // Initialize stages count object
-        const stagesCount: { [key: string]: number } = {};
+        if (!plantData || plantData.length === 0) {
+          console.error(`No data found for Plant ID: ${plant.id}`);
+          return;
+        }
 
-        // Iterate over stages to count occurrences
+        const filteredData = plantData.filter((item: any) => this.stagesToCount.includes(item.stage.trim()));
+
+        console.log(`Filtered Data for Plant ID: ${plant.id}:`, filteredData); // Debug logging for filtered data
+
+        if (!filteredData || filteredData.length === 0) {
+          console.error(`No data found for stages in Plant ID: ${plant.id}`);
+          return;
+        }
+
+        const stagesCount: { [key: string]: number } = {};
         this.stagesToCount.forEach(stage => {
-          const stageCount = plantData.filter((item: any) => item.stage.trim() === stage).length;
+          const stageCount = filteredData.filter((item: any) => item.stage.trim() === stage).length;
           console.log(`Plant ID: ${plant.id}, Stage: ${stage}, Count: ${stageCount}`);
           stagesCount[stage] = stageCount;
         });
 
         console.log(`Plant ID: ${plant.id}, Stages Count:`, stagesCount); // Debug logging for stages count
 
-        // Construct plant series object
         const plantSeries = {
           label: plant.id.toString(), // Ensure plant ID is a string
           data: this.stagesToCount.map(stage => stagesCount[stage] || 0) // Ensure data is defined or default to 0
@@ -59,16 +68,12 @@ getChartData() {
 
         console.log(`Plant ID: ${plant.id}, Plant Series:`, plantSeries); // Debug logging for plant series
 
-        // Push plant series to multi array
         this.multi.push(plantSeries);
       });
 
       console.log('Multi:', this.multi); // Debug logging for multi array
 
-      // Update chart options after multi array is populated
       this.updateChartOptions();
-
-      // Set flag to display chart
       this.showChart = true;
     },
     (error: any) => {
@@ -76,7 +81,6 @@ getChartData() {
     }
   );
 }
-
 updateChartOptions() {
   this.chartOptions = {
     animationEnabled: true,
