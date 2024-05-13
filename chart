@@ -1,48 +1,58 @@
-Multi: 
-[{…}]
-0
-: 
-data
-: 
-Array(5)
-0
-: 
-0
-1
-: 
-0
-2
-: 
-0
-3
-: 
-0
-4
-: 
-0
-length
-: 
-5
-[[Prototype]]
-: 
-Array(0)
-label
-: 
-item_id
-: 
-2
-item_text
-: 
-"ML18"
-[[Prototype]]
-: 
-Object
-[[Prototype]]
-: 
-Object
-length
-: 
-1
-[[Prototype]]
-: 
-Array(0)
+getChartData() {
+  const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+  let queryParams = new HttpParams();
+
+  if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
+    queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
+    queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
+  }
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    }),
+    params: queryParams
+  };
+
+  this.http.get(apiUrls, httpOptions).subscribe(
+    (response: any) => {
+      console.log('Response data:', response); // Debug logging for response data
+
+      this.chartdata = response;
+      this.multi = [];
+
+      this.selectedPlantIds.forEach(plantId => {
+        const plantData = response.filter((item: any) => item.plantId === plantId);
+
+        console.log(`Plant ID: ${plantId}, Plant Data:`, plantData); // Debug logging for plant data
+
+        const stagesCount: { [key: string]: number } = {};
+        this.stagesToCount.forEach(stage => {
+          const stageCount = plantData.filter((item: any) => item.stage.trim() === stage).length;
+          console.log(`Plant ID: ${plantId}, Stage: ${stage}, Count: ${stageCount}`);
+          stagesCount[stage] = stageCount;
+        });
+
+        console.log(`Plant ID: ${plantId}, Stages Count:`, stagesCount); // Debug logging for stages count
+
+        const plantSeries = {
+          label: plantId,
+          data: this.stagesToCount.map(stage => stagesCount[stage])
+        };
+
+        console.log(`Plant ID: ${plantId}, Plant Series:`, plantSeries); // Debug logging for plant series
+
+        this.multi.push(plantSeries);
+      });
+
+      console.log('Multi:', this.multi); // Debug logging for multi array
+
+      // Now that multi is constructed, update chartOptions
+      this.updateChartOptions();
+      this.showChart = true;
+    },
+    (error: any) => {
+      console.error('Error fetching chart data:', error);
+    }
+  );
+}
