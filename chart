@@ -2,9 +2,13 @@ getChartData() {
   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
   let queryParams = new HttpParams();
 
+  // Check if all necessary parameters are present
   if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
     queryParams = queryParams.set('plantId', this.selectedPlantIds.map(plant => plant.id).join(','));
     queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
+  } else {
+    console.error('Missing parameters for fetching chart data');
+    return; // Exit function if parameters are missing
   }
 
   const httpOptions = {
@@ -26,39 +30,28 @@ getChartData() {
       this.chartdata = response;
       this.multi = [];
 
-      console.log('Selected Plant IDs:', this.selectedPlantIds); // Debug logging for selected plant IDs
-
+      // Iterate over selected plant IDs
       this.selectedPlantIds.forEach(plant => {
         console.log('Processing data for Plant ID:', plant.id); // Debug logging for current plant ID
 
+        // Filter response data for the current plant ID
         const plantData = response.filter((item: any) => item.plantId === plant.id);
 
         console.log(`Plant ID: ${plant.id}, Plant Data:`, plantData); // Debug logging for plant data
 
-        if (!plantData || plantData.length === 0) {
-          console.error(`No data found for Plant ID: ${plant.id}`);
-          return;
-        }
-
-        // Filter plantData for selected stages
-        const filteredData = plantData.filter((item: any) => this.stagesToCount.includes(item.stage.trim()));
-
-        console.log(`Filtered Data for Plant ID: ${plant.id}:`, filteredData); // Debug logging for filtered data
-
-        if (!filteredData || filteredData.length === 0) {
-          console.error(`No data found for stages in Plant ID: ${plant.id}`);
-          return;
-        }
-
+        // Initialize stages count object
         const stagesCount: { [key: string]: number } = {};
+
+        // Iterate over stages to count occurrences
         this.stagesToCount.forEach(stage => {
-          const stageCount = filteredData.filter((item: any) => item.stage.trim() === stage).length;
+          const stageCount = plantData.filter((item: any) => item.stage.trim() === stage).length;
           console.log(`Plant ID: ${plant.id}, Stage: ${stage}, Count: ${stageCount}`);
           stagesCount[stage] = stageCount;
         });
 
         console.log(`Plant ID: ${plant.id}, Stages Count:`, stagesCount); // Debug logging for stages count
 
+        // Construct plant series object
         const plantSeries = {
           label: plant.id.toString(), // Ensure plant ID is a string
           data: this.stagesToCount.map(stage => stagesCount[stage] || 0) // Ensure data is defined or default to 0
@@ -66,17 +59,58 @@ getChartData() {
 
         console.log(`Plant ID: ${plant.id}, Plant Series:`, plantSeries); // Debug logging for plant series
 
+        // Push plant series to multi array
         this.multi.push(plantSeries);
       });
 
       console.log('Multi:', this.multi); // Debug logging for multi array
 
-      // Now that multi is constructed, update chartOptions
+      // Update chart options after multi array is populated
       this.updateChartOptions();
+
+      // Set flag to display chart
       this.showChart = true;
     },
     (error: any) => {
       console.error('Error fetching chart data:', error);
     }
   );
+}
+
+updateChartOptions() {
+  this.chartOptions = {
+    animationEnabled: true,
+    exportEnabled: false,
+    data: this.multi.map(plantSeries => ({
+      type: "stackedBar",
+      name: plantSeries.label, // Display the plant ID as the series name
+      showInLegend: true,
+      dataPoints: this.stagesToCount.map((stage, index) => ({
+        y: plantSeries.data[index],
+        label: stage // Display the stage name
+      })),
+      color: this.getRandomColor(this.multi.indexOf(plantSeries))
+    })),
+    axisX: {
+      title: "Stages"
+    },
+    axisY: {
+      title: "Total Changes",
+      gridThickness: 0,
+      includeZero: true
+    },
+    toolTip: {
+      shared: true
+    },
+    legend: {
+      dockInsidePlotArea: false,
+      horizontalAlign: "center",
+      verticalAlign: "top"
+    }
+  };
+}
+
+getRandomColor(index: number) {
+  const colors = ['#3B71CA', '#808080ff', '#54B4D3', '#009596', '#b5eb49'];
+  return colors[index % colors.length];
 }
