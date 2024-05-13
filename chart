@@ -17,26 +17,35 @@ getChartData() {
         (response: any) => {
             this.chartdata = response;
             this.multi = [];
-
-            const selectedPlantIds = this.selectedPlantIds.map(plant => plant.item_text);
+            
+            // Object to store stages count for each plant ID
+            const stagesCounts: { [plantId: string]: number[] } = {};
 
             response.forEach((item: any) => {
-                if (selectedPlantIds.includes(item.plantId)) {
-                    const stagesCount: { [key: string]: number } = {};
-                    this.stagesToCount.forEach(stage => {
-                        stagesCount[stage] = response.filter((crItem: any) =>
-                            crItem.plantId === item.plantId && crItem.stage.trim() === stage
-                        ).length;
-                    });
-
-                    const plantSeries = {
-                        label: item.plantId,
-                        data: this.stagesToCount.map(stage => stagesCount[stage])
-                    };
-
-                    this.multi.push(plantSeries);
+                const plantId = item.plantId;
+                
+                if (this.selectedPlantIds.some(selectedPlant => selectedPlant.item_text === plantId)) {
+                    if (!stagesCounts[plantId]) {
+                        stagesCounts[plantId] = Array(this.stagesToCount.length).fill(0);
+                    }
+                    
+                    const stageIndex = this.stagesToCount.indexOf(item.stage.trim());
+                    
+                    if (stageIndex !== -1) {
+                        stagesCounts[plantId][stageIndex]++;
+                    }
                 }
             });
+
+            // Populate multi array from stagesCounts object
+            for (const plantId in stagesCounts) {
+                if (stagesCounts.hasOwnProperty(plantId)) {
+                    this.multi.push({
+                        label: plantId,
+                        data: stagesCounts[plantId]
+                    });
+                }
+            }
 
             this.updateChartOptions();
             this.showChart = true;
@@ -45,3 +54,4 @@ getChartData() {
             console.error('Error fetching chart data:', error);
         }
     );
+}
