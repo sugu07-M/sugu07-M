@@ -1,33 +1,104 @@
-updateChartOptions() {
-    this.chartOptions = {
-        animationEnabled: true,
-        exportEnabled: false,
-        data: this.stagesToCount.map((stage, index) => ({
-            dataPoints: this.multi.map(plantSeries => ({
-                y: plantSeries.data[index], // Check if this is correctly mapping to each stage count
-                label: plantSeries.label
-            })),
-            type: "stackedBar",
-            name: stage,
-            showInLegend: true,
-            color: this.getRandomColor(index)
-        })),
-        axisX: {
-            title: "Plant ID",
-            reversed: true
-        },
-        axisY: {
-            title: "Total Changes",
-            gridThickness: 0,
-            includeZero: true
-        },
-        toolTip: {
-            shared: true
-        },
-        legend: {
-            dockInsidePlotArea: false,
-            horizontalAlign: "center",
-            verticalAlign: "top"
-        }
-    };
-}
+ stagesToCount: string[] = ['Approval', 'Closure', 'Implementation', 'Initiated', 'Release'];
+ getChartData() {
+   const apiUrls = this.apiurl + '/ViewChangeRequest/ViewChangerequest';
+   let queryParams = new HttpParams();
+
+   if (this.selectedPlantIds.length > 0 && this.startDate && this.endDate) {
+     queryParams = queryParams.set('plantId', this.selectedPlantIds.join(','));
+     queryParams = queryParams.set('crdate', this.startDate + '-' + this.endDate);
+   }
+   const httpOptions = {
+     headers: new HttpHeaders({
+       'Content-Type': 'application/json'
+     }),
+     params: queryParams
+
+   };
+
+
+   this.http.get(apiUrls).subscribe(
+     (response: any) => {
+       this.chartdata = response;
+       this.multi = [];
+
+       const uniquePlants = [...new Set(response.map((item: { plantId: any; }) => item.plantId))];
+
+       uniquePlants.forEach(plantId => {
+         const plantData = response.filter((item: { plantId: any; }) => item.plantId === plantId);
+
+         const stagesCount: { [key: string]: number } = {};
+         this.stagesToCount.forEach(stage => {
+           stagesCount[stage] = this.filter.filter((item: { stage: string; }) => item.stage.trim() === stage).length;
+         });
+         this.filter = this.changerequest.filter((item: any) => {
+
+           const selectedPlantIds = this.selectedPlantIds.map(plant => plant.item_text);
+
+           const isIncluded = selectedPlantIds.includes(item.plantId);
+
+           return isIncluded;
+         });
+
+
+         const plantSeries = {
+           label:plantId,
+           data: this.stagesToCount.map(stage => stagesCount[stage])
+         };
+
+         this.multi.push(plantSeries);
+       });
+
+    
+       this.updateChartOptions();
+       this.showChart= true;
+     },
+     (error: any) => {
+       console.error('Error fetching chart data:', error);
+     }
+   );
+ }
+
+ updateChartOptions() {
+   this.chartOptions = {
+     animationEnabled: true,
+     exportEnabled: false,
+     data: this.stagesToCount.map((stage, index) => ({
+       dataPoints: this.multi.map(plantSeries => ({ y: plantSeries.data[index], label: plantSeries.label })),
+       type: "stackedBar",
+       name: stage,
+       showInLegend: true,
+       color: this.getRandomColor(index)
+
+     })),
+
+     axisX: {
+       title: "Plant ID",
+       reversed: true
+      
+     },
+    
+     axisY: {
+       title: "Total Changes",
+       gridThickness:0,
+       includeZero: true
+     },
+     toolTip: {
+       shared: true
+     },
+     legend: {
+       dockInsidePlotArea: false,
+       horizontalAlign: "center",
+       verticalAlign:"top"
+     }
+    
+   };
+
+ }
+
+ getRandomColor(index: number) {
+   const colors = ['#3B71CA', '#808080ff', '#54B4D3', '#009596','#b5eb49']; 
+   return colors[index % colors.length];
+ }
+
+
+    
