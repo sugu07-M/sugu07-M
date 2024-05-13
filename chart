@@ -40,9 +40,14 @@ getChartData() {
           return;
         }
 
+        // Filter plantData for selected stages
+        const filteredData = plantData.filter((item: any) => this.stagesToCount.includes(item.stage.trim()));
+
+        console.log(`Filtered Data for Plant ID: ${plant.id}:`, filteredData); // Debug logging for filtered data
+
         const stagesCount: { [key: string]: number } = {};
         this.stagesToCount.forEach(stage => {
-          const stageCount = plantData.filter((item: any) => item.stage.trim() === stage).length;
+          const stageCount = filteredData.filter((item: any) => item.stage.trim() === stage).length;
           console.log(`Plant ID: ${plant.id}, Stage: ${stage}, Count: ${stageCount}`);
           stagesCount[stage] = stageCount;
         });
