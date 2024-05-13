@@ -31,16 +31,18 @@
         this.selectedPlantIds.forEach(plantId => {
           console.log('Processing data for Plant ID:', plantId); 
 
-          const plantData = response.filter((item: any) => item.plantId === plantId);
+         const plantData = response.filter((item: any) => item.plantId === plantId);
 
-          console.log(`Plant ID: ${plantId}, Plant Data:`, plantData); 
+console.log(`Plant ID: ${plantId}, Plant Data:`, plantData); 
 
-          const stagesCount: { [key: string]: number } = {};
-          this.stagesToCount.forEach(stage => {
-            const stageCount = plantData.filter((item: any) => item.stage.trim() === stage).length;
-            console.log('Count:',stageCount);
-            stagesCount[stage] = stageCount;
-          });
+const stagesCount: { [key: string]: number } = {};
+this.stagesToCount.forEach(stage => {
+    const stageCount = plantData.filter((item: any) => item.stage.trim() === stage).length;
+    console.log('Count:', stageCount);
+    stagesCount[stage] = stageCount;
+});
+
+console.log(`Plant ID: ${plantId}, Stages Count:`, stagesCount);
 
           console.log(`Plant ID: ${plantId.item_text}, Stages Count:`, stagesCount);
 
